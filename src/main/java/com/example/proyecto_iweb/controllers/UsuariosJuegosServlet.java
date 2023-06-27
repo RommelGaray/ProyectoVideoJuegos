@@ -25,6 +25,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
+        HttpSession session6 = request.getSession();
+        Cuentas cuentas = (Cuentas) session6.getAttribute("usuarioLog");
 
         switch (action) {
 
@@ -44,23 +46,20 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/verJuego.jsp").forward(request, response);
                 break;
             case "vendidos":
-                String idCuenta1 = request.getParameter("id");
-                request.setAttribute("lista2", usuarioJuegosDaos.listarVendidos(idCuenta1));
+
+                request.setAttribute("lista2", usuarioJuegosDaos.listarVendidos(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/vendidosUsuariosOficial.jsp").forward(request, response);
                 break;
             case "comprados":
-                String idCuenta2 = request.getParameter("id");
-                String idCuenta7 = request.getParameter("id");
 
-                request.setAttribute("lista3", usuarioJuegosDaos.listarComprados(idCuenta2));
-
-                request.setAttribute("generoMasComprado",usuarioJuegosDaos.generoMasComprado(idCuenta7));
-
+                request.setAttribute("lista3", usuarioJuegosDaos.listarComprados(cuentas.getIdCuentas()));
+                request.setAttribute("generoMasComprado",usuarioJuegosDaos.generoMasComprado(cuentas.getIdCuentas()));
+                request.setAttribute("generoMasComprado1",usuarioJuegosDaos.generosComprados(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/compradosUsuariosOficial.jsp").forward(request, response);
                 break;
             case  "perfil" :
                 String id = request.getParameter("id");
-                request.setAttribute("cuentas", usuarioCuentasDaos.listar(id));
+                request.setAttribute("cuentas", usuarioCuentasDaos.listar(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/miPerfilOficial.jsp").forward(request, response);
                 break;
             case "borrar":
@@ -69,8 +68,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet");
                 break;
             case "listarNotificaciones":
-                String idCuenta3 = request.getParameter("id");
-                request.setAttribute("notificaciones", usuarioJuegosDaos.listarNotificaciones(idCuenta3));
+
+                request.setAttribute("notificaciones", usuarioJuegosDaos.listarNotificaciones(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
             case "agregar":
@@ -85,11 +84,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "actualizarVenta":
                 String id3 =request.getParameter("id");
                 usuarioJuegosDaos.actualizarEstadoVenta(id3);
-                HttpSession session = request.getSession();
-                Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
-
-
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id=" + cuentas.getIdCuentas() );
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos" );
                 break;
 
             case "eliminarVenta":
@@ -98,7 +93,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 HttpSession session2 = request.getSession();
                 Cuentas cuentas2 = (Cuentas) session2.getAttribute("usuarioLog");
 
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos&id=" + cuentas2.getIdCuentas());
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
                 break;
 
             case "gc":
@@ -131,6 +126,11 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
                 usuarioJuegosDaos.guardarCompra(idJuego,cuentas1.getIdCuentas(),precio,cuentas1.getDireccion());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
+                break;
+            case "recomendaciones":
+
+                request.setAttribute("recomendaciones",usuarioJuegosDaos.recomendaciones(cuentas.getIdCuentas()));
+                request.getRequestDispatcher("usuario/recomendaciones.jsp").forward(request,response);
                 break;
 
 
@@ -175,8 +175,22 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
             case "a":
                 VentaUsuario ventaUsuario = parseVentas(request);
-                usuarioJuegosDaos.actualizarPrecioVenta(ventaUsuario);
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
+                HttpSession session2 = request.getSession();
+                if(ventaUsuario != null){
+
+                    String precioString = String.valueOf(ventaUsuario.getPrecioVenta());
+                    if(ventaUsuario.getPrecioVenta()<0 || precioString.isEmpty()|| ventaUsuario.getPrecioVenta()==0){
+                        session2.setAttribute("err","Precio que no cumple lo establecido");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=verPrecio&id="+ ventaUsuario.getIdVenta());
+                    }
+                    else {
+                        usuarioJuegosDaos.actualizarPrecioVenta(ventaUsuario);
+                        session2.setAttribute("msg","Precio editado exitosamente");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
+                    }
+
+                }
+
                 break;
 
             case "e":

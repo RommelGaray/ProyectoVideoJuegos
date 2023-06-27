@@ -60,7 +60,7 @@
                                     <form method="POST" action="<%=request.getContextPath()%>/login">
 
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Usuario</label>
+                                            <label for="yourUsername" class="form-label">Correo</label>
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                                                 <input type="text" name="inputEmail" class="form-control" id="yourUsername" required placeholder="Correo">
@@ -73,10 +73,11 @@
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Contraseña</label>
                                             <input type="password" name="inputPassword" class="form-control" id="yourPassword" required placeholder="Password">
-                                            <% if (request.getAttribute("error") != null) { %>
-                                            <div class="invalid-feedback">Por favor ingrese su contraseña!</div>
-                                            <% } %>
                                         </div>
+                                        <br>
+                                        <% if (request.getAttribute("error") != null) { %>
+                                        <div class="form-group text-danger mb-3">Por favor ingrese correctamente sus datos!</div>
+                                        <% } %>
 
                                         <div class="col-12">
 

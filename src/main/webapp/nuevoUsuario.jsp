@@ -63,47 +63,44 @@
 
                     <div class="col-12">
                       <label for="nombre" class="form-label">Nombre</label>
-                      <input type="text" name="nombre" class="form-control" id="nombre" required>
+                      <input type="text" name="nombre" class="form-control" id="nombre" required placeholder="Tú nombre">
                       <div class="invalid-feedback">Por favor ingrese su nombre!</div>
                     </div>
 
                     <div class="col-12">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" name="apellido" class="form-control" id="apellido" required>
-                        <div class="invalid-feedback">Por favor ingrese su apellido!</div>
+                      <label for="apellido" class="form-label">Apellido</label>
+                      <input type="text" name="apellido" class="form-control" id="apellido" required placeholder="Tú apellido, puede poner ambos">
+                      <div class="invalid-feedback">Por favor ingrese su apellido!</div>
                     </div>
 
                     <div class="col-12">
                       <label for="nickname" class="form-label">Nickname</label>
-                      <input type="text" name="nickname" class="form-control" id="nickname" required>
+                      <input type="text" name="nickname" class="form-control" id="nickname" required placeholder="Como te van a ver los demas">
                       <div class="invalid-feedback">Por favor ingrese un Nickname</div>
                     </div>
 
                     <div class="col-12">
                       <label for="direccion" class="form-label">Dirección</label>
-                      <input type="email" name="direccion" class="form-control" id="direccion" required>
+                      <input type="email" name="direccion" class="form-control" id="direccion" required placeholder="Donde va a ir tus juegos comprados">
                       <div class="invalid-feedback">Por favor ingrese su dirección!</div>
                     </div>
 
                     <div class="col-12">
-                      <label for="correo" class="form-label">Correo</label>
-                      <input type="email" name="correo" class="form-control" id="correo" required>
-                      <div class="invalid-feedback">¡Por favor, introduce una dirección de correo electrónico válida!</div>
+                      <label for="yourUsername" class="form-label">Correo</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="email" name="correo" class="form-control" id="yourUsername"  required placeholder="Correo">
+                        <div class="invalid-feedback">¡Por favor, introduce una dirección de correo electrónico válida!</div>
+                      </div>
+
                     </div>
 
                     <div class="col-12">
                       <label for="password" class="form-label">Contraseña</label>
-                      <input type="email" name="password" class="form-control" id="password" required>
+                      <input type="email" name="password" class="form-control" id="password" required placeholder="Procura recordar tu contraseña">
                       <div class="invalid-feedback">¡Por favor, introduce una contraseña!!</div>
                     </div>
 
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">Estoy de acuerdo y acepto <a href="error404Oficial.html">los términos y condiciones</a></label>
-                        <div class="invalid-feedback">Debe aceptar antes de enviar.</div>
-                      </div>
-                    </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Crear nueva cuenta</button>
                     </div>

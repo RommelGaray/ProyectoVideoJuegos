@@ -81,6 +81,10 @@
             <%}else{%>
             <div class="col-lg-12" >
                 <br><br>
+                <% if (session.getAttribute("msg") != null) {%>
+                <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
+                <%session.removeAttribute("msg");%>
+                <% }%>
                 <table class="table table-stripped" >
                     <thead>
                     <tr>
@@ -102,13 +106,13 @@
                         <td class="col text-center"> <% if (vu.getEstados().getEstados().equals("pendiente")){ %>
                             <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
-                            <%}%>
+                                <%}%>
 
-                            <% if (vu.getEstados().getEstados().equals("aceptado")){ %>
+                                <% if (vu.getEstados().getEstados().equals("aceptado")){ %>
                             <a onclick="return confirm('¿ Ya vendio el juego pero esta seguro de Eliminar ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
-                            <%}%>
-                            <% if (vu.getEstados().getEstados().equals("no aceptado")){ %>
+                                <%}%>
+                                <% if (vu.getEstados().getEstados().equals("no aceptado")){ %>
                             <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Precio Sugerido</a>
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -133,9 +137,9 @@
 
                             <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
-                            <%}%>
+                                <%}%>
 
-                            <% if (vu.getEstados().getEstados().equals("rechazado")){ %>
+                                <% if (vu.getEstados().getEstados().equals("rechazado")){ %>
                             <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Ver Motivo</a>
                             <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -157,12 +161,12 @@
                             </div>
                             <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
-                            <%}%>
+                                <%}%>
 
-                            <% if (vu.getEstados().getEstados().equals("retirado")){ %>
+                                <% if (vu.getEstados().getEstados().equals("retirado")){ %>
                             <a onclick="return confirm('¿ Estas seguro de Eliminar ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
-                            <%}%>
+                                <%}%>
                     </tr>
                     <% } %>
                     </tbody>
