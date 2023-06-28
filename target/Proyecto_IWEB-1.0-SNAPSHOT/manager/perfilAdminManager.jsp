@@ -65,7 +65,7 @@
         <!--VA IR LA FOTO-->
         <div class="col-auto">
           <div class="col-md-9 mx-auto">
-            <img src="/img/usuario/usuario1.webp" alt="" class="img-fluid mb-4 rounded-circle">
+            <img src="<%=cuentas.getFoto()%>" alt="" class="img-fluid mb-4 rounded-circle">
           </div>
 
 
