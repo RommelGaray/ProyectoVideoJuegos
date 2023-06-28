@@ -37,6 +37,18 @@ public class ManagerJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/ManagerJuegosServlet");
                 break;
 
+            case "top5":
+                request.setAttribute("listaManager", juegosDaos.listarJuegosTop5());
+                request.getSession().setAttribute("info","Top 5");
+                request.getRequestDispatcher("manager/JuegosManagerTop5.jsp").forward(request, response);
+                break;
+
+            case "menos":
+                request.setAttribute("listaManager", juegosDaos.listarJuegosMenosVendidos());
+                request.getSession().setAttribute("info","Top 5");
+                request.getRequestDispatcher("manager/JuegosManagerMenosVendidos.jsp").forward(request, response);
+                break;
+
         }
 
 

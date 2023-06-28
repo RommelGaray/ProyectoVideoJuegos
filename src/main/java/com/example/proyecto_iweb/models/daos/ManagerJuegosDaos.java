@@ -95,4 +95,67 @@ public class ManagerJuegosDaos extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
+    /*------------------------------ top5 -----------------------------*/
+    public ArrayList<Juegos> listarJuegosTop5(){
+        ArrayList<Juegos> lista = new ArrayList<>();
+        String sql = "select * from juego j\n" +
+                "inner join comprausuario co on j.idJuego = co.idJuego\n" +
+                "order by co.cantidad desc\n" +
+                "LIMIT 5";
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                Juegos juegoDisponible = new Juegos();
+
+                juegoDisponible.setIdJuegos(resultSet.getInt(1));
+                juegoDisponible.setNombre(resultSet.getString(2));
+                juegoDisponible.setDescripcion(resultSet.getString(3));
+                juegoDisponible.setPrecio(resultSet.getFloat(4));
+                juegoDisponible.setDescuento(resultSet.getInt(5));
+                juegoDisponible.setFoto(resultSet.getString(6));
+                juegoDisponible.setStock(resultSet.getInt("stock"));
+                lista.add(juegoDisponible);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+    /*--------------------------------menos Vendidos ------------------*/
+    public ArrayList<Juegos> listarJuegosMenosVendidos(){
+        ArrayList<Juegos> lista = new ArrayList<>();
+        String sql = "SELECT *\n" +
+                "FROM juego j\n" +
+                "LEFT JOIN comprausuario co ON j.idJuego = co.idJuego\n" +
+                "ORDER BY co.cantidad\n" +
+                "LIMIT 5";
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                Juegos juegoDisponible = new Juegos();
+
+                juegoDisponible.setIdJuegos(resultSet.getInt(1));
+                juegoDisponible.setNombre(resultSet.getString(2));
+                juegoDisponible.setDescripcion(resultSet.getString(3));
+                juegoDisponible.setPrecio(resultSet.getFloat(4));
+                juegoDisponible.setDescuento(resultSet.getInt(5));
+                juegoDisponible.setFoto(resultSet.getString(6));
+                juegoDisponible.setStock(resultSet.getInt("stock"));
+                lista.add(juegoDisponible);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+
 }
