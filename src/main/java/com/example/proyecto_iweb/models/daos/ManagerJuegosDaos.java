@@ -81,29 +81,6 @@ public class ManagerJuegosDaos extends DaoBase{
     }
 
     /*--------------------------------- borrar juego -------------------------*/
-    public void eliminarJuego(String id) {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        String sql = "DELETE FROM juego WHERE idJuego = ?";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
-            pstmt.setString(1, id);
-
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /*------------------------------------------------------------------------*/
 
     public void desabilitarJuego(String id) {
 

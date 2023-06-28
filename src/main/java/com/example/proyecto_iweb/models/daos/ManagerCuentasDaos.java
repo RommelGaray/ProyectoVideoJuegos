@@ -176,7 +176,7 @@ public class ManagerCuentasDaos extends DaoBase{
 
     public void deshabilitarCuenta(String id) {
 
-        String sql = "UPDATE cuenta SET desabilitado = 0 WHERE idCuenta = ?";
+        String sql = "UPDATE cuenta SET desabilitado = 1 WHERE idCuenta = ?";
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 

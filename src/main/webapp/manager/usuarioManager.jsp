@@ -74,6 +74,7 @@
             <td><%=u.getDineroGastado()%></td>
             <td><%=u.getDineroGanado()%></td>
             <td>
+
                 <a onclick="return confirm('Esta seguro de desea Banear al usuario')" class="btn btn-danger"
                    href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=baneo&id1=<%=u.getIdCuenta()%>">Baneo</a>
 

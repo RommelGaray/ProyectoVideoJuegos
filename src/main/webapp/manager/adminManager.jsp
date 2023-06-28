@@ -98,7 +98,7 @@
                     <td><%=e.getDineroGanado()%></td>
                     <td><%=e.getDineroGastado()%></td>
                     <td>
-                        <a onclick="return confirm('Esta seguro de desea despedir a este trabajador')" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=eliminar&id4=<%=e.getIdCuenta()%>" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Despedir</a>
+                        <a onclick="return confirm('Esta seguro de desea despedir a este trabajador')" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=eliminar&id4=<%=e.getIdCuenta()%>" type="button" class="btn btn-danger">Despedir</a>
                     </td>
                 </tr>
                 <% } %>
