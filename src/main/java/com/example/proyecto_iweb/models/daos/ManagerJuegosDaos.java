@@ -99,9 +99,16 @@ public class ManagerJuegosDaos extends DaoBase{
     /*------------------------------ top5 -----------------------------*/
     public ArrayList<Juegos> listarJuegosTop5(){
         ArrayList<Juegos> lista = new ArrayList<>();
-        String sql = "select * from juego j\n" +
-                "inner join comprausuario co on j.idJuego = co.idJuego\n" +
-                "order by co.cantidad desc\n" +
+        String sql = "SELECT j.idJuego, j.nombre, j.descripcion, j.precio, j.descuento, j.foto, j.existente, j.habilitado, j.consola, j.genero, j.stock\n" +
+                "FROM juego j\n" +
+                "INNER JOIN comprausuario co ON j.idJuego = co.idJuego\n" +
+                "WHERE j.habilitado = '1'\n" +
+                "GROUP BY j.idJuego, j.nombre, j.descripcion, j.precio, j.descuento, j.foto, j.existente, j.habilitado, j.consola, j.genero, j.stock\n" +
+                "ORDER BY (\n" +
+                "  SELECT MAX(co.cantidad)\n" +
+                "  FROM comprausuario co\n" +
+                "  WHERE co.idJuego = j.idJuego\n" +
+                ") DESC\n" +
                 "LIMIT 5";
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
@@ -129,10 +136,16 @@ public class ManagerJuegosDaos extends DaoBase{
     /*--------------------------------menos Vendidos ------------------*/
     public ArrayList<Juegos> listarJuegosMenosVendidos(){
         ArrayList<Juegos> lista = new ArrayList<>();
-        String sql = "SELECT *\n" +
+        String sql = "SELECT j.idJuego, j.nombre, j.descripcion, j.precio, j.descuento, j.foto, j.existente, j.habilitado, j.consola, j.genero, j.stock\n" +
                 "FROM juego j\n" +
-                "LEFT JOIN comprausuario co ON j.idJuego = co.idJuego\n" +
-                "ORDER BY co.cantidad\n" +
+                "left JOIN comprausuario co ON j.idJuego = co.idJuego\n" +
+                "WHERE j.habilitado = '1'\n" +
+                "GROUP BY j.idJuego, j.nombre, j.descripcion, j.precio, j.descuento, j.foto, j.existente, j.habilitado, j.consola, j.genero, j.stock\n" +
+                "ORDER BY (\n" +
+                "  SELECT MAX(co.cantidad)\n" +
+                "  FROM comprausuario co\n" +
+                "  WHERE co.idJuego = j.idJuego\n" +
+                ")\n" +
                 "LIMIT 5";
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
