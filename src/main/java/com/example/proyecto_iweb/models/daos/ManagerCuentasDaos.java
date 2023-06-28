@@ -235,6 +235,7 @@ public class ManagerCuentasDaos extends DaoBase{
                     cuentas.setCorreo(rs.getString(6));
                     cuentas.setFoto(rs.getString(7));
                     cuentas.setDescripcion(rs.getString(8));
+                    cuentas.setIdRol(rs.getInt(10));
                     cuentas.setPasswordHashed(rs.getString(11));
 
                 }

@@ -91,7 +91,7 @@
                 <tbody>
                 <% for (EmpleadosTabla e : listaEmpleados) { %>
                 <tr>
-                    <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil&id=<%=e.getIdCuenta()%>"><%=e.getNombre()%></a> </th>
+                    <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil2&id5=<%=e.getIdCuenta()%>"><%=e.getNombre()%></a> </th>
 
                     <td><%=e.getJuegosVendidos()%></td>
                     <td><%=e.getJuegosComprados()%></td>

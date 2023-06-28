@@ -68,7 +68,7 @@
         <tbody>
         <% for (UsuarioTabla u : listaUsuarios) { %>
         <tr>
-            <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil&id=<%=u.getIdCuenta()%>"><%=u.getNombre()%></a></th>
+            <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil2&id5=<%=u.getIdCuenta()%>"><%=u.getNombre()%></a></th>
             <td><%=u.getJuegosComprados()%></td>
             <td><%=u.getJuegosVendidos()%></td>
             <td><%=u.getDineroGastado()%></td>

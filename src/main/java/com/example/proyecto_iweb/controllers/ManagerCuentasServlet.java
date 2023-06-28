@@ -33,6 +33,13 @@ public class ManagerCuentasServlet extends HttpServlet {
                 request.getRequestDispatcher("manager/miPerfilManager.jsp").forward(request, response);
                 break;
 
+            case "perfil2":
+                String id5 = request.getParameter("id5");
+                request.setAttribute("cuentas", usuarioDao.listar(id5));
+                request.setAttribute("listarRegistro", usuarioDao.ListarRegistro(id5));
+                request.getRequestDispatcher("manager/perfilAdminManager.jsp").forward(request, response);
+                break;
+
             case "ListaUsuarios":
                 request.setAttribute("listaUsuarios",usuarioDao.listarUsuariosTabla());
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("manager/usuarioManager.jsp");
