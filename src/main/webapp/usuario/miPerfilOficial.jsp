@@ -20,6 +20,46 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>JA-VAGOS</title>
+  <style>
+    .mi-enlace1 {
+      display: inline-block;
+      width: 110px;
+      height: 110px;
+      background-image: url('img/usuario/pokemon1.png');
+      background-size: cover;
+      text-indent: -9999px;
+    }
+
+
+    .mi-enlace2 {
+      display: inline-block;
+      width: 110px;
+      height: 110px;
+      background-image: url('img/usuario/pokemon2.png');
+      background-size: cover;
+      text-indent: -9999px;
+    }
+
+
+    .mi-enlace3 {
+      display: inline-block;
+      width: 110px;
+      height: 110px;
+      background-image: url('img/usuario/pokemon3.png');
+      background-size: cover;
+      text-indent: -9999px;
+    }
+
+
+    .mi-enlace4 {
+      display: inline-block;
+      width: 110px;
+      height: 110px;
+      background-image: url('img/usuario/pokemon4.png');
+      background-size: cover;
+      text-indent: -9999px;
+    }
+  </style>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link rel="icon" href="pestania.png">
@@ -43,6 +83,7 @@
 
   <!-- Option 1: Include in HTML -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
 
 </head>
 
@@ -67,12 +108,45 @@
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img src="img/usuario/usuario1.webp" alt="Profile" class="rounded-circle">
+            <img src="<%=usuarioLog.getFoto()%>" alt="Profile" class="rounded-circle">
 
             <h2><%=cuentas.getNombre()%></h2>
             <h3>USUARIO</h3>
 
           </div>
+
+          <div class="pt-2 d-flex justify-content-center align-items-center">
+            <a href="" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Distintos Avatares</a>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Que avatar deseas escoger</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body ">
+                    <div class="form-floating">
+
+
+
+                      <a onclick="return confirm('¿ Estas seguro de cambiar tu foto de perfil ?')" class="mi-enlace1" href="<%=request.getContextPath()%>/UsuariosCuentasServlet?a=actualizarFoto1"></a>
+                      <a onclick="return confirm('¿ Estas seguro de cambiar tu foto de perfil ?')" class="mi-enlace2" href="<%=request.getContextPath()%>/UsuariosCuentasServlet?a=actualizarFoto2"></a>
+                      <a onclick="return confirm('¿ Estas seguro de cambiar tu foto de perfil ?')" class="mi-enlace3" href="<%=request.getContextPath()%>/UsuariosCuentasServlet?a=actualizarFoto3"></a>
+                      <a onclick="return confirm('¿ Estas seguro de cambiar tu foto de perfil ?')" class="mi-enlace4" href="<%=request.getContextPath()%>/UsuariosCuentasServlet?a=actualizarFoto4"></a>
+
+
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Regresar</button>
+                    <!-- <a href="" class="btn btn-dark">Modificar Precio</a>-->
+                    <!--<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar Precio</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
 
           <!--<div class="col-md-11">
             <div class="mb-3">
@@ -218,7 +292,7 @@
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary">Change Password</button>
                   </div>
-                </form> <!--End Change Password Form -->
+                </form> End Change Password Form -->
 
             </div>
 
@@ -254,7 +328,18 @@
 <script src="/assets/vendor/php-email-form/validate.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js">
+
+
+  function hacerAlgo() {
+
+    alert("Presionaste la imagen");
+  }
+
+</script>
+
+
+
 
 </body>
 

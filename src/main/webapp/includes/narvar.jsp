@@ -213,7 +213,7 @@
 
           </li>
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="img/usuario/usuario1.webp" alt="Profile" class="rounded-circle">
+            <img src="<%=usuarioLog.getFoto()%>" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2 text-light"><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%>  </span>
           </a><!-- End Profile Iamge Icon -->
 

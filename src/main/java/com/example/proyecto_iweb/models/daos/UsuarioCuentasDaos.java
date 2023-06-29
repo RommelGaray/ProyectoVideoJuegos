@@ -8,113 +8,6 @@ import java.util.ArrayList;
 
 public class UsuarioCuentasDaos extends DaoBase{
     /*-------------------USUARIOS----------------------------*/
-    public ArrayList<Cuentas> listarCuentas(){
-        ArrayList<Cuentas> lista = new ArrayList<>();
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String sql = "select * from cuentas";
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql)) {
-
-            while(resultSet.next()){
-                Cuentas cuentas = new Cuentas();
-                cuentas.setIdCuentas(resultSet.getInt(1));
-                cuentas.setNombre(resultSet.getString(2));
-                cuentas.setApellido(resultSet.getString(3));
-                cuentas.setNickname(resultSet.getString(4));
-                cuentas.setDireccion(resultSet.getString(5));
-                cuentas.setCorreo(resultSet.getString(6));
-                cuentas.setFoto(resultSet.getString(8));
-                cuentas.setDescripcion(resultSet.getString(9));
-                cuentas.setDesabilitado(resultSet.getBoolean(10));
-                lista.add(cuentas);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return lista;
-    }
-
-    public ArrayList<Cuentas> listarCuentasEmpleados(){
-        ArrayList<Cuentas> lista = new ArrayList<>();
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String sql = "select * from cuentas where Roles_idRoles = '2';";
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql)) {
-
-            while(resultSet.next()){
-                Cuentas cuentas = new Cuentas();
-                cuentas.setIdCuentas(resultSet.getInt(1));
-                cuentas.setNombre(resultSet.getString(2));
-                cuentas.setApellido(resultSet.getString(3));
-                cuentas.setNickname(resultSet.getString(4));
-                cuentas.setDireccion(resultSet.getString(5));
-                cuentas.setCorreo(resultSet.getString(6));
-                cuentas.setFoto(resultSet.getString(8));
-                cuentas.setDescripcion(resultSet.getString(9));
-                cuentas.setDesabilitado(resultSet.getBoolean(10));
-                lista.add(cuentas);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return lista;
-    }
-
-    public ArrayList<Cuentas> listarCuentasUsuarios(){
-        ArrayList<Cuentas> lista = new ArrayList<>();
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String sql = "select * from cuentas where Roles_idRoles = '3'";
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql)) {
-
-            while(resultSet.next()){
-                Cuentas cuentas = new Cuentas();
-                cuentas.setIdCuentas(resultSet.getInt(1));
-                cuentas.setNombre(resultSet.getString(2));
-                cuentas.setApellido(resultSet.getString(3));
-                cuentas.setNickname(resultSet.getString(4));
-                cuentas.setDireccion(resultSet.getString(5));
-                cuentas.setCorreo(resultSet.getString(6));
-                cuentas.setFoto(resultSet.getString(8));
-                cuentas.setDescripcion(resultSet.getString(9));
-                cuentas.setDesabilitado(resultSet.getBoolean(10));
-                lista.add(cuentas);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return lista;
-    }
 
     public Cuentas listar(int id) {
         Cuentas cuentas = null;
@@ -272,6 +165,87 @@ public class UsuarioCuentasDaos extends DaoBase{
         pstmt.setString(6,cuentas.getPasswordHashed());
         //pstmt.setInt(7,usuarios.getIdEstatus());
 
+    }
+
+    public void actualizarFoto1(int idUsuario) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "update cuenta set foto = 'img/usuario/pokemon1.png' where idCuenta = ?;";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void actualizarFoto2(int idUsuario) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "update cuenta set foto = 'img/usuario/pokemon2.png' where idCuenta = ?;";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void actualizarFoto3(int idUsuario) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "update cuenta set foto = 'img/usuario/pokemon3.png' where idCuenta = ?;";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void actualizarFoto4(int idUsuario) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "update cuenta set foto = 'img/usuario/pokemon4.png' where idCuenta = ?;";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /*public ArrayList<Cuentas> perfil(int idCuenta){

@@ -53,6 +53,25 @@ public class UsuariosCuentasServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/nuevoUsuario.jsp");
                 view.forward(request, response);
                 break;
+            case"actualizarFoto1":
+                usuarioCuentasDaos.actualizarFoto1(cuentas.getIdCuentas());
+                response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
+                break;
+            case"actualizarFoto2":
+                usuarioCuentasDaos.actualizarFoto2(cuentas.getIdCuentas());
+                response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
+
+                break;
+            case"actualizarFoto3":
+                usuarioCuentasDaos.actualizarFoto3(cuentas.getIdCuentas());
+                response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
+
+                break;
+            case"actualizarFoto4":
+                usuarioCuentasDaos.actualizarFoto4(cuentas.getIdCuentas());
+                response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
+
+                break;
         }
 
 

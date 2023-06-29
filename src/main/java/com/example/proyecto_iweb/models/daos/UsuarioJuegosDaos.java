@@ -253,12 +253,12 @@ public class UsuarioJuegosDaos extends DaoBase {
                     Juegos juegos = new Juegos();
                     juegos.setIdJuegos(rs.getInt(8));
                     juegos.setNombre(rs.getString(9));
-                    juegos.setFoto(rs.getString(13));
+                    juegos.setFoto(rs.getString(19));
                     ventaUsuario.setJuegos(juegos);
 
                     Estados estados = new Estados();
-                    estados.setIdEstados(rs.getInt(19));
-                    estados.setEstados(rs.getString(20));
+                    estados.setIdEstados(rs.getInt(20));
+                    estados.setEstados(rs.getString(21));
                     ventaUsuario.setEstados(estados);
                     lista2.add(ventaUsuario);
                 }
@@ -277,10 +277,10 @@ public class UsuarioJuegosDaos extends DaoBase {
         ArrayList<CompraUsuario> lista3 = new ArrayList<>();
 
 
-        String sql = "SELECT * FROM comprausuario cu\n" +
-                "inner join juego j on j.idJuego = cu.idJuego\n" +
-                "inner join estados e on cu.idEstados = e.idEstados\n" +
-                "where cu.idUsuario =?";
+            String sql = "SELECT * FROM comprausuario cu\n" +
+                    "inner join juego j on j.idJuego = cu.idJuego\n" +
+                    "inner join estados e on cu.idEstados = e.idEstados\n" +
+                    "where cu.idUsuario =?";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -298,16 +298,16 @@ public class UsuarioJuegosDaos extends DaoBase {
                     compraUsuario.setPrecioCompra(rs.getDouble(8));
 
                     Juegos juegos = new Juegos();
-                    juegos.setIdJuegos(rs.getInt(10));
-                    juegos.setNombre(rs.getString(11));
-                    juegos.setDescripcion(rs.getString(12));
-                    juegos.setFoto(rs.getString(15));
+                    juegos.setIdJuegos(rs.getInt(12));
+                    juegos.setNombre(rs.getString(13));
+                    juegos.setDescripcion(rs.getString(14));
+                    juegos.setFoto(rs.getString(23));
 
                     compraUsuario.setJuegos(juegos);
 
                     Estados estados = new Estados();
-                    estados.setIdEstados(rs.getInt(21));
-                    estados.setEstados(rs.getString(22));
+                    estados.setIdEstados(rs.getInt(24));
+                    estados.setEstados(rs.getString(25));
                     compraUsuario.setEstados(estados);
 
                     lista3.add(compraUsuario);
@@ -346,12 +346,12 @@ public class UsuarioJuegosDaos extends DaoBase {
                     Juegos juegos = new Juegos();
                     juegos.setIdJuegos(rs.getInt(8));
                     juegos.setNombre(rs.getString(9));
-                    juegos.setFoto(rs.getString(13));
+                    juegos.setFoto(rs.getString(19));
                     ventaUsuario.setJuegos(juegos);
 
                     Estados estados = new Estados();
-                    estados.setIdEstados(rs.getInt(19));
-                    estados.setEstados(rs.getString(20));
+                    estados.setIdEstados(rs.getInt(20));
+                    estados.setEstados(rs.getString(21));
                     ventaUsuario.setEstados(estados);
                     lista.add(ventaUsuario);
                 }
@@ -786,12 +786,12 @@ public class UsuarioJuegosDaos extends DaoBase {
                     juegos.setDescripcion(rs.getString(3));
                     juegos.setPrecio(rs.getDouble(4));
                     juegos.setDescuento(rs.getDouble(5));
-                    juegos.setStock(rs.getInt(11));
                     juegos.setFoto(rs.getString(6));
                     juegos.setExistente(rs.getBoolean(7));
                     juegos.setHabilitado(rs.getBoolean(8));
                     juegos.setConsola(rs.getString(9));
                     juegos.setGenero(rs.getString(10));
+                    juegos.setStock(rs.getInt(11));
                     lista.add(juegos);
                 }
 
