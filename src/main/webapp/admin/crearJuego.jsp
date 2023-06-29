@@ -73,8 +73,10 @@
       </div>
 
       <div class="mb-3">
-        <label for="customFile">Subir fotos de la incidencia: </label>
-        <input type="file" class="form-control" id="customFile" name="foto" accept="image/*"/>
+        <label for="archivo">Subir fotos de la incidencia: </label>
+        <!--<input type="file" class="form-control" id="customFile" name="foto" accept="image/*"/>-->
+        <input type="file" id="archivo" accept="image/jpeg">
+        <input type="hidden" id="formulario" name="foto">
       </div>
 
       <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet">Cancelar</a>
@@ -93,5 +95,29 @@
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+<script>
+  /*const imagen = document.getElementById('imagen');*/
+  const archivo = document.getElementById('archivo');
+
+  /*imagen.addEventListener('click', () => {
+    archivo.click();
+  });*/
+
+  archivo.addEventListener('change', (event) => {
+
+    const selectedFile = event.target.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.onload = () => {
+      const fileData = fileReader.result;
+      document.getElementById('formulario').value = fileData
+      foto.src = fileData;
+    };
+
+    if (selectedFile) {
+      fileReader.readAsDataURL(selectedFile);
+    }
+  });
+</script>
 </body>
 </html>

@@ -172,8 +172,8 @@ public class AdminJuegosServlet extends HttpServlet {
                 int stock = Integer.parseInt(request.getParameter("stock"));
                 String consola = request.getParameter("consola");
                 String genero = request.getParameter("genero");
-                Part filePart = request.getPart("foto");
-                inputStream = filePart.getInputStream();
+                //Part filePart = request.getPart("foto");
+                /*inputStream = filePart.getInputStream();
 
                 if (filePart != null) {
                     // prints out some information for debugging
@@ -181,9 +181,9 @@ public class AdminJuegosServlet extends HttpServlet {
 
                     // obtains input stream of the upload file
                     inputStream = filePart.getInputStream();
-                }
-
-                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
+                }*/
+                byte[] foto = request.getParameter("foto").getBytes();
+                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, foto);
 
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
