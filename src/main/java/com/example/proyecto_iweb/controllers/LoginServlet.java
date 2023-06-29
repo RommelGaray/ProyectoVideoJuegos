@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
                     if(cuentas.getIdRol() == 2){
                         resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
                     }if(cuentas.getIdRol() == 1){
-                        resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
+                        resp.sendRedirect(req.getContextPath() + "/ManagerCuentasServlet");
                     }if(cuentas.getIdRol() == 3){
                         resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
                     }

@@ -92,6 +92,7 @@
                         <th class="col text-center">Precio de Venta </th>
                         <th class="col text-center">Estado  </th>
                         <th class="col text-center">Opciones </th>
+                        <th class="col text-center">Formulario </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -167,6 +168,10 @@
                             <a onclick="return confirm('¿ Estas seguro de Eliminar ?')" class="btn btn-primary"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
                                 <%}%>
+                        </td>
+                        <td class="col text-center">
+                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=formulario&id=<%=vu.getIdVenta()%>" class="btn btn-dark"  >Ver Formulario</a>
+                        </td>
                     </tr>
                     <% } %>
                     </tbody>

@@ -55,22 +55,23 @@ public class UsuariosCuentasServlet extends HttpServlet {
                 break;
             case"actualizarFoto1":
                 usuarioCuentasDaos.actualizarFoto1(cuentas.getIdCuentas());
+                session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el a cambio");
                 response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
                 break;
             case"actualizarFoto2":
                 usuarioCuentasDaos.actualizarFoto2(cuentas.getIdCuentas());
+                session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
                 response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
-
                 break;
             case"actualizarFoto3":
                 usuarioCuentasDaos.actualizarFoto3(cuentas.getIdCuentas());
+                session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
                 response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
-
                 break;
             case"actualizarFoto4":
                 usuarioCuentasDaos.actualizarFoto4(cuentas.getIdCuentas());
+                session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
                 response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
-
                 break;
         }
 

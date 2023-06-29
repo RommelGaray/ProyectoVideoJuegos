@@ -85,7 +85,7 @@
                 <label for="foto" class="form-label">Añadir foto del juego</label>
                 <input class="form-control" type="file" id="foto" name="foto"  value="<%=verVenta.getJuegos().getFoto()%>" disabled >
             </div>
-            <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">Cancelar</a>
+            <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">Cancelar</a>
             <button type="submit" class="btn btn-primary">Guardar</button>
 
         </form>

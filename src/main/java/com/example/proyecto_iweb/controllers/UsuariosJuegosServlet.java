@@ -133,6 +133,12 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/recomendaciones.jsp").forward(request,response);
                 break;
 
+            case "formulario":
+                String id6 = request.getParameter("id");
+                request.setAttribute("formulario",usuarioJuegosDaos.verVenta(id6));
+                request.getRequestDispatcher("usuario/formularioJuego.jsp").forward(request,response);
+                break;
+
 
         }
     }

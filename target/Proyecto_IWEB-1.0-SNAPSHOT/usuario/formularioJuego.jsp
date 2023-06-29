@@ -4,7 +4,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="verVenta" scope="request" type="com.example.proyecto_iweb.models.beans.VentaUsuario"/>
+<jsp:useBean id="formulario" scope="request" type="com.example.proyecto_iweb.models.beans.VentaUsuario"/>
 
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
@@ -58,35 +58,42 @@
         <% }%>
 
 
-        <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=a">
+        <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet">
             <input type="hidden" class="form-control" name="idVentas" id="idVentas"
-                   value="<%=verVenta.getIdVenta()%>">
-            <div class="mb-3">
-                <label for="nombre">Nombre del Juego</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" value="<%=verVenta.getJuegos().getNombre()%>" disabled>
+                   value="<%=formulario.getIdVenta()%>">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label for="nombre">Nombre del Juego</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="<%=formulario.getJuegos().getNombre()%>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precioVenta">Precio</label>
+                        <input type="text" class="form-control" name="precioVenta" id="precioVenta" value="<%=formulario.getPrecioVenta()%>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion">Descripcion</label>
+                        <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=formulario.getJuegos().getDescripcion()%>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="consola">Consola</label>
+                        <input type="text" class="form-control" name="consola" id="consola" value="<%=formulario.getJuegos().getConsola()%>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="genero">Genero</label>
+                        <input type="text" class="form-control" name="genero" id="genero" value="<%=formulario.getJuegos().getGenero()%>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Añadir foto del juego</label>
+                        <input class="form-control" type="file" id="foto" name="foto"  value="<%=formulario.getJuegos().getFoto()%>" disabled >
+                    </div>
+                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">Regresar</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="<%=formulario.getJuegos().getFoto()%>" alt="" class="img-fluid max-width-100">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="precioVenta">Precio</label>
-                <input type="text" class="form-control" name="precioVenta" id="precioVenta" value="<%=verVenta.getPrecioVenta()%>">
-            </div>
-            <div class="mb-3">
-                <label for="descripcion">Descripcion</label>
-                <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=verVenta.getJuegos().getDescripcion()%>" disabled>
-            </div>
-            <div class="mb-3">
-                <label for="consola">Consola</label>
-                <input type="text" class="form-control" name="consola" id="consola" value="<%=verVenta.getJuegos().getConsola()%>" disabled>
-            </div>
-            <div class="mb-3">
-                <label for="genero">Genero</label>
-                <input type="text" class="form-control" name="genero" id="genero" value="<%=verVenta.getJuegos().getGenero()%>" disabled>
-            </div>
-            <div class="mb-3">
-                <label for="foto" class="form-label">Añadir foto del juego</label>
-                <input class="form-control" type="file" id="foto" name="foto"  value="<%=verVenta.getJuegos().getFoto()%>" disabled >
-            </div>
-            <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+
 
         </form>
     </div>
