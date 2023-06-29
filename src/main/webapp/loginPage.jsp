@@ -64,38 +64,16 @@
                                             <label for="yourUser" class="form-label">Usuario</label>
                                             <input type="text" name="inputEmail" class="form-control" id="yourUser" required placeholder="Correo">
 
-                                        <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Correo</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="text" name="inputEmail" class="form-control" id="yourUsername" required placeholder="Correo">
-                                                <% if (request.getAttribute("error") != null) { %>
-                                                <div class="invalid-feedback">Por favor ingrese su usuario!</div>
-                                                <% } %>
-                                            </div>
-
                                         </div>
 
                                         <div class="col-12 mb-3">
                                             <label for="yourPassword" class="form-label">Contraseña</label>
-
                                             <input type="password" name="inputPassword" class="form-control" id="yourPassword" required placeholder="Contraseña">
                                             <% if (request.getAttribute("error") != null) { %>
                                             <div class="text-danger mb-2 text-center">!Error en su usuario o contraseña!</div>
                                             <% } %>
 
-                                            <input type="password" name="inputPassword" class="form-control" id="yourPassword" required placeholder="Password">
                                         </div>
-                                        <br>
-                                        <% if (request.getAttribute("error") != null) { %>
-                                        <div class="form-group text-danger mb-3">Por favor ingrese correctamente sus datos!</div>
-                                        <% } %>
-
-                                        <div class="col-12">
-
-
-                                        </div>
-
 
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Ingresar</button>
