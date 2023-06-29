@@ -1,8 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<Cuentas> listaAdmin = (ArrayList<Cuentas>) request.getAttribute("listaAdmin");
-%>
+
+<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
+             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
+
+<jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
+<jsp:useBean id="listarRegistro" scope="request" type="com.example.proyecto_iweb.models.dtos.UsuarioTabla"/>
 <html lang="en">
 
 <head>
@@ -39,15 +43,20 @@
 <body>
 
 <jsp:include page="../includes/narvar.jsp">
-  <jsp:param name="currentPage" value="perfil"/>
+  <jsp:param name="currentPage" value=""/>
 </jsp:include>
 
 <main id="main" class="main">
   <div class="container">
     <div class="pagetitle">
-      <h1>Perfil del usuario <%=listaAdmin.get(0).getNickname()%> </h1>
+      <% if (cuentas.getIdRol() == 2) { %>
+      <h1>Perfil del Administrador <%= cuentas.getNickname() %></h1>
+      <% } else { %>
+      <h1>Perfil del usuario: <%= cuentas.getNickname() %></h1>
+      <% } %>
       <br>
     </div><!-- End Page Title -->
+
 
 
     <div class="row d-flex justify-content-center border border-primary rounded-4">
@@ -56,11 +65,11 @@
         <!--VA IR LA FOTO-->
         <div class="col-auto">
           <div class="col-md-9 mx-auto">
-            <img src="/img/usuario/usuario1.webp" alt="" class="img-fluid mb-4 rounded-circle">
+            <img src="<%=cuentas.getFoto()%>" alt="" class="img-fluid mb-4 rounded-circle">
           </div>
 
 
-          <h5 class="text-center">Datos del usuario</h5>
+          <h5 class="text-center">Datos Principales</h5>
           <table class="table table-bordered">
             <thead>
             <tr>
@@ -70,19 +79,19 @@
             <tbody>
             <tr>
               <td>Nombre Completo </td>
-              <td><%=listaAdmin.get(0).getNombre() + " " + listaAdmin.get(0).getNombre() %></td>
+              <td><%=cuentas.getNombre() + " " + cuentas.getNombre() %></td>
             </tr>
             <tr>
               <td>nickname</td>
-              <td><%=listaAdmin.get(0).getNickname()%></td>
+              <td><%=cuentas.getNickname()%></td>
             </tr>
             <tr>
               <td>Direccion</td>
-              <td><%=listaAdmin.get(0).getDirecion()%></td>
+              <td><%=cuentas.getDireccion()%></td>
             </tr>
             <tr>
               <td>Correo</td>
-              <td><%=listaAdmin.get(0).getCorreo()%></td>
+              <td><%=cuentas.getCorreo()%></td>
             </tr>
 
             </tbody>
@@ -94,7 +103,7 @@
       <div class="col-lg-6 m-2">
         <!--VA IR LA INFORMACIÓN-->
         <div class="row-lg-6">
-          <h5 class="text-center">Estadisticas del usuario</h5>
+          <h5 class="text-center">Estadisticas de la cuenta </h5>
           <table class="table table-bordered">
             <thead>
             <tr>
@@ -103,20 +112,36 @@
             </thead>
             <tbody>
             <tr>
+              <% if (cuentas.getIdRol() == 2) { %>
               <td>Cant. juegos comprados</td>
-              <td>23</td>
+              <% } else { %>
+              <td>Cant. juegos Vendidos</td>
+              <% } %>
+              <td><%=listarRegistro.getJuegosVendidos()%></td>
             </tr>
             <tr>
-              <td>Cant. juegos vendidos</td>
-              <td>2</td>
+              <% if (cuentas.getIdRol() == 2) { %>
+              <td>Cant. juegos Vendidos</td>
+              <% } else { %>
+              <td>Cant. juegos comprados</td>
+              <% } %>
+              <td><%=listarRegistro.getJuegosComprados()%></td>
             </tr>
             <tr>
-              <td>Cant. juegos pendientes</td>
-              <td>13</td>
-            </tr>
-            <tr>
+              <% if (cuentas.getIdRol() == 2) { %>
+              <td>Dinero Ganado</td>
+              <% } else { %>
               <td>Dinero gastado</td>
-              <td>$230</td>
+              <% } %>
+              <td>S/. <%=listarRegistro.getDineroGastado()%></td>
+            </tr>
+            <tr>
+              <% if (cuentas.getIdRol() == 2) { %>
+              <td>Dinero Gastado</td>
+              <% } else { %>
+              <td>Dinero Ganado</td>
+              <% } %>
+              <td>S/. <%=listarRegistro.getDineroGanado()%></td>
             </tr>
             </tbody>
           </table>
@@ -124,7 +149,7 @@
 
 
         <div class="row">
-          <h5 class="text-center">Ubicación del usuario</h5>
+          <h5 class="text-center">Ubicación</h5>
           <iframe
                   src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7803.090718696196!2d-77.09065694650349!3d-12.074770906006872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1682624518105!5m2!1ses-419!2spe"
                   width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
@@ -138,7 +163,7 @@
 
   </div>
   <br>
-  <a href="indexManagerOficial.html" class="btn btn-danger">Regresar</a>
+  <a href="<%=request.getContextPath()%>" class="btn btn-danger">Regresar</a>
 </main>
 
 <br><br><br>

@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UsuarioCuentasDaos extends DaoBase{
- /*-------------------USUARIOS----------------------------*/
+    /*-------------------USUARIOS----------------------------*/
     public ArrayList<Cuentas> listarCuentas(){
         ArrayList<Cuentas> lista = new ArrayList<>();
 
@@ -116,7 +116,7 @@ public class UsuarioCuentasDaos extends DaoBase{
         return lista;
     }
 
-    public Cuentas listar(String id) {
+    public Cuentas listar(int id) {
         Cuentas cuentas = null;
 
 
@@ -125,7 +125,7 @@ public class UsuarioCuentasDaos extends DaoBase{
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {

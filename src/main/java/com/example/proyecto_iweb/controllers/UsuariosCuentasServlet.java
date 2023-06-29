@@ -20,6 +20,8 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
+        HttpSession session = request.getSession();
+        Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
         RequestDispatcher view;
 
         String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
@@ -27,7 +29,7 @@ public class UsuariosCuentasServlet extends HttpServlet {
         switch (action) {
             case  "perfil" :
                 String id = request.getParameter("id");
-                request.setAttribute("cuentas", usuarioCuentasDaos.listar(id));
+                request.setAttribute("cuentas", usuarioCuentasDaos.listar(cuentas.getIdCuentas()));
                 //request.setAttribute("lista4",usuarioJuegosDaos.listarNotificaciones());
                 request.getRequestDispatcher("usuario/miPerfilOficial.jsp").forward(request, response);
                 break;
@@ -39,17 +41,12 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
                 break;
             case "vendidos":
-                String idCuenta1 = request.getParameter("id");
-                request.setAttribute("listar2", usuarioJuegosDaos.listarVendidos(idCuenta1));
-                //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
 
+                request.setAttribute("listar2", usuarioJuegosDaos.listarVendidos(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/vendidosUsuariosOficial.jsp").forward(request, response);
                 break;
             case "comprados":
-                String idCuenta2 = request.getParameter("id");
-                request.setAttribute("listar3", usuarioJuegosDaos.listarComprados(idCuenta2));
-                //request.setAttribute("perfil", usuarioCuentasDaos.perfil());
-
+                request.setAttribute("listar3", usuarioJuegosDaos.listarComprados(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("usuario/compradosUsuariosOficial.jsp").forward(request, response);
                 break;
             case"agregar":
@@ -87,6 +84,8 @@ public class UsuariosCuentasServlet extends HttpServlet {
                 cuentas1.setPasswordHashed(request.getParameter("password"));
 
                 try {
+
+
                     usuarioCuentasDaos.guardarUsuario(cuentas1);
                     response.sendRedirect("/Proyecto_IWEB_war_exploded/UsuariosJuegosServlet");
 

@@ -52,6 +52,12 @@
 <main  id="main" class="main">
     <div class="container " >
         <h1 class='mt-3'>Editar Precio Juego</h1>
+        <% if (session.getAttribute("err") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%></div>
+        <%session.removeAttribute("err");%>
+        <% }%>
+
+
         <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=a">
             <input type="hidden" class="form-control" name="idVentas" id="idVentas"
                    value="<%=verVenta.getIdVenta()%>">
@@ -81,6 +87,7 @@
             </div>
             <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">Cancelar</a>
             <button type="submit" class="btn btn-primary">Guardar</button>
+
         </form>
     </div>
 </main>

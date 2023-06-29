@@ -74,7 +74,7 @@
 
           </div>
 
-          <div class="col-md-11">
+          <!--<div class="col-md-11">
             <div class="mb-3">
               <label for="formFile" class="form-label"></label>
               <input class="form-control" type="file" id="formFile">
@@ -84,7 +84,7 @@
           <div class="pt-2 d-flex justify-content-center align-items-center">
             <a href="#" class="btn btn-primary btn-sm m-2" title="Upload new profile image"><i class="bi bi-upload"></i></a>
             <a href="#" class="btn btn-danger btn-sm m-2" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-          </div>
+          </div>-->
         </div>
       </div>
 
@@ -107,10 +107,6 @@
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Configuración</button>
               </li>
 
-
-              <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar contraseña</button>
-              </li>
             </ul>
 
 
@@ -196,7 +192,7 @@
               </div>
 
               <!-- Cambio de contrasenia -->
-              <div class="tab-pane fade pt-3" id="profile-change-password">
+              <!-- <div class="tab-pane fade pt-3" id="profile-change-password">
                 <form>
                   <div class="row mb-3">
                     <label for="password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
@@ -222,16 +218,16 @@
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary">Change Password</button>
                   </div>
-                </form><!-- End Change Password Form -->
+                </form> <!--End Change Password Form -->
 
-              </div>
+            </div>
 
-            </div><!-- End Bordered Tabs -->
+          </div><!-- End Bordered Tabs -->
 
-          </div>
         </div>
-
       </div>
+
+    </div>
     </div>
   </section>
 

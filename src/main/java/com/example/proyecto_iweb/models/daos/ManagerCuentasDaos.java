@@ -176,7 +176,7 @@ public class ManagerCuentasDaos extends DaoBase{
 
     public void deshabilitarCuenta(String id) {
 
-        String sql = "UPDATE cuenta SET desabilitado = 0 WHERE idCuenta = ?";
+        String sql = "UPDATE cuenta SET desabilitado = 1 WHERE idCuenta = ?";
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
@@ -235,6 +235,7 @@ public class ManagerCuentasDaos extends DaoBase{
                     cuentas.setCorreo(rs.getString(6));
                     cuentas.setFoto(rs.getString(7));
                     cuentas.setDescripcion(rs.getString(8));
+                    cuentas.setIdRol(rs.getInt(10));
                     cuentas.setPasswordHashed(rs.getString(11));
 
                 }
@@ -247,5 +248,31 @@ public class ManagerCuentasDaos extends DaoBase{
         return cuentas;
     }
 
+    public Cuentas correo(String id) {
+        Cuentas cuentas = null;
 
+
+        String sql = "select correo , nombre, apellido from cuenta \n" +
+                "where idCuenta= ?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    cuentas = new Cuentas();
+                    cuentas.setCorreo(rs.getString(1));
+                    cuentas.setNombre(rs.getString(2));
+                    cuentas.setApellido(rs.getString(3));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cuentas;
+    }
 }

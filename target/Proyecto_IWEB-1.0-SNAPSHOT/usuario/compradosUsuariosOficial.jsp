@@ -7,6 +7,7 @@
 
 <%
     ArrayList<CompraUsuario> listaComprados = (ArrayList<CompraUsuario>) request.getAttribute("lista3");
+    ArrayList<GeneroMasComprado> lista = (ArrayList<GeneroMasComprado>) request.getAttribute("generoMasComprado1");
     ArrayList<GeneroMasComprado> listaGenero = (ArrayList<GeneroMasComprado>) request.getAttribute("generoMasComprado");
 
 %>
@@ -42,6 +43,7 @@
     <!-- Option 1: Include in HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
+
 </head>
 
 <body>
@@ -56,26 +58,15 @@
     <div class="pagetitle">
         <h1>Historial de juegos comprados</h1>
     </div>
-    <div class="row g-0">
-        <br><br>
-        <div class="col-md-6 offset-md-3 bg-primary border rounded-4 p-4">
-            <div class="text-light text-center">
-                <h4>Género Más Comprado</h4>
-                <%for (GeneroMasComprado g : listaGenero){%>
-                <h3><%=g.getGeneroComprado()%></h3>
-                <%}%>
-            </div>
-        </div>
 
-    </div>
 
     <section class="section faq">
         <div class="row">
 
             <% if (listaComprados.size()==0) { %>
 
-            <div class="col-lg-12">
-                <br><br>
+            <div class="col-lg-9">
+
                 <div class="col text-center">
                     <div class="disponibleUsuario">
                         <div class="col text-center" style="max-width: 1000px;">
@@ -91,7 +82,8 @@
             </div>
             <%}else { %>
             <!--Todos los juegos comprados-->
-            <div class="col-lg-12">
+
+            <div class="col-lg-9">
                 <br><br>
                 <div class="container">
                     <div class="disponibleUsuario">
@@ -110,6 +102,7 @@
                                         <p class="card-text"> Precio : $ <%=cu.getPrecioCompra()%> </p>
                                         <p class="fw-bold"> Estado :  <%=cu.getEstados().getEstados()%> </p>
                                         <!--<a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="btn btn-dark">Ver juego</a>-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,11 +111,43 @@
                 </div>
             </div>
 
+
+            <div class="col-lg-3 align-items-lg-center">
+                <br><br>
+                <div class="row g-0">
+                    <div class="col-md-12 bg-primary border rounded-4 p-4">
+                        <div class="text-light text-center">
+                            <h4>Género Más Comprado</h4>
+                            <%for (GeneroMasComprado g : listaGenero){%>
+                            <h3><%=g.getGeneroComprado()%></h3>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <table class="table  table-bordered" >
+                    <tr>
+                        <th>Genero </th>
+                        <th>Comprados</th>
+                    </tr>
+                    <% for (GeneroMasComprado a: lista){%>
+                    <tr>
+                        <td><%=a.getGeneroComprado()%></td>
+                        <td><%=a.getCantidadComrado()%></td>
+                        <%}%>
+                    </tr>
+                </table>
+                <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=recomendaciones" class="btn btn-primary">Recomendaciones</a>
+            </div>
+
+
+
+
             <!--Genero más comprado-->
-            <div class="col-lg-4">
+            <!--<div class="col-lg-4">
 
 
-                <!--<div class="row g-0">
+                <div class="row g-0">
                     <div class="col-md-12 bg-primary border rounded-4 p-4">
                         <div class="text-light text-center">
                             <h4>Recomendaciones</h4>
@@ -132,8 +157,9 @@
                             <img src="img/usuario/snipeer.jpg" width="50%" alt="">
                         </div>
                     </div>
-                </div>-->
-            </div>
+                </div>
+
+            </div>-->
             <%}%>
 
         </div>

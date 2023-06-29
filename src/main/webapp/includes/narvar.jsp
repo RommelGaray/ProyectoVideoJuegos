@@ -164,143 +164,143 @@
 
 <!-- ======= USUARIO ======= -->
 <%if(usuarioLog.getIdRol()==3) { %>
-  <header id="header" class="header fixed-top d-flex align-items-center bg-primary">
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar" class="logo d-flex align-items-center">
-        <img src="img/sistema/logoUsuario.png" alt="">
-        <span class="d-none d-lg-block text-light">JA-VAGOS</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn text-light"></i>
-    </div>
+<header id="header" class="header fixed-top d-flex align-items-center bg-primary">
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar" class="logo d-flex align-items-center">
+      <img src="img/sistema/logoUsuario.png" alt="">
+      <span class="d-none d-lg-block text-light">JA-VAGOS</span>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn text-light"></i>
+  </div>
 
-    <div class="search-bar mt-3">
-      <form class="search-form d-flex align-items-center" method="post" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=b1">
-        <input type="text" name="buscador" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div>
+  <div class="search-bar mt-3">
+    <form class="search-form d-flex align-items-center" method="post" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=b1">
+      <input type="text" name="buscador" placeholder="Search" title="Enter search keyword">
+      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+    </form>
+  </div>
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <!--BUSCADOR -->
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li>
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+      <!--BUSCADOR -->
+      <li class="nav-item d-block d-lg-none">
+        <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <i class="bi bi-search"></i>
+        </a>
+      </li>
 
 
-        <li class="nav-item dropdown pe-3">
+      <li class="nav-item dropdown pe-3">
 
-          <div class="form-inline font-italic my-2 my-lg-0">
-            <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
-            <span></span>
-            <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
+        <div class="form-inline font-italic my-2 my-lg-0">
+          <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
+          <span></span>
+          <!-- ICONO DE TIENDA Y NOTIFICACI?N-->
 
-            <li class="nav-item dropdown">
-              <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>" data-bs-toggle="dropdown">
-                <i class="bi bi-chat-left-text text-light"></i>
-                <span class="badge bg-danger badge-number"></span>
-              </a>
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" data-bs-toggle="dropdown">
+              <i class="bi bi-chat-left-text text-light"></i>
+              <span class="badge bg-danger badge-number"></span>
+            </a>
 
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
 
-                <li class="dropdown-footer">
-                  <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones&id=<%=usuarioLog.getIdCuentas()%>">Ver todo los mensajes</a>
-                </li>
+              <li class="dropdown-footer">
+                <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
+              </li>
 
-              </ul>
+            </ul>
 
+          </li>
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="img/usuario/usuario1.webp" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2 text-light"><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%>  </span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%> </h6>
+              <span>Usuario</span>
             </li>
-            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-              <img src="img/usuario/usuario1.webp" alt="Profile" class="rounded-circle">
-              <span class="d-none d-md-block dropdown-toggle ps-2 text-light"><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%>  </span>
-            </a><!-- End Profile Iamge Icon -->
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-              <li class="dropdown-header">
-                <h6><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%> </h6>
-                <span>Usuario</span>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil">
+                <i class="bi bi-person"></i>
+                <span>Mi Perfil</span>
 
-              <li>
-                <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil&id=<%=usuarioLog.getIdCuentas()%>">
-                  <i class="bi bi-person"></i>
-                  <span>Mi Perfil</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-
-              <li>
-                <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/login?action=logout">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
-                </a>
-              </li>
-                <% } else { //no estoy loggedIn %>
-              <div>
-                <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-                  (Crear cuenta)
-                </a>
-                <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-                  (Iniciar Sesi?n)
-                </a>
-              </div>
-                <% } %>
-          </div>
-      </ul>
-      </li>
-      </ul>
-    </nav>
-  </header>
-
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav3">
-
-      <li class="nav-item">
-        <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar">
-          <i class="bi bi-grid"></i>
-          <span>Disponibles</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed<%=currentPage.equals("postear") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">
-          <i class="bi bi-arrow-up-square"></i>
-          <span>Postear</span>
-        </a>
-      </li>
-
-
-      <li class="nav-item">
-        <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos&id=<%=usuarioLog.getIdCuentas()%>">
-          <i class="bi bi-bag"></i>
-          <span>Vendidos</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados&id=<%=usuarioLog.getIdCuentas()%>">
-          <i class="bi bi-shop"></i>
-          <span>Comprados</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed<%=currentPage.equals("ofertas") ? "active" : ""%>" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=ofertas">
-          <i class="bi bi-grid"></i>
-          <span>Ofertas</span>
-        </a>
-      </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/login?action=logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+              <% } else { //no estoy loggedIn %>
+            <div>
+              <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
+                (Crear cuenta)
+              </a>
+              <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
+                (Iniciar Sesi?n)
+              </a>
+            </div>
+              <% } %>
+        </div>
     </ul>
-  </aside>
+    </li>
+    </ul>
+  </nav>
+</header>
+
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav3">
+
+    <li class="nav-item">
+      <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar">
+        <i class="bi bi-grid"></i>
+        <span>Disponibles</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed<%=currentPage.equals("postear") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">
+        <i class="bi bi-arrow-up-square"></i>
+        <span>Postear</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item">
+      <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">
+        <i class="bi bi-bag"></i>
+        <span>Vendidos</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">
+        <i class="bi bi-shop"></i>
+        <span>Comprados</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed<%=currentPage.equals("ofertas") ? "active" : ""%>" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=ofertas">
+        <i class="bi bi-grid"></i>
+        <span>Ofertas</span>
+      </a>
+    </li>
+  </ul>
+</aside>
 <%}%>
 
 

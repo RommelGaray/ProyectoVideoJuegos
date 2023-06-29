@@ -54,43 +54,11 @@
     <div class="row">
       <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
       <div class="col-lg-12">
-        <div class="filtros">
-
-          <form action="">
-            <select name="" id="">
-              <option disabled selected="">Categoría</option>
-              <option value="">Acción</option>
-              <option value="categoriaTerrorManagerOficial.html">
-                <a href="categoriaTerrorManagerOficial.html">Terror</a>
-              </option>
-              <option value="">Arcade</option>
-              <option value="">Deporte</option>
-            </select>
-          </form>
-
-          <form action="">
-            <select name="" id="">
-              <option disabled selected="">Consola</option>
-              <option value="">X BOX</option>
-              <option value="">Play Station</option>
-              <option value="">PC</option>
-            </select>
-          </form>
-
-
-
-          <form action="">
-            <select name="" id="">
-              <option disabled selected="">TOP</option>
-              <option value="">Menos vendidos</option>
-              <option value="">TOP5</option>
-
-            </select>
-          </form>
-
+        <div class="col-lg-12 d-flex justify-content-end mb-4">
+          <a type="button" class="btn btn-warning me-4" href="<%=request.getContextPath()%>/ManagerJuegosServlet?a=top5">TOP 5</a>
+          <a type="button" class="btn btn-warning" href="<%=request.getContextPath()%>/ManagerJuegosServlet?a=menos">Menos vendidos</a>
         </div>
       </div>
-
       <div class="col-lg-12">
 
         <!--DENTRO DE UN DIV-->

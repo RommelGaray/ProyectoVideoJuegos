@@ -228,7 +228,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista;
     }
 
-    public ArrayList<VentaUsuario> listarVendidos(String id) {
+    public ArrayList<VentaUsuario> listarVendidos(int id) {
 
         ArrayList<VentaUsuario> lista2 = new ArrayList<>();
 
@@ -241,7 +241,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
@@ -272,7 +272,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista2;
     }
 
-    public ArrayList<CompraUsuario> listarComprados(String id) {
+    public ArrayList<CompraUsuario> listarComprados(int id) {
 
         ArrayList<CompraUsuario> lista3 = new ArrayList<>();
 
@@ -285,7 +285,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try(ResultSet rs = pstmt.executeQuery()){
 
@@ -322,7 +322,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         return lista3;
     }
 
-    public ArrayList<VentaUsuario> listarNotificaciones(String id) {
+    public ArrayList<VentaUsuario> listarNotificaciones(int id) {
 
         ArrayList<VentaUsuario> lista = new ArrayList<>();
 
@@ -334,7 +334,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
@@ -409,15 +409,9 @@ public class UsuarioJuegosDaos extends DaoBase {
 
     public void borrar(String id)  {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "UPDATE compraUsuario SET `idEstados` = '5' WHERE (`idCompra` = '1');\n";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, id);
@@ -511,7 +505,8 @@ public class UsuarioJuegosDaos extends DaoBase {
             e.printStackTrace();
         }
         String url = "jdbc:mysql://localhost:3306/mydb";
-        String sql = "INSERT INTO comprausuario (idUsuario,idJuego,cantidad,fechaCompra,direccion,idAdmin,precioCompra,idEstados) VALUES (?,?,1,current_date(),?,10,?,1)";
+        String sql = "INSERT INTO comprausuario (idUsuario,idJuego,cantidad,fechaCompra,direccion,idAdmin,precioCompra,idEstados) " +
+                "VALUES (?,?,1,current_date(),?,10,?,1)";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              PreparedStatement pstmt = connection.prepareStatement(sql)){
 
@@ -525,7 +520,6 @@ public class UsuarioJuegosDaos extends DaoBase {
             e.printStackTrace();
         }
     }
-
 
     public ArrayList<Juegos> generosyconsolas(String consolas,String generos) {
 
@@ -656,8 +650,8 @@ public class UsuarioJuegosDaos extends DaoBase {
                     juegos.setIdJuegos(resultSet.getInt(8));
                     juegos.setNombre(resultSet.getString(9));
                     juegos.setDescripcion(resultSet.getString(10));
-                    juegos.setGenero(resultSet.getString(16));
-                    juegos.setConsola(resultSet.getString(17));
+                    juegos.setGenero(resultSet.getString(17));
+                    juegos.setConsola(resultSet.getString(16));
                     ventaUsuario.setJuegos(juegos);
 
                 }
@@ -691,7 +685,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-    public ArrayList<GeneroMasComprado> generoMasComprado(String id) {
+    public ArrayList<GeneroMasComprado> generoMasComprado(int id) {
 
         ArrayList<GeneroMasComprado> lista = new ArrayList<>();
 
@@ -706,7 +700,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try(ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
@@ -717,6 +711,88 @@ public class UsuarioJuegosDaos extends DaoBase {
                     generoMasComprado.setGeneroComprado(rs.getString(1));
                     generoMasComprado.setCantidadComrado(rs.getInt(2));
                     lista.add(generoMasComprado);
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    public ArrayList<GeneroMasComprado> generosComprados(int id) {
+
+        ArrayList<GeneroMasComprado> lista = new ArrayList<>();
+
+        String sql = "SELECT genero, COUNT(*) AS total_compras\n" +
+                "FROM juego\n" +
+                "JOIN compraUsuario ON juego.idJuego = compraUsuario.idJuego\n" +
+                "where comprausuario.idUsuario = ?\n" +
+                "GROUP BY genero\n" +
+                "ORDER BY total_compras DESC\n";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setInt(1, id);
+
+            try(ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+
+                    GeneroMasComprado generoMasComprado = new GeneroMasComprado();
+
+                    // Obtenemos los valores
+                    generoMasComprado.setGeneroComprado(rs.getString(1));
+                    generoMasComprado.setCantidadComrado(rs.getInt(2));
+                    lista.add(generoMasComprado);
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    public ArrayList<Juegos> recomendaciones(int id) {
+
+        ArrayList<Juegos> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM juego\n" +
+                "WHERE genero IN (\n" +
+                "    SELECT DISTINCT j.genero\n" +
+                "    FROM compraUsuario AS c\n" +
+                "    JOIN juego AS j ON c.idJuego = j.idJuego\n" +
+                "    WHERE c.idUsuario = ?);";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setInt(1, id);
+
+            try(ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+
+                    Juegos juegos = new Juegos();
+
+                    juegos.setIdJuegos(rs.getInt(1));
+                    juegos.setNombre(rs.getString(2));
+                    juegos.setDescripcion(rs.getString(3));
+                    juegos.setPrecio(rs.getDouble(4));
+                    juegos.setDescuento(rs.getDouble(5));
+                    juegos.setStock(rs.getInt(11));
+                    juegos.setFoto(rs.getString(6));
+                    juegos.setExistente(rs.getBoolean(7));
+                    juegos.setHabilitado(rs.getBoolean(8));
+                    juegos.setConsola(rs.getString(9));
+                    juegos.setGenero(rs.getString(10));
+                    lista.add(juegos);
                 }
 
             }
