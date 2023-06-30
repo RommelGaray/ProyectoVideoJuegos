@@ -60,8 +60,8 @@
             <th scope="col">Nombre Usuario</th>
             <th scope="col">#Comprados</th>
             <th scope="col">#Vendidos</th>
-            <th scope="col">$ Gastado</th>
-            <th scope="col">$ Generado</th>
+            <th scope="col">S/. Gastado</th>
+            <th scope="col">S/. Generado</th>
             <th scope="col">Opciones</th>
         </tr>
         </thead>
@@ -71,16 +71,16 @@
             <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil2&id5=<%=u.getIdCuenta()%>"><%=u.getNombre()%></a></th>
             <td><%=u.getJuegosComprados()%></td>
             <td><%=u.getJuegosVendidos()%></td>
-            <td><%=u.getDineroGastado()%></td>
+            <td> - <%=u.getDineroGastado()%></td>
             <td><%=u.getDineroGanado()%></td>
             <td>
-
+                <%if (u.getDeshabilitado() == 0){%>
                 <a onclick="return confirm('Esta seguro de desea Banear al usuario')" class="btn btn-danger"
                    href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=baneo&id1=<%=u.getIdCuenta()%>">Baneo</a>
-
-                <a onclick="return confirm('Esta seguro de desea Desbanear al usuario')" class="btn btn-success"
-                   href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=desbaneo&id2=<%=u.getIdCuenta()%>">Desbaneo</a>
-
+                <%}else {%>
+                    <a onclick="return confirm('Esta seguro de desea Desbanear al usuario')" class="btn btn-success"
+                    href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=desbaneo&id2=<%=u.getIdCuenta()%>">Desbaneo</a>
+                <%}%>
                 <button type="button" class="btn btn-primary">Descargar</button>
             </td>
         </tr>

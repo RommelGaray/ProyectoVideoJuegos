@@ -8,7 +8,15 @@ public class UsuarioTabla {
     private double dineroGastado;
     private double dineroGanado;
     private double balance;
+    private int deshabilitado;
 
+    public int getDeshabilitado() {
+        return deshabilitado;
+    }
+
+    public void setDeshabilitado(int deshabilitado) {
+        this.deshabilitado = deshabilitado;
+    }
 
     public int getIdCuenta() {
         return idCuenta;

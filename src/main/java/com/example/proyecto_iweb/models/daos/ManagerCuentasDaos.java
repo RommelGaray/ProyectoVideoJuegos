@@ -90,7 +90,8 @@ public class ManagerCuentasDaos extends DaoBase{
                 "  co.juegos_comprados AS \"Juegos Comprados\",\n" +
                 "  v.juegos_vendidos AS \"Juegos Vendidos\",\n" +
                 "  co.dinero_gastado AS \"Dinero Gastado\",\n" +
-                "  v.dinero_ganado AS \"Dinero Ganado\"\n" +
+                "  v.dinero_ganado AS \"Dinero Ganado\",\n" +
+                "  c.desabilitado\n" +
                 "FROM\n" +
                 "  cuenta c\n" +
                 "LEFT JOIN (\n" +
@@ -106,7 +107,7 @@ public class ManagerCuentasDaos extends DaoBase{
                 "  GROUP BY idUsuario\n" +
                 ") v ON c.idCuenta = v.idUsuario\n" +
                 "WHERE\n" +
-                "  c.idRol = \"3\" AND c.desabilitado = \"0\"\n" +
+                "  c.idRol = \"3\"\n" +
                 "GROUP BY\n" +
                 "  c.idCuenta,\n" +
                 "  c.nombre,\n" +
@@ -127,7 +128,7 @@ public class ManagerCuentasDaos extends DaoBase{
                 usuarioTabla.setJuegosVendidos(resultSet.getInt(4));
                 usuarioTabla.setDineroGastado(resultSet.getDouble(5));
                 usuarioTabla.setDineroGanado(resultSet.getDouble(6));
-
+                usuarioTabla.setDeshabilitado(resultSet.getInt(7));
                 lista.add(usuarioTabla);
             }
 

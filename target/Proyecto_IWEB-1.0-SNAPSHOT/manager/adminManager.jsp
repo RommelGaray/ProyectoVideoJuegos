@@ -83,25 +83,25 @@
                     <th scope="col">Nombre Administrador</th>
                     <th scope="col">#Juegos Entregar/Asignados</th>
                     <th scope="col">#Juegos comprados</th>
-                    <th scope="col">$ Generado</th>
-                    <th scope="col">$ Perdido</th>
+                    <th scope="col">S/. Generado</th>
+                    <th scope="col">S/. Perdido</th>
                     <th scope="col">Opción</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for (EmpleadosTabla e : listaEmpleados) { %>
-                <tr>
-                    <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil2&id5=<%=e.getIdCuenta()%>"><%=e.getNombre()%></a> </th>
-
+                <tr <% if (e.getDineroGastado() > e.getDineroGanado()) { %> style="color: #ff0000;font-weight: bold;" <% } %>>
+                    <th scope="row"><a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil2&id5=<%=e.getIdCuenta()%>"><%=e.getNombre()%></a></th>
                     <td><%=e.getJuegosVendidos()%></td>
                     <td><%=e.getJuegosComprados()%></td>
                     <td><%=e.getDineroGanado()%></td>
-                    <td><%=e.getDineroGastado()%></td>
+                    <td>- <%=e.getDineroGastado()%></td>
                     <td>
-                        <a onclick="return confirm('Esta seguro de desea despedir a este trabajador')" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=eliminar&id4=<%=e.getIdCuenta()%>" type="button" class="btn btn-danger">Despedir</a>
+                        <a onclick="return confirm('¿Está seguro de que desea despedir a este trabajador?')" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=eliminar&id4=<%=e.getIdCuenta()%>" type="button" class="btn btn-danger">Despedir</a>
                     </td>
                 </tr>
                 <% } %>
+
                 </tbody>
 
                 <!--MODAL DE ADVERTENCIA PARA TODOS-->
