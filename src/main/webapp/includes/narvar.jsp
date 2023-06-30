@@ -478,7 +478,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center bg-warning">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="indexManagerOficial.html" class="logo d-flex align-items-center">
+      <a href="<%=request.getContextPath()%>/ManagerCuentasServlet" class="logo d-flex align-items-center">
         <img src="logo.png" alt="">
         <span class="d-none d-lg-block">JA-VAGOS</span>
       </a>
