@@ -1,5 +1,7 @@
 package com.example.proyecto_iweb.models.beans;
 
+import com.mysql.cj.jdbc.Blob;
+
 import java.io.InputStream;
 
 public class Juegos {

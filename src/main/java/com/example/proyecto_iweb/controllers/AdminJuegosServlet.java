@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @WebServlet(name = "AdminJuegosServlet", value = "/AdminJuegosServlet")
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig
 public class AdminJuegosServlet extends HttpServlet {
 
     @Override
@@ -172,18 +172,16 @@ public class AdminJuegosServlet extends HttpServlet {
                 int stock = Integer.parseInt(request.getParameter("stock"));
                 String consola = request.getParameter("consola");
                 String genero = request.getParameter("genero");
-                //Part filePart = request.getPart("foto");
-                /*inputStream = filePart.getInputStream();
+                Part filePart = request.getPart("foto");
+                inputStream = filePart.getInputStream();
 
                 if (filePart != null) {
-                    // prints out some information for debugging
                     System.out.println(filePart.getContentType());
-
-                    // obtains input stream of the upload file
                     inputStream = filePart.getInputStream();
-                }*/
-                byte[] foto = request.getParameter("foto").getBytes();
-                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, foto);
+                }
+
+                //byte[] foto = request.getParameter("foto").getBytes();
+                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
 
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
