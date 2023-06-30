@@ -24,24 +24,29 @@ public class ManagerCuentasDaos extends DaoBase{
         String sql = "SELECT\n" +
                 "  c.idCuenta,\n" +
                 "  CONCAT(c.nombre, \" \", c.apellido) AS \"Nombres\",\n" +
-                "  SUM(co.cantidad) AS \"Juegos vendidos\",\n" +
-                "  COUNT(DISTINCT v.idVenta) AS \"Juegos comprados\",\n" +
-                "  SUM(co.precioCompra) AS \"Dinero ganado\",\n" +
-                "  SUM(v.precioVenta) AS \"Dinero Gastado\",\n" +
+                "  co.cantidad AS \"Juegos vendidos\",\n" +
+                "  v.juegos_comprados AS \"Juegos comprados\",\n" +
+                "  co.precioCompra AS \"Dinero ganado\",\n" +
+                "  v.dinero_gastado AS \"Dinero Gastado\",\n" +
                 "  c.foto\n" +
                 "FROM\n" +
                 "  cuenta c\n" +
-                "LEFT JOIN ventausuario v ON c.idCuenta = v.idAdmin AND v.idEstados = \"2\"\n" +
-                "LEFT JOIN comprausuario co ON c.idCuenta = co.idAdmin AND co.idEstados = \"2\"\n" +
+                "LEFT JOIN (\n" +
+                "  SELECT idAdmin, SUM(cantidad) AS cantidad, SUM(precioCompra) AS precioCompra\n" +
+                "  FROM comprausuario\n" +
+                "  WHERE idEstados = \"7\"\n" +
+                "  GROUP BY idAdmin\n" +
+                ") co ON c.idCuenta = co.idAdmin\n" +
+                "LEFT JOIN (\n" +
+                "  SELECT idAdmin, COUNT(DISTINCT idVenta) AS juegos_comprados, SUM(precioVenta) AS dinero_gastado\n" +
+                "  FROM ventausuario\n" +
+                "  WHERE idEstados = \"2\"\n" +
+                "  GROUP BY idAdmin\n" +
+                ") v ON c.idCuenta = v.idAdmin\n" +
                 "WHERE\n" +
-                "  c.idRol = \"2\" and c.desabilitado = \"0\"\n" +
-                "GROUP BY\n" +
-                "  c.idCuenta,\n" +
-                "  c.nombre,\n" +
-                "  c.apellido,\n" +
-                "  c.foto\n" +
+                "  c.idRol = \"2\" AND c.desabilitado = \"0\"\n" +
                 "ORDER BY\n" +
-                " SUM(co.precioCompra)- SUM(v.precioVenta) desc";
+                "  co.precioCompra - v.dinero_gastado DESC;";
 
 
         String url = "jdbc:mysql://localhost:3306/mydb";
@@ -82,22 +87,32 @@ public class ManagerCuentasDaos extends DaoBase{
         String sql = "SELECT\n" +
                 "  c.idCuenta,\n" +
                 "  CONCAT(c.nombre, \" \", c.apellido) AS \"Nombres\",\n" +
-                "  SUM(co.cantidad) AS \"Juegos Comprados\",\n" +
-                "  COUNT(DISTINCT v.idVenta) AS \"Juegos Vendidos\",\n" +
-                "  SUM(co.precioCompra) AS \"Dinero Gastado\",\n" +
-                "  SUM(v.precioVenta) AS \"Dinero Ganado\"\n" +
+                "  co.juegos_comprados AS \"Juegos Comprados\",\n" +
+                "  v.juegos_vendidos AS \"Juegos Vendidos\",\n" +
+                "  co.dinero_gastado AS \"Dinero Gastado\",\n" +
+                "  v.dinero_ganado AS \"Dinero Ganado\"\n" +
                 "FROM\n" +
                 "  cuenta c\n" +
-                "LEFT JOIN ventausuario v ON c.idCuenta = v.idUsuario AND v.idEstados = \"2\"\n" +
-                "LEFT JOIN comprausuario co ON c.idCuenta = co.idUsuario AND co.idEstados = \"2\"\n" +
+                "LEFT JOIN (\n" +
+                "  SELECT idUsuario, SUM(cantidad) AS juegos_comprados, SUM(precioCompra) AS dinero_gastado\n" +
+                "  FROM comprausuario\n" +
+                "  WHERE idEstados = \"7\"\n" +
+                "  GROUP BY idUsuario\n" +
+                ") co ON c.idCuenta = co.idUsuario\n" +
+                "LEFT JOIN (\n" +
+                "  SELECT idUsuario, COUNT(DISTINCT idVenta) AS juegos_vendidos, SUM(precioVenta) AS dinero_ganado\n" +
+                "  FROM ventausuario\n" +
+                "  WHERE idEstados = \"2\"\n" +
+                "  GROUP BY idUsuario\n" +
+                ") v ON c.idCuenta = v.idUsuario\n" +
                 "WHERE\n" +
-                "  c.idRol = \"3\" and c.desabilitado = \"0\"\n" +
+                "  c.idRol = \"3\" AND c.desabilitado = \"0\"\n" +
                 "GROUP BY\n" +
                 "  c.idCuenta,\n" +
                 "  c.nombre,\n" +
                 "  c.apellido\n" +
                 "ORDER BY\n" +
-                "SUM(co.cantidad) desc";
+                "  co.juegos_comprados DESC;";
 
         String url = "jdbc:mysql://localhost:3306/mydb";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
