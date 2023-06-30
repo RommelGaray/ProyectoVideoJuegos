@@ -1,10 +1,12 @@
 package com.example.proyecto_iweb.models.daos;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 
 public class DaoImagen extends DaoBase {
     private static String sql_imagenes = "select fotoJuego from juego where idJuego=?";
-    private static String sql_imagenes_perfil = "select fotoPerfil from mydb2.usuarios where idUsuario=?";
 
     public byte[] obtenerImagenes(int id) {
         byte[] content = null;
@@ -27,6 +29,9 @@ public class DaoImagen extends DaoBase {
         }
         return content;
     }
+
+
+
 
 
     /*

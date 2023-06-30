@@ -87,7 +87,7 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
-    public void crearJuego(String nombre, String descripcion, double precio, int stock, String consola, String genero, byte[] foto){
+    public void crearJuego(String nombre, String descripcion, double precio, int stock, String consola, String genero, InputStream file){
 
         String sql = "INSERT INTO juego (nombre,descripcion,precio,descuento,stock,consola,genero,fotoJuego,existente,habilitado) VALUES (?,?,?,'0',?,?,?,?,'1','1')";
 
@@ -101,13 +101,13 @@ public class AdminJuegosDaos  extends DaoBase{
             pstmt.setString(5, consola);
             pstmt.setString(6, genero);
 
-            //pstmt.setBlob(7, file);
-            pstmt.setBytes(7, foto);
+            pstmt.setBlob(7, file);
+            //pstmt.setBytes(7, foto);
             pstmt.executeUpdate();
 
 
         } catch (SQLException e) {
-
+            throw new RuntimeException(e);
         }
 
     }

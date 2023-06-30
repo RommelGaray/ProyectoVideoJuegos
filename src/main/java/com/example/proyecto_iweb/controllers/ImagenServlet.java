@@ -4,17 +4,18 @@ import com.example.proyecto_iweb.models.daos.DaoImagen;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
+import org.apache.commons.io.IOUtils;
 
 
-import java.io.IOException;
+import java.io.*;
 
 
-@WebServlet(name = "ImagenServlet", value = "/Image")
+@WebServlet(name = "ImagenServlet", value = "/imagenServlet")
 public class ImagenServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action") == null ? "listarFotoJuego2" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "listarFotoJuego" : request.getParameter("action");
         DaoImagen imageDao = new DaoImagen();
 
         switch (action){
@@ -34,12 +35,11 @@ public class ImagenServlet extends HttpServlet {
 
                 }
                 break;
-
             /*
-            case "listarFotoJuego2":
-                int id = Integer.parseInt(request.getParameter("id"));
+            case "listarFotoJuego"->{
+                int id_usuario = Integer.parseInt(request.getParameter("id"));
                 byte[] content = null;
-                content = imageDao.obtenerImagenes(id);
+                content = imageDao.obtenerimagenes_perfil(id_usuario);
                 if (content.length == 1 && content[0] == 0) {
                     System.out.println("Algo falló al nivel de SQL/DB");
                 } else if (content.length == 1 && content[0] == 1) {
@@ -48,10 +48,38 @@ public class ImagenServlet extends HttpServlet {
                     response.setContentType("image/gif");
                     response.setContentLength(content.length);
                     response.getOutputStream().write(content);
+                }
+            }
+
+            /*
+            case "listarFotoJuego":
+                response.setContentType("image/jpeg");
+                response.setContentType("image/png");
+                int id = Integer.parseInt(request.getParameter("id"));
+                System.out.println(id);
+                try{
+                    System.out.println("En el try uwu");
+                    byte [] data = imageDao.obtenerImagenes(id);
+                    System.out.println(" Se debio obtener la imagen");
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    outputStream.write(data,0, data.length);
+                    response.setContentLength(outputStream.size());
+                    try(OutputStream out = response.getOutputStream()){
+                        outputStream.writeTo(out);
+                        System.out.println("Listo para salir la imagen");
+                        out.flush();
+
+                    }
+                }
+                catch(IOException e){
+                    System.out.println("Error :'v");
 
                 }
-                break;
 
+
+                //IOUtils.copy(is,response.getOutputStream());
+
+                break;
 
 
             /*
