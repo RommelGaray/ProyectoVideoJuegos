@@ -3,6 +3,7 @@ package com.example.proyecto_iweb.models.daos;
 import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.dtos.EmpleadosTabla;
 import com.example.proyecto_iweb.models.dtos.UsuarioTabla;
+import com.example.proyecto_iweb.models.dtos.historialAdmin;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -138,6 +139,36 @@ public class ManagerCuentasDaos extends DaoBase{
 
         return lista;
     }
+
+    /* -----------dto : historial Admin -------*/
+    public ArrayList<historialAdmin> tablaHistorial(String id ){
+        ArrayList<historialAdmin> lista = new ArrayList<>();
+
+        String sql = "select j. nombre, ve.precioVenta as \"Precio pagado\", j.precio as \"Precio de venta\" from ventausuario ve\n" +
+                "inner join juego j on j.idJuego = ve.idJuego and ve.idEstados = 2\n" +
+                "where ve.idAdmin = ?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    historialAdmin historialAdmin = new historialAdmin();
+                    historialAdmin.setNombreJuego(rs.getString(1));
+                    historialAdmin.setPrecioPagado(rs.getInt(2));
+                    historialAdmin.setPrecioDeVenta(rs.getInt(3));
+                    lista.add(historialAdmin);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
+    }
+
     /* ----------------------------------------------------------- */
 
     public UsuarioTabla ListarRegistro(String id){

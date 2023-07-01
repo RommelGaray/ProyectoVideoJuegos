@@ -7,6 +7,7 @@
 
 <jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <jsp:useBean id="listarRegistro" scope="request" type="com.example.proyecto_iweb.models.dtos.UsuarioTabla"/>
+<jsp:useBean id="historial" scope="request" type="com.example.proyecto_iweb.models.dtos.historialAdmin"/>
 <html lang="en">
 
 <head>
@@ -147,7 +148,7 @@
           </table>
         </div>
 
-
+        <% if (cuentas.getIdRol() == 3) { %>
         <div class="row">
           <h5 class="text-center">Ubicación</h5>
           <iframe
@@ -156,6 +157,28 @@
                   referrerpolicy="no-referrer-when-downgrade"></iframe>
           <br>
         </div>
+        <% } else { %>
+        <div class="align-items-center justify-content-center">
+          <div class="col-lg-2"></div>
+          <table class="table col-lg-8">
+            <thead>
+            <tr>
+              <th scope="col">Nombre Juego</th>
+              <th scope="col">Precio Comprado</th>
+              <th scope="col">Precio de Venta</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for (EmpleadosTabla e : listaEmpleados) { %>
+            <tr>
+              <td><%=e.getJuegosVendidos()%></td>
+              <td><%=e.getJuegosComprados()%></td>
+              <td><%=e.getDineroGanado()%></td>
+            </tr>
+            <% } %>
+
+            </tbody>
+        <% } %>
         <br>
       </div>
 

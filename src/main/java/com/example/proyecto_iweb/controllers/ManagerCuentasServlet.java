@@ -40,6 +40,7 @@ public class ManagerCuentasServlet extends HttpServlet {
                 String id5 = request.getParameter("id5");
                 request.setAttribute("cuentas", usuarioDao.listar(id5));
                 request.setAttribute("listarRegistro", usuarioDao.ListarRegistro(id5));
+                request.setAttribute("historial",usuarioDao.tablaHistorial(id5));
                 request.getRequestDispatcher("manager/perfilAdminManager.jsp").forward(request, response);
                 break;
 
