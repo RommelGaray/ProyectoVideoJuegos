@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "InitialServlet",  urlPatterns = {"/index"})
+@WebServlet(name = "InitialServlet",  urlPatterns = {"/",""})
 public class InitialServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class InitialServlet extends HttpServlet {
                 request.setAttribute("lista", usuarioJuegosDaos.listarJuegos());
                 //request.setAttribute("perfil", cuentasDaos.perfil());
                 // request.setAttribute("lista4",usuarioJuegosDaos.listarNotificaciones());
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp");
                 requestDispatcher.forward(request, response);
                 break;
         }

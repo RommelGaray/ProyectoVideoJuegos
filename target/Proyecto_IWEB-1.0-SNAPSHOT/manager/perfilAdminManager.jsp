@@ -8,10 +8,14 @@
 
 <jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <jsp:useBean id="listarRegistro" scope="request" type="com.example.proyecto_iweb.models.dtos.UsuarioTabla"/>
+<<<<<<< HEAD
 
 <% ArrayList<HistorialAdmin> historial = (ArrayList<HistorialAdmin>) request.getAttribute("historial");
 %>
 
+=======
+<jsp:useBean id="historial" scope="request" type="com.example.proyecto_iweb.models.dtos.historialAdmin"/>
+>>>>>>> c7acee934814654ee30b741d8035115f8470339e
 <html lang="en">
 
 <head>
