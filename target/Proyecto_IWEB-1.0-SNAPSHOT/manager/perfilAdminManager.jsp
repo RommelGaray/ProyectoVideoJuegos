@@ -1,5 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.HistorialAdmin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
@@ -7,6 +8,10 @@
 
 <jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <jsp:useBean id="listarRegistro" scope="request" type="com.example.proyecto_iweb.models.dtos.UsuarioTabla"/>
+
+<% ArrayList<HistorialAdmin> historial = (ArrayList<HistorialAdmin>) request.getAttribute("historial");
+%>
+
 <html lang="en">
 
 <head>
@@ -79,7 +84,7 @@
             <tbody>
             <tr>
               <td>Nombre Completo </td>
-              <td><%=cuentas.getNombre() + " " + cuentas.getNombre() %></td>
+              <td><%=cuentas.getNombre() + " " + cuentas.getApellido() %></td>
             </tr>
             <tr>
               <td>nickname</td>
@@ -158,7 +163,7 @@
         </div>
         <% } else { %>
         <div class="align-items-center justify-content-center">
-          <div class="col-lg-2"></div>
+          <div class="col-lg-4"></div>
           <table class="table col-lg-8">
             <thead>
             <tr>
@@ -168,15 +173,14 @@
             </tr>
             </thead>
             <tbody>
-            <% for (EmpleadosTabla e : listaEmpleados) { %>
+            <% for (HistorialAdmin e : historial) { %>
             <tr>
-              <td><%=e.getJuegosVendidos()%></td>
-              <td><%=e.getJuegosComprados()%></td>
-              <td><%=e.getDineroGanado()%></td>
+              <td><%=e.getNombreJuego()%></td>
+              <td><%=e.getPrecioPagado()%></td>
+              <td><%=e.getPrecioDeVenta()%></td>
             </tr>
             <% } %>
-
-            </tbody>
+            </tbody></table>
         <% } %>
         <br>
       </div>

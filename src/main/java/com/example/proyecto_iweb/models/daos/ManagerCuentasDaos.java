@@ -3,7 +3,7 @@ package com.example.proyecto_iweb.models.daos;
 import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.dtos.EmpleadosTabla;
 import com.example.proyecto_iweb.models.dtos.UsuarioTabla;
-import com.example.proyecto_iweb.models.dtos.historialAdmin;
+import com.example.proyecto_iweb.models.dtos.HistorialAdmin;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -141,8 +141,8 @@ public class ManagerCuentasDaos extends DaoBase{
     }
 
     /* -----------dto : historial Admin -------*/
-    public ArrayList<historialAdmin> tablaHistorial(String id ){
-        ArrayList<historialAdmin> lista = new ArrayList<>();
+    public ArrayList<HistorialAdmin> tablaHistorial(String id){
+        ArrayList<HistorialAdmin> lista = new ArrayList<>();
 
         String sql = "select j. nombre, ve.precioVenta as \"Precio pagado\", j.precio as \"Precio de venta\" from ventausuario ve\n" +
                 "inner join juego j on j.idJuego = ve.idJuego and ve.idEstados = 2\n" +
@@ -154,8 +154,8 @@ public class ManagerCuentasDaos extends DaoBase{
             pstmt.setString(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    historialAdmin historialAdmin = new historialAdmin();
+                while (rs.next()) {
+                    HistorialAdmin historialAdmin = new HistorialAdmin();
                     historialAdmin.setNombreJuego(rs.getString(1));
                     historialAdmin.setPrecioPagado(rs.getInt(2));
                     historialAdmin.setPrecioDeVenta(rs.getInt(3));
