@@ -7,6 +7,7 @@
 
 <jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <jsp:useBean id="listarRegistro" scope="request" type="com.example.proyecto_iweb.models.dtos.UsuarioTabla"/>
+<jsp:useBean id="historial" scope="request" type="com.example.proyecto_iweb.models.dtos.historialAdmin"/>
 <html lang="en">
 
 <head>

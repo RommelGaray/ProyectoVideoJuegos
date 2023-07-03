@@ -44,15 +44,9 @@ public class UsuarioCuentasDaos extends DaoBase{
     }
 
     public void actualizar(Cuentas cuentas) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "UPDATE cuenta SET descripcion = ?,direccion = ?,correo = ? WHERE idCuenta = ?";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, cuentas.getDescripcion());
@@ -168,15 +162,11 @@ public class UsuarioCuentasDaos extends DaoBase{
     }
 
     public void actualizarFoto1(int idUsuario) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
+
+
         String sql = "update cuenta set foto = 'img/usuario/pokemon1.png' where idCuenta = ?;";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, idUsuario);
@@ -187,16 +177,11 @@ public class UsuarioCuentasDaos extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
     public void actualizarFoto2(int idUsuario) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "update cuenta set foto = 'img/usuario/pokemon2.png' where idCuenta = ?;";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, idUsuario);
@@ -207,16 +192,11 @@ public class UsuarioCuentasDaos extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
     public void actualizarFoto3(int idUsuario) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "update cuenta set foto = 'img/usuario/pokemon3.png' where idCuenta = ?;";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, idUsuario);
@@ -227,16 +207,11 @@ public class UsuarioCuentasDaos extends DaoBase{
             throw new RuntimeException(e);
         }
     }
-    public void actualizarFoto4(int idUsuario) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
+    public void actualizarFoto4(int idUsuario) {
+
         String sql = "update cuenta set foto = 'img/usuario/pokemon4.png' where idCuenta = ?;";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, idUsuario);
