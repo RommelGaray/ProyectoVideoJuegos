@@ -1,6 +1,6 @@
 package com.example.proyecto_iweb.models.dtos;
 
-public class HistorialAdmin {
+public class historialAdmin {
 
     private String nombreJuego;
     private double precioPagado;
