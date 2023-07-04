@@ -25,7 +25,7 @@
       display: inline-block;
       width: 110px;
       height: 110px;
-      background-image: url('img/usuario/pokemon1.png');
+      background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/10f13510774061.560eadfde5b61.png');
       background-size: cover;
       text-indent: -9999px;
     }
@@ -35,7 +35,7 @@
       display: inline-block;
       width: 110px;
       height: 110px;
-      background-image: url('img/usuario/pokemon2.png');
+      background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/04492c10774061.560eac09c8845.png');
       background-size: cover;
       text-indent: -9999px;
     }
@@ -45,7 +45,7 @@
       display: inline-block;
       width: 110px;
       height: 110px;
-      background-image: url('img/usuario/pokemon3.png');
+      background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/200f2910774061.560eac1cd606c.png');
       background-size: cover;
       text-indent: -9999px;
     }
@@ -55,7 +55,7 @@
       display: inline-block;
       width: 110px;
       height: 110px;
-      background-image: url('img/usuario/pokemon4.png');
+      background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8176fd10774061.560eac094d534.png');
       background-size: cover;
       text-indent: -9999px;
     }
@@ -204,7 +204,7 @@
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Country</div>
-                  <div class="col-lg-9 col-md-8">Peru</div>
+                  <div class="col-lg-9 col-md-8">Perú</div>
                 </div>
 
                 <div class="row">
@@ -242,7 +242,7 @@
                   <div class="row mb-3">
                     <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="country" type="text" class="form-control" id="Country" value="PERU" disabled>
+                      <input name="country" type="text" class="form-control" id="Country" value="Perú" disabled>
                     </div>
                   </div>
 

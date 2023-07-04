@@ -1,4 +1,4 @@
-/*package com.example.proyecto_iweb.controllers;
+package com.example.proyecto_iweb.controllers;
 
 import com.example.proyecto_iweb.models.daos.UsuarioJuegosDaos;
 import jakarta.servlet.RequestDispatcher;
@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "InitialServlet",  urlPatterns = {"/",""})
+@WebServlet(name = "InitialServlet",  urlPatterns = {""})
 public class InitialServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class InitialServlet extends HttpServlet {
                 request.setAttribute("lista", usuarioJuegosDaos.listarJuegos());
                 //request.setAttribute("perfil", cuentasDaos.perfil());
                 // request.setAttribute("lista4",usuarioJuegosDaos.listarNotificaciones());
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
                 requestDispatcher.forward(request, response);
                 break;
         }
@@ -32,4 +32,4 @@ public class InitialServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
-}*/
+}
