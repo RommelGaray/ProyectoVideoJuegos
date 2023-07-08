@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
-<%@ page import="com.example.proyecto_iweb.models.dtos.historialAdmin" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.HistorialAdmin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
@@ -9,7 +9,7 @@
 <jsp:useBean id="cuentas" scope="request" type="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <jsp:useBean id="listarRegistro" scope="request" type="com.example.proyecto_iweb.models.dtos.UsuarioTabla"/>
 
-<% ArrayList<historialAdmin> historial = (ArrayList<historialAdmin>) request.getAttribute("historial");
+<% ArrayList<HistorialAdmin> historial = (ArrayList<HistorialAdmin>) request.getAttribute("historial");
 %>
 
 <html lang="en">
@@ -173,7 +173,7 @@
             </tr>
             </thead>
             <tbody>
-            <% for (historialAdmin e : historial) { %>
+            <% for (HistorialAdmin e : historial) { %>
             <tr>
               <td><%=e.getNombreJuego()%></td>
               <td><%=e.getPrecioPagado()%></td>
