@@ -64,7 +64,7 @@ public class ManagerJuegosServlet extends HttpServlet {
         switch (action){
             case "b":
                 String textoBuscar = request.getParameter("buscador");
-                request.setAttribute("lista", juegosDaos.buscarPorTitle(textoBuscar));
+                request.setAttribute("listaManager", juegosDaos.buscarPorTitle(textoBuscar));
                 request.getRequestDispatcher("manager/juegosManager.jsp").forward(request, response);
                 break;
         }

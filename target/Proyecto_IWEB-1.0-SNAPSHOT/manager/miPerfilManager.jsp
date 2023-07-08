@@ -65,7 +65,7 @@
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img src="img/usuario/usuario1.webp" alt="Profile" class="rounded-circle">
+            <img src="<%=usuarioLog.getFoto()%>" alt="Profile" class="rounded-circle">
 
             <h2><%=cuentas.getNombre()%></h2>
             <h3>Manager</h3>
@@ -196,13 +196,6 @@
               <!-- Cambio de contrasenia -->
               <div class="tab-pane fade pt-3" id="profile-change-password">
                 <form>
-                  <div class="row mb-3">
-                    <label for="password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="password" type="password" class="form-control" id="password" value="<%=cuentas.getPasswordHashed()%>">
-                    </div>
-                  </div>
-
                   <div class="row mb-3">
                     <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                     <div class="col-md-8 col-lg-9">

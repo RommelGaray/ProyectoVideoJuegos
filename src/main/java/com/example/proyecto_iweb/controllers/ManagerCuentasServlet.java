@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -24,6 +25,10 @@ public class ManagerCuentasServlet extends HttpServlet {
         ManagerCuentasDaos usuarioDao = new ManagerCuentasDaos();
         EnvioCorreos envioCorreos = new EnvioCorreos();
 
+        HttpSession session = request.getSession();
+        Cuentas cuentaslog = (Cuentas) session.getAttribute("usuarioLog");
+        RequestDispatcher view;
+
         String action = request.getParameter("a") == null ? "ListaUsuarios" : request.getParameter("a");
 
 
@@ -31,14 +36,13 @@ public class ManagerCuentasServlet extends HttpServlet {
         switch (action){
 
             case "perfil":
-                String id = request.getParameter("id");
-                request.setAttribute("cuentas", usuarioDao.listar(id));
+                request.setAttribute("cuentas", usuarioDao.listar(cuentaslog.getIdCuentas()));
                 request.getRequestDispatcher("manager/miPerfilManager.jsp").forward(request, response);
                 break;
 
             case "perfil2":
                 String id5 = request.getParameter("id5");
-                request.setAttribute("cuentas", usuarioDao.listar(id5));
+                request.setAttribute("cuentas", usuarioDao.listar(Integer.parseInt(id5)));
                 request.setAttribute("listarRegistro", usuarioDao.ListarRegistro(id5));
                 request.setAttribute("historial",usuarioDao.tablaHistorial(id5));
                 request.getRequestDispatcher("manager/perfilAdminManager.jsp").forward(request, response);

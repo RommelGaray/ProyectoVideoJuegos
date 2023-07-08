@@ -40,34 +40,28 @@ public class ManagerJuegosDaos extends DaoBase{
     public ArrayList<Juegos> buscarPorTitle(String title) {
         ArrayList<Juegos> lista = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         String sql = "select * from juego where nombre like ?";
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setString(1, "%" + title + "%");
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-                while (rs.next()) {
+                while (resultSet.next()) {
                     Juegos juegos = new Juegos();
-                    juegos.setIdJuegos(rs.getInt(1));
-                    juegos.setNombre(rs.getString(2));
-                    juegos.setDescripcion(rs.getString(3));
-                    juegos.setPrecio(rs.getDouble(4));
-                    juegos.setDescuento(rs.getDouble(5));
-                    juegos.setStock(rs.getInt(11));
-                    juegos.setFoto(rs.getString(6));
-                    juegos.setExistente(rs.getBoolean(7));
-                    juegos.setHabilitado(rs.getBoolean(8));
-                    juegos.setConsola(rs.getString(9));
-                    juegos.setConsola(rs.getString(10));
+                    juegos.setIdJuegos(resultSet.getInt(1));
+                    juegos.setNombre(resultSet.getString(2));
+                    juegos.setDescripcion(resultSet.getString(3));
+                    juegos.setPrecio(resultSet.getDouble(4));
+                    juegos.setDescuento(resultSet.getDouble(5));
+                    juegos.setStock(resultSet.getInt(11));
+                    juegos.setFoto(resultSet.getString(6));
+                    juegos.setExistente(resultSet.getBoolean(7));
+                    juegos.setHabilitado(resultSet.getBoolean(8));
+                    juegos.setConsola(resultSet.getString(9));
+                    juegos.setGenero(resultSet.getString(10));
                     lista.add(juegos);
                 }
             }

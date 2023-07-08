@@ -55,7 +55,7 @@
       <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
       <div class="col-lg-12">
         <div class="col-lg-12 d-flex justify-content-end mb-4">
-          <a type="button" class="btn btn-warning me-4" href="<%=request.getContextPath()%>">Regresar</a>
+          <a type="button" class="btn btn-warning me-4" href="<%=request.getContextPath()%>/ManagerJuegosServlet">Regresar</a>
           <a type="button" class="btn btn-warning me-4" href="<%=request.getContextPath()%>/ManagerJuegosServlet?a=top5">TOP 5</a>
           <a type="button" class="btn btn-warning" href="<%=request.getContextPath()%>/ManagerJuegosServlet?a=menos">Menos vendidos</a>
         </div>
