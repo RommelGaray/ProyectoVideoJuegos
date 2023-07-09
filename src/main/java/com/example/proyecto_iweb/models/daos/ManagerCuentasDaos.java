@@ -322,4 +322,86 @@ public class ManagerCuentasDaos extends DaoBase{
 
         return cuentas;
     }
+//------------- actualizar las fotos -----------------------
+    public void actualizarFoto1(int idUsuario) {
+
+
+        String sql = "update cuenta set foto = 'img/usuario/pokemon1.png' where idCuenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actualizarFoto2(int idUsuario) {
+
+        String sql = "update cuenta set foto = 'img/usuario/pokemon2.png' where idCuenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actualizarFoto3(int idUsuario) {
+
+        String sql = "update cuenta set foto = 'img/usuario/pokemon3.png' where idCuenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actualizarFoto4(int idUsuario) {
+
+        String sql = "update cuenta set foto = 'img/usuario/pokemon4.png' where idCuenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //-------------------------------------------------------
+
+    //------------- actualizar los datos-----------------------
+    public void actualizar(Cuentas cuentas) {
+
+        String sql = "UPDATE cuenta SET descripcion = ?,direccion = ?,correo = ? WHERE idCuenta = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, cuentas.getDescripcion());
+            pstmt.setString(2, cuentas.getDireccion());
+            pstmt.setString(3,cuentas.getCorreo());
+            //pstmt.setString(4,cuentas.getPasswordHashed());
+            pstmt.setInt(4, cuentas.getIdCuentas());
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

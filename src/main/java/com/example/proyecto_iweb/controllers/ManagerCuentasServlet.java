@@ -3,6 +3,7 @@ package com.example.proyecto_iweb.controllers;
 import com.example.proyecto_iweb.models.daos.EnvioCorreos;
 import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.daos.ManagerCuentasDaos;
+import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "ManagerCuentasServlet", value = "/ManagerCuentasServlet")
 public class ManagerCuentasServlet extends HttpServlet {
@@ -34,12 +36,12 @@ public class ManagerCuentasServlet extends HttpServlet {
 
 
         switch (action){
-
+            // ver mi perfil -----------------------------------------------------------------------
             case "perfil":
                 request.setAttribute("cuentas", usuarioDao.listar(cuentaslog.getIdCuentas()));
                 request.getRequestDispatcher("manager/miPerfilManager.jsp").forward(request, response);
                 break;
-
+            // ver perfil de los usuarios y administradores ----------------------------------------
             case "perfil2":
                 String id5 = request.getParameter("id5");
                 request.setAttribute("cuentas", usuarioDao.listar(Integer.parseInt(id5)));
@@ -47,6 +49,32 @@ public class ManagerCuentasServlet extends HttpServlet {
                 request.setAttribute("historial",usuarioDao.tablaHistorial(id5));
                 request.getRequestDispatcher("manager/perfilAdminManager.jsp").forward(request, response);
                 break;
+
+
+            // actualizar la oto del perfil -------------------------------------------------------
+            case"actualizarFoto1":
+                usuarioDao.actualizarFoto1(cuentaslog.getIdCuentas());
+                session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el a cambio");
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil" );
+                break;
+
+            case"actualizarFoto2":
+                usuarioDao.actualizarFoto2(cuentaslog.getIdCuentas());
+                session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil" );
+                break;
+            case"actualizarFoto3":
+                usuarioDao.actualizarFoto3(cuentaslog.getIdCuentas());
+                session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil" );
+                break;
+            case"actualizarFoto4":
+                usuarioDao.actualizarFoto4(cuentaslog.getIdCuentas());
+                session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil" );
+                break;
+
+            // --------------------------------------------------------------------------------------------------
 
             case "ListaUsuarios":
                 request.setAttribute("listaUsuarios",usuarioDao.listarUsuariosTabla());
@@ -107,6 +135,53 @@ public class ManagerCuentasServlet extends HttpServlet {
 
 
         }
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String action = request.getParameter("p") == null ? "guardar" : request.getParameter("p");
+
+        ManagerCuentasDaos usuarioDao = new ManagerCuentasDaos();
+
+        switch (action) {
+            case "a":
+                Cuentas cuentas = parseCuentas(request);
+                usuarioDao.actualizar(cuentas);
+                HttpSession session1 = request.getSession();
+                //Cuentas cuentas2 = (Cuentas) session1.getAttribute("usuarioLog");
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil");
+                break;
+
+        }
+
+
+    }
+
+    public Cuentas parseCuentas(HttpServletRequest request)  {
+
+        Cuentas cuentas = new Cuentas();
+        String idCuentas = request.getParameter("idCuentas") != null ? request.getParameter("idCuentas") : "";
+        String descripcion = request.getParameter("descripcion");
+        String direcion = request.getParameter("direccion");
+        String correo = request.getParameter("correo");
+
+        try {
+
+            int id = Integer.parseInt(idCuentas);
+
+            cuentas.setIdCuentas(id);
+            cuentas.setDescripcion(descripcion);
+            cuentas.setDireccion(direcion);
+            cuentas.setCorreo(correo);
+
+            return cuentas;
+
+        } catch (NumberFormatException e) {
+
+        }
+        return cuentas;
     }
 
 }

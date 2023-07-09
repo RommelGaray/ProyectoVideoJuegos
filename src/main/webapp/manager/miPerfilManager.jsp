@@ -18,6 +18,51 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>JA-VAGOS</title>
+
+  <style>
+    .mi-enlace1 {
+      display: inline-block;
+      width: 110px;
+      height: 110px;
+      background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/10f13510774061.560eadfde5b61.png');
+      background-size: cover;
+      text-indent: -9999px;
+    }
+
+
+    .mi-enlace2 {
+      display: inline-block;
+      width: 110px;
+      height: 110px;
+      background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/04492c10774061.560eac09c8845.png');
+      background-size: cover;
+      text-indent: -9999px;
+    }
+
+
+    .mi-enlace3 {
+      display: inline-block;
+      width: 110px;
+      height: 110px;
+      background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/200f2910774061.560eac1cd606c.png');
+      background-size: cover;
+      text-indent: -9999px;
+    }
+
+
+    .mi-enlace4 {
+      display: inline-block;
+      width: 110px;
+      height: 110px;
+      background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8176fd10774061.560eac094d534.png');
+      background-size: cover;
+      text-indent: -9999px;
+    }
+  </style>
+
+
+
+
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link rel="icon" href="pestania.png">
@@ -72,17 +117,38 @@
 
           </div>
 
-          <div class="col-md-11">
-            <div class="mb-3">
-              <label for="formFile" class="form-label"></label>
-              <input class="form-control" type="file" id="formFile">
+          <div class="pt-2 d-flex justify-content-center align-items-center">
+            <a href="" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Distintos Avatares</a>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Que avatar deseas escoger</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body ">
+                    <div class="form-floating">
+
+
+
+                      <a onclick="return confirm('¿ Estas seguro de cambiar tu foto de perfil ?')" class="mi-enlace1" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=actualizarFoto1"></a>
+                      <a onclick="return confirm('¿ Estas seguro de cambiar tu foto de perfil ?')" class="mi-enlace2" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=actualizarFoto2"></a>
+                      <a onclick="return confirm('¿ Estas seguro de cambiar tu foto de perfil ?')" class="mi-enlace3" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=actualizarFoto3"></a>
+                      <a onclick="return confirm('¿ Estas seguro de cambiar tu foto de perfil ?')" class="mi-enlace4" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=actualizarFoto4"></a>
+
+
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Regresar</button>
+                    <!-- <a href="" class="btn btn-dark">Modificar Precio</a>-->
+                    <!--<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar Precio</button> -->
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div class="pt-2 d-flex justify-content-center align-items-center">
-            <a href="#" class="btn btn-primary btn-sm m-2" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-            <a href="#" class="btn btn-danger btn-sm m-2" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-          </div>
+          <br>
         </div>
       </div>
 
@@ -145,7 +211,7 @@
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                 <!-- Profile Edit Form -->
-                <form  method="POST" action="<%=request.getContextPath()%>/UsuariosCuentasServlet?p=a">
+                <form  method="POST" action="<%=request.getContextPath()%>/ManagerCuentasServlet?p=a">
                   <input type="hidden" class="form-control" name="idCuentas" id="idCuentas"
                          value="<%=cuentas.getIdCuentas()%>">
                   <div class="row mb-3">
