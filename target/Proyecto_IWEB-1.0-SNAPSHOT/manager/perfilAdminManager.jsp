@@ -189,7 +189,11 @@
 
   </div>
   <br>
-  <a href="<%=request.getContextPath()%>" class="btn btn-danger">Regresar</a>
+      <% if (cuentas.getIdRol() == 3) { %>
+      <a href="<%=request.getContextPath()%>/ManagerCuentasServlet" class="btn btn-danger">Regresar</a>
+      <% } else { %>
+      <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=ListaEmpleados" class="btn btn-danger">Regresar</a>
+      <% } %>
 </main>
 
 <br><br><br>

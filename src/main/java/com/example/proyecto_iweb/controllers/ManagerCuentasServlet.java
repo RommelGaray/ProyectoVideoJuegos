@@ -150,7 +150,6 @@ public class ManagerCuentasServlet extends HttpServlet {
                 Cuentas cuentas = parseCuentas(request);
                 usuarioDao.actualizar(cuentas);
                 HttpSession session1 = request.getSession();
-                //Cuentas cuentas2 = (Cuentas) session1.getAttribute("usuarioLog");
                 response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil");
                 break;
 
