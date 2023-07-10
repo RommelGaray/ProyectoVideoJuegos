@@ -175,24 +175,24 @@ public class ManagerCuentasDaos extends DaoBase{
         UsuarioTabla usuarioTabla = null ;
 
         String sql = "SELECT\n" +
-                "  c.idCuenta,\n" +
-                "  CONCAT(c.nombre, \" \", c.apellido) AS \"Nombres\",\n" +
-                "  SUM(co.cantidad) AS \"Juegos vendidos\",\n" +
-                "  COUNT(DISTINCT v.idVenta) AS \"Juegos comprados\",\n" +
-                "  SUM(co.precioCompra) AS \"Dinero ganado\",\n" +
-                "  SUM(v.precioVenta) AS \"Dinero Gastado\",\n" +
-                "  c.foto\n" +
+                "    c.idCuenta,\n" +
+                "    CONCAT(c.nombre, \" \", c.apellido) AS \"Nombres\",\n" +
+                "    SUM(DISTINCT co.cantidad) AS \"Juegos vendidos\",\n" +
+                "    COUNT(DISTINCT v.idVenta) AS \"Juegos comprados\",\n" +
+                "    SUM(DISTINCT co.precioCompra) AS \"Dinero ganado\",\n" +
+                "    SUM(v.precioVenta) AS \"Dinero Gastado\",\n" +
+                "    c.foto\n" +
                 "FROM\n" +
-                "  cuenta c\n" +
-                "LEFT JOIN ventausuario v ON c.idCuenta = v.idAdmin AND v.idEstados = \"2\"\n" +
-                "LEFT JOIN comprausuario co ON c.idCuenta = co.idAdmin AND co.idEstados = \"2\"\n" +
+                "    cuenta c\n" +
+                "    LEFT JOIN ventausuario v ON (c.idCuenta = v.idAdmin OR c.idCuenta = v.idUsuario) AND v.idEstados = \"2\"\n" +
+                "    LEFT JOIN comprausuario co ON (c.idCuenta = co.idAdmin OR c.idCuenta = co.idUsuario) AND co.idEstados = \"7\"\n" +
                 "WHERE\n" +
-                "  c.idCuenta = ?\n" +
+                "    c.idCuenta = ?\n" +
                 "GROUP BY\n" +
-                "  c.idCuenta,\n" +
-                "  c.nombre,\n" +
-                "  c.apellido,\n" +
-                "  c.foto";
+                "    c.idCuenta,\n" +
+                "    c.nombre,\n" +
+                "    c.apellido,\n" +
+                "    c.foto;";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -187,18 +187,18 @@
                 <h5 class="card-title">Detalles del perfil</h5>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                  <div class="col-lg-3 col-md-4 label ">Nombre Completo</div>
                   <div class="col-lg-9 col-md-8"><%=cuentas.getNombre()%>  <%=cuentas.getApellido()%></div>
                 </div>
 
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Country</div>
+                  <div class="col-lg-3 col-md-4 label">Pais</div>
                   <div class="col-lg-9 col-md-8">Peru</div>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Address</div>
+                  <div class="col-lg-3 col-md-4 label">Direccion</div>
                   <div class="col-lg-9 col-md-8"><%=cuentas.getDireccion()%></div>
                 </div>
 
@@ -215,7 +215,7 @@
                   <input type="hidden" class="form-control" name="idCuentas" id="idCuentas"
                          value="<%=cuentas.getIdCuentas()%>">
                   <div class="row mb-3">
-                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nombre Completo</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="fullName" type="text" class="form-control" id="fullName" value="<%=cuentas.getNombre()%> <%=cuentas.getApellido()%>" disabled>
                     </div>
@@ -230,14 +230,14 @@
 
 
                   <div class="row mb-3">
-                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Pais</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="country" type="text" class="form-control" id="Country" value="PERU" disabled>
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="direccion" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                    <label for="direccion" class="col-md-4 col-lg-3 col-form-label">Direccion</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="direccion" type="text" class="form-control" id="direccion" value="<%=cuentas.getDireccion()%>">
                     </div>
@@ -263,21 +263,21 @@
               <div class="tab-pane fade pt-3" id="profile-change-password">
                 <form>
                   <div class="row mb-3">
-                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nueva Contraseña</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="newpassword" type="password" class="form-control" id="newPassword">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Repetir Nueva Contraseña</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="renewpassword" type="password" class="form-control" id="renewPassword">
                     </div>
                   </div>
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Change Password</button>
+                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
                   </div>
                 </form><!-- End Change Password Form -->
 

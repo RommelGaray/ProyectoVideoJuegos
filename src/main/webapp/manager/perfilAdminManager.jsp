@@ -117,7 +117,7 @@
             </thead>
             <tbody>
             <tr>
-              <% if (cuentas.getIdRol() == 2) { %>
+              <% if (cuentas.getIdRol() == 3) { %>
               <td>Cant. juegos comprados</td>
               <% } else { %>
               <td>Cant. juegos Vendidos</td>
@@ -125,7 +125,7 @@
               <td><%=listarRegistro.getJuegosVendidos()%></td>
             </tr>
             <tr>
-              <% if (cuentas.getIdRol() == 2) { %>
+              <% if (cuentas.getIdRol() == 3) { %>
               <td>Cant. juegos Vendidos</td>
               <% } else { %>
               <td>Cant. juegos comprados</td>
@@ -133,7 +133,7 @@
               <td><%=listarRegistro.getJuegosComprados()%></td>
             </tr>
             <tr>
-              <% if (cuentas.getIdRol() == 2) { %>
+              <% if (cuentas.getIdRol() == 3) { %>
               <td>Dinero Ganado</td>
               <% } else { %>
               <td>Dinero gastado</td>
@@ -141,7 +141,7 @@
               <td>S/. <%=listarRegistro.getDineroGastado()%></td>
             </tr>
             <tr>
-              <% if (cuentas.getIdRol() == 2) { %>
+              <% if (cuentas.getIdRol() == 3) { %>
               <td>Dinero Gastado</td>
               <% } else { %>
               <td>Dinero Ganado</td>
