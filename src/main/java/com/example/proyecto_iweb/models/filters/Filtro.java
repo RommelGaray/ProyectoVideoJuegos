@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-/* Este filtro sirve para manager , para que no puedan ingresar a los servlets si no estan logeados con una cuenta manager*/
+/* TODO: Este filtro sirve para manager , para que no puedan ingresar a los servlets si no estan logeados con una cuenta manager*/
 @WebFilter(filterName = "Filtro",
         servletNames = {"ManagerCuentasServlet", "ManagerJuegosServlet"})
 public class Filtro implements Filter {
@@ -37,5 +37,6 @@ public class Filtro implements Filter {
             }
         }
     }
-
 }
+
+// TODO: no tocar mi filtro de arriba
