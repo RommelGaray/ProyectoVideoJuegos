@@ -54,7 +54,7 @@ public class ManagerJuegosServlet extends HttpServlet {
 
     }
 
-   // @Override
+   @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");

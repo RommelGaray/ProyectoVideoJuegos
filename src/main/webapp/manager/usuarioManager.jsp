@@ -54,6 +54,14 @@
         <br>
     </div><!-- End Page Title -->
 
+    <div class="search-bar mt-3">
+        <form class="search-form d-flex align-items-center" method="post" action="<%=request.getContextPath()%>/ManagerCuentasServlet?p=b1">
+            <input type="text" name="buscador" placeholder="Search" title="Enter search keyword" value="${param.buscador}">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+
+
     <table class="table">
         <thead>
         <tr>

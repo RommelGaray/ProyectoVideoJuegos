@@ -13,7 +13,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.System.out;
 
 @WebServlet(name = "ManagerCuentasServlet", value = "/ManagerCuentasServlet")
 public class ManagerCuentasServlet extends HttpServlet {
@@ -148,9 +152,37 @@ public class ManagerCuentasServlet extends HttpServlet {
         switch (action) {
             case "a":
                 Cuentas cuentas = parseCuentas(request);
+                HttpSession session = request.getSession();
+                String direccion = cuentas.getDireccion();
+                String correo = cuentas.getCorreo();
+
+                // Validar que la dirección no esté vacía
+                if (direccion.isEmpty()) {
+                    // Redirigir a la página de perfil con mensaje de error
+                    String errorMessage = "La dirección no puede estar vacía";
+                    session.setAttribute("msg","Ingresar una direccion valida");
+                    response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil");
+                    return;
+                }
+
+                // Validar que el correo sea válido
+                if (!isValidEmail(correo)) {
+                    // Redirigir a la página de perfil con mensaje de error
+                    String errorMessage = "Ingresar correo valido";
+                    session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
+                    response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil");
+                    return;
+                }
+
                 usuarioDao.actualizar(cuentas);
-                HttpSession session1 = request.getSession();
+                session.setAttribute("msg","Perfil actualizado");
                 response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil");
+                break;
+
+            case "b1":
+                String textoBuscar = request.getParameter("buscador");
+                request.setAttribute("listaUsuarios", usuarioDao.buscarPorTitle(textoBuscar));
+                request.getRequestDispatcher("manager/usuarioManager.jsp").forward(request, response);
                 break;
 
         }
@@ -182,5 +214,13 @@ public class ManagerCuentasServlet extends HttpServlet {
         }
         return cuentas;
     }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
 
 }

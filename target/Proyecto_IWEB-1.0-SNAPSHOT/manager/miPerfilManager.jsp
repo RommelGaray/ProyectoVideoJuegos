@@ -252,7 +252,7 @@
 
 
                   <div class="text-center">
-                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil">Cancelar</a>
+                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Actualizar</button>
                   </div>
                 </form>

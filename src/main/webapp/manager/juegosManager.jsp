@@ -48,6 +48,8 @@
 
   <div class="pagetitle">
     <h1>Lista de todos los juegos del catálogo</h1>
+
+
   </div>
 
   <section class="section faq">

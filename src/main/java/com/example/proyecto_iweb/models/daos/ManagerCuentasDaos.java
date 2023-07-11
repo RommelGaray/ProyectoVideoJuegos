@@ -1,6 +1,7 @@
 package com.example.proyecto_iweb.models.daos;
 
 import com.example.proyecto_iweb.models.beans.Cuentas;
+import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.dtos.EmpleadosTabla;
 import com.example.proyecto_iweb.models.dtos.UsuarioTabla;
 import com.example.proyecto_iweb.models.dtos.HistorialAdmin;
@@ -403,5 +404,71 @@ public class ManagerCuentasDaos extends DaoBase{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // ---------------- buscar usuario------------------------
+
+    public ArrayList<UsuarioTabla> buscarPorTitle(String title) {
+        ArrayList<UsuarioTabla> lista = new ArrayList<>();
+
+
+        String sql = "SELECT\n" +
+                "  c.idCuenta,\n" +
+                "  CONCAT(c.nombre, \" \", c.apellido) AS \"Nombres\",\n" +
+                "  co.juegos_comprados AS \"Juegos Comprados\",\n" +
+                "  v.juegos_vendidos AS \"Juegos Vendidos\",\n" +
+                "  co.dinero_gastado AS \"Dinero Gastado\",\n" +
+                "  v.dinero_ganado AS \"Dinero Ganado\",\n" +
+                "  c.desabilitado\n" +
+                "FROM\n" +
+                "  cuenta c\n" +
+                "LEFT JOIN (\n" +
+                "  SELECT idUsuario, SUM(cantidad) AS juegos_comprados, SUM(precioCompra) AS dinero_gastado\n" +
+                "  FROM comprausuario\n" +
+                "  WHERE idEstados = \"7\"\n" +
+                "  GROUP BY idUsuario\n" +
+                ") co ON c.idCuenta = co.idUsuario\n" +
+                "LEFT JOIN (\n" +
+                "  SELECT idUsuario, COUNT(DISTINCT idVenta) AS juegos_vendidos, SUM(precioVenta) AS dinero_ganado\n" +
+                "  FROM ventausuario\n" +
+                "  WHERE idEstados = \"2\"\n" +
+                "  GROUP BY idUsuario\n" +
+                ") v ON c.idCuenta = v.idUsuario\n" +
+                "WHERE\n" +
+                "  c.idRol = \"3\"\n" +
+                "  and c.nombre like ? or c.apellido like ?\n" +
+                "GROUP BY\n" +
+                "  c.idCuenta,\n" +
+                "  c.nombre,\n" +
+                "  c.apellido\n" +
+                "ORDER BY\n" +
+                "  co.juegos_comprados DESC;";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, "%" + title + "%");
+            preparedStatement.setString(2, "%" + title + "%");
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    UsuarioTabla usuarioTabla = new UsuarioTabla();
+                    usuarioTabla.setIdCuenta(resultSet.getInt(1));
+                    usuarioTabla.setNombre(resultSet.getString(2));
+                    usuarioTabla.setJuegosComprados(resultSet.getInt(3));
+                    usuarioTabla.setJuegosVendidos(resultSet.getInt(4));
+                    usuarioTabla.setDineroGastado(resultSet.getDouble(5));
+                    usuarioTabla.setDineroGanado(resultSet.getDouble(6));
+                    usuarioTabla.setDeshabilitado(resultSet.getInt(7));
+                    lista.add(usuarioTabla);
+                }
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
     }
 }
