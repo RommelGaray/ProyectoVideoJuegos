@@ -31,7 +31,8 @@ public class LoginServlet extends HttpServlet {
                     if(cuentas.getIdRol() == 2){
                         resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
                     }if(cuentas.getIdRol() == 1){
-                        resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet?a=Juegos");
+                        RequestDispatcher dispatcher = req.getRequestDispatcher("manager/juegosManager.jsp");
+                        dispatcher.forward(req, resp);
                     }if(cuentas.getIdRol() == 3){
                         resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
                     }
@@ -62,7 +63,11 @@ public class LoginServlet extends HttpServlet {
 
             session.setMaxInactiveInterval(3000*60);//en segundos
 
-            resp.sendRedirect(req.getContextPath());
+
+            // todo : uso un ternario para solucionar el bug de vista cuando se logean
+            resp.sendRedirect(req.getContextPath() + (cuentas.getIdCuentas() == 1 ? "/ManagerJuegosServlet" : "/AdminJuegosServlet"));
+
+
         } else { //usuario o password incorrectos
             req.setAttribute("error", "Usuario o password incorrectos");
             req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
