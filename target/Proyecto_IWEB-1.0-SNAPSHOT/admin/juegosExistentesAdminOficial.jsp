@@ -24,7 +24,7 @@
             <div class="card mb-10" style="max-width: 1500px;">
                 <div class="row g-0">
                     <div class="col-md-5">
-                        <img src="<%=j.getFoto()%>" class="img-fluid rounded-start" alt="...">
+                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">

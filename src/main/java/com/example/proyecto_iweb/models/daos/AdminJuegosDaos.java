@@ -145,8 +145,8 @@ public class AdminJuegosDaos  extends DaoBase{
         return juegos;
     }
 
-    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock){
-        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
+    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock, InputStream file){
+        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ?, fotoJuego = ? WHERE idJuego = ?";
         try (Connection connection = this.getConection()){
 
             try (PreparedStatement pstmt = connection.prepareStatement(sql)){
@@ -157,8 +157,8 @@ public class AdminJuegosDaos  extends DaoBase{
                 pstmt.setString(5, consola);
                 pstmt.setString(6, genero);
                 pstmt.setInt(7, stock);
-                pstmt.setInt(8, idJuego);
-
+                pstmt.setBlob(8, file);
+                pstmt.setInt(9, idJuego);
                 pstmt.executeUpdate();
             }
 
@@ -167,6 +167,7 @@ public class AdminJuegosDaos  extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
 
     public void desabilitarJuego(String id) {
 

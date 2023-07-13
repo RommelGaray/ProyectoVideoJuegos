@@ -74,7 +74,7 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <img src="<%=juego.getFoto()%>" alt="" class="img-fluid max-width-100">
+          <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>" alt="" class="img-fluid max-width-100">
         </div>
       </div>
 
