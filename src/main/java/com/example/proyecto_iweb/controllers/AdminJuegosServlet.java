@@ -173,8 +173,8 @@ public class AdminJuegosServlet extends HttpServlet {
                 String consola = request.getParameter("consola");
                 String genero = request.getParameter("genero");
                 Part filePart = request.getPart("foto");
-                inputStream = filePart.getInputStream();
 
+                inputStream = filePart.getInputStream();
                 if (filePart != null) {
                     System.out.println(filePart.getContentType());
                     inputStream = filePart.getInputStream();
@@ -187,6 +187,7 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "actualizar":
+                InputStream inputStreamAct;
                 int idJuego = Integer.parseInt(request.getParameter("idJuego"));
                 String nombreAct = request.getParameter("nombre");
                 String descripcionAct = request.getParameter("descripcion");
@@ -195,8 +196,16 @@ public class AdminJuegosServlet extends HttpServlet {
                 String consolaAct = request.getParameter("consola");
                 String generoAct = request.getParameter("genero");
                 int stockAct = Integer.parseInt(request.getParameter("stock"));
+                Part filePartAct = request.getPart("foto");
 
-                adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct);
+                inputStreamAct = filePartAct.getInputStream();
+                if (filePartAct != null) {
+                    System.out.println(filePartAct.getContentType());
+                    inputStreamAct = filePartAct.getInputStream();
+                }
+
+
+                adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct, inputStreamAct);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
 

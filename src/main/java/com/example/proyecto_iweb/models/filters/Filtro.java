@@ -33,10 +33,11 @@ public class Filtro implements Filter {
 
             } else {
                 // Redirigir al contexto raíz para cualquier otro caso
-                response.sendRedirect(request.getContextPath());
+                request.getRequestDispatcher("/error404.jsp").forward(request, response);
             }
         }
     }
 }
 
 // TODO: no tocar mi filtro de arriba
+

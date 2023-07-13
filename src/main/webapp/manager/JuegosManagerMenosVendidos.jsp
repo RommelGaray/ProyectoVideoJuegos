@@ -69,7 +69,7 @@
             <div class="col-4">
               <div>
                 <div class="card" style="width: 18rem; height: 100%;">
-                  <img src="<%=j.getFoto()%>" class="card-img-top" alt="...">
+                  <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title"><%=j.getNombre()%></h5>
                     <a onclick="return confirm('Esta seguro de desea retirar el juego')" class="btn btn-danger"

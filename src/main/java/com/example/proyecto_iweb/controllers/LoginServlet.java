@@ -11,36 +11,35 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String action = req.getParameter("action") != null ? req.getParameter("action") : "login";
 
         if (action.equals("login")) {
-
             HttpSession session = req.getSession();
 
-            if(session != null && session.getAttribute("usuarioLog") != null){
-
+            if(session != null && session.getAttribute("usuarioLog") != null) {
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
 
-                if(cuentas.getIdCuentas()>0 ){//estoy loggedIn
-                    if(cuentas.getIdRol() == 2){
+                if (cuentas.getIdCuentas() > 0) {//estoy loggedIn
+                    if (cuentas.getIdRol() == 2) {
                         resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
-                    }if(cuentas.getIdRol() == 1){
-                        resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet?a=Juegos");
-                    }if(cuentas.getIdRol() == 3){
+                    } else if (cuentas.getIdRol() == 1) {
+                        resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
+                    } else if (cuentas.getIdRol() == 3) {
                         resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
                     }
-                }else{
+                } else {
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
                     dispatcher.forward(req, resp);
                 }
+            } else {
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
+                dispatcher.forward(req, resp);
             }
-        }else{ //logout
+        } else { //logout
             req.getSession().invalidate();
             resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
         }
@@ -52,17 +51,20 @@ public class LoginServlet extends HttpServlet {
         String pass = req.getParameter("inputPassword");
 
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
-
         Cuentas cuentas = usuarioCuentasDaos.validateUsernameAndPassword(email, pass);
-
 
         if (cuentas != null) { //usuario y password correctos
             HttpSession session = req.getSession();
             session.setAttribute("usuarioLog", cuentas);
+            session.setMaxInactiveInterval(3000 * 60); //en segundos
 
-            session.setMaxInactiveInterval(3000*60);//en segundos
-
-            resp.sendRedirect(req.getContextPath());
+            if (cuentas.getIdRol() == 1) {
+                resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
+            } else if (cuentas.getIdRol() == 2) {
+                resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
+            } else if (cuentas.getIdRol() == 3) {
+                resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
+            }
         } else { //usuario o password incorrectos
             req.setAttribute("error", "Usuario o password incorrectos");
             req.getRequestDispatcher("loginPage.jsp").forward(req, resp);

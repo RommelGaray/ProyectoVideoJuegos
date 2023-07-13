@@ -92,7 +92,7 @@
                             <div class="row g-0 rounded-4 border border-primary border-2 p-2">
                                 <!--Imagen del juego-->
                                 <div class="col-md-6 d-flex justify-content-center align-items-center">
-                                    <img src="<%=cu.getJuegos().getFoto()%>" class="card-img-top" alt="...">
+                                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="card-img-top" alt="...">
                                 </div>
                                 <!--Descripción del juego-->
                                 <div class="col-md-6">

@@ -13,9 +13,8 @@ import java.io.IOException;
 /* TODO: Este filtro sirve para manager ,cuando se cierra session*/
 
 
-@WebFilter(filterName = "Filtro",
-        servletNames = {"ManagerCuentasServlet", "ManagerJuegosServlet"},
-        urlPatterns = {""})
+@WebFilter(filterName = "FiltroLogout",
+        servletNames = {"ManagerCuentasServlet", "ManagerJuegosServlet","UsuariosJuegosServlet","UsuariosCuentasServlet","AdminJuegosServlet","AdminCuentasServlet"})
 
 public class FiltroLogout implements Filter{
     @Override
@@ -29,7 +28,6 @@ public class FiltroLogout implements Filter{
 
         if (cu == null) {
             // El usuario ha cerrado sesión, redirigir a una página específica después de cerrar sesión
-            session.invalidate();
             response.sendRedirect(request.getContextPath());
         } else {
             // El usuario aún está logeado, permitir el acceso a la página solicitada
