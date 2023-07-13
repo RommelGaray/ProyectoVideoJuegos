@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UsuarioCuentasDaos extends DaoBase{
-    /*-------------------USUARIOS----------------------------*/
+
 
     public Cuentas listar(int id) {
         Cuentas cuentas = null;
@@ -223,41 +223,6 @@ public class UsuarioCuentasDaos extends DaoBase{
         }
     }
 
-    /*public ArrayList<Cuentas> perfil(int idCuenta){
 
-        ArrayList<Cuentas> lista = new ArrayList<>();
-
-
-        String sql = "SELECT * FROM cuenta where idRol = 3 and idCuenta = ?";
-
-        try (Connection conn = this.getConection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            ResultSet resultSet = pstmt.executeQuery();
-            pstmt.setInt(1, idCuenta);
-
-            while(resultSet.next()){
-                Cuentas cuentas = new Cuentas();
-                cuentas.setIdCuentas(resultSet.getInt(1));
-                cuentas.setNombre(resultSet.getString(2));
-                cuentas.setApellido(resultSet.getString(3));
-                cuentas.setNickname(resultSet.getString(4));
-                cuentas.setDireccion(resultSet.getString(5));
-                cuentas.setCorreo(resultSet.getString(6));
-                cuentas.setFoto(resultSet.getString(7));
-                cuentas.setDescripcion(resultSet.getString(8));
-                cuentas.setDesabilitado(resultSet.getBoolean(9));
-                cuentas.setIdRol(resultSet.getInt(10));
-                cuentas.setPasswordHashed(resultSet.getString(11));
-
-                lista.add(cuentas);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return lista;
-    }*/
 }
 

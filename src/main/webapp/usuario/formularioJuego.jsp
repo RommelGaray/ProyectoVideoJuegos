@@ -51,7 +51,7 @@
 
 <main  id="main" class="main">
     <div class="container " >
-        <h1 class='mt-3'>Editar Precio Juego</h1>
+        <h1 class='mt-3'>Formulario del Juego ingresado</h1>
         <% if (session.getAttribute("err") != null) {%>
         <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%></div>
         <%session.removeAttribute("err");%>
@@ -83,9 +83,9 @@
                         <label for="genero">Genero</label>
                         <input type="text" class="form-control" name="genero" id="genero" value="<%=formulario.getJuegos().getGenero()%>" disabled>
                     </div>
-                    <div class="mb-3">
-                        <label for="foto" class="form-label">Añadir foto del juego</label>
-                        <input class="form-control" type="file" id="foto" name="foto"  value="<%=formulario.getJuegos().getFoto()%>" disabled >
+                    <div class="mb-3" >
+                        <label type="hidden" for="foto" class="form-label"></label>
+                        <input type="hidden" class="form-control" id="foto" name="foto"  value="<%=formulario.getJuegos().getFoto()%>" disabled >
                     </div>
                     <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">Regresar</a>
                 </div>
