@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: romme
-  Date: 13/07/2023
-  Time: 17:30
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -12,7 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Quiz de JavaScript</title>
+    <title>Ja-Vagos</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <link rel="icon" href="pestania.png">
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -26,7 +37,7 @@
     <![endif]-->
 </head>
 <body>
-<div class="container">
+<div class="container d-flex align-items-center justify-content-center vh-100">
     <!-- CREDIT CARD FORM STARTS HERE -->
     <div class="panel panel-default credit-card-box customwidth center-block">
         <div class="panel-heading display-table" >
@@ -60,17 +71,17 @@
                                         required autofocus
                                         onchange="validar(this.value)"
                                         onblur="
-  // save input string and strip out non-numbers
-  cc_number_saved = this.value;
-  this.value = this.value.replace(/[^\d]/g, '');
-  if(!validar(this.value)) {
-    alert('Disculpe, este número de atrjeta no es válido');
-    this.value = '';
-  }
-" onfocus="
-  // restore saved string
-  if(this.value != cc_number_saved) this.value = cc_number_saved;
-"
+                                          // save input string and strip out non-numbers
+                                          cc_number_saved = this.value;
+                                          this.value = this.value.replace(/[^\d]/g, '');
+                                          if(!validar(this.value)) {
+                                            alert('Disculpe, este número de atrjeta no es válido');
+                                            this.value = '';
+                                          }
+                                        " onfocus="
+                                          // restore saved string
+                                          if(this.value != cc_number_saved) this.value = cc_number_saved;
+                                        "
                                 />
                                 <span class="input-group-addon"><i class="fa fa-credit-card" id="cardlogo" style="color:purple;font-size:2rem;"></i></span>
                             </div>
@@ -126,6 +137,9 @@
                     </div>
                 </div>
             </form>
+
+            <a class="btn btn-success btn-lg btn-block" href="<%=request.getContextPath()%>/UsuariosJuegosServlet">Cancelar compra</a>
+
         </div>
     </div>
     <!-- CREDIT CARD FORM ENDS HERE -->

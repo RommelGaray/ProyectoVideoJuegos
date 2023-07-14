@@ -43,6 +43,9 @@
         }
     </script>
 
+
+
+
 </head>
 
 <body>
@@ -54,7 +57,7 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Tu carrito (Cantidad de Productos)</h1>
+        <h1>Compra de videojuego</h1>
     </div>
 
 
@@ -64,28 +67,10 @@
                     <div class="container__detail bg-light">
                         <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juegos.getIdJuegos()%>" class="img-thumbnail w-50" alt="...">
                         <div class="col">
-                            <p class="fs-2 text-capitalize">clash royale</p>
-                            <br>
-                            <div class="d-flex align-items-center">
-                                <form action="">
-                                    <div class="d-flex justify-content-end">
-                                        <select name="select-option" id="">
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </form>
-                                <button type="button" class="btn p-0">
-                                    <img src="basurita.jpg" alt="Eliminar" width="35" height="35">
-                                </button>
-                            </div>
-
-
-                            <br>
-                            <br>
-                            <p class="text-end fs-5 me-4 text-capitalize">gratis</p>
+                            <p class="fs-2 text-capitalize"><%=juegos.getNombre()%></p>
+                            <p><%=juegos.getDescripcion()%></p>
+                            <p><%=juegos.getGenero()%></p>
+                            <p><%=juegos.getConsola()%></p>
                         </div>
                     </div>
                 </div>
@@ -97,19 +82,30 @@
                             <!--<button type="submit" class="btn btn-primary">Usar direccion predeterminada</button>-->
                             <a class="btn btn-primary" href="https://www.coordenadas-gps.com/" target="_blank">Obtener coordenadas</a>
                         </div>
+
+                        <div class="form-group mb-3">
+                            <button onclick="findMe()">Mostrar ubicación</button>
+                            <div id="map"></div>
+                        </div>
+
                         <div class="form-group mb-3">
                             <input type="text" class="form-control form-control-lg" placeholder="Agregar Latitud">
                         </div>
+
                         <div class="form-group mb-3">
                             <input type="text" class="form-control form-control-lg" placeholder="Agregar Longitud">
                         </div>
-                        <div class="form-group mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Provincia">
+
+                        <button type="submit" class="btn btn-primary text-center">Buscar</button>
+                        <div class="row">
+                            <h5 class="text-center">Ubicación del usuario</h5>
+                            <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7803.090718696196!2d-77.09065694650349!3d-12.074770906006872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1682624518105!5m2!1ses-419!2spe"
+                                    width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <br>
                         </div>
-                        <div class="form-group mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Distrito">
-                        </div>
-                        <button type="submit" class="btn btn-primary text-center">Guardar</button>
+
                     </form>
                 </div>
 
@@ -135,18 +131,75 @@
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 
-<!-- Vendor JS Files -->
-<script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/vendor/chart.js/chart.umd.js"></script>
-<script src="/assets/vendor/echarts/echarts.min.js"></script>
-<script src="/assets/vendor/quill/quill.min.js"></script>
-<script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="/assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="/assets/vendor/php-email-form/validate.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+
+<!-- CODIGO EXTRAÍDO DE https://www.youtube.com/watch?v=XX9Kmg3qLRk -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+<!--<script>
+    function findMe(){
+        var output = document.getElementById('map');
+
+        // Verificar si soporta geolocalizacion
+        if (navigator.geolocation) {
+            output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
+        }else{
+            output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
+        }
+
+        //Obtenemos latitud y longitud
+        function localizacion(posicion){
+            var latitude = posicion.coords.latitude;
+            var longitude = posicion.coords.longitude;
+
+            // Segunda parte del video
+            // var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&size=600x300&markers=color:red%7C"+latitude+","+longitude+"&key=YOUR_API_KEY";
+
+            output.innerHTML = "<p>Latitud: " + latitude+"<br>Longitud: "+longitude+"</p>";
+        }
+
+        function error(){
+            output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
+
+        }
+
+        navigator.geolocation.getCurrentPosition(localizacion,error);
+
+    }
+
+
+</script>
+-->
+<!--
+<script>
+    $(document).ready(function(){
+        getLocation();
+    });
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+    function showPosition(position) {
+        document.getElementById("coordinates").innerHTML = "Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude;
+
+        //var latitud = position.coords.latitude;
+        //var longitud = position.coords.longitude;
+
+        //document.getElementById("latitud").textContent = latitud;
+        //document.getElementById("longitud").textContent = longitud;
+
+
+        //document.getElementById("latitud").value = position.coords.latitude;
+        //document.getElementById("longitud").value = position.coords.longitude;
+    }
+</script>
+-->
+
 </body>
 
 </html>

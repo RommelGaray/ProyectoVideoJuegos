@@ -82,8 +82,8 @@
                     </div>
                     <% } else { %>
                     <div class="row mt-3">
-                        <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet?a=comprar&id=<%= juegos.getIdJuegos() %>&precio=<%= juegos.getPrecio() %>">Comprar</a>
-                        <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet?a=carrito&id=<%= juegos.getIdJuegos() %>">Comprar oficial</a>
+                        <a class="btn btn-primary btn-lg btn-block" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprar&id=<%= juegos.getIdJuegos() %>&precio=<%= juegos.getPrecio() %>">Comprar</a>
+                        <a class="btn btn-primary btn-lg btn-block" href="<%=request.getContextPath()%>/UsuariosCuentasServlet?a=carrito&id=<%=juegos.getIdJuegos()%>">Comprar oficial</a>
 
                     </div>
                     <% } %>
