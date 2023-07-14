@@ -12,6 +12,44 @@ public class AdminJuegosDaos  extends DaoBase{
     /** SECCIÓN DE ROMMEL **/
     /** Juegos disponibles **/
     /** Listar todos los juegos (View: Index principal del Admin) **/
+
+    public ArrayList<Juegos> buscarPorTitle(String title) {
+        ArrayList<Juegos> lista = new ArrayList<>();
+
+
+        String sql = "select * from juego where nombre like ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, "%" + title + "%");
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt(1));
+                    juegos.setNombre(resultSet.getString(2));
+                    juegos.setDescripcion(resultSet.getString(3));
+                    juegos.setPrecio(resultSet.getDouble(4));
+                    juegos.setDescuento(resultSet.getDouble(5));
+                    juegos.setStock(resultSet.getInt(11));
+                    juegos.setFoto(resultSet.getString(6));
+                    juegos.setExistente(resultSet.getBoolean(7));
+                    juegos.setHabilitado(resultSet.getBoolean(8));
+                    juegos.setConsola(resultSet.getString(9));
+                    juegos.setGenero(resultSet.getString(10));
+                    lista.add(juegos);
+                }
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+
     public ArrayList<Juegos> listarJuegosDisponibles(){
 
         ArrayList<Juegos> lista = new ArrayList<>();

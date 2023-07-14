@@ -96,7 +96,13 @@
                         <span class="align-middle d-flex align-items-center">Juego Nuevo</span>
                     </a>
                 </div>
-
+                <br>
+                <div>
+                    <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertas" class="btn btn-danger d-flex align-items-center">
+                        <i class="bi bi-joystick fs-4 me-2"></i>
+                        <span class="align-middle d-flex align-items-center">Ofertas</span>
+                    </a>
+                </div>
             </div>
         </div>
 

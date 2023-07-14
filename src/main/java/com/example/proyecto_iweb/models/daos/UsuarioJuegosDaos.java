@@ -70,6 +70,8 @@ public class UsuarioJuegosDaos extends DaoBase {
                     juegos.setHabilitado(resultSet.getBoolean(8));
                     juegos.setConsola(resultSet.getString(9));
                     juegos.setGenero(resultSet.getString(10));
+                    // Añadi esto para obtener la foto
+                    juegos.setFotoJuego(resultSet.getString(12));
                 }
             }
 

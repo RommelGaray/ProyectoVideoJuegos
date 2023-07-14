@@ -223,6 +223,13 @@ public class AdminJuegosServlet extends HttpServlet {
                 adminJuegosDaos.dejarMensaje(mensajeAdmin, idVenta);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
+
+            // POR AHORA EL BUSCADOR NO FUNCIONA!!//
+            case "b1":
+                String textoBuscar1 = request.getParameter("buscador");
+                request.setAttribute("lista", adminJuegosDaos.buscarPorTitle(textoBuscar1));
+                request.getRequestDispatcher("admin/indexAdmin.jsp").forward(request, response);
+                break;
         }
     }
 }
