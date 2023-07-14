@@ -249,14 +249,14 @@
                   <div class="row mb-3">
                     <label for="direccion" class="col-md-4 col-lg-3 col-form-label">Address</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="direccion" type="text" class="form-control" id="direccion" value="<%=cuentas.getDireccion()%>">
+                      <input name="" type="text" class="form-control" id="direccion" value="<%=cuentas.getDireccion()%>">
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="correo" class="col-md-4 col-lg-3 col-form-label">Email</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="correo" type="email" class="form-control" id="correo" value="<%=cuentas.getCorreo()%>">
+                      <input name="correo" type="email" class="form-control" id="correo" value="<%=cuentas.getCorreo()%>" disabled>
                     </div>
                   </div>
 

@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "InitialServlet",  urlPatterns = {""})
+@WebServlet(name = "InitialServlet",  urlPatterns = {"","/InitialServlet"})
 public class InitialServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,11 +25,26 @@ public class InitialServlet extends HttpServlet {
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
                 requestDispatcher.forward(request, response);
                 break;
+            case "verjuego":
+                int juegoId = Integer.parseInt(request.getParameter("id"));
+                request.setAttribute("juegos", usuarioJuegosDaos.listar(juegoId));
+                request.getRequestDispatcher("usuario/verJuego.jsp").forward(request, response);
+                break;
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String action = req.getParameter("p") == null ? "crear" : req.getParameter("p");
+
+        UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
+        switch (action) {
+            case "b1":
+                String textoBuscar1 = req.getParameter("buscador");
+                req.setAttribute("lista", usuarioJuegosDaos.buscarPorTitle(textoBuscar1));
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                break;
+        }
     }
 }

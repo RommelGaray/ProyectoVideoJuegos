@@ -56,7 +56,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Historial de juegos comprados</h1>
+        <h1 class='mt-3'>Historial de juegos comprados</h1>
     </div>
 
 
@@ -101,6 +101,7 @@
                                         <p class="card-text"> Descripcion : <%=cu.getJuegos().getDescripcion()%></p>
                                         <p class="card-text"> Precio : $ <%=cu.getPrecioCompra()%> </p>
                                         <p class="fw-bold"> Estado :  <%=cu.getEstados().getEstados()%> </p>
+                                        <p class="fw-bold"> Fecha de Compra :  <%=cu.getFechaCompra()%> </p>
                                         <!--<a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="btn btn-dark">Ver juego</a>-->
                                     </div>
                                 </div>
@@ -112,7 +113,7 @@
             </div>
 
 
-            <div class="col-lg-3 align-items-lg-center">
+            <div  class="col-lg-3 d-flex flex-column align-items-center justify-content" >
                 <br><br>
                 <div class="row g-0">
                     <div class="col-md-12 bg-primary border rounded-4 p-4">
@@ -137,7 +138,7 @@
                         <%}%>
                     </tr>
                 </table>
-                <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=recomendaciones" class="btn btn-primary">Recomendaciones</a>
+                <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=recomendaciones" class="btn btn-secondary">Recomendaciones Para Usted</a>
             </div>
 
 
