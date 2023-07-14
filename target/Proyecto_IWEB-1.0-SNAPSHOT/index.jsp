@@ -72,7 +72,7 @@
               </div>
               <div class="card-body">
                 <h5 class="card-title"><%=j.getNombre()%></h5>
-                <a href="<%=request.getContextPath()%>/InitialServlet?a=verjuego&id=<%=j.getIdJuegos()%>" class="btn btn-dark">Ver juego</a>
+                <a href="<%=request.getContextPath()%>/InitialServlet?action=verjuego&id=<%=j.getIdJuegos()%>" class="btn btn-dark">Ver juego</a>
               </div>
             </div>
           </div>

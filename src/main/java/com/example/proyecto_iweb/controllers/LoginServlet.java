@@ -11,12 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action") != null ? req.getParameter("action") : "login";
-        RequestDispatcher view;
 
         if (action.equals("login")) {
             HttpSession session = req.getSession();
@@ -41,11 +42,7 @@ public class LoginServlet extends HttpServlet {
                 dispatcher.forward(req, resp);
             }
         }
-        if(action.equals("agregar")){
-            view = req.getRequestDispatcher("/nuevoUsuario.jsp");
-            view.forward(req, resp);
 
-        }
         else{ //logout
             req.getSession().invalidate();
             resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
@@ -56,11 +53,14 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String email = req.getParameter("inputEmail");
         String pass = req.getParameter("inputPassword");
 
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
         Cuentas cuentas = usuarioCuentasDaos.validateUsernameAndPassword(email, pass);
+        String action = req.getParameter("p") == null ? "guardar" : req.getParameter("p");
+
 
         if (cuentas != null) { //usuario y password correctos
             HttpSession session = req.getSession();
@@ -78,5 +78,6 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("error", "Usuario o password incorrectos");
             req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
         }
+
     }
 }
