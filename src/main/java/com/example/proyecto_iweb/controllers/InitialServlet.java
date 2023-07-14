@@ -34,16 +34,16 @@ public class InitialServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String action = req.getParameter("p") == null ? "crear" : req.getParameter("p");
+        String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");
 
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
         switch (action) {
             case "b1":
-                String textoBuscar1 = req.getParameter("buscador");
-                req.setAttribute("lista", usuarioJuegosDaos.buscarPorTitle(textoBuscar1));
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                String textoBuscar1 = request.getParameter("buscador");
+                request.setAttribute("lista", usuarioJuegosDaos.buscarPorTitle(textoBuscar1));
+                request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
         }
     }

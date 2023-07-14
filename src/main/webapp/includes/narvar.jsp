@@ -16,6 +16,7 @@
   <div class="search-bar mt-3">
     <form class="search-form d-flex align-items-center" method="post" action="<%=request.getContextPath()%>/InitialServlet?p=b1">
       <input type="text" name="buscador" placeholder="Search" title="Enter search keyword">
+
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
   </div>
@@ -175,7 +176,7 @@
 
   <div class="search-bar mt-3">
     <form class="search-form d-flex align-items-center" method="post" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=b1">
-      <input type="text" name="buscador" placeholder="Search" title="Enter search keyword">
+      <input type="text" name="buscador" placeholder="Buscar juego" title="Enter search keyword">
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
   </div>
@@ -318,8 +319,8 @@
     </div>
     <!-- Parte superior medio (BUSCADOR) -->
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+      <form class="search-form d-flex align-items-center" method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=b1">
+        <input type="text" name="query" placeholder="Buscar juego" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div>
@@ -486,7 +487,7 @@
 
     <div class="search-bar mt-3">
       <form class="search-form d-flex align-items-center" method="post" action="<%=request.getContextPath()%>/ManagerJuegosServlet?p=b">
-        <input type="text" name="buscador" placeholder="Search" title="Enter search keyword" value="${param.buscador}">
+        <input type="text" name="buscador" placeholder="Buscar juego" title="Enter search keyword" value="${param.buscador}">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div>

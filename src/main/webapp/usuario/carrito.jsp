@@ -1,6 +1,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="juegos" scope="request" type="com.example.proyecto_iweb.models.beans.Juegos"/>
 
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
@@ -36,6 +37,12 @@
     <!-- Option 1: Include in HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
+    <script>
+        function abrirVentana() {
+            window.open("https://www.coordenadas-gps.com/", "_blank");
+        }
+    </script>
+
 </head>
 
 <body>
@@ -55,36 +62,7 @@
             <div class="col-8">
                 <div class="container__detail-text bg-light">
                     <div class="container__detail bg-light">
-                        <img src="juego.jpg" class="img-thumbnail w-50" alt="...">
-                        <div class="col">
-                            <p class="fs-2 text-capitalize">clash royale</p>
-                            <br>
-                            <div class="d-flex align-items-center">
-                                <form action="">
-                                    <div class="d-flex justify-content-end">
-                                        <select name="select-option" id="">
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </form>
-                                <button type="button" class="btn p-0">
-                                    <img src="basurita.jpg" alt="Eliminar" width="35" height="35">
-                                </button>
-                            </div>
-
-
-                            <br>
-                            <br>
-                            <p class="text-end fs-5 me-4 text-capitalize">gratis</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="container__detail-text bg-light">
-                    <div class="container__detail bg-light">
-                        <img src="juego.jpg" class="img-thumbnail w-50" alt="...">
+                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juegos.getIdJuegos()%>" class="img-thumbnail w-50" alt="...">
                         <div class="col">
                             <p class="fs-2 text-capitalize">clash royale</p>
                             <br>
@@ -116,13 +94,14 @@
                 <div class="container__detail bg-light p-3 text-center" style="display: flex; justify-content: center;">
                     <form>
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Usar direccion predeterminada</button>
+                            <!--<button type="submit" class="btn btn-primary">Usar direccion predeterminada</button>-->
+                            <a class="btn btn-primary" href="https://www.coordenadas-gps.com/" target="_blank">Obtener coordenadas</a>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Agregar dirección">
+                            <input type="text" class="form-control form-control-lg" placeholder="Agregar Latitud">
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Departamento">
+                            <input type="text" class="form-control form-control-lg" placeholder="Agregar Longitud">
                         </div>
                         <div class="form-group mb-3">
                             <input type="text" class="form-control form-control-lg" placeholder="Provincia">
@@ -135,8 +114,11 @@
                 </div>
 
                 <div class="container__detail bg-light p-3 d-flex flex-column">
-                    <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/.XXXX</p>
+                    <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()%></p>
                     <button type="button" class="btn btn-success mt-3">Pagar</button>
+                    <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet?a=pagar">Pagar oficial</a>
+                    <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet">Cancelar</a>
+
                 </div>
 
             </div>
