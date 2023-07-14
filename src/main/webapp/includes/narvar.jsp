@@ -6,7 +6,7 @@
 <%if(usuarioLog.getIdRol()==0) { %>
 <header id="header" class="header fixed-top d-flex align-items-center bg-black">
   <div class="d-flex align-items-center justify-content-between">
-    <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar" class="logo d-flex align-items-center">
+    <a href="<%=request.getContextPath()%>/InitialServlet?a=list" class="logo d-flex align-items-center">
       <img src="img/sistema/logoUsuario.png" alt="">
       <span class="d-none d-lg-block text-light">JA-VAGOS</span>
     </a>
@@ -14,8 +14,9 @@
   </div>
 
   <div class="search-bar mt-3">
-    <form class="search-form d-flex align-items-center" method="post" action="<%=request.getContextPath()%>/UsuarioGeneral?p=b1">
-      <input type="text" name="buscador" placeholder="Buscar juego" title="Enter search keyword">
+    <form class="search-form d-flex align-items-center" method="post" action="<%=request.getContextPath()%>/InitialServlet?p=b1">
+      <input type="text" name="buscador" placeholder="Search" title="Enter search keyword">
+
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
   </div>
@@ -89,7 +90,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#profile-edit">
                 <i class="bi bi-gear"></i>
-                <span>Configuraci?n</span>
+                <span>Configuración</span>
               </a>
             </li>
             <li>
@@ -103,11 +104,11 @@
               </a>
             </li>
               <% } else { //no estoy loggedIn %>
-            <div>
-              <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/UsuariosCuentasServlet?a=agregar">
+            <div  class="d-flex">
+              <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/login?action=agregar">
                 Crear cuenta
               </a>
-              <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
+              <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/login">
                 Iniciar Sesión
               </a>
             </div>
@@ -124,7 +125,7 @@
   <ul class="sidebar-nav" id="sidebar-nava">
 
     <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar">
+      <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/InitialServlet?a=list">
         <i class="bi bi-grid"></i>
         <span>Disponibles</span>
       </a>
@@ -139,25 +140,25 @@
 
 
     <li class="nav-item">
-      <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/loginPage.jsp">
+      <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/login">
         <i class="bi bi-bag"></i>
         <span>Vendidos</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/loginPage.jsp">
+      <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/login">
         <i class="bi bi-shop"></i>
         <span>Comprados</span>
       </a>
     </li>
 
-    <li class="nav-item">
+    <!--<li class="nav-item">
       <a class="nav-link collapsed<%=currentPage.equals("ofertas") ? "active" : ""%>" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=ofertas">
         <i class="bi bi-grid"></i>
         <span>Ofertas</span>
       </a>
-    </li>
+    </li>-->
   </ul>
 </aside>
 <%}%>

@@ -16,6 +16,7 @@ public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action") != null ? req.getParameter("action") : "login";
+        RequestDispatcher view;
 
         if (action.equals("login")) {
             HttpSession session = req.getSession();
@@ -27,7 +28,7 @@ public class LoginServlet extends HttpServlet {
                     if (cuentas.getIdRol() == 2) {
                         resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
                     } else if (cuentas.getIdRol() == 1) {
-                        resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
+                        resp.sendRedirect(req.getContextPath() + "/ManagerCuentasServlet");
                     } else if (cuentas.getIdRol() == 3) {
                         resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
                     }
@@ -39,10 +40,18 @@ public class LoginServlet extends HttpServlet {
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
                 dispatcher.forward(req, resp);
             }
-        } else { //logout
+        }
+        if(action.equals("agregar")){
+            view = req.getRequestDispatcher("/nuevoUsuario.jsp");
+            view.forward(req, resp);
+
+        }
+        else{ //logout
             req.getSession().invalidate();
             resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
         }
+
+
     }
 
     @Override
@@ -59,7 +68,7 @@ public class LoginServlet extends HttpServlet {
             session.setMaxInactiveInterval(3000 * 60); //en segundos
 
             if (cuentas.getIdRol() == 1) {
-                resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
+                resp.sendRedirect(req.getContextPath() + "/ManagerCuentasServlet");
             } else if (cuentas.getIdRol() == 2) {
                 resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
             } else if (cuentas.getIdRol() == 3) {

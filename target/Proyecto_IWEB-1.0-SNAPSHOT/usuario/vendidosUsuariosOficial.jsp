@@ -54,7 +54,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Lista de videojuegos vendidos</h1>
+        <h1 class='mt-3'>Lista de videojuegos vendidos</h1>
     </div>
 
     <section class="section faq">

@@ -90,7 +90,7 @@
                     <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">Regresar</a>
                 </div>
                 <div class="col-lg-6">
-                    <img src="<%=formulario.getJuegos().getFoto()%>" alt="" class="img-fluid max-width-100">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=formulario.getJuegos().getIdJuegos()%>" alt="" class="img-fluid max-width-100">
                 </div>
             </div>
 
@@ -99,6 +99,10 @@
     </div>
 </main>
 
+<!-- ======= Footer ======= -->
+<jsp:include page="/includes/footer.jsp">
+    <jsp:param name="title" value=""/>
+</jsp:include>
 
 
 

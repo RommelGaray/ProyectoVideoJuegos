@@ -603,7 +603,7 @@ public class UsuarioJuegosDaos extends DaoBase {
 
     public void actualizarPrecioVenta(VentaUsuario ventaUsuario) {
 
-        String sql = "UPDATE ventaUsuario SET precioVenta = ?, idEstados = 1 WHERE idVenta = ?";
+        String sql = "UPDATE ventaUsuario SET precioVenta = ?, idEstados = 1, mensajeAdmin = null WHERE idVenta = ?";
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 

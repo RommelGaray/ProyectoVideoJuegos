@@ -77,8 +77,9 @@
                     </div>
                     <% if (usuarioLog.getIdCuentas() == 0) { %>
                     <div class="row mt">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Comprar</button>
-                        <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet?a=carrito">Comprar oficial</a>
+
+                        <a class="btn btn-primary btn-lg btn-block" href="<%=request.getContextPath()%>/login">Comprar</a>
+
                     </div>
                     <% } else { %>
                     <div class="row mt-3">
@@ -97,7 +98,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet">Regresar</a>
+                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/InitialServlet">Regresar</a>
                 </div>
             </div>
         </div>
