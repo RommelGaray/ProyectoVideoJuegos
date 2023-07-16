@@ -7,7 +7,7 @@
 <%if(usuarioLog.getIdRol()==0) { %>
 <header id="header" class="header fixed-top d-flex align-items-center bg-black">
   <div class="d-flex align-items-center justify-content-between">
-    <a href="<%=request.getContextPath()%>/InitialServlet?a=list" class="logo d-flex align-items-center">
+    <a href="<%=request.getContextPath()%>/InitialServlet?action=list" class="logo d-flex align-items-center">
       <img src="img/sistema/logoUsuario.png" alt="">
       <span class="d-none d-lg-block text-light">JA-VAGOS</span>
     </a>
@@ -106,7 +106,7 @@
             </li>
               <% } else { //no estoy loggedIn %>
             <div  class="d-flex">
-              <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/login?action=agregar">
+              <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/InitialServlet?action=agregar">
                 Crear cuenta
               </a>
               <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/login">
@@ -126,7 +126,7 @@
   <ul class="sidebar-nav" id="sidebar-nava">
 
     <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/InitialServlet?a=list">
+      <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/InitialServlet?action=list">
         <i class="bi bi-grid"></i>
         <span>Disponibles</span>
       </a>

@@ -33,7 +33,7 @@
                     <p class="text-center small">Ingrese sus datos personales para crear una cuenta</p>
                   </div>
 
-                  <form method="POST" action="<%=request.getContextPath()%>/UsuariosCuentasServlet?p=guardar" class="row g-3 needs-validation" novalidate>
+                  <form method="POST" action="<%=request.getContextPath()%>/InitialServlet?p=guardar" class="row g-3 needs-validation" novalidate>
 
                     <div class="col-12">
                       <label for="nombre" class="form-label">Nombre</label>
