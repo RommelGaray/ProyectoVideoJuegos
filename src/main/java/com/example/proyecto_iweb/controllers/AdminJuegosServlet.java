@@ -149,6 +149,11 @@ public class AdminJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=listarcola");
                 break;
 
+            case "listarNotificaciones":
+
+                request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
+                break;
+
         }
 
 

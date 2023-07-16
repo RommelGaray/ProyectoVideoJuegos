@@ -309,132 +309,132 @@
 
 <!-- ======= ADMIN ======= -->
 <%if(usuarioLog.getIdRol()==2) { %>
-<header id="header" class="header fixed-top d-flex align-items-center bg-danger">
+  <header id="header" class="header fixed-top d-flex align-items-center bg-danger">
 
-  <!-- Parte superior izquierda -->
-  <div class="d-flex align-items-center justify-content-between">
-    <a href="<%=request.getContextPath()%>/AdminJuegosServlet" class="logo d-flex align-items-center">
-      <img src="img/sistema/pestania.png" alt="">
-      <span class="d-none d-lg-block text-light">JA-VAGOS</span>
-    </a>
-    <i class="bi bi-list toggle-sidebar-btn text-light"></i>
-  </div>
-  <!-- Parte superior medio (BUSCADOR) -->
-  <div class="search-bar">
-    <form class="search-form d-flex align-items-center" method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=b1">
-      <input type="text" name="query" placeholder="Buscar juego" title="Enter search keyword">
-      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-    </form>
-  </div>
+    <!-- Parte superior izquierda -->
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="<%=request.getContextPath()%>/AdminJuegosServlet" class="logo d-flex align-items-center">
+        <img src="img/sistema/pestania.png" alt="">
+        <span class="d-none d-lg-block text-light">JA-VAGOS</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn text-light"></i>
+    </div>
+    <!-- Parte superior medio (BUSCADOR) -->
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=b1">
+        <input type="text" name="query" placeholder="Buscar juego" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div>
 
-  <nav class="header-nav ms-auto">
-    <ul class="d-flex align-items-center">
-      <!--BUSCADOR -->
-      <li class="nav-item d-block d-lg-none">
-        <a class="nav-link nav-icon search-bar-toggle " href="#">
-          <i class="bi bi-search"></i>
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <!--BUSCADOR -->
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown pe-3">
+          <div class="form-inline font-italic my-2 my-lg-0">
+            <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
+            <span></span>
+
+            <!-- ICONO DE TIENDA Y NOTIFICACION-->
+            <li class="nav-item dropdown">
+              <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" data-bs-toggle="dropdown">
+                <i class="bi bi-chat-left-text text-light"></i>
+                <span class="badge bg-danger badge-number"></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                <li class="dropdown-footer">
+                  <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
+                </li>
+              </ul>
+            </li>
+            <!-- TERMINA NOTIFICACION-->
+
+
+
+
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+              <img src="img/usuario/usuario1.webp" alt="Profile" class="rounded-circle">
+              <span class="d-none d-md-block dropdown-toggle ps-2 text-light"><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%>  </span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+              <li class="dropdown-header">
+                <h6><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%> </h6>
+                <span>Administrador</span>
+              </li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil">
+                  <i class="bi bi-person"></i>
+                  <span>Mi Perfil</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/login?action=logout">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
+                </a>
+              </li>
+            </ul>
+                <% } else { //no estoy loggedIn %>
+              <div>
+                <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
+                  (Crear cuenta)
+                </a>
+                <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
+                  (Iniciar Sesion)
+                </a>
+              </div>
+                <% } %>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+  </header>
+
+
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav2">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed<%=currentPage.equals("indexAdmin") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarJuegosDisponibles">
+          <i class="bi bi-grid text-danger"></i>
+          <span>Disponibles</span>
         </a>
       </li>
 
-      <li class="nav-item dropdown pe-3">
-        <div class="form-inline font-italic my-2 my-lg-0">
-          <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
-          <span></span>
-
-          <!-- ICONO DE TIENDA Y NOTIFICACION-->
-          <li class="nav-item dropdown">
-            <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" data-bs-toggle="dropdown">
-              <i class="bi bi-chat-left-text text-light"></i>
-              <span class="badge bg-danger badge-number"></span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-              <li class="dropdown-footer">
-                <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
-              </li>
-            </ul>
-          </li>
-          <!-- TERMINA NOTIFICACION-->
-
-
-
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="img/usuario/usuario1.webp" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2 text-light"><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%>  </span>
-          </a>
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%> </h6>
-              <span>Administrador</span>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=perfil">
-                <i class="bi bi-person"></i>
-                <span>Mi Perfil</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/login?action=logout">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-          </ul>
-          <% } else { //no estoy loggedIn %>
-          <div>
-            <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-              (Crear cuenta)
-            </a>
-            <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-              (Iniciar Sesion)
-            </a>
-          </div>
-          <% } %>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link collapsed<%=currentPage.equals("reservasYcomprados") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=reservas">
+          <i class="bi bi-arrow-up-square text-danger"></i>
+          <span>Reservas o comprados</span>
+        </a>
       </li>
-    </ul>
-  </nav>
 
-</header>
+      <li class="nav-item">
+        <a class="nav-link collapsed<%=currentPage.equals("propuestos") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=propuestos">
+          <i class="bi bi-arrow-up-square text-danger"></i>
+          <span>Juegos propuestos</span>
+        </a>
+      </li>
 
-
-<aside id="sidebar" class="sidebar">
-
-  <ul class="sidebar-nav" id="sidebar-nav2">
-
-    <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("indexAdmin") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarJuegosDisponibles">
-        <i class="bi bi-grid text-danger"></i>
-        <span>Disponibles</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("reservasYcomprados") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=reservas">
-        <i class="bi bi-arrow-up-square text-danger"></i>
-        <span>Reservas o comprados</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("propuestos") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=propuestos">
-        <i class="bi bi-arrow-up-square text-danger"></i>
-        <span>Juegos propuestos</span>
-      </a>
-    </li>
-
-    <!-- Eliminado porque es redundante para el ADMINISTRADOR -->
-    <!--
+      <!-- Eliminado porque es redundante para el ADMINISTRADOR -->
+      <!--
       <li class="nav-item">
         <a class="nav-link collapsed<%=currentPage.equals("ofertas") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertas">
           <i class="bi bi-exclamation-square text-danger"></i>
@@ -443,33 +443,33 @@
       </li>
       -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-bag"></i><span>Juegos vendidos</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="icons-nav" class="nav-content" data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">
-            <i class="bi bi-circle"></i><span>Nuevo</span>
-          </a>
-        </li>
-        <li>
-          <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">
-            <i class="bi bi-circle"></i><span>Existente</span>
-          </a>
-        </li>
-        <li>
-          <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarcola">
-            <i class="bi bi-circle"></i><span>Cola</span>
-          </a>
-        </li>
-      </ul>
-    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-bag"></i><span>Juegos vendidos</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">
+              <i class="bi bi-circle"></i><span>Nuevo</span>
+            </a>
+          </li>
+          <li>
+            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">
+              <i class="bi bi-circle"></i><span>Existente</span>
+            </a>
+          </li>
+          <li>
+            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarcola">
+              <i class="bi bi-circle"></i><span>Cola</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-  </ul>
+    </ul>
 
 
-</aside>
+  </aside>
 <%}%>
 
 

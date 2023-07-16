@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- ======= Head ======= -->
-<jsp:include page="/includes/head.jsp">
+<jsp:include page="../includes/head.jsp">
   <jsp:param name="title" value="Nueva lista"/>
 </jsp:include>
 <body>
