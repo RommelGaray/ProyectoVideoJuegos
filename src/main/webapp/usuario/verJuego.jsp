@@ -64,7 +64,7 @@
         <div class="row">
             <div class="col-7">
                 <div class="container">
-                    <img src="<%= juegos.getFoto() %>" class="img-fluid juego-imagen" alt="Imagen">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juegos.getIdJuegos()%>" class="img-fluid juego-imagen" alt="Imagen">
                 </div>
             </div>
             <div class="col-5">
@@ -77,11 +77,15 @@
                     </div>
                     <% if (usuarioLog.getIdCuentas() == 0) { %>
                     <div class="row mt">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Comprar</button>
+
+                        <a class="btn btn-primary btn-lg btn-block" href="<%=request.getContextPath()%>/login">Comprar</a>
+
                     </div>
                     <% } else { %>
                     <div class="row mt-3">
-                        <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet?a=comprar&id=<%= juegos.getIdJuegos() %>&precio=<%= juegos.getPrecio() %>">Comprar</a>
+                        <a class="btn btn-primary btn-lg btn-block" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprar&id=<%= juegos.getIdJuegos() %>&precio=<%= juegos.getPrecio() %>">Comprar</a>
+                        <a class="btn btn-primary btn-lg btn-block" href="<%=request.getContextPath()%>/UsuariosCuentasServlet?a=carrito&id=<%=juegos.getIdJuegos()%>">Comprar oficial</a>
+
                     </div>
                     <% } %>
                 </div>
@@ -94,7 +98,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet">Regresar</a>
+                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/InitialServlet">Regresar</a>
                 </div>
             </div>
         </div>

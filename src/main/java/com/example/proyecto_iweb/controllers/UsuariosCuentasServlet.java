@@ -53,25 +53,36 @@ public class UsuariosCuentasServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/nuevoUsuario.jsp");
                 view.forward(request, response);
                 break;
-            case"actualizarFoto1":
+            case "actualizarFoto1":
                 usuarioCuentasDaos.actualizarFoto1(cuentas.getIdCuentas());
                 session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el a cambio");
                 response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
                 break;
-            case"actualizarFoto2":
+            case "actualizarFoto2":
                 usuarioCuentasDaos.actualizarFoto2(cuentas.getIdCuentas());
                 session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
                 response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
                 break;
-            case"actualizarFoto3":
+            case "actualizarFoto3":
                 usuarioCuentasDaos.actualizarFoto3(cuentas.getIdCuentas());
                 session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
                 response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
                 break;
-            case"actualizarFoto4":
+            case "actualizarFoto4":
                 usuarioCuentasDaos.actualizarFoto4(cuentas.getIdCuentas());
                 session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
                 response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil" );
+                break;
+
+            // INTERFAZ DE COMPRA
+            case "carrito":
+                int juegoId = Integer.parseInt(request.getParameter("id"));
+                request.setAttribute("juegos", usuarioJuegosDaos.listar(juegoId));
+                request.getRequestDispatcher("usuario/carrito.jsp").forward(request, response);
+                break;
+
+            case "pagar":
+                request.getRequestDispatcher("usuario/tarjetaCredito.jsp").forward(request, response);
                 break;
         }
 

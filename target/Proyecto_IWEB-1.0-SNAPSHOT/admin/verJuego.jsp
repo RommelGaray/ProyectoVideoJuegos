@@ -20,8 +20,6 @@
 <!-- ======= Main ======= -->
 <main id="main" class="main ">
 
-
-
   <div class="container d-flex justify-content-center align-items-center">
 
     <form class="col-lg-10">
@@ -74,12 +72,9 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <img src="<%=juego.getFoto()%>" alt="" class="img-fluid max-width-100">
+          <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>" alt="" class="img-fluid max-width-100">
         </div>
       </div>
-
-
-
 
       <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertas">Regresar</a>
     </form>
@@ -99,5 +94,7 @@
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/lista.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 </body>
 </html>

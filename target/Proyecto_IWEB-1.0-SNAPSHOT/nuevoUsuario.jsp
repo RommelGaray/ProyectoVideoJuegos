@@ -3,36 +3,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>JA-VAGOS</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-  <link rel="icon" href="pestania.png">
-
-  <!-- Estilos CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-  <!--Importando estilos CSS-->
-  <link rel="stylesheet" href="estilos/usuario/filtros.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- Option 1: Include in HTML -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
-</head>
+<!-- ======= Head ======= -->
+<jsp:include page="/includes/head.jsp">
+  <jsp:param name="title" value="Nueva lista"/>
+</jsp:include>
 
 <body>
 
@@ -59,7 +33,19 @@
                     <p class="text-center small">Ingrese sus datos personales para crear una cuenta</p>
                   </div>
 
-                  <form method="POST" action="<%=request.getContextPath()%>/UsuariosCuentasServlet?p=guardar" class="row g-3 needs-validation" novalidate>
+                  <form method="POST" action="<%=request.getContextPath()%>/InitialServlet?p=guardar" class="row g-3 needs-validation" novalidate>
+
+                    <% if (request.getParameter("errorNombreApellido") != null) {%>
+                    <div class="form-group text-danger mb-3">¡Cuidado!!! Ingresa un nombre y apellido como en su DNI</div>
+                    <% }%>
+
+                    <% if (request.getParameter("errorContrasena") != null) {%>
+                    <div class="form-group text-danger mb-3">Tu contraseña debe tener al menos una mayúscula, un número y un caracter especial</div>
+                    <% }%>
+
+                    <% if (request.getParameter("errorConfirmacion") != null) {%>
+                    <div class="form-group text-danger mb-3">¡Las contraseñas no coinciden!</div>
+                    <% }%>
 
                     <div class="col-12">
                       <label for="nombre" class="form-label">Nombre</label>
@@ -92,13 +78,17 @@
                         <input type="email" name="correo" class="form-control" id="yourUsername"  required placeholder="Correo">
                         <div class="invalid-feedback">¡Por favor, introduce una dirección de correo electrónico válida!</div>
                       </div>
-
                     </div>
 
                     <div class="col-12">
                       <label for="password" class="form-label">Contraseña</label>
-                      <input type="email" name="password" class="form-control" id="password" required placeholder="Procura recordar tu contraseña">
+                      <input type="password" name="password" class="form-control" id="password" required placeholder="Procura recordar tu contraseña">
                       <div class="invalid-feedback">¡Por favor, introduce una contraseña!!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label class="label" >Confirmar contraseña</label>
+                      <input type="password" class="form-control" required aria-label="confirmPassword" name="confirmPassword" placeholder="Confirmar contraseña">
                     </div>
 
                     <div class="col-12">
@@ -113,7 +103,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="#">Ja-Vagos</a>
+                Designed by <a href="<%=request.getContextPath()%>/index.jsp">Ja-Vagos</a>
               </div>
 
             </div>

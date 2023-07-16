@@ -15,7 +15,7 @@
 
 <body>
 <!-- ======= Header ======= -->
-<jsp:include page="../includes/narvar.jsp">
+<jsp:include page="/includes/narvar.jsp">
     <jsp:param name="currentPage" value="indexAdmin"/>
 </jsp:include>
 
@@ -26,10 +26,10 @@
         <div class="col-md-10">
             <% for (Juegos j : lista) { %>
             <% if (j.getDescuento()>0) {%>
-                <div class="card mb-10" style="max-width: 1500px;">
+            <div class="card mb-10" style="max-width: 1500px;">
                 <div class="row g-0">
                     <div class="col-md-5">
-                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego?id=<%=j.getIdJuegos()%>" class="img-fluid rounded-start" alt="...">
+                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
@@ -54,10 +54,10 @@
                 </div>
             </div>
             <% } else {%>
-                <div class="card mb-10" style="max-width: 1500px;">
+            <div class="card mb-10" style="max-width: 1500px;">
                 <div class="row g-0">
                     <div class="col-md-5">
-                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego?id=<%=j.getIdJuegos()%>" class="img-fluid rounded-start" alt="...">
+                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
@@ -96,7 +96,13 @@
                         <span class="align-middle d-flex align-items-center">Juego Nuevo</span>
                     </a>
                 </div>
-
+                <br>
+                <div>
+                    <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertas" class="btn btn-danger d-flex align-items-center">
+                        <i class="bi bi-joystick fs-4 me-2"></i>
+                        <span class="align-middle d-flex align-items-center">Ofertas</span>
+                    </a>
+                </div>
             </div>
         </div>
 

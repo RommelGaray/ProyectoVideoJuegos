@@ -21,42 +21,49 @@
 <!-- ======= Main ======= -->
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Juegos Ofertados</h1>
-    </div>
+
 
     <div class="container">
 
-        <table id="example" class="table table-striped" style="width:100%">
+        <div class="pagetitle">
+            <h1>Juegos Ofertados</h1>
+        </div>
+
+        <table id="example" class="table table-bordered border-danger" style="width:100%">
             <thead>
             <tr>
                 <th>Name de juego</th>
                 <th>Precio</th>
                 <th>Stock</th>
                 <th>Descuento</th>
-                <th>Opciones</th>
+                <th class="text-center">Opciones</th>
             </tr>
             </thead>
             <tbody>
             <% for (Juegos o : ofertas) { %>
             <tr>
                 <td><%=o.getNombre()%> </td>
-                <td><%=o.getPrecio()%></td>
+                <td>S/. <%=o.getPrecio()%></td>
                 <td><%=o.getStock()%></td>
-                <td><%=o.getDescuento()%></td>
+                <td><%=o.getDescuento()%> %</td>
                 <td>
                     <div class="d-flex justify-content-center">
-                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=verJuego&id=<%=o.getIdJuegos()%>" class="btn btn-primary m-1">Ver juego</a>
+                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=verJuego&id=<%=o.getIdJuegos()%>" class="btn btn-primary m-1"><i class="bi bi-eye-fill"></i></a>
                         <a onclick="return confirm('¿Esta seguro de eliminar esta oferta?')" class="btn btn-danger m-1"
-                           href="<%=request.getContextPath()%>/AdminJuegosServlet?a=eliminarOferta&id=<%=o.getIdJuegos()%>">Eliminar</a>
+                           href="<%=request.getContextPath()%>/AdminJuegosServlet?a=eliminarOferta&id=<%=o.getIdJuegos()%>"><i class="bi bi-trash-fill"></i>
+                        </a>
                     </div>
                 </td>
             </tr>
             <% } %>
 
             </tbody>
-
         </table>
+
+        <div>
+            <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarJuegosDisponibles">Regresar</a>
+        </div>
+
     </div>
 
 </main>
@@ -71,5 +78,7 @@
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/lista.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 </body>
 </html>

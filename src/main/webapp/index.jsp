@@ -59,6 +59,8 @@
     <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
 
 
+
+
     <!--DENTRO DE UN DIV-->
     <div class="container">
       <div class="row">
@@ -67,12 +69,12 @@
           <div class="disponibleUsuario">
             <div class="card" style="width: 18rem; height: 100%;">
               <div class="col-md-12 d-flex justify-content-center align-items-center">
-                <img src="<%=j.getFoto()%>" class="card-img-top" alt="...">
+                <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top" alt="...">
 
               </div>
               <div class="card-body">
                 <h5 class="card-title"><%=j.getNombre()%></h5>
-                <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=j.getIdJuegos()%>" class="btn btn-dark">Ver juego</a>
+                <a href="<%=request.getContextPath()%>/InitialServlet?action=verjuego&id=<%=j.getIdJuegos()%>" class="btn btn-dark">Ver juego</a>
               </div>
             </div>
           </div>

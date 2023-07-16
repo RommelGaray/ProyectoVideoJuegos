@@ -51,10 +51,13 @@
 <jsp:include page="../includes/narvar.jsp">
     <jsp:param name="currentPage" value="vendidos"/>
 </jsp:include>
+
+
+<!-- ======= Main ======= -->
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Lista de videojuegos vendidos</h1>
+        <h1 class='mt-3'>Lista de videojuegos vendidos</h1>
     </div>
 
     <section class="section faq">
@@ -68,7 +71,7 @@
                         <div class="col text-center" style="max-width: 1000px;">
                             <h1>AÚN NO HA VENDIDO NINGÚN JUEGO</h1>
                             <div class="spinner-border" role="status">
-                                <span class="visually-hidden" >VENDE JUEGOS ACA </span>
+                            <span class="visually-hidden" >VENDE JUEGOS ACA </span>
                             </div>
                         </div>
                         <br><br>

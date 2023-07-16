@@ -56,7 +56,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Historial de juegos comprados</h1>
+        <h1 class='mt-3'>Historial de juegos comprados</h1>
     </div>
 
 
@@ -65,14 +65,15 @@
 
             <% if (listaComprados.size()==0) { %>
 
-            <div class="col-lg-9">
+            <div class="col-lg-12">
+                <br><br>
 
                 <div class="col text-center">
                     <div class="disponibleUsuario">
                         <div class="col text-center" style="max-width: 1000px;">
                             <h1>AÚN NO HA COMPRADO NINGÚN JUEGO</h1>
                             <div class="spinner-border" role="status">
-                                <span class="visually-hidden" >COMPRA JUEGOS ACA </span>
+                            <span class="visually-hidden" >COMPRA JUEGOS ACA </span>
                             </div>
                         </div>
                         <br><br>
@@ -85,6 +86,10 @@
 
             <div class="col-lg-9">
                 <br><br>
+                <% if (session.getAttribute("msg") != null) {%>
+                <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
+                <%session.removeAttribute("msg");%>
+                <% }%>
                 <div class="container">
                     <div class="disponibleUsuario">
                         <% for (CompraUsuario cu : listaComprados) { %>
@@ -92,7 +97,7 @@
                             <div class="row g-0 rounded-4 border border-primary border-2 p-2">
                                 <!--Imagen del juego-->
                                 <div class="col-md-6 d-flex justify-content-center align-items-center">
-                                    <img src="<%=cu.getJuegos().getFoto()%>" class="card-img-top" alt="...">
+                                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="card-img-top" alt="...">
                                 </div>
                                 <!--Descripción del juego-->
                                 <div class="col-md-6">
@@ -101,6 +106,9 @@
                                         <p class="card-text"> Descripcion : <%=cu.getJuegos().getDescripcion()%></p>
                                         <p class="card-text"> Precio : $ <%=cu.getPrecioCompra()%> </p>
                                         <p class="fw-bold"> Estado :  <%=cu.getEstados().getEstados()%> </p>
+                                        <p class="fw-bold"> Fecha de Compra :  <%=cu.getFechaCompra()%> </p>
+                                        <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=formularioCompra&id=<%=cu.getIdCompra()%>" class="btn btn-dark" >Rankearlo</a>
+
                                         <!--<a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="btn btn-dark">Ver juego</a>-->
                                     </div>
                                 </div>
@@ -112,7 +120,7 @@
             </div>
 
 
-            <div class="col-lg-3 align-items-lg-center">
+            <div  class="col-lg-3 d-flex flex-column align-items-center justify-content" >
                 <br><br>
                 <div class="row g-0">
                     <div class="col-md-12 bg-primary border rounded-4 p-4">
@@ -137,7 +145,7 @@
                         <%}%>
                     </tr>
                 </table>
-                <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=recomendaciones" class="btn btn-primary">Recomendaciones</a>
+                <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=recomendaciones" class="btn btn-secondary">Recomendaciones Para Usted</a>
             </div>
 
 

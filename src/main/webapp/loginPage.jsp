@@ -5,32 +5,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>JA-VAGOS</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-    <link rel="icon" href="pestania.png">
-
-    <!-- Estilos CSS -->
-    <!--Importando estilos CSS-->
-    <link rel="stylesheet" href="estilos/sistema.css">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
-
-</head>
+<!-- ======= Head ======= -->
+<jsp:include page="/includes/head.jsp">
+    <jsp:param name="title" value="Nueva lista"/>
+</jsp:include>
 
 <body>
 
@@ -57,11 +35,15 @@
                                         <p class="text-center small">Ingrese su nombre de usuario y contraseña para iniciar sesión</p>
                                     </div>
 
+                                    <% if (request.getAttribute("msg") != null) { %>
+                                    <div class="alert alert-success">Se ha creado el Usuario exitosamente</div>
+                                    <% } %>
+
                                     <form method="POST" action="<%=request.getContextPath()%>/login">
 
 
                                         <div class="col-12 mb-3">
-                                            <label for="yourUser" class="form-label">Usuario</label>
+                                            <label for="yourUser" class="form-label">Correo</label>
                                             <input type="text" name="inputEmail" class="form-control" id="yourUser" required placeholder="Correo">
 
                                         </div>
@@ -92,7 +74,7 @@
                             </div>
 
                             <div class="credits">
-                                Designed by <a href="#">Ja-Vagos</a>
+                                Designed by <a href="<%=request.getContextPath()%>/index.jsp">Ja-Vagos</a>
                             </div>
 
                         </div>

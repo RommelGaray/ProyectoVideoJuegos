@@ -2,6 +2,7 @@ package com.example.proyecto_iweb.controllers;
 
 import java.io.*;
 
+import com.example.proyecto_iweb.models.beans.CompraUsuario;
 import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.beans.VentaUsuario;
@@ -110,7 +111,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
 
 
-
             case "agregarjuego":
                 String id7 =request.getParameter("id");
                 request.setAttribute("verJuego", usuarioJuegosDaos.listar(Integer.parseInt(id7)));
@@ -137,6 +137,11 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 String id6 = request.getParameter("id");
                 request.setAttribute("formulario",usuarioJuegosDaos.verVenta(id6));
                 request.getRequestDispatcher("usuario/formularioJuego.jsp").forward(request,response);
+                break;
+            case "formularioCompra":
+                String id8 = request.getParameter("id");
+                request.setAttribute("formularioCompra",usuarioJuegosDaos.verCompra(id8));
+                request.getRequestDispatcher("usuario/juegoComprado.jsp").forward(request,response);
                 break;
 
 
@@ -194,9 +199,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                         session2.setAttribute("msg","Precio editado exitosamente");
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
                     }
-
                 }
-
                 break;
 
             case "e":
@@ -205,6 +208,13 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
                 usuarioJuegosDaos.guardarVenta1(juegos1,cuentas1.getIdCuentas());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                break;
+            case "raiting":
+                CompraUsuario compraUsuario = parseCompra(request);
+                HttpSession session3 = request.getSession();
+                usuarioJuegosDaos.actualizarRaiting(compraUsuario);
+                session3.setAttribute("msg","Gracias por compartir su opinion con nosotros");
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
                 break;
         }
     }
@@ -258,6 +268,29 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
         }
         return ventaUsuario;
+    }
+
+    public CompraUsuario parseCompra(HttpServletRequest request)  {
+
+        CompraUsuario compraUsuario = new CompraUsuario();
+        String idCompra = request.getParameter("idCompra") != null ? request.getParameter("idCompra") : "";
+        String raiting = request.getParameter("raiting");
+
+
+        try {
+
+            int id = Integer.parseInt(idCompra);
+
+            compraUsuario.setIdCompra(id);
+            compraUsuario.setRaiting(Integer.parseInt(raiting));
+
+
+            return compraUsuario;
+
+        } catch (NumberFormatException e) {
+
+        }
+        return compraUsuario;
     }
 
     public Juegos parseJuegos(HttpServletRequest request)  {

@@ -52,8 +52,7 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1 class="mb-4">Juegos Disponibles</h1>
-
+        <h1 class='mt-3'>Juegos Disponibles</h1>
     </div>
     <div class="row">
         <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
@@ -67,7 +66,7 @@
                     <div class="disponibleUsuario">
                         <div class="card" style="width: 18rem; height: 100%;">
                             <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                <img src="<%=j.getFoto()%>" class="card-img-top" alt="...">
+                                <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top" alt="...">
 
                             </div>
                             <div class="card-body">

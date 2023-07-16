@@ -53,18 +53,39 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-    </div>
+
 
     <section class="section faq">
         <div class="row">
 
             <div class="col-lg-2"></div>
 
+            <% if (listaNotificaciones.size()==0) { %>
+            <div class="col-lg-12">
+                <div class="pagetitle">
+                    <h1 class="mb-4">Notificaciones</h1>
+                </div>
+                    <br><br>
+                    <div class="col text-center">
+                        <div class="disponibleUsuario">
+                            <div class="col text-center" style="max-width: 1000px;">
+                                <h1>Aquí van a aparecer las distintas actualizaciones de su compras y ventas</h1>
+                            </div>
+                            <br><br>
+                                <div>
+                                    <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar" class="btn btn-primary">Compre Aquí</a>
+
+                                    <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1" class="btn btn-primary">Venda Aquí</a>
+                                </div>
+                            </div>
+
+                </div>
+            </div>
+            <%}else { %>
             <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
             <div class="col-lg-8">
-                <div class="notificaciones">
-                    <h3>Notificaciones</h3>
+                <div class="pagetitle">
+                    <h1 class="mb-4">Notificaciones</h1>
                     <%for (VentaUsuario cv : listaNotificaciones){%>
                     <div class="alert alert-primary" role="alert">
                         <p class="fw-bold" ><%=cv.getJuegos().getNombre()%></p>
@@ -73,6 +94,8 @@
                     <%}%>
                 </div>
             </div>
+            <%}%>
+
 
             <div class="col-lg-2"></div>
 

@@ -123,12 +123,12 @@ public class AdminJuegosServlet extends HttpServlet {
 
             case "nuevos":
                 request.setAttribute("nuevos", adminJuegosDaos.listarnuevos());
-                request.getRequestDispatcher("admin/juegosNuevosAdminOficial.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/juegosNuevos.jsp").forward(request, response);
                 break;
 
             case "existentes":
                 request.setAttribute("existentes", adminJuegosDaos.listarexistentes());
-                request.getRequestDispatcher("admin/juegosExistentesAdminOficial.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/juegosExistentes.jsp").forward(request, response);
                 break;
 
             case "cambiarestadoaceptar":
@@ -147,6 +147,11 @@ public class AdminJuegosServlet extends HttpServlet {
                 String id7 = request.getParameter("idventa");
                 adminJuegosDaos.cambiarestadorechazar(id7);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=listarcola");
+                break;
+
+            case "listarNotificaciones":
+
+                request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
 
         }
@@ -173,18 +178,18 @@ public class AdminJuegosServlet extends HttpServlet {
                 String consola = request.getParameter("consola");
                 String genero = request.getParameter("genero");
                 Part filePart = request.getPart("foto");
-                inputStream = filePart.getInputStream();
 
+                inputStream = filePart.getInputStream();
                 if (filePart != null) {
                     System.out.println(filePart.getContentType());
                     inputStream = filePart.getInputStream();
                 }
-
                 //byte[] foto = request.getParameter("foto").getBytes();
                 adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
-
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 break;
+
+
 
             case "actualizar":
                 int idJuego = Integer.parseInt(request.getParameter("idJuego"));
@@ -195,9 +200,21 @@ public class AdminJuegosServlet extends HttpServlet {
                 String consolaAct = request.getParameter("consola");
                 String generoAct = request.getParameter("genero");
                 int stockAct = Integer.parseInt(request.getParameter("stock"));
-
                 adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                break;
+
+            case "actualizarFotoJuego":
+                InputStream inputStreamAct1;
+                int idJuegoFoto = Integer.parseInt(request.getParameter("idJuego"));
+                Part filePartAct2 = request.getPart("foto");
+                inputStreamAct1 = filePartAct2.getInputStream();
+                if (filePartAct2 != null) {
+                    System.out.println(filePartAct2.getContentType());
+                    inputStreamAct1 = filePartAct2.getInputStream();
+                }
+                adminJuegosDaos.actualizarFotoJuego(idJuegoFoto, inputStreamAct1);
+                response.sendRedirect(request.getContextPath() +"/AdminJuegosServlet");
                 break;
 
             case "ofertar":
@@ -213,6 +230,13 @@ public class AdminJuegosServlet extends HttpServlet {
 
                 adminJuegosDaos.dejarMensaje(mensajeAdmin, idVenta);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                break;
+
+            // POR AHORA EL BUSCADOR NO FUNCIONA!!//
+            case "b1":
+                String textoBuscar1 = request.getParameter("buscador");
+                request.setAttribute("lista", adminJuegosDaos.buscarPorTitle(textoBuscar1));
+                request.getRequestDispatcher("admin/indexAdmin.jsp").forward(request, response);
                 break;
         }
     }

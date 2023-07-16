@@ -25,14 +25,17 @@
 <!-- ======= Main ======= -->
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Ofertar juego</h1>
-    </div>
+
 
     <div class="container">
+
+        <div class="pagetitle">
+            <h1>Ofertar juego</h1>
+        </div>
+
         <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=ofertar">
             <input type="hidden" class="form-control" name="idJuego" id="idJuego"
-                   value="<%=juego.getIdJuegos()%>">
+                   value="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="mb-3">
@@ -73,7 +76,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <img src="<%=juego.getFoto()%>" alt="" class="img-fluid max-width-100">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>" alt="" class="img-fluid max-width-100">
                 </div>
             </div>
 
@@ -98,5 +101,7 @@
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/lista.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 </body>
 </html>

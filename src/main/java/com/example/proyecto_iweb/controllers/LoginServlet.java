@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
@@ -27,7 +29,7 @@ public class LoginServlet extends HttpServlet {
                     if (cuentas.getIdRol() == 2) {
                         resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
                     } else if (cuentas.getIdRol() == 1) {
-                        resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
+                        resp.sendRedirect(req.getContextPath() + "/ManagerCuentasServlet");
                     } else if (cuentas.getIdRol() == 3) {
                         resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
                     }
@@ -39,19 +41,26 @@ public class LoginServlet extends HttpServlet {
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
                 dispatcher.forward(req, resp);
             }
-        } else { //logout
+        }
+
+        else{ //logout
             req.getSession().invalidate();
             resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
         }
+
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String email = req.getParameter("inputEmail");
         String pass = req.getParameter("inputPassword");
 
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
         Cuentas cuentas = usuarioCuentasDaos.validateUsernameAndPassword(email, pass);
+        String action = req.getParameter("p") == null ? "guardar" : req.getParameter("p");
+
 
         if (cuentas != null) { //usuario y password correctos
             HttpSession session = req.getSession();
@@ -59,7 +68,7 @@ public class LoginServlet extends HttpServlet {
             session.setMaxInactiveInterval(3000 * 60); //en segundos
 
             if (cuentas.getIdRol() == 1) {
-                resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
+                resp.sendRedirect(req.getContextPath() + "/ManagerCuentasServlet");
             } else if (cuentas.getIdRol() == 2) {
                 resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
             } else if (cuentas.getIdRol() == 3) {
@@ -69,5 +78,6 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("error", "Usuario o password incorrectos");
             req.getRequestDispatcher("loginPage.jsp").forward(req, resp);
         }
+
     }
 }
