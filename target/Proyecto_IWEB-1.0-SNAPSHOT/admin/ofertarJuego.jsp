@@ -25,11 +25,14 @@
 <!-- ======= Main ======= -->
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Ofertar juego</h1>
-    </div>
+
 
     <div class="container">
+
+        <div class="pagetitle">
+            <h1>Ofertar juego</h1>
+        </div>
+
         <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=ofertar">
             <input type="hidden" class="form-control" name="idJuego" id="idJuego"
                    value="<%=juego.getIdJuegos()%>">

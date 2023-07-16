@@ -25,11 +25,14 @@
 <!-- ======= Main ======= -->
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Editar juego</h1>
-    </div>
+
 
     <div class="container">
+
+        <div class="pagetitle">
+            <h1>Editar juego</h1>
+        </div>
+
         <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=actualizar" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-6">

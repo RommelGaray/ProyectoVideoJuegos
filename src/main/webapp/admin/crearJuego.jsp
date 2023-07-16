@@ -23,11 +23,14 @@
 
 <main id="main" class="main">
 
-  <div class="pagetitle">
-    <h1>Crear juego</h1>
-  </div>
+
 
   <div class="container">
+
+    <div class="pagetitle">
+      <h1>Crear juego</h1>
+    </div>
+
     <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet" enctype="multipart/form-data">
 
       <div class="mb-3">

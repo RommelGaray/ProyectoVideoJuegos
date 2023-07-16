@@ -24,11 +24,14 @@
 <!-- ======= Main ======= -->
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Juegos comprados y reservados</h1>
-    </div>
+
 
     <div class="container">
+
+        <div class="pagetitle">
+            <h1>Juegos comprados y reservados</h1>
+        </div>
+
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
             <tr>
