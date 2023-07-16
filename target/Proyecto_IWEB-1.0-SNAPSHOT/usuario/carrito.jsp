@@ -114,7 +114,11 @@
                     <button type="button" class="btn btn-success mt-3">Pagar</button>
                     <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet?a=pagar">Pagar oficial</a>
                     <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet">Cancelar</a>
+                <%
 
+                    
+
+                %>
                 </div>
 
             </div>

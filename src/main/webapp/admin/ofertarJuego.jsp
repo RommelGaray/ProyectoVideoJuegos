@@ -35,7 +35,7 @@
 
         <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=ofertar">
             <input type="hidden" class="form-control" name="idJuego" id="idJuego"
-                   value="<%=juego.getIdJuegos()%>">
+                   value="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="mb-3">
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <img src="<%=juego.getFoto()%>" alt="" class="img-fluid max-width-100">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>" alt="" class="img-fluid max-width-100">
                 </div>
             </div>
 

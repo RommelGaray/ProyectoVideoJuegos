@@ -51,6 +51,9 @@
 <jsp:include page="../includes/narvar.jsp">
     <jsp:param name="currentPage" value="vendidos"/>
 </jsp:include>
+
+
+<!-- ======= Main ======= -->
 <main id="main" class="main">
 
     <div class="pagetitle">
