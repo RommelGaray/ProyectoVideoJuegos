@@ -61,7 +61,7 @@
         </table>
 
         <div>
-            <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=verJuego">Regresar</a>
+            <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarJuegosDisponibles">Regresar</a>
         </div>
 
     </div>
