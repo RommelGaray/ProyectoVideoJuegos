@@ -3,6 +3,7 @@ package com.example.proyecto_iweb.models.daos;
 import com.example.proyecto_iweb.models.beans.*;
 import com.example.proyecto_iweb.models.dtos.Consolas;
 import com.example.proyecto_iweb.models.dtos.Generos;
+import com.example.proyecto_iweb.models.dtos.JuegosExistentes;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -493,10 +494,10 @@ public class AdminJuegosDaos  extends DaoBase{
         ArrayList<VentaUsuario> lista = new ArrayList<>();
 
         String sql =    "SELECT c.nombre, c.apellido, j.nombre, v.idEstados, j.existente , v.idVenta\n" +
-                        "FROM cuenta AS c\n" +
-                        "JOIN ventausuario AS v ON c.idCuenta = v.idUsuario\n" +
-                        "JOIN juego AS j ON v.idJuego = j.idJuego\n" +
-                        "WHERE v.idEstados = 1;";
+                "FROM cuenta AS c\n" +
+                "JOIN ventausuario AS v ON c.idCuenta = v.idUsuario\n" +
+                "JOIN juego AS j ON v.idJuego = j.idJuego\n" +
+                "WHERE v.idEstados = 1;";
 
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
@@ -532,31 +533,38 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
-    public ArrayList<Juegos> listarnuevos(){ //categoria, fecga agregado, estado
+    public ArrayList<VentaUsuario> listarnuevos(){ //categoria, fecga agregado, estado
 
-        ArrayList<Juegos> lista = new ArrayList<>();
+        ArrayList<VentaUsuario> lista = new ArrayList<>();
 
-        String sql =   "select * from juego where existente=0";
+        //se obtiene  1.idVenta, 2.idJuego, 3.nombre (juego), 4.nombre 5.apellido (cuenta), 6.precio, 7.foto, 8.genero
+        String sql =    "SELECT vu.idVenta, vu.idJuego, j.nombre , c.nombre, c.apellido, vu.precioVenta, j.foto, j.genero\n" +
+                "FROM ventausuario vu\n" +
+                "JOIN juego j ON vu.idJuego = j.idJuego\n" +
+                "JOIN cuenta c ON vu.idUsuario = c.idCuenta\n" +
+                "where j.existente=0;";
 
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql)) {
 
             while(resultSet.next()){
-                Juegos juegos = new Juegos();
-                juegos.setIdJuegos(resultSet.getInt(1));
-                juegos.setNombre(resultSet.getString(2));
-                juegos.setDescripcion(resultSet.getString(3));
-                juegos.setPrecio(resultSet.getDouble(4));
-                juegos.setDescuento(resultSet.getDouble(5));
-                juegos.setStock(resultSet.getInt(11));
-                juegos.setFoto(resultSet.getString(6));
-                juegos.setExistente(resultSet.getBoolean(7));
-                juegos.setHabilitado(resultSet.getBoolean(8));
-                juegos.setConsola(resultSet.getString(9));
-                juegos.setGenero(resultSet.getString(10));
 
-                lista.add(juegos);
+                VentaUsuario ventausuario = new VentaUsuario();
+                ventausuario.setIdVenta(resultSet.getInt(1));
+                ventausuario.setIdJuego(resultSet.getInt(2));
+                Juegos juegos = new Juegos();
+                juegos.setNombre(resultSet.getString(3));
+                juegos.setFoto(resultSet.getNString(7));
+                juegos.setGenero(resultSet.getString(8));
+                ventausuario.setJuegos(juegos);
+                Cuentas cuenta = new Cuentas();
+                cuenta.setNombre(resultSet.getNString(4));
+                cuenta.setApellido(resultSet.getNString(5));
+                ventausuario.setUsuario(cuenta);
+                ventausuario.setPrecioVenta(resultSet.getDouble(6));
+
+                lista.add(ventausuario);
             }
 
         } catch (SQLException e) {
@@ -566,10 +574,15 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
-    public ArrayList<Juegos> listarexistentes(){ //num stock, reg venta
-        ArrayList<Juegos> lista = new ArrayList<>();
+    public ArrayList<JuegosExistentes> listarexistentes(){ //num stock, reg venta
+        ArrayList<JuegosExistentes> lista = new ArrayList<>();
 
-        String sql =   "select * from juego where existente=1";
+        String sql =    "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock , COUNT(v.idVenta) AS cant_ventas\n" +
+                "FROM ventausuario v\n" +
+                "JOIN juego j ON v.idJuego = j.idJuego\n" +
+                "WHERE j.existente = 1\n" +
+                "GROUP BY v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock \n" +
+                "ORDER BY cant_ventas DESC;";
 
         String url = "jdbc:mysql://localhost:3306/mydb";
         try (Connection connection = this.getConection();
@@ -577,19 +590,15 @@ public class AdminJuegosDaos  extends DaoBase{
              ResultSet resultSet = stmt.executeQuery(sql)) {
 
             while(resultSet.next()){
-                Juegos juegos = new Juegos();
-                juegos.setIdJuegos(resultSet.getInt(1));
-                juegos.setNombre(resultSet.getString(2));
-                juegos.setDescripcion(resultSet.getString(3));
-                juegos.setPrecio(resultSet.getDouble(4));
-                juegos.setDescuento(resultSet.getDouble(5));
-                juegos.setStock(resultSet.getInt(11));
-                juegos.setFoto(resultSet.getString(6));
-                juegos.setExistente(resultSet.getBoolean(7));
-                juegos.setHabilitado(resultSet.getBoolean(8));
-                juegos.setConsola(resultSet.getString(9));
-                juegos.setGenero(resultSet.getString(10));
-                lista.add(juegos);
+                JuegosExistentes juegosExistentes = new JuegosExistentes();
+                juegosExistentes.setIdVenta(resultSet.getInt(1));
+                juegosExistentes.setIdJuego(resultSet.getInt(2));
+                juegosExistentes.setNombre(resultSet.getString(3));
+                juegosExistentes.setPrecioVenta(resultSet.getDouble(4));
+                juegosExistentes.setStock(resultSet.getInt(5));
+                //juegosExistentes.setFoto(resultSet.getString(6));
+                juegosExistentes.setCant_ventas(resultSet.getInt(6));
+                lista.add(juegosExistentes);
             }
 
         } catch (SQLException e) {
@@ -682,49 +691,6 @@ public class AdminJuegosDaos  extends DaoBase{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public ArrayList<VentaUsuario> listarNotificaciones(int id) {
-
-        ArrayList<VentaUsuario> lista = new ArrayList<>();
-
-        String sql = "SELECT * FROM ventausuario vu\n" +
-                "inner join juego j on j.idJuego = vu.idJuego\n" +
-                "inner join estados e on vu.idEstados = e.idEstados\n" +
-                "where vu.idEstados != 8 and vu.idUsuario = ? and vu.mensajeAdmin is not null;";
-
-        try (Connection conn = this.getConection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, id);
-
-            try (ResultSet rs = pstmt.executeQuery()){
-                while (rs.next()) {
-                    VentaUsuario ventaUsuario = new VentaUsuario();
-                    ventaUsuario.setIdVenta(rs.getInt(1));
-                    ventaUsuario.setPrecioVenta(rs.getInt(4));
-                    ventaUsuario.setMensajeAdmin(rs.getString(5));
-
-                    Juegos juegos = new Juegos();
-                    juegos.setIdJuegos(rs.getInt(8));
-                    juegos.setNombre(rs.getString(9));
-                    juegos.setFoto(rs.getString(19));
-                    ventaUsuario.setJuegos(juegos);
-
-                    Estados estados = new Estados();
-                    estados.setIdEstados(rs.getInt(20));
-                    estados.setEstados(rs.getString(21));
-                    ventaUsuario.setEstados(estados);
-                    lista.add(ventaUsuario);
-                }
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-
-        }
-
-        return lista;
     }
 
 }

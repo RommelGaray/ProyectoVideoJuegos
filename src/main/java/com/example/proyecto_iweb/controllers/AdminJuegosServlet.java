@@ -123,12 +123,12 @@ public class AdminJuegosServlet extends HttpServlet {
 
             case "nuevos":
                 request.setAttribute("nuevos", adminJuegosDaos.listarnuevos());
-                request.getRequestDispatcher("admin/juegosNuevosAdminOficial.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/juegosNuevos.jsp").forward(request, response);
                 break;
 
             case "existentes":
                 request.setAttribute("existentes", adminJuegosDaos.listarexistentes());
-                request.getRequestDispatcher("admin/juegosExistentesAdminOficial.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/juegosExistentes.jsp").forward(request, response);
                 break;
 
             case "cambiarestadoaceptar":
