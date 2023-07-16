@@ -65,14 +65,15 @@
 
             <% if (listaComprados.size()==0) { %>
 
-            <div class="col-lg-9">
+            <div class="col-lg-12">
+                <br><br>
 
                 <div class="col text-center">
                     <div class="disponibleUsuario">
                         <div class="col text-center" style="max-width: 1000px;">
                             <h1>AÚN NO HA COMPRADO NINGÚN JUEGO</h1>
                             <div class="spinner-border" role="status">
-                                <span class="visually-hidden" >COMPRA JUEGOS ACA </span>
+                            <span class="visually-hidden" >COMPRA JUEGOS ACA </span>
                             </div>
                         </div>
                         <br><br>

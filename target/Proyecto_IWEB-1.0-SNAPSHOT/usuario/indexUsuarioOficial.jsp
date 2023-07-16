@@ -52,8 +52,7 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1 class="mb-4">Juegos Disponibles</h1>
-
+        <h1 class='mt-3'>Juegos Disponibles</h1>
     </div>
     <div class="row">
         <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->

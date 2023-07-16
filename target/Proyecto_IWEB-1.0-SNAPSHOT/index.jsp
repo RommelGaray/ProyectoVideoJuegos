@@ -59,6 +59,8 @@
     <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
 
 
+
+
     <!--DENTRO DE UN DIV-->
     <div class="container">
       <div class="row">

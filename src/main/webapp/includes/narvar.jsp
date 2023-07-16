@@ -1,4 +1,5 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
+<%@ page import="java.util.ArrayList" %>
 <% String currentPage = request.getParameter("currentPage"); %>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
@@ -197,16 +198,12 @@
           <% if (usuarioLog.getIdCuentas() > 0) { %>
           <span></span>
           <!-- ICONO DE TIENDA Y NOTIFICACION-->
-          <li class="nav-item dropdown">
-            <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" data-bs-toggle="dropdown">
+          <li>
+            <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">
               <i class="bi bi-chat-left-text text-light"></i>
               <span class="badge bg-danger badge-number"></span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-              <li class="dropdown-footer">
-                <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
-              </li>
-            </ul>
+
           </li>
           <!-- TERMINA NOTIFICACION-->
 

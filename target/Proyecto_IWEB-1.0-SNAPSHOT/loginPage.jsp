@@ -35,11 +35,15 @@
                                         <p class="text-center small">Ingrese su nombre de usuario y contraseña para iniciar sesión</p>
                                     </div>
 
+                                    <% if (request.getAttribute("msg") != null) { %>
+                                    <div class="alert alert-success">Se ha creado el Usuario exitosamente</div>
+                                    <% } %>
+
                                     <form method="POST" action="<%=request.getContextPath()%>/login">
 
 
                                         <div class="col-12 mb-3">
-                                            <label for="yourUser" class="form-label">Usuario</label>
+                                            <label for="yourUser" class="form-label">Correo</label>
                                             <input type="text" name="inputEmail" class="form-control" id="yourUser" required placeholder="Correo">
 
                                         </div>

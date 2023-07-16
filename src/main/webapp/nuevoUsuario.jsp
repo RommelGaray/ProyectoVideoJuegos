@@ -35,6 +35,18 @@
 
                   <form method="POST" action="<%=request.getContextPath()%>/InitialServlet?p=guardar" class="row g-3 needs-validation" novalidate>
 
+                    <% if (request.getParameter("errorNombreApellido") != null) {%>
+                    <div class="form-group text-danger mb-3">¡Cuidado!!! Ingresa un nombre y apellido como en su DNI</div>
+                    <% }%>
+
+                    <% if (request.getParameter("errorContrasena") != null) {%>
+                    <div class="form-group text-danger mb-3">Tu contraseña debe tener al menos una mayúscula, un número y un caracter especial</div>
+                    <% }%>
+
+                    <% if (request.getParameter("errorConfirmacion") != null) {%>
+                    <div class="form-group text-danger mb-3">¡Las contraseñas no coinciden!</div>
+                    <% }%>
+
                     <div class="col-12">
                       <label for="nombre" class="form-label">Nombre</label>
                       <input type="text" name="nombre" class="form-control" id="nombre" required placeholder="Tú nombre">
@@ -66,13 +78,17 @@
                         <input type="email" name="correo" class="form-control" id="yourUsername"  required placeholder="Correo">
                         <div class="invalid-feedback">¡Por favor, introduce una dirección de correo electrónico válida!</div>
                       </div>
-
                     </div>
 
                     <div class="col-12">
                       <label for="password" class="form-label">Contraseña</label>
-                      <input type="email" name="password" class="form-control" id="password" required placeholder="Procura recordar tu contraseña">
+                      <input type="password" name="password" class="form-control" id="password" required placeholder="Procura recordar tu contraseña">
                       <div class="invalid-feedback">¡Por favor, introduce una contraseña!!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label class="label" >Confirmar contraseña</label>
+                      <input type="password" class="form-control" required aria-label="confirmPassword" name="confirmPassword" placeholder="Confirmar contraseña">
                     </div>
 
                     <div class="col-12">

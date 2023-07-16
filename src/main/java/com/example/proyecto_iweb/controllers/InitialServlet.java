@@ -65,12 +65,25 @@ public class InitialServlet extends HttpServlet {
                 cuentas1.setDireccion(request.getParameter("direccion"));
                 cuentas1.setCorreo(request.getParameter("correo"));
                 cuentas1.setPasswordHashed(request.getParameter("password"));
+                String confirmPassword = request.getParameter("confirmPassword");
 
                 try {
+                    if (cuentas1.getNombre().matches("^\\d.*$") || cuentas1.getApellido().matches("^\\d.*$")) { // Validamos que nombre y apellidos no empiecen por números
+                        //NOTA: El Laboratorio específicamente pide que no EMPIECEN, si queremos que no CONTENGAN debemos usar el regex: .*\\d.*
+                        response.sendRedirect(request.getContextPath() + "/InitialServlet?action=agregar&errorNombreApellido");
+                    }else if (!cuentas1.getPasswordHashed().matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).*$")) { // Validamos que la contraseña tenga una letra mayúscula, un número y un carácter especial
+                        response.sendRedirect(request.getContextPath() + "/InitialServlet?action=agregar&errorContrasena");
+
+                    }else if (!cuentas1.getPasswordHashed().equals(confirmPassword)) {
+                        response.sendRedirect(request.getContextPath() + "/InitialServlet?action=guardar&errorConfirmacion"); // Validamos que la contraseña y su confimración sean iguales
+
+                    }else{
+                        usuarioCuentasDaos.guardarUsuario(cuentas1);
+                        request.setAttribute("msg", "Se ha creado exitosamente el usuario");
+                        request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+                    }
 
 
-                    usuarioCuentasDaos.guardarUsuario(cuentas1);
-                    response.sendRedirect("/Proyecto_IWEB_war_exploded/");
 
                 } catch (SQLException e) {
                     throw new RuntimeException(e);

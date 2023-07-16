@@ -68,7 +68,7 @@
                         <div class="col text-center" style="max-width: 1000px;">
                             <h1>AÚN NO HA VENDIDO NINGÚN JUEGO</h1>
                             <div class="spinner-border" role="status">
-                                <span class="visually-hidden" >VENDE JUEGOS ACA </span>
+                            <span class="visually-hidden" >VENDE JUEGOS ACA </span>
                             </div>
                         </div>
                         <br><br>
