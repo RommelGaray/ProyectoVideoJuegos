@@ -207,7 +207,6 @@ public class AdminJuegosDaos  extends DaoBase{
     public void actualizarFotoJuego(int idJuego, InputStream file){
         String sql = "UPDATE juego SET fotoJuego = ? WHERE idJuego = ?";
         try (Connection connection = this.getConection()){
-
             try (PreparedStatement pstmt = connection.prepareStatement(sql)){
                 pstmt.setBlob(1, file);
                 pstmt.setInt(2, idJuego);

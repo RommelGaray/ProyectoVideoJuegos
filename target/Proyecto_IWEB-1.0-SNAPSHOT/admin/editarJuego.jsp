@@ -94,11 +94,13 @@
 
 
             <div class="col-lg-6">
-                <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=actualizar" enctype="multipart/form-data">
+                <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=actualizarFotoJuego" enctype="multipart/form-data">
 
                 <div class="pagetitle">
-                <h1>Editar foto</h1>
+                    <h1>Editar foto</h1>
                 </div>
+                <input type="hidden" class="form-control" name="idJuego" id="idJuego"
+                           value="<%=juego.getIdJuegos()%>">
                 <br>
                 <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>" class="img-fluid rounded-start" alt="...">
                 <br>
