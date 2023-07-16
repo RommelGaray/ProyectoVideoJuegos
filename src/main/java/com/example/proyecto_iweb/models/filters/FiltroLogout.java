@@ -13,6 +13,7 @@ import java.io.IOException;
 /* TODO: Este filtro sirve para manager ,cuando se cierra session*/
 
 
+
 @WebFilter(filterName = "FiltroLogout",
         servletNames = {"ManagerCuentasServlet","ManagerJuegosServlet","UsuariosJuegosServlet","UsuariosCuentasServlet","AdminJuegosServlet","AdminCuentasServlet"})
 
