@@ -14,7 +14,7 @@ import java.io.IOException;
 
 
 @WebFilter(filterName = "FiltroLogout",
-        servletNames = {"ManagerCuentasServlet", "ManagerJuegosServlet","UsuariosJuegosServlet","UsuariosCuentasServlet","AdminJuegosServlet","AdminCuentasServlet"})
+        servletNames = {/*"ManagerCuentasServlet", */"ManagerJuegosServlet","UsuariosJuegosServlet","UsuariosCuentasServlet","AdminJuegosServlet","AdminCuentasServlet"})
 
 public class FiltroLogout implements Filter{
     @Override
