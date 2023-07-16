@@ -20,8 +20,6 @@
 <!-- ======= Main ======= -->
 <main id="main" class="main ">
 
-
-
   <div class="container d-flex justify-content-center align-items-center">
 
     <form class="col-lg-10">
@@ -77,9 +75,6 @@
           <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>" alt="" class="img-fluid max-width-100">
         </div>
       </div>
-
-
-
 
       <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertas">Regresar</a>
     </form>

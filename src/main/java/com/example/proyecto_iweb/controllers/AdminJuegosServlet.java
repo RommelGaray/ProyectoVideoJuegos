@@ -192,7 +192,6 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "actualizar":
-                InputStream inputStreamAct;
                 int idJuego = Integer.parseInt(request.getParameter("idJuego"));
                 String nombreAct = request.getParameter("nombre");
                 String descripcionAct = request.getParameter("descripcion");
@@ -201,17 +200,24 @@ public class AdminJuegosServlet extends HttpServlet {
                 String consolaAct = request.getParameter("consola");
                 String generoAct = request.getParameter("genero");
                 int stockAct = Integer.parseInt(request.getParameter("stock"));
-                Part filePartAct = request.getPart("foto");
 
-                inputStreamAct = filePartAct.getInputStream();
-                if (filePartAct != null) {
-                    System.out.println(filePartAct.getContentType());
-                    inputStreamAct = filePartAct.getInputStream();
-                }
-
-
-                adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct, inputStreamAct);
+                adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                break;
+
+            case "actualizarFotoJuego":
+                InputStream inputStreamAct1;
+                int idJuegoFoto = Integer.parseInt(request.getParameter("idJuego"));
+                Part filePartAct2 = request.getPart("foto");
+
+                inputStreamAct1 = filePartAct2.getInputStream();
+                if (filePartAct2 != null) {
+                    System.out.println(filePartAct2.getContentType());
+                    inputStreamAct1 = filePartAct2.getInputStream();
+                }
+                adminJuegosDaos.actualizarFotoJuego(idJuegoFoto, inputStreamAct1);
+                response.sendRedirect(request.getContextPath());
+
                 break;
 
             case "ofertar":

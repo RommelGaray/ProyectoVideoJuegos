@@ -184,8 +184,8 @@ public class AdminJuegosDaos  extends DaoBase{
         return juegos;
     }
 
-    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock, InputStream file){
-        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ?, fotoJuego = ? WHERE idJuego = ?";
+    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock){
+        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
         try (Connection connection = this.getConection()){
 
             try (PreparedStatement pstmt = connection.prepareStatement(sql)){
@@ -196,12 +196,23 @@ public class AdminJuegosDaos  extends DaoBase{
                 pstmt.setString(5, consola);
                 pstmt.setString(6, genero);
                 pstmt.setInt(7, stock);
-                pstmt.setBlob(8, file);
-                pstmt.setInt(9, idJuego);
+                pstmt.setInt(8, idJuego);
                 pstmt.executeUpdate();
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public void actualizarFotoJuego(int idJuego, InputStream file){
+        String sql = "UPDATE juego SET fotoJuego = ? WHERE idJuego = ?";
+        try (Connection connection = this.getConection()){
 
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setBlob(1, file);
+                pstmt.setInt(2, idJuego);
+                pstmt.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
