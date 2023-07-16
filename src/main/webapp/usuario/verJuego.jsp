@@ -46,6 +46,32 @@
             height: 260px;
             object-fit: cover;
         }
+        .rating {
+            display: inline-block;
+        }
+
+        .stars {
+            font-size: 0;
+        }
+
+        .star {
+            display: inline-block;
+            font-size: 30px;
+            color: gray;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .star::before {
+            content: '\2605';
+        }
+
+        .star.filled::before {
+            color: gold;
+        }
     </style>
 
 </head>
@@ -74,7 +100,28 @@
                         <p class="lead"><%= juegos.getDescripcion() %></p>
                         <p class="font-weight-bold">Precio: <%= juegos.getPrecio() %></p>
                         <p class="font-weight-bold">Stock: <%= juegos.getStock() %></p>
-                       <p class="font-weight-bold">Raiting: <%=juegos.getRaiting() %></p>
+                        <%if(juegos.getRaiting()==0){%>
+                        <p class="font-weight-bold">Aun no tiene ventas</p>
+                        <p class="font-weight-bold">¡¡¡Se el primero en comprarlo!!!</p>
+                        <%}else{%>
+                        <p class="font-weight-bold">Raiting:
+                        <div class="rating align-items-center justify-content">
+                            <div class="stars">
+                                <input type="radio" id="star5" name="rating" value="5" />
+                                <label for="star5" class="star"></label>
+                                <input type="radio" id="star4" name="rating" value="4" />
+                                <label for="star4" class="star"></label>
+                                <input type="radio" id="star3" name="rating" value="3" />
+                                <label for="star3" class="star"></label>
+                                <input type="radio" id="star2" name="rating" value="2" />
+                                <label for="star2" class="star"></label>
+                                <input type="radio" id="star1" name="rating" value="1" />
+                                <label for="star1" class="star"></label>
+                            </div>
+                        </div>
+                        </p>
+                        <%}%>
+
 
                     </div>
                     <% if (usuarioLog.getIdCuentas() == 0) { %>
@@ -128,6 +175,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+<script>
+    function fillStars(rating) {
+        const stars = document.querySelectorAll('.stars .star');
+
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.add('filled');
+            } else {
+                star.classList.remove('filled');
+            }
+        });
+    }
+
+    // Obtén el valor del rating de la base de datos y llama a la función fillStars con ese valor
+    const ratingFromDatabase = <%=juegos.getRaiting() %>; // Reemplaza este valor con el valor obtenido de la base de datos
+    fillStars(ratingFromDatabase);
+</script>
 </body>
 
 </html>
