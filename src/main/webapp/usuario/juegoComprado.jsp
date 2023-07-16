@@ -38,7 +38,30 @@
 
     <!-- Option 1: Include in HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <style>
+        .rating {
+            display: flex;
+            align-items: center;
+        }
 
+        .stars {
+            font-size: 20px;
+            color: gray;
+        }
+
+        .star {
+            cursor: pointer;
+        }
+
+        .star .bi-star {
+            transition: color 0.3s ease;
+        }
+
+        .star .bi-star:hover,
+        .star .bi-star.active {
+            color: gold;
+        }
+    </style>
 </head>
 
 <body>
@@ -87,6 +110,21 @@
                         <label for="raiting">Raiting</label>
                         <input type="text" class="form-control" name="raiting" id="raiting" value="<%=formularioCompra.getRaiting()%>">
                     </div>
+                    <div class="rating">
+                        <input type="range" min="0" max="10" step="0.5" id="ratingInput" onchange="updateRating(this.value)" />
+                        <div class="stars">
+                            <label for="star10" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star9" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star8" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star7" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star6" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star5" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star4" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star3" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star2" class="star"><i class="bi bi-star"></i></label>
+                            <label for="star1" class="star"><i class="bi bi-star"></i></label>
+                        </div>
+                    </div>
                     <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
@@ -119,6 +157,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+
+<script>
+    function updateRating(value) {
+        const stars = document.querySelectorAll('.stars label');
+
+        stars.forEach((star, index) => {
+            const rating = index + 1;
+
+            if (rating <= value) {
+                star.classList.add('active');
+            } else {
+                star.classList.remove('active');
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

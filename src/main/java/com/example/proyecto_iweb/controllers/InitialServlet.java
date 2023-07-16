@@ -32,7 +32,7 @@ public class InitialServlet extends HttpServlet {
                 break;
             case "verjuego":
                 int juegoId = Integer.parseInt(request.getParameter("id"));
-                request.setAttribute("juegos", usuarioJuegosDaos.listar(juegoId));
+                request.setAttribute("juegos", usuarioJuegosDaos.listarJuegoRaiting(juegoId));
                 request.getRequestDispatcher("usuario/verJuego.jsp").forward(request, response);
                 break;
             case "agregar":

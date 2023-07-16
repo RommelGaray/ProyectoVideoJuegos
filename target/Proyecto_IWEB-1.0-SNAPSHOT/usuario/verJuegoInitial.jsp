@@ -74,7 +74,7 @@
                         <p class="lead"><%= juegos.getDescripcion() %></p>
                         <p class="font-weight-bold">Precio: <%= juegos.getPrecio() %></p>
                         <p class="font-weight-bold">Stock: <%= juegos.getStock() %></p>
-                       <p class="font-weight-bold">Raiting: <%=juegos.getRaiting() %></p>
+                        <p class="font-weight-bold">Raiting: <%=juegos.getRaiting() %></p>
 
                     </div>
                     <% if (usuarioLog.getIdCuentas() == 0) { %>

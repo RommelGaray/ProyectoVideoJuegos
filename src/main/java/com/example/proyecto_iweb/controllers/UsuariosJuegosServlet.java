@@ -43,7 +43,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
             case "verjuego":
                 int juegoId = Integer.parseInt(request.getParameter("id"));
-                request.setAttribute("juegos", usuarioJuegosDaos.listar(juegoId));
+                request.setAttribute("juegos", usuarioJuegosDaos.listarJuegoRaiting(juegoId));
+                //request.setAttribute("raiting", usuarioJuegosDaos.raiting(juegoId));
                 request.getRequestDispatcher("usuario/verJuego.jsp").forward(request, response);
                 break;
             case "vendidos":

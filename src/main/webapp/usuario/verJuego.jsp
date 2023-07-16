@@ -2,7 +2,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="juegos" scope="request" type="com.example.proyecto_iweb.models.beans.Juegos"/>
+<jsp:useBean id="juegos" scope="request" type="com.example.proyecto_iweb.models.dtos.Raiting"/>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <% ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
@@ -16,7 +16,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>JA-VAGOS</title>
-    <meta content="" name="description">
+    <meta content="" na me="description">
     <meta content="" name="keywords">
     <link rel="icon" href="pestania.png">
 
@@ -74,6 +74,8 @@
                         <p class="lead"><%= juegos.getDescripcion() %></p>
                         <p class="font-weight-bold">Precio: <%= juegos.getPrecio() %></p>
                         <p class="font-weight-bold">Stock: <%= juegos.getStock() %></p>
+                       <p class="font-weight-bold">Raiting: <%=juegos.getRaiting() %></p>
+
                     </div>
                     <% if (usuarioLog.getIdCuentas() == 0) { %>
                     <div class="row mt">

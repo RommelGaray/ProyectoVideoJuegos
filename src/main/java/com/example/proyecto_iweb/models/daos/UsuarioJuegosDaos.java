@@ -4,6 +4,7 @@ import com.example.proyecto_iweb.models.beans.*;
 import com.example.proyecto_iweb.models.dtos.Consolas;
 import com.example.proyecto_iweb.models.dtos.GeneroMasComprado;
 import com.example.proyecto_iweb.models.dtos.Generos;
+import com.example.proyecto_iweb.models.dtos.Raiting;
 import jakarta.servlet.http.HttpSession;
 
 import java.sql.*;
@@ -266,6 +267,7 @@ public class UsuarioJuegosDaos extends DaoBase {
                     compraUsuario.setFechaCompra(rs.getDate(5));
                     compraUsuario.setDireccion(rs.getString(6));
                     compraUsuario.setPrecioCompra(rs.getDouble(8));
+                    compraUsuario.setRaiting(rs.getInt(11));
 
                     Juegos juegos = new Juegos();
                     juegos.setIdJuegos(rs.getInt(12));
@@ -290,6 +292,72 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
 
         return lista3;
+    }
+
+    public CompraUsuario raiting(int juegoId) {
+        CompraUsuario CompraUsuario = null;
+
+        String sql = "select * from comprausuario where idCompra = ?;";
+
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, juegoId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    CompraUsuario = new CompraUsuario();
+                    CompraUsuario.setIdCompra(resultSet.getInt(1));
+                    CompraUsuario.setCantidad(resultSet.getInt(4));
+                    CompraUsuario.setFechaCompra(resultSet.getDate(5));
+                    CompraUsuario.setDireccion(resultSet.getString(6));
+                    CompraUsuario.setPrecioCompra(resultSet.getDouble(8));
+                    CompraUsuario.setRaiting(resultSet.getInt(11));
+
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return CompraUsuario;
+    }
+
+    public Raiting listarJuegoRaiting(int juegoId) {
+        Raiting raiting = null;
+        String sql = "SELECT j.idJuego,j.nombre,j.descripcion,j.precio,j.descuento,j.foto,j.existente,j.habilitado,j.consola,j.genero,j.stock, j.fotoJuego,round(AVG(raiting)) FROM   juego j \n" +
+                "left join comprausuario cu on j.idJuego = cu.idJuego\n" +
+                "where j.idJuego = ?;";
+
+        try (Connection connection = this.getConection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, juegoId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    raiting = new Raiting();
+                    raiting.setIdJuegos(resultSet.getInt(1));
+                    raiting.setNombre(resultSet.getString(2));
+                    raiting.setDescripcion(resultSet.getString(3));
+                    raiting.setPrecio(resultSet.getDouble(4));
+                    raiting.setDescuento(resultSet.getDouble(5));
+                    raiting.setFoto(resultSet.getString(6));
+                    raiting.setExistente(resultSet.getBoolean(7));
+                    raiting.setHabilitado(resultSet.getBoolean(8));
+                    raiting.setConsola(resultSet.getString(9));
+                    raiting.setGenero(resultSet.getString(10));
+                    raiting.setStock(resultSet.getInt(11));
+                    // Añadi esto para obtener la foto
+                    raiting.setFotoJuego(resultSet.getString(12));
+                    raiting.setRaiting(resultSet.getInt(13));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return raiting;
     }
 
     public ArrayList<VentaUsuario> listarNotificaciones(int id) {
