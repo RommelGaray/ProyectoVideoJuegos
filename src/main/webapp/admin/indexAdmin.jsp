@@ -15,7 +15,7 @@
 
 <body>
 <!-- ======= Header ======= -->
-<jsp:include page="../includes/narvar.jsp">
+<jsp:include page="/includes/narvar.jsp">
     <jsp:param name="currentPage" value="indexAdmin"/>
 </jsp:include>
 

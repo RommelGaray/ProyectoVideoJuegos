@@ -10,14 +10,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- ======= Head ======= -->
-<jsp:include page="../includes/head.jsp">
+<jsp:include page="/includes/head.jsp">
     <jsp:param name="title" value="Nueva lista"/>
 </jsp:include>
 
 
 <body>
 <!-- ======= Header ======= -->
-<jsp:include page="../includes/narvar.jsp">
+<jsp:include page="/includes/narvar.jsp">
     <jsp:param name="currentPage" value="reservasYcomprados"/>
 </jsp:include>
 
@@ -127,5 +127,7 @@
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/lista.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 </body>
 </html>

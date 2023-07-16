@@ -227,8 +227,8 @@ public class UsuarioJuegosDaos extends DaoBase {
                     ventaUsuario.setJuegos(juegos);
 
                     Estados estados = new Estados();
-                    estados.setIdEstados(rs.getInt(20));
-                    estados.setEstados(rs.getString(21));
+                    estados.setIdEstados(rs.getInt(21));
+                    estados.setEstados(rs.getString(22));
                     ventaUsuario.setEstados(estados);
                     lista2.add(ventaUsuario);
                 }
@@ -276,8 +276,8 @@ public class UsuarioJuegosDaos extends DaoBase {
                     compraUsuario.setJuegos(juegos);
 
                     Estados estados = new Estados();
-                    estados.setIdEstados(rs.getInt(24));
-                    estados.setEstados(rs.getString(25));
+                    estados.setIdEstados(rs.getInt(25));
+                    estados.setEstados(rs.getString(26));
                     compraUsuario.setEstados(estados);
 
                     lista3.add(compraUsuario);
@@ -320,8 +320,8 @@ public class UsuarioJuegosDaos extends DaoBase {
                     ventaUsuario.setJuegos(juegos);
 
                     Estados estados = new Estados();
-                    estados.setIdEstados(rs.getInt(20));
-                    estados.setEstados(rs.getString(21));
+                    estados.setIdEstados(rs.getInt(21));
+                    estados.setEstados(rs.getString(22));
                     ventaUsuario.setEstados(estados);
                     lista.add(ventaUsuario);
                 }

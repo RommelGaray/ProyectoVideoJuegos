@@ -335,9 +335,7 @@
 
       <li class="nav-item dropdown pe-3">
         <div class="form-inline font-italic my-2 my-lg-0">
-          <% if (usuarioLog.getIdCuentas() > 0) { //esto logueado %>
           <span></span>
-
           <!-- ICONO DE TIENDA Y NOTIFICACION-->
           <li class="nav-item dropdown">
             <a class="nav-link nav-icon" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" data-bs-toggle="dropdown">
@@ -376,6 +374,7 @@
                 <span>Mi Perfil</span>
               </a>
             </li>
+
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -387,16 +386,6 @@
               </a>
             </li>
           </ul>
-          <% } else { //no estoy loggedIn %>
-          <div>
-            <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-              (Crear cuenta)
-            </a>
-            <a class="nav-link" style="color: white;" href="<%=request.getContextPath()%>/login">
-              (Iniciar Sesion)
-            </a>
-          </div>
-          <% } %>
         </div>
       </li>
     </ul>
