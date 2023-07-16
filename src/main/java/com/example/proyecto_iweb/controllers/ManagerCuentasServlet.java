@@ -1,9 +1,11 @@
 package com.example.proyecto_iweb.controllers;
 
+import com.example.proyecto_iweb.models.daos.DescargaCSV;
 import com.example.proyecto_iweb.models.daos.EnvioCorreos;
 import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.daos.ManagerCuentasDaos;
 import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
+import com.example.proyecto_iweb.models.dtos.UsuarioTabla;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -113,6 +115,14 @@ public class ManagerCuentasServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=ListaUsuarios");
                 envioCorreos.sendEmail();
                 break;
+
+            case "descargar":
+                String id6 = request.getParameter("id6");
+                UsuarioTabla userDescarga = usuarioDao.ListarRegistro(id6);
+                DescargaCSV.exportarListaCSV(userDescarga);
+                response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=ListaUsuarios");
+                break;
+
 
             case "ListaEmpleados":
                 request.setAttribute("listaEmpleados", usuarioDao.listarEmpleadosTabla());

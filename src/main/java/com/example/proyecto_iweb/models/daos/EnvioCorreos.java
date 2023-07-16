@@ -12,9 +12,9 @@ public class EnvioCorreos {
 
     private static final String emailFrom = "javagosconf@gmail.com";
     private static final String passwordFrom = "ohssfvfppoahkdqp";
-    private static  String emailTo = "a20180951@pucp.edu.pe";
-    private static  String subject = "Prueba 2";
-    private static  String content = "probado test";
+    private static  String emailTo;
+    private static  String subject;
+    private static  String content;
 
 
     public static String getEmailTo() {
@@ -85,7 +85,7 @@ public class EnvioCorreos {
             transport.sendMessage(correo, correo.getRecipients(Message.RecipientType.TO));
             transport.close();
 
-            System.out.println("Correo enviado");
+            //System.out.println("Correo enviado");
         } catch (NoSuchProviderException ex) {
             Logger.getLogger(EnvioCorreos.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MessagingException ex) {
