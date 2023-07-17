@@ -2,6 +2,8 @@ package com.example.proyecto_iweb.controllers;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
@@ -99,10 +101,34 @@ public class UsuariosCuentasServlet extends HttpServlet {
         switch (action) {
             case "a":
                 Cuentas cuentas = parseCuentas(request);
-                usuarioCuentasDaos.actualizar(cuentas);
+                //usuarioCuentasDaos.actualizar(cuentas);
                 HttpSession session1 = request.getSession();
-                Cuentas cuentas2 = (Cuentas) session1.getAttribute("usuarioLog");
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=perfil&id="+ cuentas2.getIdCuentas());
+                String direccion = cuentas.getDireccion();
+                String correo = cuentas.getCorreo();
+                // Validar que la dirección no esté vacía
+                if (direccion.isEmpty()) {
+                    // Redirigir a la página de perfil con mensaje de error
+                    String errorMessage = "La dirección no puede estar vacía";
+                    session1.setAttribute("msg1","Ingresar una direccion valida");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil");
+                    return;
+                }
+
+                // Validar que el correo sea válido
+                if (!isValidEmail(correo)) {
+                    // Redirigir a la página de perfil con mensaje de error
+                    String errorMessage = "Ingresar correo valido";
+                    session1.setAttribute("msg1","¡¡¡¡Correo Invalido!!!!");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil");
+                    return;
+                }
+
+                usuarioCuentasDaos.actualizar(cuentas);
+                session1.setAttribute("msg","Perfil actualizado");
+                response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=perfil");
+
+                //Cuentas cuentas2 = (Cuentas) session1.getAttribute("usuarioLog");
+                //response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=perfil&id="+ cuentas2.getIdCuentas());
                 break;
             case"guardar":
 
@@ -135,7 +161,7 @@ public class UsuariosCuentasServlet extends HttpServlet {
         Cuentas cuentas = new Cuentas();
         String idCuentas = request.getParameter("idCuentas") != null ? request.getParameter("idCuentas") : "";
         String descripcion = request.getParameter("descripcion");
-        String direcion = request.getParameter("direccion");
+        String direccion = request.getParameter("direccion");
         String correo = request.getParameter("correo");
 
         try {
@@ -144,7 +170,7 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
             cuentas.setIdCuentas(id);
             cuentas.setDescripcion(descripcion);
-            cuentas.setDireccion(direcion);
+            cuentas.setDireccion(direccion);
             cuentas.setCorreo(correo);
 
             return cuentas;
@@ -153,5 +179,12 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
         }
         return cuentas;
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }

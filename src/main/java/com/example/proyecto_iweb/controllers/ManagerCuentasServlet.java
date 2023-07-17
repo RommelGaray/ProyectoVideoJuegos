@@ -170,7 +170,7 @@ public class ManagerCuentasServlet extends HttpServlet {
                 if (direccion.isEmpty()) {
                     // Redirigir a la página de perfil con mensaje de error
                     String errorMessage = "La dirección no puede estar vacía";
-                    session.setAttribute("msg","Ingresar una direccion valida");
+                    session.setAttribute("msg1","Ingresar una direccion valida");
                     response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil");
                     return;
                 }
@@ -179,7 +179,7 @@ public class ManagerCuentasServlet extends HttpServlet {
                 if (!isValidEmail(correo)) {
                     // Redirigir a la página de perfil con mensaje de error
                     String errorMessage = "Ingresar correo valido";
-                    session.setAttribute("msg","Foto actualizada, vuelve a iniciar sesión para ver el cambio");
+                    session.setAttribute("msg1","¡¡¡¡Correo Invalido!!!!");
                     response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil");
                     return;
                 }
