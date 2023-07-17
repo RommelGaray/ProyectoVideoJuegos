@@ -63,8 +63,12 @@
             margin: 20px;
         }
 
+
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkAgN9LjqWZGZweMfu6BtVkI-B-J_FXTI"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"> </script>
 </head>
 
 <body>
@@ -197,39 +201,37 @@
 
     <div class="container__detail bg-light p-3 text-center" style="display: flex; justify-content: center;">
 
-        <div class="form-group mb-3">
-            <button onclick="findMe()">Mostrar ubicación</button>
-            <div id="map"></div>
-        </div>
+        <button onclick="findMe()">Mostrar ubicación</button>
+        <div id="map"></div>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkAgN9LjqWZGZweMfu6BtVkI-B-J_FXTI"></script>
         <script>
-            function findMe() {
+            function findMe(){
                 var output = document.getElementById('map');
 
-                // Verificar si soporta geolocalización
+                // Verificar si soporta geolocalizacion
                 if (navigator.geolocation) {
                     output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
-                } else {
+                }else{
                     output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
                 }
 
                 //Obtenemos latitud y longitud
-                function localizacion(posicion) {
-
+                function localizacion(posicion){
                     var latitude = posicion.coords.latitude;
                     var longitude = posicion.coords.longitude;
 
-                    var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&size=600x300&markers=color:red%7C" + latitude + "," + longitude + "&key=AIzaSyDkAgN9LjqWZGZweMfu6BtVkI-B-J_FXTI";
+                    // Segunda parte del video
+                    // var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&size=600x300&markers=color:red%7C"+latitude+","+longitude+"&key=YOUR_API_KEY";
 
-                    output.innerHTML = "<img src='" + imgURL + "'>";
+                    output.innerHTML = "<p>Latitud: " + latitude+"<br>Longitud: "+longitude+"</p>";
                 }
 
-
-                function error() {
+                function error(){
                     output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
+
                 }
 
-                navigator.geolocation.getCurrentPosition(localizacion, error);
+                navigator.geolocation.getCurrentPosition(localizacion,error);
             }
         </script>
     </div>
@@ -254,7 +256,6 @@
 <script src="assets/js/main.js"></script>
 
 <!-- CODIGO EXTRAÍDO DE https://www.youtube.com/watch?v=XX9Kmg3qLRk -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkAgN9LjqWZGZweMfu6BtVkI-B-J_FXTI"></script>
 <!--<script>
     function findMe(){
         var output = document.getElementById('map');

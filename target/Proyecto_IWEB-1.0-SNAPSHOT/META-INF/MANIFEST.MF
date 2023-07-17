@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-<<<<<<< HEAD
 Built-By: Dylan
 Build-Jdk: Amazon Corretto version 17.0.7
-=======
-Built-By: oscar
-Build-Jdk: 17.0.7
->>>>>>> a83a8e0e2a3a2680cc3080a9950c5f6f004833a7
 
