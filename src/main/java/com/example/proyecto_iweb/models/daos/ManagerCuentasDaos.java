@@ -17,12 +17,6 @@ public class ManagerCuentasDaos extends DaoBase{
     public ArrayList<EmpleadosTabla> listarEmpleadosTabla(){
         ArrayList<EmpleadosTabla> lista = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
         String sql = "SELECT\n" +
                 "  c.idCuenta,\n" +
                 "  CONCAT(c.nombre, \" \", c.apellido) AS \"Nombres\",\n" +
@@ -50,9 +44,7 @@ public class ManagerCuentasDaos extends DaoBase{
                 "ORDER BY\n" +
                 "  co.precioCompra - v.dinero_gastado DESC;";
 
-
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection =this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql);) {
 
@@ -79,12 +71,6 @@ public class ManagerCuentasDaos extends DaoBase{
     /* --------- dto:usuariotabla --------*/
     public ArrayList<UsuarioTabla> listarUsuariosTabla(){
         ArrayList<UsuarioTabla> lista = new ArrayList<>();
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         String sql = "SELECT\n" +
                 "  c.idCuenta,\n" +
@@ -117,8 +103,7 @@ public class ManagerCuentasDaos extends DaoBase{
                 "ORDER BY\n" +
                 "  co.juegos_comprados DESC;";
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql)) {
 
@@ -238,15 +223,8 @@ public class ManagerCuentasDaos extends DaoBase{
 
     public void habilitarCuenta(String id) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "UPDATE cuenta SET desabilitado = 0 WHERE idCuenta = ?";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, id);
@@ -323,7 +301,7 @@ public class ManagerCuentasDaos extends DaoBase{
 
         return cuentas;
     }
-//------------- actualizar las fotos -----------------------
+    //------------- actualizar las fotos -----------------------
     public void actualizarFoto1(int idUsuario) {
 
 
