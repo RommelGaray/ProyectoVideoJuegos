@@ -2,6 +2,7 @@ package com.example.proyecto_iweb.models.daos;
 
 import com.example.proyecto_iweb.models.beans.*;
 import com.example.proyecto_iweb.models.dtos.Consolas;
+import com.example.proyecto_iweb.models.dtos.DetallesNuevos;
 import com.example.proyecto_iweb.models.dtos.Generos;
 import com.example.proyecto_iweb.models.dtos.JuegosExistentes;
 
@@ -663,29 +664,6 @@ public class AdminJuegosDaos  extends DaoBase{
         }
     }
 
-    public void actualizarJuego1(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock){
-        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
-        try (Connection connection = this.getConection()){
-
-            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
-                pstmt.setString(1, nombre);
-                pstmt.setString(2, descripcion);
-                pstmt.setDouble(3, precio);
-                pstmt.setDouble(4, descuento);
-                pstmt.setString(5, consola);
-                pstmt.setString(6, genero);
-                pstmt.setInt(7, stock);
-                pstmt.setInt(8, idJuego);
-
-                pstmt.executeUpdate();
-            }
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void dejarMensaje(String mensajeAdmin, String idventa){
         String sql = "UPDATE ventausuario SET mensajeAdmin = ? WHERE idVenta = ?";
         try (Connection connection = this.getConection()){
@@ -696,11 +674,92 @@ public class AdminJuegosDaos  extends DaoBase{
 
                 pstmt.executeUpdate();
             }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+    public VentaUsuario obtenerVentaUsuario(String idVenta) {
+
+        VentaUsuario ventaUsuario = null;
+        String sql = "SELECT * FROM ventausuario WHERE idVenta = ?";
+
+        try {
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, idVenta);
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        ventaUsuario = new VentaUsuario();
+                        ventaUsuario.setIdVenta(rs.getInt(1));
+                        ventaUsuario.setIdUsuario(rs.getInt(2));
+                        ventaUsuario.setIdJuego(rs.getInt(3));
+                        ventaUsuario.setPrecioVenta(rs.getDouble(4));
+                        ventaUsuario.setMensajeAdmin(rs.getString(5));
+                        ventaUsuario.setIdAdmin(rs.getInt(6));
+                        ventaUsuario.setIdEstados(rs.getInt(7));
+                    }
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ventaUsuario;
+    }
+    public ArrayList<DetallesNuevos> detallesNuevos(String idVenta){
+
+        ArrayList<DetallesNuevos> lista = new ArrayList<>();
+        String sql =    "SELECT vu.idVenta, vu.idJuego, c.idCuenta, j.nombre, CONCAT(c.nombre, ' ', c.apellido) AS nombreUsuario, vu.precioVenta, j.descripcion, j.consola, j.genero, vu.mensajeAdmin, j.foto\n" +
+                        "FROM ventausuario vu\n" +
+                        "JOIN juego j ON vu.idJuego = j.idJuego\n" +
+                        "JOIN cuenta c ON vu.idUsuario = c.idCuenta\n" +
+                        "WHERE vu.idVenta = ?;\n";
+        try {
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, idVenta);
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        DetallesNuevos detallesNuevos = new DetallesNuevos();
+                        detallesNuevos.setIdVenta(rs.getInt(1));
+                        detallesNuevos.setIdJuego(rs.getInt(2));
+                        detallesNuevos.setIdCuenta(rs.getInt(3));
+                        detallesNuevos.setNombre(rs.getString(4));
+                        detallesNuevos.setNombreUsuario(rs.getString(5));
+                        detallesNuevos.setPrecioVenta(rs.getDouble(6));
+                        detallesNuevos.setDescripcion(rs.getString(7));
+                        detallesNuevos.setConsola(rs.getString(8));
+                        detallesNuevos.setGenero(rs.getString(9));
+                        detallesNuevos.setMensajeAdmin(rs.getString(10));
+                        detallesNuevos.setFoto(rs.getString(11));
+
+                        lista.add(detallesNuevos);
+                    }
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public void juegoEntregado(String idCompra, Date fechaEntrega){
+
+        String sql = "UPDATE comprausuario SET idEstados = '7', fechaEntrega = ? WHERE idCompra = ?";
+        try (Connection connection = this.getConection()){
+
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setDate(1, fechaEntrega);
+                pstmt.setString(2, idCompra);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

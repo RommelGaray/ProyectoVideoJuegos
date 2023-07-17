@@ -86,6 +86,10 @@
 
             <div class="col-lg-9">
                 <br><br>
+                <% if (session.getAttribute("msg") != null) {%>
+                <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
+                <%session.removeAttribute("msg");%>
+                <% }%>
                 <div class="container">
                     <div class="disponibleUsuario">
                         <% for (CompraUsuario cu : listaComprados) { %>
@@ -103,6 +107,8 @@
                                         <p class="card-text"> Precio : $ <%=cu.getPrecioCompra()%> </p>
                                         <p class="fw-bold"> Estado :  <%=cu.getEstados().getEstados()%> </p>
                                         <p class="fw-bold"> Fecha de Compra :  <%=cu.getFechaCompra()%> </p>
+                                        <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=formularioCompra&id=<%=cu.getIdCompra()%>" class="btn btn-dark" >Rankearlo</a>
+
                                         <!--<a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="btn btn-dark">Ver juego</a>-->
                                     </div>
                                 </div>

@@ -4,9 +4,11 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.DetallesNuevos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<VentaUsuario> lista = (ArrayList<VentaUsuario>) request.getAttribute("nuevos");%>
-<% ArrayList<CompraUsuario> lista1 = (ArrayList<CompraUsuario>) request.getAttribute("nuevos");%>
+<jsp:useBean id="ventaUsuario" scope="request" type="com.example.proyecto_iweb.models.beans.VentaUsuario"/>
+<% ArrayList<DetallesNuevos> lista = (ArrayList<DetallesNuevos>) request.getAttribute("detallesNuevos");%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,8 +24,64 @@
 
 <!-- ======= Main ======= -->
 <main id="main" class="main">
-  <h1>Hola</h1>
 
+  <div class="container">
+    <h1 class="mt-3">Detalles de juego nuevo</h1>
+
+    <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet">
+      <input type="hidden" class="form-control">
+
+      <% for (DetallesNuevos d : lista) { %>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="mb-3">
+            <label for="juego">Nombre del Juego</label>
+            <input type="text" class="form-control" name="precio" id="juego" value="<%=d.getNombre() %>" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="usuario">Usuario vendedor</label>
+            <input type="text" class="form-control" name="precio" id="usuario" value="<%=d.getNombreUsuario() %>" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="precio">Precio</label>
+            <input type="text" class="form-control" name="precio" id="precio" value="<%=ventaUsuario.getPrecioVenta()%>" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="descripcion">Descripción</label>
+            <input type="text" class="form-control" name="precio" id="descripcion" value="<%=d.getDescripcion() %>" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="consola">Consola</label>
+            <input type="text" class="form-control" name="precio" id="consola" value="<%=d.getConsola() %>" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="genero">Género</label>
+            <input type="text" class="form-control" name="precio" id="genero" value="<%=d.getGenero() %>" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="mensaje">Recomendaciones de administrador</label>
+            <input type="text" class="form-control" name="precio" id="mensaje" value="<%=ventaUsuario.getMensajeAdmin()%>" disabled>
+          </div>
+
+        </div>
+        <div class="col-lg-6">
+          <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=d.getIdJuego()%>" alt="" class="img-fluid max-width-100">
+        </div>
+      </div>
+
+      <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">Regresar</a>
+
+      <div class="d-flex justify-content-end align-items-center mt-3 mb-5">
+        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadoaceptar&idventa=<%=d.getIdVenta()%>"
+           class="btn btn-primary m-1">Aceptar</a>
+        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadonoaceptar&idventa=<%=d.getIdVenta()%>"
+           class="btn btn-primary m-1">No aceptar</a>
+        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadorechazar&idventa=<%=d.getIdVenta()%>"
+           class="btn btn-danger m-1">Rechazar</a>
+      </div>
+      <% } %>
+    </form>
+  </div>
 </main>
 <!-- End #main -->
 

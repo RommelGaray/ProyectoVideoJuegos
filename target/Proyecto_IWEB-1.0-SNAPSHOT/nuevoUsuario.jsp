@@ -103,7 +103,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="<%=request.getContextPath()%>/index.jsp">Ja-Vagos</a>
+                Designed by <a href="<%=request.getContextPath()%>/">Ja-Vagos</a>
               </div>
 
             </div>

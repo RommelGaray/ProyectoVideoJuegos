@@ -89,7 +89,7 @@
                     <a onclick="return confirm('Esta seguro de desea Desbanear al usuario')" class="btn btn-success"
                     href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=desbaneo&id2=<%=u.getIdCuenta()%>">Desbaneo</a>
                 <%}%>
-                <button type="button" class="btn btn-primary">Descargar</button>
+                <a onclick="return confirm('Esta seguro de desea Descargar')" class="btn btn-info" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=descargar&id6=<%=u.getIdCuenta()%>">Descargar</a>
             </td>
         </tr>
         <% } %>

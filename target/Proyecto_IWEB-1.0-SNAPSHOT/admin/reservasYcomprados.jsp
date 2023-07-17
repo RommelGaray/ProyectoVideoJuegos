@@ -42,7 +42,7 @@
                 <th>Estado</th>
                 <th>Fecha entrega</th>
                 <th>Observación</th>
-                <th>Iconos</th>
+                <th>Entrega</th>
                 <th class="d-flex justify-content-center">Detalles</th>
             </tr>
             </thead>
@@ -58,8 +58,6 @@
                 <!-- FECHA DE ENTREGA DEL VIDEOJUEGO -->
                 <% if (c.getEstados().getEstados().equals("pendiente")) {%>
                     <td><p class="text-primary">En proceso</p></td>
-                <%} else if(c.getEstados().getEstados().equals("eliminado")){%>
-                    <td><p class="text-danger">2023-07-05</p></td>
                 <%} else if(c.getEstados().getEstados().equals("entregado")){%>
                     <td><p>2023-07-07</p></td>
                 <%}%>
@@ -81,32 +79,25 @@
                     <%}%>
 
                 <%} else if(c.getEstados().getEstados().equals("entregado")){%>
-                    <td><p>Completado</p></td>
-                <%} else {%>
-                    <td><p>Cancelado</p></td>
-                <% } %>
+                    <td><p>Compra finalizada</p></td>
+                <%}%>
 
 
 
                 <!-- ICONOS -->
+
                 <% if (c.getEstados().getEstados().equals("pendiente")) {%>
-                        <%
-                            LocalDate fecha1 = c.getFechaCompra().toLocalDate();
-                            LocalDate fecha2 = LocalDate.now();
-                            long diferenciaEnDias = ChronoUnit.DAYS.between(fecha1, fecha2);
-                        %>
 
-                        <% if (diferenciaEnDias>0 && diferenciaEnDias<=10) {%>
-                            <td><p class="text-primary"><i class="bi bi-dash-square"></i></p></td>
-                        <%} else if (diferenciaEnDias>10) {%>
-                            <td><h5 class="fw-bold text-primary"><i class="bi bi-chat-dots"></i></h5></td>
-                        <%}%>
+                    <%LocalDate fechaEntrega = LocalDate.now();%>
+                    <td><a onclick="alert('Seguro que desea confirma la entrega a <%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%>');" class="btn btn-primary"
+                           href="<%=request.getContextPath()%>/AdminJuegosServlet?a=juegoEntregado&id=<%=c.getIdCompra()%>&fechaEntrega=<%=LocalDate.now()%>">
+                        Entregar</a></td>
 
-                <%} else if(c.getEstados().getEstados().equals("eliminado")){%>
-                    <td><p class="text-danger"><i class="bi bi-x-square"></i></p></td>
                 <%} else if(c.getEstados().getEstados().equals("entregado")){%>
-                    <td><p class="text-success"><i class="bi bi-check-square"></i></p></td>
+                    <td><button type="button" class="btn btn-success" disabled>Entregado</button></td>
+
                 <%}%>
+
 
 
                 <!-- OPCIONES -->

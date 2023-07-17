@@ -2,7 +2,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="juegos" scope="request" type="com.example.proyecto_iweb.models.beans.Juegos"/>
+<jsp:useBean id="juegos" scope="request" type="com.example.proyecto_iweb.models.dtos.Raiting"/>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <% ArrayList<Cuentas> listaPerfil = (ArrayList<Cuentas>) request.getAttribute("perfil");
@@ -16,7 +16,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>JA-VAGOS</title>
-    <meta content="" name="description">
+    <meta content="" na me="description">
     <meta content="" name="keywords">
     <link rel="icon" href="pestania.png">
 
@@ -46,6 +46,32 @@
             height: 450px;
             object-fit: cover;
         }
+        .rating {
+            display: inline-block;
+        }
+
+        .stars {
+            font-size: 0;
+        }
+
+        .star {
+            display: inline-block;
+            font-size: 30px;
+            color: gray;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .star::before {
+            content: '\2605';
+        }
+
+        .star.filled::before {
+            color: gold;
+        }
     </style>
 
 </head>
@@ -74,6 +100,29 @@
                         <p class="lead"><%= juegos.getDescripcion() %></p>
                         <p class="font-weight-bold">Precio: <%= juegos.getPrecio() %></p>
                         <p class="font-weight-bold">Stock: <%= juegos.getStock() %></p>
+                        <%if(juegos.getRaiting()==0){%>
+                        <h5 class="font-weight-bold">AÚN NO TIENE VENTAS</h5>
+                        <h5 class="font-weight-bold">¡¡¡Se el primero en comprarlo!!!</h5>
+                        <%}else{%>
+                        <p class="font-weight-bold">Raiting:
+                        <div class="rating align-items-center justify-content">
+                            <div class="stars">
+                                <input type="radio" id="star5" name="rating" value="5" />
+                                <label for="star5" class="star"></label>
+                                <input type="radio" id="star4" name="rating" value="4" />
+                                <label for="star4" class="star"></label>
+                                <input type="radio" id="star3" name="rating" value="3" />
+                                <label for="star3" class="star"></label>
+                                <input type="radio" id="star2" name="rating" value="2" />
+                                <label for="star2" class="star"></label>
+                                <input type="radio" id="star1" name="rating" value="1" />
+                                <label for="star1" class="star"></label>
+                            </div>
+                        </div>
+                        </p>
+                        <%}%>
+
+
                     </div>
                     <% if (usuarioLog.getIdCuentas() == 0) { %>
                     <div class="row mt">
@@ -126,6 +175,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+<script>
+    function fillStars(rating) {
+        const stars = document.querySelectorAll('.stars .star');
+
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.add('filled');
+            } else {
+                star.classList.remove('filled');
+            }
+        });
+    }
+
+    // Obtén el valor del rating de la base de datos y llama a la función fillStars con ese valor
+    const ratingFromDatabase = <%=juegos.getRaiting() %>; // Reemplaza este valor con el valor obtenido de la base de datos
+    fillStars(ratingFromDatabase);
+</script>
 </body>
 
 </html>

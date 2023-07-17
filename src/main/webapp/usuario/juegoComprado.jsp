@@ -4,7 +4,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="verVenta" scope="request" type="com.example.proyecto_iweb.models.beans.VentaUsuario"/>
+<jsp:useBean id="formularioCompra" scope="request" type="com.example.proyecto_iweb.models.beans.CompraUsuario"/>
 
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
@@ -38,7 +38,30 @@
 
     <!-- Option 1: Include in HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <style>
+        .rating {
+            display: flex;
+            align-items: center;
+        }
 
+        .stars {
+            font-size: 20px;
+            color: gray;
+        }
+
+        .star {
+            cursor: pointer;
+        }
+
+        .star .bi-star {
+            transition: color 0.3s ease;
+        }
+
+        .star .bi-star:hover,
+        .star .bi-star.active {
+            color: gold;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,50 +74,55 @@
 
 <main  id="main" class="main">
     <div class="container " >
-        <h1 class='mt-3'>Editar Precio Juego</h1>
+        <h1 class='mt-3'>Formulario del Juego comprado</h1>
         <% if (session.getAttribute("err") != null) {%>
         <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%></div>
         <%session.removeAttribute("err");%>
         <% }%>
 
 
-        <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=a">
-            <input type="hidden" class="form-control" name="idVentas" id="idVentas"
-                   value="<%=verVenta.getIdVenta()%>">
+        <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=raiting">
+            <input type="hidden" class="form-control" name="idCompra" id="idCompra"
+                   value="<%=formularioCompra.getIdCompra()%>">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label for="nombre">Nombre del Juego</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" value="<%=verVenta.getJuegos().getNombre()%>" disabled>
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="<%=formularioCompra.getJuegos().getNombre()%>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="precioVenta">Precio</label>
-                        <input type="text" class="form-control" name="precioVenta" id="precioVenta" value="<%=verVenta.getPrecioVenta()%>">
+                        <input type="text" class="form-control" name="precioVenta" id="precioVenta" value="<%=formularioCompra.getPrecioCompra()%>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="descripcion">Descripcion</label>
-                        <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=verVenta.getJuegos().getDescripcion()%>" disabled>
+                        <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=formularioCompra.getJuegos().getDescripcion()%>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="consola">Consola</label>
-                        <input type="text" class="form-control" name="consola" id="consola" value="<%=verVenta.getJuegos().getConsola()%>" disabled>
+                        <input type="text" class="form-control" name="consola" id="consola" value="<%=formularioCompra.getJuegos().getConsola()%>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="genero">Genero</label>
-                        <input type="text" class="form-control" name="genero" id="genero" value="<%=verVenta.getJuegos().getGenero()%>" disabled>
+                        <input type="text" class="form-control" name="genero" id="genero" value="<%=formularioCompra.getJuegos().getGenero()%>" disabled>
                     </div>
-                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">Cancelar</a>
+                    <div class="mb-3">
+                        <label for="raiting">Raiting</label>
+                        <input type="text" class="form-control" name="raiting" id="raiting"   required placeholder="Un valor de 1(No me gusta) a 5(Me encanta)">
+                    </div>
+                    <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
                 <div class="col-lg-6">
-                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=verVenta.getJuegos().getIdJuegos()%>" alt="" class="img-fluid max-width-100">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=formularioCompra.getJuegos().getIdJuegos()%>" alt="" class="img-fluid max-width-100">
                 </div>
             </div>
+
+
         </form>
     </div>
 </main>
 
-<br>
 <!-- ======= Footer ======= -->
 <jsp:include page="/includes/footer.jsp">
     <jsp:param name="title" value=""/>
@@ -114,6 +142,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+
+<script>
+    function updateRating(value) {
+        const stars = document.querySelectorAll('.stars label');
+
+        stars.forEach((star, index) => {
+            const rating = index + 1;
+
+            if (rating <= value) {
+                star.classList.add('active');
+            } else {
+                star.classList.remove('active');
+            }
+        });
+    }
+</script>
 </body>
 
 </html>
