@@ -11,8 +11,6 @@ public class ManagerJuegosDaos extends DaoBase{
     public ArrayList<Juegos> listarJuegos(){
         ArrayList<Juegos> lista = new ArrayList<>();
         String sql = "select * from juego where habilitado = 1";
-        String url = "jdbc:mysql://localhost:3306/mydb";
-
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql)) {
