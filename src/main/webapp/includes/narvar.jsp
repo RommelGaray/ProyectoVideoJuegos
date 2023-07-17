@@ -411,23 +411,14 @@
         <span>Reservas o comprados</span>
       </a>
     </li>
-
-    <li class="nav-item">
+    <!-- JUEGOS PROPUESTOS
+     <li class="nav-item">
       <a class="nav-link collapsed<%=currentPage.equals("propuestos") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=propuestos">
         <i class="bi bi-arrow-up-square text-danger"></i>
         <span>Juegos propuestos</span>
       </a>
     </li>
-
-    <!-- Eliminado porque es redundante para el ADMINISTRADOR -->
-    <!--
-      <li class="nav-item">
-        <a class="nav-link collapsed<%=currentPage.equals("ofertas") ? "active" : ""%>"  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=ofertas">
-          <i class="bi bi-exclamation-square text-danger"></i>
-          <span>Ofertas</span>
-        </a>
-      </li>
-      -->
+     -->
 
     <li class="nav-item">
       <a class="nav-link collapsed" href="#">
@@ -435,20 +426,23 @@
       </a>
       <ul id="icons-nav" class="nav-content" data-bs-parent="#sidebar-nav">
         <li>
-          <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">
+          <a class="nav-link collapsed<%=currentPage.equals("nuevo") ? "active" : ""%>"   href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">
             <i class="bi bi-circle"></i><span>Nuevo</span>
           </a>
         </li>
         <li>
-          <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">
+          <a class="nav-link collapsed<%=currentPage.equals("existente") ? "active" : ""%>"   href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">
             <i class="bi bi-circle"></i><span>Existente</span>
           </a>
         </li>
-        <li>
+        <!--
+         <li>
           <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarcola">
             <i class="bi bi-circle"></i><span>Cola</span>
           </a>
         </li>
+         -->
+
       </ul>
     </li>
 
