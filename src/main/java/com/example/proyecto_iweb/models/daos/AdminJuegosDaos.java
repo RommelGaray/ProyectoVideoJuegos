@@ -707,28 +707,41 @@ public class AdminJuegosDaos  extends DaoBase{
         }
         return ventaUsuario;
     }
-    public ArrayList<DetallesNuevos> detallesNuevos(){
+    public ArrayList<DetallesNuevos> detallesNuevos(String idVenta){
 
         ArrayList<DetallesNuevos> lista = new ArrayList<>();
         String sql =    "SELECT vu.idVenta, vu.idJuego, c.idCuenta, j.nombre, CONCAT(c.nombre, ' ', c.apellido) AS nombreUsuario, vu.precioVenta, j.descripcion, j.consola, j.genero, vu.mensajeAdmin, j.foto\n" +
-                "FROM ventausuario vu\n" +
-                "JOIN juego j ON vu.idJuego = j.idJuego\n" +
-                "JOIN cuenta c ON vu.idUsuario = c.idCuenta\n" +
-                "WHERE vu.idVenta = ?;\n";
+                        "FROM ventausuario vu\n" +
+                        "JOIN juego j ON vu.idJuego = j.idJuego\n" +
+                        "JOIN cuenta c ON vu.idUsuario = c.idCuenta\n" +
+                        "WHERE vu.idVenta = ?;\n";
+        try {
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, idVenta);
 
-        try (Connection connection = this.getConection();
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql)) {
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        DetallesNuevos detallesNuevos = new DetallesNuevos();
+                        detallesNuevos.setIdVenta(rs.getInt(1));
+                        detallesNuevos.setIdJuego(rs.getInt(2));
+                        detallesNuevos.setIdCuenta(rs.getInt(3));
+                        detallesNuevos.setNombre(rs.getString(4));
+                        detallesNuevos.setNombreUsuario(rs.getString(5));
+                        detallesNuevos.setPrecioVenta(rs.getDouble(6));
+                        detallesNuevos.setDescripcion(rs.getString(7));
+                        detallesNuevos.setConsola(rs.getString(8));
+                        detallesNuevos.setGenero(rs.getString(9));
+                        detallesNuevos.setMensajeAdmin(rs.getString(10));
+                        detallesNuevos.setFoto(rs.getString(11));
 
-            while (resultSet.next()) {
-                DetallesNuevos detallesNuevos = new DetallesNuevos();
+                        lista.add(detallesNuevos);
+                    }
+                }
 
-                detallesNuevos.setNombre(resultSet.getString(1));
-                lista.add(detallesNuevos);
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return lista;
     }

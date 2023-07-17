@@ -159,6 +159,7 @@ public class AdminJuegosServlet extends HttpServlet {
             case "detallesJuegoNuevo":
                 String id8 = request.getParameter("id");
                 request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id8));
+                request.setAttribute("detallesNuevos", adminJuegosDaos.detallesNuevos(id8));
                 request.getRequestDispatcher("admin/detallesJuegoNuevo.jsp").forward(request, response);
                 break;
 
