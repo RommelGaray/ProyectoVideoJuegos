@@ -24,21 +24,21 @@
         <div class="card mb-10" style="max-width: 1500px;">
             <div class="row g-0">
                 <div class="col-md-5">
-                    <img src="#" class="img-fluid rounded-start" alt="...">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuego()%>" alt="" class="img-fluid max-width-100">
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h5 class="card-title"><%=j.getNombre() %></h5>
-                            <a href="#" class="btn btn-primary">Ver detalles</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesJuegoExistente&id=<%=j.getIdVenta()%>" class="btn btn-primary">Ver detalles</a>
                         </div>
                         <p class="card-text">Stock: <%=j.getStock()%></p>
                         <p class="card-text">Cantidad de copias vendidas: <%=j.getCant_ventas() %></p>
                         <p class="card-text" style="font-size: 1.2em;"><strong>Precio de venta propuesto: S/.<%=j.getPrecioVenta()%> </strong></p>
                         <div class="d-flex justify-content-end">
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadoaceptar&idventa=<%=j.getIdVenta()%>" class="btn btn-primary m-1">Aceptar</a>
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadonoaceptar&idventa=<%=j.getIdVenta()%>" class="btn btn-primary m-1">No aceptar</a>
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadorechazar&idventa=<%=j.getIdVenta()%>" class="btn btn-danger m-1">Rechazar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarExistente&idventa=<%=j.getIdVenta()%>" class="btn btn-primary m-1">Aceptar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarExistente&id=<%=j.getIdVenta()%>" class="btn btn-primary m-1">No aceptar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=rechazarExistente&id=<%=j.getIdVenta()%>" class="btn btn-danger m-1">Rechazar</a>
                         </div>
                     </div>
                 </div>

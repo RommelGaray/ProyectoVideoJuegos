@@ -25,6 +25,7 @@
         <div class="card mb-10" style="max-width: 1500px;">
             <div class="row g-0">
                 <div class="col-md-5">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=vu.getJuegos().getIdJuegos() %>" alt="" class="img-fluid max-width-100">
                     <img src="<%=vu.getJuegos().getFoto()%>" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-7">

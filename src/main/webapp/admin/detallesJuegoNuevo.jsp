@@ -38,7 +38,7 @@
             <input type="text" class="form-control" name="precio" id="usuario" value="<%=d.getNombreUsuario() %>" disabled>
           </div>
           <div class="mb-3">
-            <label for="precio">Precio</label>
+            <label for="precio">Precio de venta propuesto</label>
             <input type="text" class="form-control" name="precio" id="precio" value="<%=ventaUsuario.getPrecioVenta()%>" disabled>
           </div>
           <div class="mb-3">

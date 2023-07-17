@@ -41,7 +41,7 @@
               <input type="text" class="form-control" name="usuario" id="usuario" value="<%=d.getNombreUsuario() %>" disabled>
             </div>
             <div class="mb-3">
-              <label for="precio">Precio</label>
+              <label for="precio">Precio de venta propuesto</label>
               <input type="text" class="form-control" name="precio" id="precio" value="<%=ventaUsuario.getPrecioVenta()%>" disabled>
             </div>
             <div class="mb-3">
@@ -69,8 +69,6 @@
 
       <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">Cancelar</a>
         <button type="submit" class="btn btn-primary" onclick="return confirm('¿Está seguro de realizar esta acción?')">No aceptar juego</button>
-
-
 
         <% } %>
     </form>

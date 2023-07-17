@@ -1,8 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.dtos.DetallesNuevos" %>
+<%@ page import="com.example.proyecto_iweb.models.dtos.DetallesExistentes" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="ventaUsuario" scope="request" type="com.example.proyecto_iweb.models.beans.VentaUsuario"/>
-<% ArrayList<DetallesNuevos> lista = (ArrayList<DetallesNuevos>) request.getAttribute("detallesNuevos");%>
+<% ArrayList<DetallesExistentes> lista = (ArrayList<DetallesExistentes>) request.getAttribute("detallesExistentes");%>
 
 
 <!DOCTYPE html>
@@ -21,46 +22,48 @@
 <main id="main" class="main">
 
     <div class="container">
-        <h1 class="mt-3">Detalles de juego nuevo</h1>
+        <h1 class="mt-3">Detalles de juego Existente</h1>
 
-        <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=rechazar">
+        <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=rechazarExistente">
             <input type="hidden" class="form-control">
 
-            <% for (DetallesNuevos d : lista) { %>
+            <% for (DetallesExistentes d : lista) { %>
             <div class="row">
                 <div class="col-lg-6">
-
                     <input type="hidden" class="form-control" name="idVenta" id="idVenta"
                            value="<%=ventaUsuario.getIdVenta()%>">
                     <div class="mb-3">
                         <label for="juego">Nombre del Juego</label>
-                        <input type="text" class="form-control" name="juego" id="juego" value="<%=d.getNombre() %>" disabled>
+                        <input type="text" class="form-control" name="precio" id="juego" value="<%=d.getNombre() %>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="usuario">Usuario vendedor</label>
-                        <input type="text" class="form-control" name="usuario" id="usuario" value="<%=d.getNombreUsuario() %>" disabled>
+                        <input type="text" class="form-control" name="precio" id="usuario" value="<%=d.getNombreUsuario() %>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="precio">Precio de venta propuesto</label>
                         <input type="text" class="form-control" name="precio" id="precio" value="<%=ventaUsuario.getPrecioVenta()%>" disabled>
                     </div>
                     <div class="mb-3">
-                        <label for="descripcion">Descripción</label>
-                        <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=d.getDescripcion() %>" disabled>
+                        <label for="stock">Stock</label>
+                        <input type="text" class="form-control" name="stock" id="stock" value="<%=d.getStock() %>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cant_ventas">Cantidad de unidades vendidas</label>
+                        <input type="text" class="form-control" name="cant_ventas" id="cant_ventas" value="<%=d.getCant_ventas() %>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="consola">Consola</label>
-                        <input type="text" class="form-control" name="consola" id="consola" value="<%=d.getConsola() %>" disabled>
+                        <input type="text" class="form-control" name="precio" id="consola" value="<%=d.getConsola() %>" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="genero">Género</label>
-                        <input type="text" class="form-control" name="genero" id="genero" value="<%=d.getGenero() %>" disabled>
+                        <input type="text" class="form-control" name="precio" id="genero" value="<%=d.getGenero() %>" disabled>
                     </div>
                     <div class="mb-5">
                         <label for="mensajeAdmin" style="color: red; font-weight: bold;">DAR MOTIVO DE RECHAZO DE JUEGO</label>
                         <input type="text" class="form-control" name="mensajeAdmin" id="mensajeAdmin" value="<%=ventaUsuario.getMensajeAdmin()%>">
                     </div>
-
 
                 </div>
                 <div class="col-lg-6">
@@ -68,7 +71,7 @@
                 </div>
             </div>
 
-            <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">Cancelar</a>
+            <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">Cancelar</a>
             <button type="submit" class="btn btn-primary" onclick="return confirm('¿Está seguro de realizar esta acción?')">Rechazar juego</button>
 
             <% } %>

@@ -157,7 +157,7 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
 
-
+            //para juegos NUEVOS propuestos por el user
             case "detallesJuegoNuevo":
                 String id8 = request.getParameter("id");
                 request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id8));
@@ -183,7 +183,32 @@ public class AdminJuegosServlet extends HttpServlet {
                 adminJuegosDaos.cambiarestadoaceptar(id13);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
                 break;
+            //para juegos EXISTENTES propuestos por el user
+            case "detallesJuegoExistente":
+                String id14 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id14));
+                request.setAttribute("detallesExistentes", adminJuegosDaos.detallesExistentes(id14));
+                request.getRequestDispatcher("admin/detallesJuegoExistente.jsp").forward(request, response);
+                break;
 
+            case "noAceptarExistente":
+                String id15 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id15));
+                request.setAttribute("detallesExistentes", adminJuegosDaos.detallesExistentes(id15));
+                request.getRequestDispatcher("admin/noAceptarExistente.jsp").forward(request, response);
+                break;
+
+            case "rechazarExistente":
+                String id16 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id16));
+                request.setAttribute("detallesExistentes", adminJuegosDaos.detallesExistentes(id16));
+                request.getRequestDispatcher("admin/rechazarExistente.jsp").forward(request, response);
+                break;
+            case "aceptarExistente":
+                String id17 = request.getParameter("idventa");
+                adminJuegosDaos.cambiarestadoaceptar(id17);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                break;
 
             //Rommel
             case "juegoEntregado":
@@ -299,6 +324,20 @@ public class AdminJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
                 break;
 
+                //para existentes
+            case "noAceptarExistente":
+                int idVenta3 = Integer.parseInt(request.getParameter("idVenta"));
+                String mensajeAdmin3 = request.getParameter("mensajeAdmin");
+                adminJuegosDaos.noAceptar(mensajeAdmin3,idVenta3);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                break;
+
+            case "rechazarExistente":
+                int idVenta4 = Integer.parseInt(request.getParameter("idVenta"));
+                String mensajeAdmin4 = request.getParameter("mensajeAdmin");
+                adminJuegosDaos.rechazar(mensajeAdmin4,idVenta4);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                break;
 
 
         }

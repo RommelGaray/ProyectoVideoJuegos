@@ -1,10 +1,7 @@
 package com.example.proyecto_iweb.models.daos;
 
 import com.example.proyecto_iweb.models.beans.*;
-import com.example.proyecto_iweb.models.dtos.Consolas;
-import com.example.proyecto_iweb.models.dtos.DetallesNuevos;
-import com.example.proyecto_iweb.models.dtos.Generos;
-import com.example.proyecto_iweb.models.dtos.JuegosExistentes;
+import com.example.proyecto_iweb.models.dtos.*;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -589,11 +586,11 @@ public class AdminJuegosDaos  extends DaoBase{
         ArrayList<JuegosExistentes> lista = new ArrayList<>();
 
         String sql =    "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock , COUNT(v.idVenta) AS cant_ventas\n" +
-                "FROM ventausuario v\n" +
-                "JOIN juego j ON v.idJuego = j.idJuego\n" +
-                "WHERE j.existente = 1 AND v.idEstados = 1\n" +
-                "GROUP BY v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock \n" +
-                "ORDER BY cant_ventas DESC;";
+                        "FROM ventausuario v\n" +
+                        "JOIN juego j ON v.idJuego = j.idJuego\n" +
+                        "WHERE j.existente = 1 AND v.idEstados = 1\n" +
+                        "GROUP BY v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock \n" +
+                        "ORDER BY cant_ventas DESC;";
 
         String url = "jdbc:mysql://localhost:3306/mydb";
         try (Connection connection = this.getConection();
@@ -607,7 +604,6 @@ public class AdminJuegosDaos  extends DaoBase{
                 juegosExistentes.setNombre(resultSet.getString(3));
                 juegosExistentes.setPrecioVenta(resultSet.getDouble(4));
                 juegosExistentes.setStock(resultSet.getInt(5));
-                //juegosExistentes.setFoto(resultSet.getString(6));
                 juegosExistentes.setCant_ventas(resultSet.getInt(6));
                 lista.add(juegosExistentes);
             }
@@ -745,6 +741,46 @@ public class AdminJuegosDaos  extends DaoBase{
         }
         return lista;
     }
+    public ArrayList<DetallesExistentes> detallesExistentes(String idVenta){
+
+        ArrayList<DetallesExistentes> lista = new ArrayList<>();
+        String sql =    "SELECT v.idVenta, v.idJuego, c.idCuenta, j.nombre,  CONCAT(c.nombre, ' ', c.apellido) AS nombreUsuario, v.precioVenta, j.stock , COUNT(v.idVenta) AS cant_ventas, j.genero, j.consola\n" +
+                        "FROM ventausuario v\n" +
+                        "JOIN juego j ON v.idJuego = j.idJuego\n" +
+                        "JOIN cuenta c ON v.idUsuario = c.idCuenta\n" +
+                        "WHERE j.existente = 1 AND v.idVenta = ?\n" +
+                        "GROUP BY v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock \n" +
+                        "ORDER BY cant_ventas DESC;";
+        try {
+            try (Connection conn = this.getConection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, idVenta);
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        DetallesExistentes detallesExistentes = new DetallesExistentes();
+                        detallesExistentes.setIdVenta(rs.getInt(1));
+                        detallesExistentes.setIdJuego(rs.getInt(2));
+                        detallesExistentes.setIdCuenta(rs.getInt(3));
+                        detallesExistentes.setNombre(rs.getString(4));
+                        detallesExistentes.setNombreUsuario(rs.getString(5));
+                        detallesExistentes.setPrecioVenta(rs.getDouble(6));
+                        detallesExistentes.setStock(rs.getInt(7));
+                        detallesExistentes.setCant_ventas(rs.getInt(8));
+                        detallesExistentes.setConsola(rs.getString(9));
+                        detallesExistentes.setGenero(rs.getString(10));
+
+                        lista.add(detallesExistentes);
+                    }
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+//    para NUEVOS
     public void noAceptar(String mensajeAdmin,int idVenta){
         String sql = "UPDATE ventausuario SET idEstados = 3, mensajeAdmin = ? WHERE idVenta = ?;";
 //                            UPDATE ventausuario SET idEstados = 3 WHERE idVenta = ?;
@@ -773,6 +809,7 @@ public class AdminJuegosDaos  extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
 
 
 
