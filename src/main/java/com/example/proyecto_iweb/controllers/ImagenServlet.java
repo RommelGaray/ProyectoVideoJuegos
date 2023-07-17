@@ -36,6 +36,22 @@ public class ImagenServlet extends HttpServlet {
             }
 
 
+            case "listarFotoCuenta"->{
+                int id = Integer.parseInt(request.getParameter("id"));
+                byte[] content = null;
+                content = imageDao.obtenerFotoPerfil(id);
+                if (content.length == 1 && content[0] == 0) {
+                    System.out.println("Algo falló al nivel de SQL/DB");
+                } else if (content.length == 1 && content[0] == 1) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                } else {
+                    response.setContentType("image/*");
+                    response.setContentLength(content.length);
+                    response.getOutputStream().write(content);
+                }
+            }
+
+
         }
 
     }
