@@ -108,22 +108,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="raiting">Raiting</label>
-                        <input type="text" class="form-control" name="raiting" id="raiting" value="<%=formularioCompra.getRaiting()%>">
-                    </div>
-                    <div class="rating">
-                        <input type="range" min="0" max="10" step="0.5" id="ratingInput" onchange="updateRating(this.value)" />
-                        <div class="stars">
-                            <label for="star10" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star9" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star8" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star7" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star6" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star5" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star4" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star3" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star2" class="star"><i class="bi bi-star"></i></label>
-                            <label for="star1" class="star"><i class="bi bi-star"></i></label>
-                        </div>
+                        <input type="text" class="form-control" name="raiting" id="raiting"   required placeholder="Un valor de 1(No me gusta) a 5(Me encanta)">
                     </div>
                     <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Guardar</button>

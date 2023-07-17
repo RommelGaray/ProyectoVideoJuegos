@@ -11,7 +11,8 @@ import java.io.IOException;
 
 
 @WebFilter(filterName = "FiltroUsuario",
-        servletNames = {"UsuariosCuentasServlet", "UsuariosJuegosServlet"})
+        servletNames = {"UsuariosCuentasServlet", "UsuariosJuegosServlet"},
+        urlPatterns = {"/UsuariosJuegosServlet"})
 public class FiltroUsuario implements Filter {
 
     @Override

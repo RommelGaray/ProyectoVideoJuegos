@@ -1,6 +1,7 @@
 package com.example.proyecto_iweb.controllers;
 
 import java.io.*;
+import java.util.regex.Pattern;
 
 import com.example.proyecto_iweb.models.beans.CompraUsuario;
 import com.example.proyecto_iweb.models.beans.Cuentas;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "UsuariosJuegosServlet", urlPatterns = {"/UsuariosJuegosServlet"})
+@MultipartConfig
 public class UsuariosJuegosServlet extends HttpServlet {
 
     @Override
@@ -151,6 +153,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
 
         String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");
 
@@ -168,20 +171,29 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
                 break;
             case "c":
+                InputStream inputStream;
                 Juegos juegos = parseJuegosPosteadosNuevos(request);
+                Part filePart = request.getPart("foto");
+
+
+                inputStream = filePart.getInputStream();
+                if (filePart != null) {
+                    System.out.println("Part Content Type: " + filePart.getContentType());
+                    inputStream = filePart.getInputStream();
+                }
                 HttpSession session = request.getSession();
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
                 if (juegos != null) {
                     String precioString = String.valueOf(juegos.getPrecio());
                     if (juegos.getNombre().isEmpty() || precioString.isEmpty() || juegos.getDescripcion().isEmpty() || juegos.getPrecio()<0) {
-                        session.setAttribute("msg1","");
+                        request.setAttribute("error2","Ingrese correctamente los datos");
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
                     }else{
-                        usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas());
+                        usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas(),inputStream);
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
                     }
                 }else{
-                    session.setAttribute("msg","");
+                    request.setAttribute("error", "Error al igresar el valor del precio");
                     response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
                 }
                 break;
@@ -208,28 +220,44 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
                 usuarioJuegosDaos.guardarVenta1(juegos1,cuentas1.getIdCuentas());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+
+
                 break;
             case "raiting":
                 CompraUsuario compraUsuario = parseCompra(request);
+                String raiting = request.getParameter("raiting");
+
                 HttpSession session3 = request.getSession();
-                usuarioJuegosDaos.actualizarRaiting(compraUsuario);
-                session3.setAttribute("msg","Gracias por compartir su opinion con nosotros");
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
+                if(compraUsuario != null){
+
+                    if(compraUsuario.getRaiting()<1 ||compraUsuario.getRaiting()>5){
+
+                        session3.setAttribute("err","Coloque un número entre del 1 (No me gusta) al 5 (Me Encanta)");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=formularioCompra&id="+ compraUsuario.getIdCompra());
+                    }
+                    else {
+                        usuarioJuegosDaos.actualizarRaiting(compraUsuario);
+                        session3.setAttribute("msg","Gracias por compartir su opinion con nosotros");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
+                    }
+                }
                 break;
         }
     }
 
 
 
-    public Juegos parseJuegosPosteadosNuevos(HttpServletRequest request) {
+    public Juegos parseJuegosPosteadosNuevos(HttpServletRequest request)  {
 
         Juegos juegos = new Juegos();
         String nombre = request.getParameter("nombre");
         String precio = request.getParameter("precio");
         String consola = request.getParameter("consola");
         String genero = request.getParameter("genero");
-        String foto = request.getParameter("foto");
+
         String descripcion = request.getParameter("descripcion");
+
+
 
         try {
 
@@ -238,7 +266,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
             juegos.setDescripcion(descripcion);
             juegos.setConsola(consola);
             juegos.setGenero(genero);
-            juegos.setFoto(foto);
 
             return juegos;
 
@@ -246,6 +273,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
             return null;
         }
     }
+
+
 
     public VentaUsuario parseVentas(HttpServletRequest request)  {
 
@@ -315,6 +344,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
         }
         return juegos;
     }
+
+
 
 
 }

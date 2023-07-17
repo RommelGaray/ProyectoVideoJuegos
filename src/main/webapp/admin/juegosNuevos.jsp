@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -30,7 +31,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h5 class="card-title"><%=vu.getJuegos().getNombre() %></h5>
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesJuegoNuevo&id=<%=vu.getIdJuego()%>" class="btn btn-primary">Ver detalles</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesJuegoNuevo&id=<%=vu.getIdVenta()%>" class="btn btn-primary">Ver detalles</a>
                         </div>
                         <p class="card-text">Genero: <%=vu.getJuegos().getGenero()%></p>
                         <p class="card-text">Usuario vendedor: <%=vu.getUsuario().getNombre() %> <%=vu.getUsuario().getApellido() %></p>
