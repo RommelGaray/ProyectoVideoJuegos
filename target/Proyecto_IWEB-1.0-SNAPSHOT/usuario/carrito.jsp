@@ -200,12 +200,9 @@
             <button onclick="findMe()">Mostrar ubicación</button>
             <div id="map"></div>
         </div>
-<<<<<<< HEAD
 
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLKR9qOir3xYs4JC_k2k0QEeEVCGPUGA"></script>
-=======
->>>>>>> ae332a877f23b8ab55d1d9a1e910b950512ff0ce
         <script>
             function findMe(){
                 var output = document.getElementById('map');
@@ -244,7 +241,6 @@
     <div class="container__detail bg-light p-3 d-flex flex-column">
         <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()%></p>
         <button type="button" class="btn btn-success mt-3">Pagar</button>
-        <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet?a=pagar">Pagar oficial</a>
         <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet">Cancelar</a>
     </div>
 

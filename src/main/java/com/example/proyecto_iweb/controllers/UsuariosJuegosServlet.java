@@ -186,14 +186,14 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 if (juegos != null) {
                     String precioString = String.valueOf(juegos.getPrecio());
                     if (juegos.getNombre().isEmpty() || precioString.isEmpty() || juegos.getDescripcion().isEmpty() || juegos.getPrecio()<0) {
-                        request.setAttribute("error2","Ingrese correctamente los datos");
+                        session.setAttribute("error2","Ingrese correctamente los datos");
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
                     }else{
                         usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas(),inputStream);
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
                     }
                 }else{
-                    request.setAttribute("error", "Error al igresar el valor del precio");
+                    session.setAttribute("error", "Error al igresar el valor del precio");
                     response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
                 }
                 break;
