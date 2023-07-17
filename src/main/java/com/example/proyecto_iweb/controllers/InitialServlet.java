@@ -18,12 +18,12 @@ public class InitialServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String action = request.getParameter("action") == null ? "list" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
         RequestDispatcher view;
 
         switch (action) {
-            case "list":
+            case "lista":
                 request.setAttribute("lista", usuarioJuegosDaos.listarJuegos());
                 //request.setAttribute("perfil", cuentasDaos.perfil());
                 // request.setAttribute("lista4",usuarioJuegosDaos.listarNotificaciones());
