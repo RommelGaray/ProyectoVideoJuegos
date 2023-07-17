@@ -23,20 +23,22 @@
   <div class="container">
     <h1 class="mt-3">Detalles de juego nuevo</h1>
 
-    <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet">
+    <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=noAceptar">
       <input type="hidden" class="form-control">
 
       <% for (DetallesNuevos d : lista) { %>
       <div class="row">
         <div class="col-lg-6">
-          <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=noAceptar" enctype="multipart/form-data">
+
+            <input type="hidden" class="form-control" name="idVenta" id="idVenta"
+                   value="<%=ventaUsuario.getIdVenta()%>">
             <div class="mb-3">
               <label for="juego">Nombre del Juego</label>
-              <input type="text" class="form-control" name="precio" id="juego" value="<%=d.getNombre() %>" disabled>
+              <input type="text" class="form-control" name="juego" id="juego" value="<%=d.getNombre() %>" disabled>
             </div>
             <div class="mb-3">
               <label for="usuario">Usuario vendedor</label>
-              <input type="text" class="form-control" name="precio" id="usuario" value="<%=d.getNombreUsuario() %>" disabled>
+              <input type="text" class="form-control" name="usuario" id="usuario" value="<%=d.getNombreUsuario() %>" disabled>
             </div>
             <div class="mb-3">
               <label for="precio">Precio</label>
@@ -44,31 +46,33 @@
             </div>
             <div class="mb-3">
               <label for="descripcion">Descripción</label>
-              <input type="text" class="form-control" name="precio" id="descripcion" value="<%=d.getDescripcion() %>" disabled>
+              <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=d.getDescripcion() %>" disabled>
             </div>
             <div class="mb-3">
               <label for="consola">Consola</label>
-              <input type="text" class="form-control" name="precio" id="consola" value="<%=d.getConsola() %>" disabled>
+              <input type="text" class="form-control" name="consola" id="consola" value="<%=d.getConsola() %>" disabled>
             </div>
             <div class="mb-3">
               <label for="genero">Género</label>
-              <input type="text" class="form-control" name="precio" id="genero" value="<%=d.getGenero() %>" disabled>
+              <input type="text" class="form-control" name="genero" id="genero" value="<%=d.getGenero() %>" disabled>
             </div>
             <div class="mb-3">
-              <label for="mensaje">DEJAR MOTIVO DE NO ACEPTACIÓN</label>
-              <input type="text" class="form-control" name="precio" id="mensaje" value="<%=ventaUsuario.getMensajeAdmin()%>">
+              <label for="mensajeAdmin">DEJAR MOTIVO DE NO ACEPTACIÓN</label>
+              <input type="text" class="form-control" name="mensajeAdmin" id="mensajeAdmin" value="<%=ventaUsuario.getMensajeAdmin()%>">
             </div>
-          </form>
+
         </div>
         <div class="col-lg-6">
           <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=d.getIdJuego()%>" alt="" class="img-fluid max-width-100">
         </div>
       </div>
 
-      <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">Regresar</a>
-      <button type="submit" class="btn btn-primary">Realizar</button>
+      <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">Cancelar</a>
+        <button type="submit" class="btn btn-primary" onclick="return confirm('¿Está seguro de realizar esta acción?')">No aceptar juego</button>
 
-      <% } %>
+
+
+        <% } %>
     </form>
   </div>
 </main>

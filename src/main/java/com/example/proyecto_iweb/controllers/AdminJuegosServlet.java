@@ -118,7 +118,7 @@ public class AdminJuegosServlet extends HttpServlet {
 
 
 
-            /** OSCAR COLOCAS AQU� TU C�DIGO O LAS OPCIONES DE SERVLET QUE QUIERAS A�ADIR **/
+
             case "listarcola":
                 request.setAttribute("lista", adminJuegosDaos.listarCola());
                 RequestDispatcher requestDispatcher2 = request.getRequestDispatcher("admin/juegosColaAdminOficial.jsp");
@@ -172,7 +172,20 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/noAceptarNuevo.jsp").forward(request, response);
                 break;
 
+            case "rechazarNuevo":
+                String id12 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id12));
+                request.setAttribute("detallesNuevos", adminJuegosDaos.detallesNuevos(id12));
+                request.getRequestDispatcher("admin/rechazarNuevo.jsp").forward(request, response);
+                break;
+            case "aceptarNuevo":
+                String id13 = request.getParameter("idventa");
+                adminJuegosDaos.cambiarestadoaceptar(id13);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                break;
 
+
+            //Rommel
             case "juegoEntregado":
                 String idCompra = request.getParameter("id");
                 String fechaEntrega = request.getParameter("fechaEntrega");
@@ -275,8 +288,15 @@ public class AdminJuegosServlet extends HttpServlet {
             case "noAceptar":
                 int idVenta1 = Integer.parseInt(request.getParameter("idVenta"));
                 String mensajeAdmin1 = request.getParameter("mensajeAdmin");
-                adminJuegosDaos.noAceptar(idVenta1,mensajeAdmin1);
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                adminJuegosDaos.noAceptar(mensajeAdmin1,idVenta1);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                break;
+
+            case "rechazar":
+                int idVenta2 = Integer.parseInt(request.getParameter("idVenta"));
+                String mensajeAdmin2 = request.getParameter("mensajeAdmin");
+                adminJuegosDaos.rechazar(mensajeAdmin2,idVenta2);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
                 break;
 
 

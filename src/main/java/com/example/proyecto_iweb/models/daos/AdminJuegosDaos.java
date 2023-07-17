@@ -549,11 +549,11 @@ public class AdminJuegosDaos  extends DaoBase{
         ArrayList<VentaUsuario> lista = new ArrayList<>();
 
         //se obtiene  1.idVenta, 2.idJuego, 3.nombre (juego), 4.nombre 5.apellido (cuenta), 6.precio, 7.foto, 8.genero
-        String sql =    "SELECT vu.idVenta, vu.idJuego, j.nombre , c.nombre, c.apellido, vu.precioVenta, j.foto, j.genero\n" +
-                "FROM ventausuario vu\n" +
-                "JOIN juego j ON vu.idJuego = j.idJuego\n" +
-                "JOIN cuenta c ON vu.idUsuario = c.idCuenta\n" +
-                "where j.existente=0;";
+        String sql =    "SELECT vu.idVenta, vu.idJuego, j.nombre, c.nombre, c.apellido, vu.precioVenta, j.foto, j.genero\n" +
+                        "FROM ventausuario vu\n" +
+                        "JOIN juego j ON vu.idJuego = j.idJuego\n" +
+                        "JOIN cuenta c ON vu.idUsuario = c.idCuenta\n" +
+                        "WHERE j.existente = 0 AND vu.idEstados = 1;\n";
 
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
@@ -591,7 +591,7 @@ public class AdminJuegosDaos  extends DaoBase{
         String sql =    "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock , COUNT(v.idVenta) AS cant_ventas\n" +
                 "FROM ventausuario v\n" +
                 "JOIN juego j ON v.idJuego = j.idJuego\n" +
-                "WHERE j.existente = 1\n" +
+                "WHERE j.existente = 1 AND v.idEstados = 1\n" +
                 "GROUP BY v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock \n" +
                 "ORDER BY cant_ventas DESC;";
 
@@ -745,9 +745,23 @@ public class AdminJuegosDaos  extends DaoBase{
         }
         return lista;
     }
-    public void noAceptar(int idVenta, String mensajeAdmin){
+    public void noAceptar(String mensajeAdmin,int idVenta){
         String sql = "UPDATE ventausuario SET idEstados = 3, mensajeAdmin = ? WHERE idVenta = ?;";
 //                            UPDATE ventausuario SET idEstados = 3 WHERE idVenta = ?;
+        try (Connection connection = this.getConection()){
+
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setString(1, mensajeAdmin);
+                pstmt.setInt(2, idVenta);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void rechazar(String mensajeAdmin,int idVenta){
+        String sql = "UPDATE ventausuario SET idEstados = 4, mensajeAdmin = ? WHERE idVenta = ?;";
+//                            UPDATE ventausuario SET idEstados =4 WHERE idVenta = ?;
         try (Connection connection = this.getConection()){
 
             try (PreparedStatement pstmt = connection.prepareStatement(sql)){

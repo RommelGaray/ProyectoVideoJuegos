@@ -37,9 +37,9 @@
                         <p class="card-text">Usuario vendedor: <%=vu.getUsuario().getNombre() %> <%=vu.getUsuario().getApellido() %></p>
                         <p class="card-text" style="font-size: 1.2em;"><strong>Precio de venta propuesto: S/.<%=vu.getPrecioVenta()%> </strong></p>
                         <div class="d-flex justify-content-end">
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadoaceptar&idventa=<%=vu.getIdVenta()%>" class="btn btn-primary m-1">Aceptar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarNuevo&idventa=<%=vu.getIdVenta()%>" class="btn btn-primary m-1">Aceptar</a>
                             <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarNuevo&id=<%=vu.getIdVenta()%>" class="btn btn-primary m-1">No aceptar</a>
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadorechazar&idventa=<%=vu.getIdVenta()%>" class="btn btn-danger m-1">Rechazar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=rechazarNuevo&id=<%=vu.getIdVenta()%>" class="btn btn-danger m-1">Rechazar</a>
                         </div>
                     </div>
                 </div>

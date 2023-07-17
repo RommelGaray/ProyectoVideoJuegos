@@ -67,11 +67,11 @@
       <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">Regresar</a>
 
       <div class="d-flex justify-content-end align-items-center mt-3 mb-5">
-        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadoaceptar&idventa=<%=d.getIdVenta()%>"
+        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarNuevo&idventa=<%=d.getIdVenta()%>"
            class="btn btn-primary m-1">Aceptar</a>
         <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarNuevo&id=<%=d.getIdVenta()%>"
            class="btn btn-primary m-1">No aceptar</a>
-        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadorechazar&idventa=<%=d.getIdVenta()%>"
+        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=rechazarNuevo&id=<%=d.getIdVenta()%>"
            class="btn btn-danger m-1">Rechazar</a>
       </div>
       <% } %>
