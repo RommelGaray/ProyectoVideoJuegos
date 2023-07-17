@@ -163,6 +163,13 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/detallesJuegoNuevo.jsp").forward(request, response);
                 break;
 
+            case "noAceptarNuevo":
+                String id11 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id11));
+                request.setAttribute("detallesNuevos", adminJuegosDaos.detallesNuevos(id11));
+                request.getRequestDispatcher("admin/noAceptarNuevo.jsp").forward(request, response);
+                break;
+
 
             case "juegoEntregado":
 
@@ -257,6 +264,15 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.setAttribute("lista", adminJuegosDaos.buscarPorTitle(textoBuscar1));
                 request.getRequestDispatcher("admin/indexAdmin.jsp").forward(request, response);
                 break;
+
+            case "noAceptar":
+                int idVenta1 = Integer.parseInt(request.getParameter("idVenta"));
+                String mensajeAdmin1 = request.getParameter("mensajeAdmin");
+                adminJuegosDaos.noAceptar(idVenta1,mensajeAdmin1);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                break;
+
+
         }
     }
 }

@@ -1,9 +1,4 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_iweb.models.beans.Juegos" %>
-<%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page import="com.example.proyecto_iweb.models.dtos.DetallesNuevos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="ventaUsuario" scope="request" type="com.example.proyecto_iweb.models.beans.VentaUsuario"/>
@@ -74,7 +69,7 @@
       <div class="d-flex justify-content-end align-items-center mt-3 mb-5">
         <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadoaceptar&idventa=<%=d.getIdVenta()%>"
            class="btn btn-primary m-1">Aceptar</a>
-        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadonoaceptar&idventa=<%=d.getIdVenta()%>"
+        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarNuevo&id=<%=d.getIdVenta()%>"
            class="btn btn-primary m-1">No aceptar</a>
         <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadorechazar&idventa=<%=d.getIdVenta()%>"
            class="btn btn-danger m-1">Rechazar</a>

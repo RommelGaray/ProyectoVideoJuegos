@@ -745,7 +745,25 @@ public class AdminJuegosDaos  extends DaoBase{
         }
         return lista;
     }
+    public void noAceptar(int idVenta, String mensajeAdmin){
+        String sql = "UPDATE ventausuario SET idEstados = 3, mensajeAdmin = ? WHERE idVenta = ?;";
+//                            UPDATE ventausuario SET idEstados = 3 WHERE idVenta = ?;
+        try (Connection connection = this.getConection()){
 
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setString(1, mensajeAdmin);
+                pstmt.setInt(2, idVenta);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+    //Rommel
     public void juegoEntregado(String idCompra, Date fechaEntrega){
 
         String sql = "UPDATE comprausuario SET idEstados = '7', fechaEntrega = ? WHERE idCompra = ?";
