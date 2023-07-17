@@ -54,6 +54,14 @@
 
 <main  id="main" class="main">
     <div class="container " >
+        <% if (session.getAttribute("error") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("error")%></div>
+        <%session.removeAttribute("error");%>
+        <% }%>
+        <% if (session.getAttribute("error2") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("erro2")%></div>
+        <%session.removeAttribute("error2");%>
+        <% }%>
         <h1 class='mt-3'>Agregar Juego Nuevo</h1>
         <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=c" enctype="multipart/form-data">
             <div class="mb-3">
@@ -92,12 +100,7 @@
             </div>
             <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">Cancelar</a>
             <button type="submit" class="btn btn-primary">Subir Juego</button>
-            <% if (request.getAttribute("error") != null) {%>
-            <div class="form-group text-danger mb-3">Error al igresar el valor del precio</div>
-            <% }%>
-            <% if (request.getAttribute("error2") != null) {%>
-            <div class="form-group text-danger mb-3">Ingrese correctamente los datos</div>
-            <% }%>
+
         </form>
     </div>
 </main>
