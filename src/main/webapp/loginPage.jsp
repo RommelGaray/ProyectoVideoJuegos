@@ -66,7 +66,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <p class="small mb-0">¿No tienes cuenta?<a href="<%=request.getContextPath()%>/UsuariosCuentasServlet?a=agregar"> Crea una cuenta</a></p>
+                                            <p class="small mb-0">¿No tienes cuenta?<a href="<%=request.getContextPath()%>/InitialServlet?action=agregar"> Crea una cuenta</a></p>
                                         </div>
                                     </form>
 
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="credits">
-                                Designed by <a href="<%=request.getContextPath()%>/index.jsp">Ja-Vagos</a>
+                                Designed by <a href="<%=request.getContextPath()%>/">Ja-Vagos</a>
                             </div>
 
                         </div>

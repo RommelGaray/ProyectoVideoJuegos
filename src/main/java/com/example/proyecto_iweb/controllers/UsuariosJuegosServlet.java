@@ -1,6 +1,7 @@
 package com.example.proyecto_iweb.controllers;
 
 import java.io.*;
+import java.util.regex.Pattern;
 
 import com.example.proyecto_iweb.models.beans.CompraUsuario;
 import com.example.proyecto_iweb.models.beans.Cuentas;
@@ -209,13 +210,27 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
                 usuarioJuegosDaos.guardarVenta1(juegos1,cuentas1.getIdCuentas());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+
+
                 break;
             case "raiting":
                 CompraUsuario compraUsuario = parseCompra(request);
+                String raiting = request.getParameter("raiting");
+
                 HttpSession session3 = request.getSession();
-                usuarioJuegosDaos.actualizarRaiting(compraUsuario);
-                session3.setAttribute("msg","Gracias por compartir su opinion con nosotros");
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
+                if(compraUsuario != null){
+
+                    if(compraUsuario.getRaiting()<1 ||compraUsuario.getRaiting()>5){
+
+                        session3.setAttribute("err","Coloque un número entre del 1 (No me gusta) al 5 (Me Encanta)");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=formularioCompra&id="+ compraUsuario.getIdCompra());
+                    }
+                    else {
+                        usuarioJuegosDaos.actualizarRaiting(compraUsuario);
+                        session3.setAttribute("msg","Gracias por compartir su opinion con nosotros");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
+                    }
+                }
                 break;
         }
     }
@@ -316,6 +331,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
         }
         return juegos;
     }
+
+
 
 
 }
