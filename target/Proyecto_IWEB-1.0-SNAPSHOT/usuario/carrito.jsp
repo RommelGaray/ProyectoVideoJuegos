@@ -200,12 +200,9 @@
             <button onclick="findMe()">Mostrar ubicación</button>
             <div id="map"></div>
         </div>
-<<<<<<< HEAD
 
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLKR9qOir3xYs4JC_k2k0QEeEVCGPUGA"></script>
-=======
->>>>>>> ae332a877f23b8ab55d1d9a1e910b950512ff0ce
         <script>
             function findMe(){
                 var output = document.getElementById('map');
