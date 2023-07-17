@@ -39,6 +39,10 @@ public class InitialServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/nuevoUsuario.jsp");
                 view.forward(request, response);
                 break;
+            case "olvidaste":
+                view = request.getRequestDispatcher("/olvidasteContraseña.jsp");
+                view.forward(request, response);
+                break;
         }
     }
 

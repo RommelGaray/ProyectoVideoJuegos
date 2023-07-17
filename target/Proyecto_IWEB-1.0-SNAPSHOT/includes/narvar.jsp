@@ -8,7 +8,7 @@
 <%if(usuarioLog.getIdRol()==0) { %>
 <header id="header" class="header fixed-top d-flex align-items-center bg-black">
   <div class="d-flex align-items-center justify-content-between">
-    <a href="<%=request.getContextPath()%>/InitialServlet?action=lista" class="logo d-flex align-items-center">
+    <a href="<%=request.getContextPath()%>/" class="logo d-flex align-items-center">
       <img src="img/sistema/logoUsuario.png" alt="">
       <span class="d-none d-lg-block text-light">JA-VAGOS</span>
     </a>
