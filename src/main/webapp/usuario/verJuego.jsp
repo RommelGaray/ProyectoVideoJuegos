@@ -101,8 +101,8 @@
                         <p class="font-weight-bold">Precio: <%= juegos.getPrecio() %></p>
                         <p class="font-weight-bold">Stock: <%= juegos.getStock() %></p>
                         <%if(juegos.getRaiting()==0){%>
-                        <p class="font-weight-bold">Aun no tiene ventas</p>
-                        <p class="font-weight-bold">¡¡¡Se el primero en comprarlo!!!</p>
+                        <h5 class="font-weight-bold">AÚN NO TIENE VENTAS</h5>
+                        <h5 class="font-weight-bold">¡¡¡Se el primero en comprarlo!!!</h5>
                         <%}else{%>
                         <p class="font-weight-bold">Raiting:
                         <div class="rating align-items-center justify-content">
