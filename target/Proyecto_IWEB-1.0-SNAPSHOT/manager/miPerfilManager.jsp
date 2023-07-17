@@ -104,7 +104,14 @@
 
   <section class="section profile">
     <div class="row">
-
+      <% if (session.getAttribute("msg") != null) {%>
+      <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
+      <%session.removeAttribute("msg");%>
+      <% }%>
+      <% if (session.getAttribute("msg1") != null) {%>
+      <div class="alert alert-danger" role="alert"><%=session.getAttribute("msg1")%></div>
+      <%session.removeAttribute("msg1");%>
+      <% }%>
       <div class="col-xl-4">
 
         <div class="card">
