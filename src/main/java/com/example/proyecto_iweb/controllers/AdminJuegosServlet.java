@@ -14,6 +14,7 @@ import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 
 @WebServlet(name = "AdminJuegosServlet", value = "/AdminJuegosServlet")
 @MultipartConfig
@@ -154,6 +155,14 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
 
+            case "juegoEntregado":
+
+                String idCompra = request.getParameter("id");
+                String fechaEntrega = request.getParameter("fechaEntrega");
+                adminJuegosDaos.juegoEntregado(idCompra, Date.valueOf(fechaEntrega));
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=reservas");
+
+                break;
         }
 
 

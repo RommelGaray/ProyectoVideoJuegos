@@ -696,11 +696,25 @@ public class AdminJuegosDaos  extends DaoBase{
 
                 pstmt.executeUpdate();
             }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public void juegoEntregado(String idCompra, Date fechaEntrega){
+
+        String sql = "UPDATE comprausuario SET idEstados = '7', fechaEntrega = ? WHERE idCompra = ?";
+        try (Connection connection = this.getConection()){
+
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setDate(1, fechaEntrega);
+                pstmt.setString(2, idCompra);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
