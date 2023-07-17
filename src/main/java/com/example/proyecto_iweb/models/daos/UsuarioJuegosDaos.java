@@ -648,7 +648,7 @@ public class UsuarioJuegosDaos extends DaoBase {
                     ventaUsuario.setIdJuego(resultSet.getInt(3));
                     ventaUsuario.setPrecioVenta(resultSet.getDouble(4));
                     ventaUsuario.setMensajeAdmin(resultSet.getString(5));
-                    ventaUsuario.setIdAdmin(resultSet.getBoolean(6));
+                    ventaUsuario.setIdAdmin(resultSet.getInt(6));
                     ventaUsuario.setIdEstados(resultSet.getInt(7));
 
                     Juegos juegos = new Juegos();

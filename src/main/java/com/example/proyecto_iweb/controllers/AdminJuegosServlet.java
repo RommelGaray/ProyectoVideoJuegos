@@ -154,6 +154,12 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
 
+            case "detallesJuegoNuevo":
+                String id8 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id8));
+                request.getRequestDispatcher("admin/detallesJuegoNuevo.jsp").forward(request, response);
+                break;
+
         }
 
 

@@ -10,33 +10,9 @@ public class VentaUsuario {
     private String mensajeAdmin;
     private int idEstados;
     private Estados estados;
-    private boolean idAdmin;
+    private int idAdmin;
     private Cuentas usuario;
     private Cuentas admin;
-
-    public Juegos getJuegos() {
-        return juegos;
-    }
-
-    public void setJuegos(Juegos juegos) {
-        this.juegos = juegos;
-    }
-
-    public Cuentas getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Cuentas usuario) {
-        this.usuario = usuario;
-    }
-
-    public Cuentas getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Cuentas admin) {
-        this.admin = admin;
-    }
 
     public int getIdVenta() {
         return idVenta;
@@ -60,6 +36,14 @@ public class VentaUsuario {
 
     public void setIdJuego(int idJuego) {
         this.idJuego = idJuego;
+    }
+
+    public Juegos getJuegos() {
+        return juegos;
+    }
+
+    public void setJuegos(Juegos juegos) {
+        this.juegos = juegos;
     }
 
     public double getPrecioVenta() {
@@ -94,11 +78,27 @@ public class VentaUsuario {
         this.estados = estados;
     }
 
-    public boolean isIdAdmin() {
+    public int getIdAdmin() {
         return idAdmin;
     }
 
-    public void setIdAdmin(boolean idAdmin) {
+    public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
+    }
+
+    public Cuentas getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Cuentas usuario) {
+        this.usuario = usuario;
+    }
+
+    public Cuentas getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Cuentas admin) {
+        this.admin = admin;
     }
 }
