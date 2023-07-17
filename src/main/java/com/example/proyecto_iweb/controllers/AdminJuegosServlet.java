@@ -313,15 +313,27 @@ public class AdminJuegosServlet extends HttpServlet {
             case "noAceptar":
                 int idVenta1 = Integer.parseInt(request.getParameter("idVenta"));
                 String mensajeAdmin1 = request.getParameter("mensajeAdmin");
-                adminJuegosDaos.noAceptar(mensajeAdmin1,idVenta1);
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+//                adminJuegosDaos.noAceptar(mensajeAdmin1,idVenta1);
+//                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                if (mensajeAdmin1 != null && !mensajeAdmin1.isEmpty()) {
+                    adminJuegosDaos.noAceptar(mensajeAdmin1, idVenta1);
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                } else { //"mensajeAdmin" está vacío
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=noAceptarNuevo&id=" + idVenta1 + "&error=mensajeVacio");
+                }
                 break;
 
             case "rechazar":
                 int idVenta2 = Integer.parseInt(request.getParameter("idVenta"));
                 String mensajeAdmin2 = request.getParameter("mensajeAdmin");
-                adminJuegosDaos.rechazar(mensajeAdmin2,idVenta2);
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+//                adminJuegosDaos.rechazar(mensajeAdmin2,idVenta2);
+//                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                if (mensajeAdmin2 != null && !mensajeAdmin2.isEmpty()) {
+                    adminJuegosDaos.rechazar(mensajeAdmin2, idVenta2);
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                } else { //"mensajeAdmin" está vacío
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=rechazarNuevo&id=" + idVenta2 + "&error=mensajeVacio");
+                }
                 break;
 
                 //para existentes
