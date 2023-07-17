@@ -7,6 +7,7 @@ import com.example.proyecto_iweb.models.dtos.Generos;
 import com.example.proyecto_iweb.models.dtos.Raiting;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -450,18 +451,18 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-    public void guardar(Juegos juegos,int idUsuario) {
+    public void guardar(Juegos juegos, int idUsuario, InputStream file) {
 
-        String sql = "INSERT INTO juego (nombre,descripcion,precio,descuento,foto,existente,habilitado,consola,genero,stock) VALUES (?,?,?,0,?,0,0,?,?,1)";
+        String sql = "INSERT INTO juego (nombre,descripcion,precio,descuento,existente,habilitado,consola,genero,stock,fotoJuego) VALUES (?,?,?,0,0,0,?,?,1,?)";
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, juegos.getNombre());
             pstmt.setString(2,juegos.getDescripcion());
             pstmt.setDouble(3, juegos.getPrecio());
-            pstmt.setString(4, juegos.getFoto());
-            pstmt.setString(5,juegos.getConsola());
-            pstmt.setString(6,juegos.getGenero());
+            pstmt.setString(4,juegos.getConsola());
+            pstmt.setString(5,juegos.getGenero());
+            pstmt.setBlob(6, file);
 
             pstmt.executeUpdate();
             ResultSet rsKeys= pstmt.getGeneratedKeys();

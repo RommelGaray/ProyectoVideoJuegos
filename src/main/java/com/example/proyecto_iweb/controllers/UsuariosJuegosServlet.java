@@ -15,6 +15,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "UsuariosJuegosServlet", urlPatterns = {"/UsuariosJuegosServlet"})
+@MultipartConfig
 public class UsuariosJuegosServlet extends HttpServlet {
 
     @Override
@@ -152,6 +153,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
 
         String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");
 
@@ -169,20 +171,29 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/indexUsuarioOficial.jsp").forward(request, response);
                 break;
             case "c":
+                InputStream inputStream;
                 Juegos juegos = parseJuegosPosteadosNuevos(request);
+                Part filePart = request.getPart("foto");
+
+
+                inputStream = filePart.getInputStream();
+                if (filePart != null) {
+                    System.out.println("Part Content Type: " + filePart.getContentType());
+                    inputStream = filePart.getInputStream();
+                }
                 HttpSession session = request.getSession();
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
                 if (juegos != null) {
                     String precioString = String.valueOf(juegos.getPrecio());
                     if (juegos.getNombre().isEmpty() || precioString.isEmpty() || juegos.getDescripcion().isEmpty() || juegos.getPrecio()<0) {
-                        session.setAttribute("msg1","");
+                        request.setAttribute("error2","Ingrese correctamente los datos");
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
                     }else{
-                        usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas());
+                        usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas(),inputStream);
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
                     }
                 }else{
-                    session.setAttribute("msg","");
+                    request.setAttribute("error", "Error al igresar el valor del precio");
                     response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
                 }
                 break;
@@ -190,7 +201,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 VentaUsuario ventaUsuario = parseVentas(request);
                 HttpSession session2 = request.getSession();
                 if(ventaUsuario != null){
-
                     String precioString = String.valueOf(ventaUsuario.getPrecioVenta());
                     if(ventaUsuario.getPrecioVenta()<0 || precioString.isEmpty()|| ventaUsuario.getPrecioVenta()==0){
                         session2.setAttribute("err","Precio que no cumple lo establecido");
@@ -237,15 +247,17 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
 
 
-    public Juegos parseJuegosPosteadosNuevos(HttpServletRequest request) {
+    public Juegos parseJuegosPosteadosNuevos(HttpServletRequest request)  {
 
         Juegos juegos = new Juegos();
         String nombre = request.getParameter("nombre");
         String precio = request.getParameter("precio");
         String consola = request.getParameter("consola");
         String genero = request.getParameter("genero");
-        String foto = request.getParameter("foto");
+
         String descripcion = request.getParameter("descripcion");
+
+
 
         try {
 
@@ -254,7 +266,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
             juegos.setDescripcion(descripcion);
             juegos.setConsola(consola);
             juegos.setGenero(genero);
-            juegos.setFoto(foto);
 
             return juegos;
 
@@ -262,6 +273,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
             return null;
         }
     }
+
+
 
     public VentaUsuario parseVentas(HttpServletRequest request)  {
 

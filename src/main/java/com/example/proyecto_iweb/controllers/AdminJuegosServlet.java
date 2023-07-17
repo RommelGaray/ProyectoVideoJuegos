@@ -1,5 +1,6 @@
 package com.example.proyecto_iweb.controllers;
 
+import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.daos.AdminCuentasDaos;
 import com.example.proyecto_iweb.models.daos.AdminJuegosDaos;
@@ -7,10 +8,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,10 +22,15 @@ public class AdminJuegosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
+        String action = request.getParameter("a") == null ? "listarJuegosDisponibles" : request.getParameter("a");
+
+
         AdminJuegosDaos adminJuegosDaos = new AdminJuegosDaos();
         AdminCuentasDaos adminCuentasDaos = new AdminCuentasDaos();
 
-        String action = request.getParameter("a") == null ? "listarJuegosDisponibles" : request.getParameter("a");
+        // NO ESTOY SEGURO DE COMO IMPLEMENTARLO
+        HttpSession session6 = request.getSession();
+        Cuentas cuentas = (Cuentas) session6.getAttribute("usuarioLog");
 
         switch (action) {
             case "listarJuegosDisponibles":
@@ -151,7 +154,6 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "listarNotificaciones":
-
                 request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
 
@@ -172,17 +174,20 @@ public class AdminJuegosServlet extends HttpServlet {
 
 
             case "juegoEntregado":
-
                 String idCompra = request.getParameter("id");
                 String fechaEntrega = request.getParameter("fechaEntrega");
                 adminJuegosDaos.juegoEntregado(idCompra, Date.valueOf(fechaEntrega));
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=reservas");
-
                 break;
 
+            // PERFIL DEL ADMIN
+            case "perfilAdmin" :
+                request.setAttribute("cuentas", adminCuentasDaos.listar(cuentas.getIdCuentas()));
+                request.getRequestDispatcher("admin/miPerfilAdmin.jsp").forward(request, response);
+                break;
+
+
         }
-
-
     }
 
 
@@ -193,6 +198,7 @@ public class AdminJuegosServlet extends HttpServlet {
         String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");
 
         AdminJuegosDaos adminJuegosDaos = new AdminJuegosDaos();
+        AdminCuentasDaos adminCuentasDaos = new AdminCuentasDaos();
 
         switch (action) {
             case "crear":
@@ -265,6 +271,7 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/indexAdmin.jsp").forward(request, response);
                 break;
 
+
             case "noAceptar":
                 int idVenta1 = Integer.parseInt(request.getParameter("idVenta"));
                 String mensajeAdmin1 = request.getParameter("mensajeAdmin");
@@ -273,6 +280,32 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
 
+
         }
+    }
+
+    public Cuentas parseCuentas(HttpServletRequest request)  {
+
+        Cuentas cuentas = new Cuentas();
+        String idCuentas = request.getParameter("idCuentas") != null ? request.getParameter("idCuentas") : "";
+        String descripcion = request.getParameter("descripcion");
+        String direcion = request.getParameter("direccion");
+        String correo = request.getParameter("correo");
+
+        try {
+
+            int id = Integer.parseInt(idCuentas);
+
+            cuentas.setIdCuentas(id);
+            cuentas.setDescripcion(descripcion);
+            cuentas.setDireccion(direcion);
+            cuentas.setCorreo(correo);
+
+            return cuentas;
+
+        } catch (NumberFormatException e) {
+
+        }
+        return cuentas;
     }
 }

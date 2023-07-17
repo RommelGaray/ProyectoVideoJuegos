@@ -55,7 +55,7 @@
 <main  id="main" class="main">
     <div class="container " >
         <h1 class='mt-3'>Agregar Juego Nuevo</h1>
-        <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=c">
+        <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=c" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="nombre">Nombre del Juego</label>
                 <input type="text" class="form-control" name="nombre" id="nombre">
@@ -92,11 +92,11 @@
             </div>
             <a class="btn btn-danger" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">Cancelar</a>
             <button type="submit" class="btn btn-primary">Subir Juego</button>
-            <% if (session.getAttribute("msg") != null) {%>
-            <div class="form-group text-danger mb-3">Debe ingresar un precio correcto</div>
+            <% if (request.getAttribute("error") != null) {%>
+            <div class="form-group text-danger mb-3">Error al igresar el valor del precio</div>
             <% }%>
-            <% if (session.getAttribute("msg1") != null) {%>
-            <div class="form-group text-danger mb-3">Debe llenar las casillas correctamnente</div>
+            <% if (request.getAttribute("error2") != null) {%>
+            <div class="form-group text-danger mb-3">Ingrese correctamente los datos</div>
             <% }%>
         </form>
     </div>

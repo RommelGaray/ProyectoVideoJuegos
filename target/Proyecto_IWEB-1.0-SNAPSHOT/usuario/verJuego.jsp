@@ -43,7 +43,7 @@
     <style>
         .juego-imagen {
             width: 100%;
-            height: 260px;
+            height: 450px;
             object-fit: cover;
         }
         .rating {
