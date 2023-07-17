@@ -117,7 +117,11 @@
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
+<<<<<<< HEAD
             <img src="<%=cuentas.getFoto()%>" alt="Profile" class="rounded-circle">
+=======
+            <img src="<%=cuentas  .getFoto()%>" alt="Profile" class="rounded-circle">
+>>>>>>> 3172945ed7cac51ba7261f60554e88163df47a9f
 
             <h2><%=cuentas.getNombre()%></h2>
             <h3>Manager</h3>

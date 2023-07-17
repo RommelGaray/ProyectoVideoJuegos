@@ -8,7 +8,7 @@
 <%if(usuarioLog.getIdRol()==0) { %>
 <header id="header" class="header fixed-top d-flex align-items-center bg-black">
   <div class="d-flex align-items-center justify-content-between">
-    <a href="<%=request.getContextPath()%>/InitialServlet?action=list" class="logo d-flex align-items-center">
+    <a href="<%=request.getContextPath()%>/InitialServlet?action=lista" class="logo d-flex align-items-center">
       <img src="img/sistema/logoUsuario.png" alt="">
       <span class="d-none d-lg-block text-light">JA-VAGOS</span>
     </a>
@@ -486,7 +486,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="/img/manager/manager1.jpg" alt="Profile" class="rounded-circle">
+            <img src="<%=usuarioLog.getFoto()%>" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><%=usuarioLog.getNombre() + " " + usuarioLog.getApellido()%></span>
           </a><!-- End Profile Iamge Icon -->
 
