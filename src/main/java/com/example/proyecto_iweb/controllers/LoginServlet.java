@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
             session.setMaxInactiveInterval(3000 * 60); //en segundos
 
             if (cuentas.getIdRol() == 1) {
-                resp.sendRedirect(req.getContextPath() + "/ManagerCuentasServlet");
+                resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
             } else if (cuentas.getIdRol() == 2) {
                 resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
             } else if (cuentas.getIdRol() == 3) {

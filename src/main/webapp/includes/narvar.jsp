@@ -127,7 +127,7 @@
   <ul class="sidebar-nav" id="sidebar-nava">
 
     <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/InitialServlet?action=list">
+      <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/InitialServlet?action=lista">
         <i class="bi bi-grid"></i>
         <span>Disponibles</span>
       </a>
@@ -263,14 +263,14 @@
 
     <li class="nav-item">
       <a class="nav-link collapsed<%=currentPage.equals("listar") ? "active" : ""%>"  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar">
-        <i class="bi bi-grid"></i>
+        <i class="bi bi-grid text-primary"></i>
         <span>Disponibles</span>
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link collapsed<%=currentPage.equals("postear") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1">
-        <i class="bi bi-arrow-up-square"></i>
+        <i class="bi bi-arrow-up-square text-primary"></i>
         <span>Postear</span>
       </a>
     </li>
@@ -278,21 +278,21 @@
 
     <li class="nav-item">
       <a class="nav-link  collapsed<%=currentPage.equals("vendidos") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=vendidos">
-        <i class="bi bi-bag"></i>
+        <i class="bi bi-bag text-primary"></i>
         <span>Vendidos</span>
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">
-        <i class="bi bi-shop"></i>
+        <i class="bi bi-shop text-primary"></i>
         <span>Comprados</span>
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link collapsed<%=currentPage.equals("ofertas") ? "active" : ""%>" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=ofertas">
-        <i class="bi bi-grid"></i>
+        <i class="bi bi-grid text-primary"></i>
         <span>Ofertas</span>
       </a>
     </li>
@@ -427,12 +427,12 @@
       <ul id="icons-nav" class="nav-content" data-bs-parent="#sidebar-nav">
         <li>
           <a class="nav-link collapsed<%=currentPage.equals("nuevo") ? "active" : ""%>"   href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">
-            <i class="bi bi-circle"></i><span>Nuevo</span>
+            <i class="bi bi-circle text-danger"></i><span>Nuevo</span>
           </a>
         </li>
         <li>
           <a class="nav-link collapsed<%=currentPage.equals("existente") ? "active" : ""%>"   href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">
-            <i class="bi bi-circle"></i><span>Existente</span>
+            <i class="bi bi-circle text-danger"></i><span>Existente</span>
           </a>
         </li>
         <!--
@@ -529,23 +529,24 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link text-warning collapsed" href="<%=request.getContextPath()%>/ManagerCuentasServlet">
+
+        <a class="nav-link collapsed<%=currentPage.equals("ListaUsuarios") ? "active" : ""%>"  href="<%=request.getContextPath()%>/ManagerCuentasServlet">
           <i class="bi bi-person-circle text-warning"></i>
           <span>Usuarios</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=ListaEmpleados">
-          <i class="bi bi-person-bounding-box"></i>
+        <a class="nav-link collapsed<%=currentPage.equals("ListaEmpleados") ? "active" : ""%>"  href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=ListaEmpleados">
+          <i class="bi bi-person-bounding-box text-warning"></i>
           <span>Administradores</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<%=request.getContextPath()%>/ManagerJuegosServlet">
-          <i class="bi bi-playstation"></i>
+        <a class="nav-link collapsed<%=currentPage.equals("juegos") ? "active" : ""%>"  href="<%=request.getContextPath()%>/ManagerJuegosServlet">
+          <i class="bi bi-grid text-warning"></i>
           <span>Juegos</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
