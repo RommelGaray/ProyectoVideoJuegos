@@ -1,5 +1,6 @@
 package com.example.proyecto_iweb.controllers;
 
+import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.daos.AdminCuentasDaos;
 import com.example.proyecto_iweb.models.daos.AdminJuegosDaos;
@@ -7,10 +8,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,10 +22,15 @@ public class AdminJuegosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
+        String action = request.getParameter("a") == null ? "listarJuegosDisponibles" : request.getParameter("a");
+
+
         AdminJuegosDaos adminJuegosDaos = new AdminJuegosDaos();
         AdminCuentasDaos adminCuentasDaos = new AdminCuentasDaos();
 
-        String action = request.getParameter("a") == null ? "listarJuegosDisponibles" : request.getParameter("a");
+        // NO ESTOY SEGURO DE COMO IMPLEMENTARLO
+        HttpSession session6 = request.getSession();
+        Cuentas cuentas = (Cuentas) session6.getAttribute("usuarioLog");
 
         switch (action) {
             case "listarJuegosDisponibles":
@@ -115,7 +118,7 @@ public class AdminJuegosServlet extends HttpServlet {
 
 
 
-            /** OSCAR COLOCAS AQU� TU C�DIGO O LAS OPCIONES DE SERVLET QUE QUIERAS A�ADIR **/
+
             case "listarcola":
                 request.setAttribute("lista", adminJuegosDaos.listarCola());
                 RequestDispatcher requestDispatcher2 = request.getRequestDispatcher("admin/juegosColaAdminOficial.jsp");
@@ -151,11 +154,10 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "listarNotificaciones":
-
                 request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
                 break;
 
-
+            //para juegos NUEVOS propuestos por el user
             case "detallesJuegoNuevo":
                 String id8 = request.getParameter("id");
                 request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id8));
@@ -163,19 +165,67 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/detallesJuegoNuevo.jsp").forward(request, response);
                 break;
 
+            case "noAceptarNuevo":
+                String id11 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id11));
+                request.setAttribute("detallesNuevos", adminJuegosDaos.detallesNuevos(id11));
+                request.getRequestDispatcher("admin/noAceptarNuevo.jsp").forward(request, response);
+                break;
 
+            case "rechazarNuevo":
+                String id12 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id12));
+                request.setAttribute("detallesNuevos", adminJuegosDaos.detallesNuevos(id12));
+                request.getRequestDispatcher("admin/rechazarNuevo.jsp").forward(request, response);
+                break;
+            case "aceptarNuevo":
+                String id13 = request.getParameter("idventa");
+                adminJuegosDaos.cambiarestadoaceptar(id13);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                break;
+            //para juegos EXISTENTES propuestos por el user
+            case "detallesJuegoExistente":
+                String id14 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id14));
+                request.setAttribute("detallesExistentes", adminJuegosDaos.detallesExistentes(id14));
+                request.getRequestDispatcher("admin/detallesJuegoExistente.jsp").forward(request, response);
+                break;
+
+            case "noAceptarExistente":
+                String id15 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id15));
+                request.setAttribute("detallesExistentes", adminJuegosDaos.detallesExistentes(id15));
+                request.getRequestDispatcher("admin/noAceptarExistente.jsp").forward(request, response);
+                break;
+
+            case "rechazarExistente":
+                String id16 = request.getParameter("id");
+                request.setAttribute("ventaUsuario", adminJuegosDaos.obtenerVentaUsuario(id16));
+                request.setAttribute("detallesExistentes", adminJuegosDaos.detallesExistentes(id16));
+                request.getRequestDispatcher("admin/rechazarExistente.jsp").forward(request, response);
+                break;
+            case "aceptarExistente":
+                String id17 = request.getParameter("idventa");
+                adminJuegosDaos.cambiarestadoaceptar(id17);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                break;
+
+            //Rommel
             case "juegoEntregado":
-
                 String idCompra = request.getParameter("id");
                 String fechaEntrega = request.getParameter("fechaEntrega");
                 adminJuegosDaos.juegoEntregado(idCompra, Date.valueOf(fechaEntrega));
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=reservas");
-
                 break;
 
+            // PERFIL DEL ADMIN
+            case "perfilAdmin" :
+                request.setAttribute("cuentas", adminCuentasDaos.listar(cuentas.getIdCuentas()));
+                request.getRequestDispatcher("admin/miPerfilAdmin.jsp").forward(request, response);
+                break;
+
+
         }
-
-
     }
 
 
@@ -186,6 +236,7 @@ public class AdminJuegosServlet extends HttpServlet {
         String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");
 
         AdminJuegosDaos adminJuegosDaos = new AdminJuegosDaos();
+        AdminCuentasDaos adminCuentasDaos = new AdminCuentasDaos();
 
         switch (action) {
             case "crear":
@@ -257,6 +308,75 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.setAttribute("lista", adminJuegosDaos.buscarPorTitle(textoBuscar1));
                 request.getRequestDispatcher("admin/indexAdmin.jsp").forward(request, response);
                 break;
+
+
+            case "noAceptar":
+                int idVenta1 = Integer.parseInt(request.getParameter("idVenta"));
+                String mensajeAdmin1 = request.getParameter("mensajeAdmin");
+//                adminJuegosDaos.noAceptar(mensajeAdmin1,idVenta1);
+//                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                if (mensajeAdmin1 != null && !mensajeAdmin1.isEmpty()) {
+                    adminJuegosDaos.noAceptar(mensajeAdmin1, idVenta1);
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                } else { //"mensajeAdmin" está vacío
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=noAceptarNuevo&id=" + idVenta1 + "&error=mensajeVacio");
+                }
+                break;
+
+            case "rechazar":
+                int idVenta2 = Integer.parseInt(request.getParameter("idVenta"));
+                String mensajeAdmin2 = request.getParameter("mensajeAdmin");
+//                adminJuegosDaos.rechazar(mensajeAdmin2,idVenta2);
+//                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                if (mensajeAdmin2 != null && !mensajeAdmin2.isEmpty()) {
+                    adminJuegosDaos.rechazar(mensajeAdmin2, idVenta2);
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
+                } else { //"mensajeAdmin" está vacío
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=rechazarNuevo&id=" + idVenta2 + "&error=mensajeVacio");
+                }
+                break;
+
+                //para existentes
+            case "noAceptarExistente":
+                int idVenta3 = Integer.parseInt(request.getParameter("idVenta"));
+                String mensajeAdmin3 = request.getParameter("mensajeAdmin");
+                adminJuegosDaos.noAceptar(mensajeAdmin3,idVenta3);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                break;
+
+            case "rechazarExistente":
+                int idVenta4 = Integer.parseInt(request.getParameter("idVenta"));
+                String mensajeAdmin4 = request.getParameter("mensajeAdmin");
+                adminJuegosDaos.rechazar(mensajeAdmin4,idVenta4);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                break;
+
+
         }
+    }
+
+    public Cuentas parseCuentas(HttpServletRequest request)  {
+
+        Cuentas cuentas = new Cuentas();
+        String idCuentas = request.getParameter("idCuentas") != null ? request.getParameter("idCuentas") : "";
+        String descripcion = request.getParameter("descripcion");
+        String direcion = request.getParameter("direccion");
+        String correo = request.getParameter("correo");
+
+        try {
+
+            int id = Integer.parseInt(idCuentas);
+
+            cuentas.setIdCuentas(id);
+            cuentas.setDescripcion(descripcion);
+            cuentas.setDireccion(direcion);
+            cuentas.setCorreo(correo);
+
+            return cuentas;
+
+        } catch (NumberFormatException e) {
+
+        }
+        return cuentas;
     }
 }

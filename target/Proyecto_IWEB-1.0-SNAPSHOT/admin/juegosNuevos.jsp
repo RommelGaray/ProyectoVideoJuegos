@@ -14,7 +14,7 @@
 <body>
 <!-- ======= Header ======= -->
 <jsp:include page="../includes/narvar.jsp">
-    <jsp:param name="currentPage" value="juegosNuevos"/>
+    <jsp:param name="currentPage" value="nuevo"/>
 </jsp:include>
 
 <!-- ======= Main ======= -->
@@ -25,6 +25,7 @@
         <div class="card mb-10" style="max-width: 1500px;">
             <div class="row g-0">
                 <div class="col-md-5">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=vu.getJuegos().getIdJuegos() %>" alt="" class="img-fluid max-width-100">
                     <img src="<%=vu.getJuegos().getFoto()%>" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-7">
@@ -37,9 +38,9 @@
                         <p class="card-text">Usuario vendedor: <%=vu.getUsuario().getNombre() %> <%=vu.getUsuario().getApellido() %></p>
                         <p class="card-text" style="font-size: 1.2em;"><strong>Precio de venta propuesto: S/.<%=vu.getPrecioVenta()%> </strong></p>
                         <div class="d-flex justify-content-end">
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadoaceptar&idventa=<%=vu.getIdVenta()%>" class="btn btn-primary m-1">Aceptar</a>
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadonoaceptar&idventa=<%=vu.getIdVenta()%>" class="btn btn-primary m-1">No aceptar</a>
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=cambiarestadorechazar&idventa=<%=vu.getIdVenta()%>" class="btn btn-danger m-1">Rechazar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarNuevo&idventa=<%=vu.getIdVenta()%>" class="btn btn-primary m-1">Aceptar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarNuevo&id=<%=vu.getIdVenta()%>" class="btn btn-primary m-1">No aceptar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=rechazarNuevo&id=<%=vu.getIdVenta()%>" class="btn btn-danger m-1">Rechazar</a>
                         </div>
                     </div>
                 </div>

@@ -201,7 +201,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 VentaUsuario ventaUsuario = parseVentas(request);
                 HttpSession session2 = request.getSession();
                 if(ventaUsuario != null){
-
                     String precioString = String.valueOf(ventaUsuario.getPrecioVenta());
                     if(ventaUsuario.getPrecioVenta()<0 || precioString.isEmpty()|| ventaUsuario.getPrecioVenta()==0){
                         session2.setAttribute("err","Precio que no cumple lo establecido");
