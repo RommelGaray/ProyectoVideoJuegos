@@ -672,7 +672,7 @@ public class UsuarioJuegosDaos extends DaoBase {
 
     public void actualizarPrecioVenta(VentaUsuario ventaUsuario) {
 
-        String sql = "UPDATE ventaUsuario SET precioVenta = ?, idEstados = 1, mensajeAdmin = null WHERE idVenta = ?";
+        String sql = "UPDATE ventausuario SET precioVenta = ?, idEstados = 1, mensajeAdmin = null WHERE idVenta = ?";
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
@@ -690,7 +690,7 @@ public class UsuarioJuegosDaos extends DaoBase {
 
         CompraUsuario compraUsuario = null;
 
-        String sql = "SELECT * FROM compraUsuario cu\n" +
+        String sql = "SELECT * FROM comprausuario cu\n" +
                 "inner join juego j on j.idJuego = cu.idJuego\n" +
                 "where cu.idCompra = ?;";
 
@@ -733,14 +733,14 @@ public class UsuarioJuegosDaos extends DaoBase {
         return compraUsuario;
     }
 
-    public void actualizarRaiting(CompraUsuario compraUsuario) {
+    public void actualizarRaiting(CompraUsuario comprausuario) {
 
         String sql = "UPDATE comprausuario SET raiting = ? WHERE idCompra = ?;";
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-            pstmt.setInt(1, compraUsuario.getRaiting());
-            pstmt.setInt(2, compraUsuario.getIdCompra());
+            pstmt.setInt(1, comprausuario.getRaiting());
+            pstmt.setInt(2, comprausuario.getIdCompra());
 
             pstmt.executeUpdate();
 
@@ -758,7 +758,7 @@ public class UsuarioJuegosDaos extends DaoBase {
 
         String sql = "SELECT genero, COUNT(*) AS total_compras\n" +
                 "FROM juego\n" +
-                "JOIN compraUsuario ON juego.idJuego = compraUsuario.idJuego\n" +
+                "JOIN comprausuario ON juego.idJuego = comprausuario.idJuego\n" +
                 "where comprausuario.idUsuario = ?\n" +
                 "GROUP BY genero\n" +
                 "ORDER BY total_compras DESC\n" +
@@ -796,7 +796,7 @@ public class UsuarioJuegosDaos extends DaoBase {
 
         String sql = "SELECT genero, COUNT(*) AS total_compras\n" +
                 "FROM juego\n" +
-                "JOIN compraUsuario ON juego.idJuego = compraUsuario.idJuego\n" +
+                "JOIN comprausuario ON juego.idJuego = comprausuario.idJuego\n" +
                 "where comprausuario.idUsuario = ?\n" +
                 "GROUP BY genero\n" +
                 "ORDER BY total_compras DESC\n";
@@ -834,7 +834,7 @@ public class UsuarioJuegosDaos extends DaoBase {
         String sql = "SELECT * FROM juego\n" +
                 "WHERE genero IN (\n" +
                 "    SELECT DISTINCT j.genero\n" +
-                "    FROM compraUsuario AS c\n" +
+                "    FROM comprausuario AS c\n" +
                 "    JOIN juego AS j ON c.idJuego = j.idJuego\n" +
                 "    WHERE c.idUsuario = ?);";
 

@@ -65,10 +65,6 @@
 
 
     </style>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script type="module" src="./index.js"> </script>
 </head>
 
 <body>
@@ -200,10 +196,13 @@
     </div>
 
     <div class="container__detail bg-light p-3 text-center" style="display: flex; justify-content: center;">
+        <div>
+            <button onclick="findMe()">Mostrar ubicación</button>
+            <div id="map"></div>
+        </div>
 
-        <button onclick="findMe()">Mostrar ubicación</button>
-        <div id="map"></div>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkAgN9LjqWZGZweMfu6BtVkI-B-J_FXTI"></script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLKR9qOir3xYs4JC_k2k0QEeEVCGPUGA"></script>
         <script>
             function findMe(){
                 var output = document.getElementById('map');
@@ -217,13 +216,15 @@
 
                 //Obtenemos latitud y longitud
                 function localizacion(posicion){
+
                     var latitude = posicion.coords.latitude;
                     var longitude = posicion.coords.longitude;
 
-                    // Segunda parte del video
-                    // var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&size=600x300&markers=color:red%7C"+latitude+","+longitude+"&key=YOUR_API_KEY";
+                    var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&size=600x300&markers=color:red%7C"+latitude+","+longitude+"&key=AIzaSyAQLKR9qOir3xYs4JC_k2k0QEeEVCGPUGA";
 
-                    output.innerHTML = "<p>Latitud: " + latitude+"<br>Longitud: "+longitude+"</p>";
+                    output.innerHTML ="<img src='"+imgURL+"'>";
+
+
                 }
 
                 function error(){
@@ -232,6 +233,7 @@
                 }
 
                 navigator.geolocation.getCurrentPosition(localizacion,error);
+
             }
         </script>
     </div>
