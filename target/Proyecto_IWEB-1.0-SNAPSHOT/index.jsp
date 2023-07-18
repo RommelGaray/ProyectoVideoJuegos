@@ -67,7 +67,7 @@
         <% for (Juegos j : lista) { %>
         <div class="w-auto">
           <div class="disponibleUsuario">
-            <div class="card" style="width: 17rem; height: 100%;">
+            <div class="card" style="width: 18rem; height: 100%;">
               <div class="col-md-12 d-flex justify-content-center align-items-center">
                 <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top" alt="...">
 

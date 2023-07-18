@@ -101,9 +101,9 @@
     </div>--> <!--Aqui estoy poniendo en comentarios los filtros ya que tambien podria haber filtro en las ofertas-->
     <!--DENTRO DE UN DIV-->
     <div class="container ">
-      <div class="row">
+      <div class="row justify-content-center gap-2">
         <% for (Juegos j : lista) { %>
-        <div class="col-4">
+        <div class="w-auto">
           <div class="disponibleUsuario">
             <div class="card" style="width: 18rem; height: 100%;">
               <div class="col-md-12 d-flex justify-content-center align-items-center">
