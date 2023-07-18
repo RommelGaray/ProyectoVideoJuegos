@@ -72,7 +72,7 @@
       <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">Regresar</a>
 
       <div class="d-flex justify-content-end align-items-center mt-3 mb-5">
-        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarExistente&idventa=<%=d.getIdVenta()%>"
+        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarExistente&idventa=<%=d.getIdVenta()%>&idjuego=<%=ventaUsuario.getIdJuego()%>"
            class="btn btn-primary m-1">Aceptar</a>
         <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarExistente&id=<%=d.getIdVenta()%>"
            class="btn btn-primary m-1">No aceptar</a>

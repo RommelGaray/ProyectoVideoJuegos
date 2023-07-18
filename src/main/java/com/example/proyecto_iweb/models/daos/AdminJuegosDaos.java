@@ -837,7 +837,22 @@ public class AdminJuegosDaos  extends DaoBase{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
     }
+    public void aumentarStock(String id) {
+        String sql =    "UPDATE juego\n" +
+                        "SET stock = stock + 1\n" +
+                        "WHERE idJuego = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 

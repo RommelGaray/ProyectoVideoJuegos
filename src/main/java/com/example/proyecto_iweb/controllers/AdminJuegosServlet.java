@@ -207,6 +207,8 @@ public class AdminJuegosServlet extends HttpServlet {
             case "aceptarExistente":
                 String id17 = request.getParameter("idventa");
                 adminJuegosDaos.cambiarestadoaceptar(id17);
+                String id17j = request.getParameter("idjuego");
+                adminJuegosDaos.aumentarStock(id17j);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
                 break;
 
