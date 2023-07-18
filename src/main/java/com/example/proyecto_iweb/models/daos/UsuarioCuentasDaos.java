@@ -62,6 +62,82 @@ public class UsuarioCuentasDaos extends DaoBase{
         }
     }
 
+    public Cuentas olvidarContrasena(String nickname, String correo) {
+        Cuentas cuentas = null;
+        System.out.println(nickname);
+        String sql = "select * from cuenta where nickname = ? and correo = ? ;";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, nickname);
+            pstmt.setString(2, correo);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    cuentas = new Cuentas();
+                    cuentas.setIdCuentas(rs.getInt(1));
+                    cuentas.setNombre(rs.getString(2));
+                    cuentas.setApellido(rs.getString(3));
+                    cuentas.setNickname(rs.getString(4));
+                    cuentas.setDireccion(rs.getString(5));
+                    cuentas.setCorreo(rs.getString(6));
+                    cuentas.setFoto(rs.getString(7));
+                    cuentas.setDescripcion(rs.getString(8));
+                    cuentas.setPasswordHashed(rs.getString(11));
+
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cuentas;
+    }
+
+    public Cuentas correo(String correo) {
+        Cuentas cuentas = null;
+
+
+        String sql = "select correo , nombre, apellido from cuenta \n" +
+                "where correo= ?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, correo);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    cuentas = new Cuentas();
+                    cuentas.setCorreo(rs.getString(1));
+                    cuentas.setNombre(rs.getString(2));
+                    cuentas.setApellido(rs.getString(3));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cuentas;
+    }
+
+    public void actualizarContrasena(Cuentas cuentas) {
+
+        String sql = "update cuenta set passwordHashed = sha2('123@asdASD',256)where correo = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1,cuentas.getCorreo());
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Cuentas validateUsernameAndPassword(String correo, String password) {
 
         Cuentas cuentas = null;
@@ -222,6 +298,8 @@ public class UsuarioCuentasDaos extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
+
 
 
 }
