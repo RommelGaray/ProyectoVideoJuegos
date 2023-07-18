@@ -231,9 +231,7 @@
 
 </main><!-- End #main -->
 <!-- ======= Footer ======= -->
-<jsp:include page="/includes/footer.jsp">
-    <jsp:param name="title" value=""/>
-</jsp:include>
+
 <!-- ======= Footer ======= -->
 
 
