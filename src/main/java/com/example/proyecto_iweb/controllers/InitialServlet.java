@@ -1,6 +1,7 @@
 package com.example.proyecto_iweb.controllers;
 
 import com.example.proyecto_iweb.models.beans.Cuentas;
+import com.example.proyecto_iweb.models.daos.EnvioCorreos;
 import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
 import com.example.proyecto_iweb.models.daos.UsuarioJuegosDaos;
 import jakarta.servlet.RequestDispatcher;
@@ -9,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,6 +22,7 @@ public class InitialServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
+        UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
         RequestDispatcher view;
 
         switch (action) {
@@ -42,7 +45,8 @@ public class InitialServlet extends HttpServlet {
             case "olvidaste":
                 view = request.getRequestDispatcher("/olvidasteContraseña.jsp");
                 view.forward(request, response);
-                break;
+            break;
+
         }
     }
 
@@ -50,7 +54,7 @@ public class InitialServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");
-
+        EnvioCorreos envioCorreos = new EnvioCorreos();
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
 
@@ -83,7 +87,7 @@ public class InitialServlet extends HttpServlet {
 
                     }else{
                         usuarioCuentasDaos.guardarUsuario(cuentas1);
-                        request.setAttribute("msg", "Se ha creado exitosamente el usuario");
+                        request.setAttribute("msg1", "Se ha crado exitosamente el usuario");
                         request.getRequestDispatcher("loginPage.jsp").forward(request, response);
                     }
 
@@ -92,7 +96,24 @@ public class InitialServlet extends HttpServlet {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                break;
+            break;
+            case "enviar":
+                Cuentas cuentas = new Cuentas();
+                HttpSession session3 = request.getSession();
+                cuentas.setNickname(request.getParameter("nickname"));
+                cuentas.setCorreo(request.getParameter("correo"));
+                usuarioCuentasDaos.olvidarContrasena(cuentas.getNickname(), cuentas.getCorreo());
+                usuarioCuentasDaos.actualizarContrasena(cuentas);
+                // envio de correo
+                cuentas = usuarioCuentasDaos.correo(cuentas.getCorreo());
+                String asunto = "Nueva Contraseña";
+                String contenido = "Hola se ha actualizado la contraseña con el valor de 123@asdASD ";
+                envioCorreos.createEmail(cuentas.getCorreo(),asunto,contenido);
+                request.setAttribute("contraseña","Ya se envió en correo revise la nueva contraseña");
+                request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+                envioCorreos.sendEmail();
+
+            break;
         }
     }
 }
