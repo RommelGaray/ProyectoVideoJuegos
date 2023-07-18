@@ -279,7 +279,7 @@ public class AdminJuegosServlet extends HttpServlet {
 
                         adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
                         response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
-                        //throw new SQLException("Mensaje de error");
+                        throw new SQLException("Mensaje de error");
                     }
 
                 } catch (SQLException e){

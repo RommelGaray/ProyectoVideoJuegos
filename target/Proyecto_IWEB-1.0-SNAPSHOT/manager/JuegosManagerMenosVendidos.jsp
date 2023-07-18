@@ -64,11 +64,11 @@
 
         <!--DENTRO DE UN DIV-->
         <div class="container">
-          <div class="row">
+          <div class="row justify-content-center gap-2">
             <% for (Juegos j : listaJuegos) { %>
-            <div class="col-4">
+            <div class="w-auto">
               <div>
-                <div class="card" style="width: 18rem; height: 100%;">
+                <div class="card" style="width: 17rem; height: 100%;">
                   <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title"><%=j.getNombre()%></h5>

@@ -62,7 +62,7 @@
     </div>
 
 
-    <table class="table">
+    <table class="table justify-content-center gap-2">
         <thead>
         <tr>
             <th scope="col">Nombre Usuario</th>
@@ -73,7 +73,7 @@
             <th scope="col">Opciones</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="w-auto">
         <% for (UsuarioTabla u : listaUsuarios) { %>
         <tr>
             <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil2&id5=<%=u.getIdCuenta()%>"><%=u.getNombre()%></a></th>

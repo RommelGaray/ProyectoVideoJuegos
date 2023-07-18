@@ -1,18 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
-             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
-
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- ======= Head ======= -->
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>JA-VAGOS</title>
     <style>
+
+
         .mi-div{
-            background-image: url('img/sistema/inicioSesion.png');
+            background-image: url('img/sistema/recordarContrasenia.png');
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -42,7 +41,7 @@
 <body>
 
 <main>
-    <div class="box">
+    <div class="box2">
         <div class="mi-div">
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
@@ -60,42 +59,38 @@
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Ingrese a su cuenta</h5>
-                                        <p class="text-center small">Ingrese su nombre de usuario y contraseña para iniciar sesión</p>
+                                        <h5 class="card-title text-center pb-0 fs-4">¿Olvidaste tu contraseña?</h5>
+                                        <p class="text-center small">Ingrese su nombre de usuario y correo electrónico para enviar nueva contraseña</p>
                                     </div>
 
-                                    <% if (request.getAttribute("msg") != null) { %>
-                                    <div class="alert alert-success">Se ha creado el Usuario exitosamente</div>
-                                    <% } %>
+                                    <form class="row g-3 needs-validation" novalidate>
 
-                                    <form method="POST" action="<%=request.getContextPath()%>/login">
-
-
-                                        <div class="col-12 mb-3">
-                                            <label for="yourUser" class="form-label">Correo</label>
-                                            <input type="text" name="inputEmail" class="form-control" id="yourUser" required placeholder="Correo">
-
-                                        </div>
-
-                                        <div class="col-12 mb-3">
-                                            <label for="yourPassword" class="form-label">Contraseña</label>
-                                            <input type="password" name="inputPassword" class="form-control" id="yourPassword" required placeholder="Contraseña">
-                                            <% if (request.getAttribute("error") != null) { %>
-                                            <div class="text-danger mb-2 text-center">!Error en su usuario o contraseña!</div>
-                                            <% } %>
-
+                                        <div class="col-12">
+                                            <label for="yourUsername" class="form-label">Usuario</label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" name="username" class="form-control" id="yourUsername" required>
+                                                <div class="invalid-feedback">Por favor ingrese su usuario!</div>
+                                            </div>
                                         </div>
 
                                         <div class="col-12">
-                                            <button class="btn btn-primary w-100" type="submit">Ingresar</button>
+                                            <label for="yourEmail" class="form-label">Correo</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                <input type="email" name="email" class="form-control" id="yourEmail" required>
+                                                <div class="invalid-feedback">¡Por favor, introduce una dirección de correo electrónico válida!</div>
+                                            </div>
+                                            </div>
+
+                                        <div class="col-12">
+
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" type="submit">Nueva contraseña</button>
                                         </div>
 
                                         <div class="col-12">
-                                            <a href="<%=request.getContextPath()%>/InitialServlet?action=olvidaste"> ¿Olvidaste tu contraseña?</a>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <p class="small mb-0">¿No tienes cuenta?<a href="<%=request.getContextPath()%>/InitialServlet?action=agregar"> Crea una cuenta</a></p>
+                                            <p class="small mb-0">¿Recordaste o verificaste tu contraseña?<a href="<%=request.getContextPath()%>/login"> Iniciar sesión</a></p>
                                         </div>
                                     </form>
 
@@ -103,7 +98,7 @@
                             </div>
 
                             <div class="credits">
-                                Designed by <a href="<%=request.getContextPath()%>/">Ja-Vagos</a>
+                                Designed by <a href="#">Ja-Vagos</a>
                             </div>
 
                         </div>
@@ -113,7 +108,7 @@
             </section>
         </div>
     </div>
-</main>
+</main><!-- End #main -->
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
