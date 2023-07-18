@@ -42,8 +42,8 @@
 
     <style>
         .juego-imagen {
-            width: 100%;
-            height: 450px;
+            width: auto;
+            height: 100%;
             object-fit: cover;
         }
         .rating {
@@ -88,9 +88,9 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-7">
+            <div class="col-7 justify-content-center">
                 <div class="container">
-                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juegos.getIdJuegos()%>" class="img-fluid juego-imagen" alt="Imagen">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juegos.getIdJuegos()%>" class="img-fluid w-auto justify-content-center" alt="Imagen">
                 </div>
             </div>
             <div class="col-5">
