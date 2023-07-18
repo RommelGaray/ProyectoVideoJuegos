@@ -13,6 +13,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.sql.SQLException;
 
 @WebServlet(name = "AdminJuegosServlet", value = "/AdminJuegosServlet")
 @MultipartConfig
@@ -249,14 +250,41 @@ public class AdminJuegosServlet extends HttpServlet {
                 String genero = request.getParameter("genero");
                 Part filePart = request.getPart("foto");
 
-                inputStream = filePart.getInputStream();
-                if (filePart != null) {
-                    System.out.println(filePart.getContentType());
-                    inputStream = filePart.getInputStream();
-                }
+
+
+
                 //byte[] foto = request.getParameter("foto").getBytes();
-                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+
+                try{
+
+                    if(!nombre.matches("/[A-Za-z0-9]+/g") || nombre.isEmpty()){
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?action=crearJuego&errorNombre");
+
+                    } else if (!descripcion.matches("/[A-Za-z0-9]+/g") || descripcion.isEmpty()) {
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?action=crearJuego&errorDescripcion");
+
+                    } else if (!String.valueOf(precio).matches("^([1-9][0-9]?|1000)$") || String.valueOf(precio).isEmpty()) {
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?action=crearJuego&errorPrecio");
+
+                    } else if (!String.valueOf(stock).matches("^([1-9][0-9]?|1000)$") || String.valueOf(stock).isEmpty()) {
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?action=crearJuego&errorStock");
+
+                    } else {
+
+                        inputStream = filePart.getInputStream();
+                        if (filePart != null) {
+                            System.out.println(filePart.getContentType());
+                            inputStream = filePart.getInputStream();
+                        }
+
+                        adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
+                        response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                        //throw new SQLException("Mensaje de error");
+                    }
+
+                } catch (SQLException e){
+                    throw new RuntimeException(e);
+                }
                 break;
 
 
