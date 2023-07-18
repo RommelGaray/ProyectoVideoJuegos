@@ -33,6 +33,11 @@
             <h1>Ofertar juego</h1>
         </div>
 
+        <% if (session.getAttribute("errorDescuento") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorDescuento")%></div>
+        <%session.removeAttribute("errorDescuento");%>
+        <% }%>
+
         <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=ofertar">
             <input type="hidden" class="form-control" name="idJuego" id="idJuego"
                    value="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>">
@@ -45,7 +50,8 @@
 
                     <div class="mb-3">
                         <label for="descripcion">Descripción</label>
-                        <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=juego.getDescripcion()%>" disabled>
+                        <textarea class="form-control" id="descripcion" name="descripcion" disabled style="resize: none; height: auto;"><%=juego.getDescripcion()%></textarea>
+                        <!--<input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=juego.getDescripcion()%>" disabled>-->
                     </div>
 
                     <div class="mb-3">
@@ -55,7 +61,8 @@
 
                     <div class="mb-3">
                         <label for="descuento">Descuento (En porcentaje)</label>
-                        <input type="text" class="form-control" name="descuento" id="descuento" value="<%=juego.getDescuento()%>">
+                        <input type="number" class="form-control" name="descuento" id="descuento" value="<%=juego.getDescuento()%>">
+
                     </div>
 
                     <div class="mb-3">
