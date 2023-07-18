@@ -108,9 +108,19 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
 
             case "verPrecio":
+
                 String id5 = request.getParameter("id");
-                request.setAttribute("verVenta", usuarioJuegosDaos.verVenta(id5));
-                request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response)                    ;
+                VentaUsuario venta = usuarioJuegosDaos.verVenta(id5);
+
+                if(cuentas.getIdCuentas()==venta.getIdUsuario()){
+                    request.setAttribute("verVenta", usuarioJuegosDaos.verVenta(id5));
+                    request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response);
+                }else{
+
+                    session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
+                }
+                          ;
                 break;
 
             case "agregarjuego":
@@ -128,13 +138,27 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
             case "formulario":
                 String id6 = request.getParameter("id");
-                request.setAttribute("formulario",usuarioJuegosDaos.verVenta(id6));
-                request.getRequestDispatcher("usuario/formularioJuego.jsp").forward(request,response);
+                VentaUsuario venta1 = usuarioJuegosDaos.verVenta(id6);
+
+                if(cuentas.getIdCuentas()==venta1.getIdUsuario()){
+                    request.setAttribute("formulario",usuarioJuegosDaos.verVenta(id6));
+                    request.getRequestDispatcher("usuario/formularioJuego.jsp").forward(request,response);
+                }else{
+                    session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
+                }
                 break;
             case "formularioCompra":
                 String id8 = request.getParameter("id");
-                request.setAttribute("formularioCompra",usuarioJuegosDaos.verCompra(id8));
-                request.getRequestDispatcher("usuario/juegoComprado.jsp").forward(request,response);
+                CompraUsuario compra = usuarioJuegosDaos.verCompra(id8);
+                if(cuentas.getIdCuentas()==compra.getIdUsuario()){
+                    request.setAttribute("formularioCompra",usuarioJuegosDaos.verCompra(id8));
+                    request.getRequestDispatcher("usuario/juegoComprado.jsp").forward(request,response);
+                }else{
+                    session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
+                }
+
                 break;
 
 

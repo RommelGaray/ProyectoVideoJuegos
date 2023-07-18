@@ -230,11 +230,6 @@
 
 
 </main><!-- End #main -->
-<!-- ======= Footer ======= -->
-<jsp:include page="/includes/footer.jsp">
-    <jsp:param name="title" value=""/>
-</jsp:include>
-<!-- ======= Footer ======= -->
 
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
