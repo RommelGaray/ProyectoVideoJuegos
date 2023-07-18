@@ -65,7 +65,8 @@
             </div>
             <div class="mb-3">
                 <label for="descripcion">Descripcion</label>
-                <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=verJuego.getDescripcion()%>" disabled>
+                <textarea class="form-control" id="descripcion" name="descripcion" disabled style="resize: none; height: auto;"><%=verJuego.getDescripcion()%></textarea>
+
             </div>
             <div class="mb-3">
                 <label for="consola">Consola</label>

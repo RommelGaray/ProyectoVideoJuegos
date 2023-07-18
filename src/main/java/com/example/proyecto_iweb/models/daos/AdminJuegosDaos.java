@@ -5,6 +5,7 @@ import com.example.proyecto_iweb.models.dtos.*;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AdminJuegosDaos  extends DaoBase{
@@ -167,10 +168,10 @@ public class AdminJuegosDaos  extends DaoBase{
                         juegos.setDescripcion(rs.getString(3));
                         juegos.setPrecio(rs.getDouble(4));
                         juegos.setDescuento(rs.getDouble(5));
-                        juegos.setFoto(rs.getString(6));
                         juegos.setConsola(rs.getString(9));
                         juegos.setGenero(rs.getString(10));
                         juegos.setStock(rs.getInt(11));
+                        juegos.setFotoJuego(rs.getString(12));
                     }
                 }
 
@@ -254,6 +255,7 @@ public class AdminJuegosDaos  extends DaoBase{
                 compraUsuario.setIdAdmin(resultSet.getInt(7));
                 compraUsuario.setPrecioCompra(resultSet.getInt(8));
                 compraUsuario.setIdEstados(resultSet.getInt(9));
+                compraUsuario.setFechaEntrega(resultSet.getDate(10));
 
                 Cuentas cuentas = new Cuentas();
                 cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
@@ -856,6 +858,49 @@ public class AdminJuegosDaos  extends DaoBase{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ArrayList<VentaUsuario> listarNotificaciones(int id) {
+
+        ArrayList<VentaUsuario> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM ventausuario vu\n" +
+                "inner join juego j on j.idJuego = vu.idJuego\n" +
+                "inner join estados e on vu.idEstados = e.idEstados\n" +
+                "where vu.idEstados != 8 and vu.idUsuario = ? and vu.mensajeAdmin is not null;";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+                    VentaUsuario ventaUsuario = new VentaUsuario();
+                    ventaUsuario.setIdVenta(rs.getInt(1));
+                    ventaUsuario.setPrecioVenta(rs.getInt(4));
+                    ventaUsuario.setMensajeAdmin(rs.getString(5));
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(rs.getInt(8));
+                    juegos.setNombre(rs.getString(9));
+                    juegos.setFoto(rs.getString(19));
+                    ventaUsuario.setJuegos(juegos);
+
+                    Estados estados = new Estados();
+                    estados.setIdEstados(rs.getInt(21));
+                    estados.setEstados(rs.getString(22));
+                    ventaUsuario.setEstados(estados);
+                    lista.add(ventaUsuario);
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        }
+
+        return lista;
     }
 
 

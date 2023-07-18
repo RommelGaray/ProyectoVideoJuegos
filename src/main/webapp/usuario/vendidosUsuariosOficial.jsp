@@ -62,6 +62,7 @@
                 <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
                 <%session.removeAttribute("msg");%>
                 <% }%>
+                <div class="table-responsive">
                 <table class="table table-stripped" >
                     <thead>
                     <tr>
@@ -82,16 +83,16 @@
                         <td class="col text-center"><%=vu.getEstados().getEstados()%>
                         </td>
                         <td class="col text-center"> <% if (vu.getEstados().getEstados().equals("pendiente")){ %>
-                            <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
+                            <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary mb-2"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
                                 <%}%>
 
                                 <% if (vu.getEstados().getEstados().equals("aceptado")){ %>
-                            <a onclick="return confirm('¿ Ya vendio el juego pero esta seguro de Eliminar ?')" class="btn btn-primary"
+                            <a onclick="return confirm('¿ Ya vendio el juego pero esta seguro de Eliminar ?')" class="btn btn-primary mb-2"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
                                 <%}%>
                                 <% if (vu.getEstados().getEstados().equals("no aceptado")){ %>
-                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Precio Sugerido</a>
+                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verjuego&id=<%=vu.getIdVenta()%>" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Precio Sugerido</a>
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -105,7 +106,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Regresar</button>
+                                            <button type="button" class="btn btn-danger mb-2" data-bs-dismiss="modal">Regresar</button>
                                             <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=verPrecio&id=<%=vu.getIdVenta()%>" class="btn btn-dark">Modificar Precio</a>
                                             <!--<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar Precio</button> -->
                                         </div>
@@ -113,12 +114,12 @@
                                 </div>
                             </div>
 
-                            <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
+                            <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary mb-2"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
                                 <%}%>
 
                                 <% if (vu.getEstados().getEstados().equals("rechazado")){ %>
-                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Ver Motivo</a>
+                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal2" >Ver Motivo</a>
                             <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -137,22 +138,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary"
+                            <a onclick="return confirm('¿ Estas de retirar tu propuesta ?')" class="btn btn-primary mb-2"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=actualizarVenta&id=<%=vu.getIdVenta()%>">Retirar Propuesta</a>
                                 <%}%>
 
                                 <% if (vu.getEstados().getEstados().equals("retirado")){ %>
-                            <a onclick="return confirm('¿ Estas seguro de Eliminar ?')" class="btn btn-primary"
+                            <a onclick="return confirm('¿ Estas seguro de Eliminar ?')" class="btn btn-primary mb-2"
                                href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=eliminarVenta&id=<%=vu.getIdVenta()%>">Eliminar Propuesta</a>
                                 <%}%>
                         </td>
                         <td class="col text-center">
-                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=formulario&id=<%=vu.getIdVenta()%>" class="btn btn-dark"  >Ver Formulario</a>
+                            <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=formulario&id=<%=vu.getIdVenta()%>" class="btn btn-dark mb-2"  >Ver Formulario</a>
                         </td>
                     </tr>
                     <% } %>
                     </tbody>
                 </table>
+                </div>
             </div>
             <%}%>
 

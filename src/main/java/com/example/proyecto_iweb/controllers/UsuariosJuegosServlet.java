@@ -110,9 +110,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "verPrecio":
                 String id5 = request.getParameter("id");
                 request.setAttribute("verVenta", usuarioJuegosDaos.verVenta(id5));
-                request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response);
+                request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response)                    ;
                 break;
-
 
             case "agregarjuego":
                 String id7 =request.getParameter("id");
@@ -291,12 +290,12 @@ public class UsuariosJuegosServlet extends HttpServlet {
         VentaUsuario ventaUsuario = new VentaUsuario();
         String idVenta = request.getParameter("idVentas") != null ? request.getParameter("idVentas") : "";
         String precio = request.getParameter("precioVenta");
-
+        String idCuenta = request.getParameter("idCuenta");
 
         try {
 
             int id = Integer.parseInt(idVenta);
-
+            ventaUsuario.setIdUsuario(Integer.parseInt(idCuenta));
             ventaUsuario.setIdVenta(id);
             ventaUsuario.setPrecioVenta(Double.parseDouble(precio));
 

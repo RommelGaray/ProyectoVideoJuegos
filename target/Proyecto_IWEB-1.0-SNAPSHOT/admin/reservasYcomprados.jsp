@@ -33,6 +33,7 @@
             <h1>Juegos comprados y reservados</h1>
         </div>
 
+        <div class="table-responsive">
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
             <tr>
@@ -58,8 +59,10 @@
                 <!-- FECHA DE ENTREGA DEL VIDEOJUEGO -->
                 <% if (c.getEstados().getEstados().equals("pendiente")) {%>
                     <td><p class="text-primary">En proceso</p></td>
-                <%} else if(c.getEstados().getEstados().equals("entregado")){%>
-                    <td><p>2023-07-07</p></td>
+                <%}%>
+
+                <%if(c.getEstados().getEstados().equals("entregado")){%>
+                    <td><%=c.getFechaEntrega()%></td>
                 <%}%>
 
 
@@ -74,6 +77,13 @@
                         <td><p class="text-danger"> <%=diferenciaEnDias%> días</p></td>
                     <%} else if (diferenciaEnDias>10) {%>
                         <td><h5 class="fw-bold text-danger"> <%=diferenciaEnDias%> días</h5></td>
+
+                        <!--
+
+                        ESPACIO PARA MANDAR CORREO AL ADMIN ENCARGADO
+
+                        -->
+
                     <%} else {%>
                         <td><p> <%=diferenciaEnDias%> días</p></td>
                     <%}%>
@@ -83,14 +93,14 @@
                 <%}%>
 
 
+                <%System.out.println(java.time.LocalDate.now());%>
 
                 <!-- ICONOS -->
 
                 <% if (c.getEstados().getEstados().equals("pendiente")) {%>
 
-                    <%LocalDate fechaEntrega = LocalDate.now();%>
                     <td><a onclick="alert('Seguro que desea confirma la entrega a <%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%>');" class="btn btn-primary"
-                           href="<%=request.getContextPath()%>/AdminJuegosServlet?a=juegoEntregado&id=<%=c.getIdCompra()%>&fechaEntrega=<%=LocalDate.now()%>">
+                           href="<%=request.getContextPath()%>/AdminJuegosServlet?a=juegoEntregado&id=<%=c.getIdCompra()%>&fechaEntrega=<%=java.time.LocalDate.now()%>">
                         Entregar</a></td>
 
                 <%} else if(c.getEstados().getEstados().equals("entregado")){%>
@@ -116,6 +126,7 @@
             </tbody>
 
         </table>
+        </div>
     </div>
 
 </main>
