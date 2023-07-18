@@ -18,7 +18,7 @@
 <body>
 <!-- ======= Header ======= -->
 <jsp:include page="../includes/narvar.jsp">
-  <jsp:param name="currentPage" value="crearJuego"/>
+  <jsp:param name="currentPage" value="indexAdmin"/>
 </jsp:include>
 
 <main id="main" class="main">
