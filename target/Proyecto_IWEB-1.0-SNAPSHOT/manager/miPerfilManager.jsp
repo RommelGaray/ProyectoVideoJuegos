@@ -119,8 +119,6 @@
 
             <img src="<%=cuentas.getFoto()%>" alt="Profile" class="rounded-circle">
 
-            <img src="<%=cuentas  .getFoto()%>" alt="Profile" class="rounded-circle">
-
             <h2><%=cuentas.getNombre()%></h2>
             <h3>Manager</h3>
 

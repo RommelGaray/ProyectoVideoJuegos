@@ -459,7 +459,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="<%=request.getContextPath()%>/ManagerCuentasServlet" class="logo d-flex align-items-center">
-        <img src="img/sistema/pestania.png" alt="">
+        <img src="img/sistema/logoUsuario.png" alt="">
         <span class="d-none d-lg-block">JA-VAGOS</span>
       </a>
     </div>
