@@ -109,12 +109,23 @@
             </li>
               <% } else { //no estoy loggedIn %>
             <div  class="d-flex">
-              <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/InitialServlet?action=agregar">
-                Crear cuenta
+
+              <style>
+                .nav-link.btn-outline-light:hover,
+                .nav-link.btn-outline-light:hover span{
+                  color: black;
+                }
+              </style>
+
+              <a class="nav-link me-2 text-white btn btn-outline-light" style="color: white; padding: 8px; margin: 3px;"
+                 href="<%=request.getContextPath()%>/InitialServlet?action=agregar">
+                <span>Crear cuenta</span>
               </a>
-              <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/login">
-                Iniciar Sesión
+              <a class="nav-link me-2 text-white btn btn-outline-light" style="color: white; padding: 8px; margin: 3px;"
+                 href="<%=request.getContextPath()%>/login">
+                <span>Iniciar Sesión</span>
               </a>
+
             </div>
               <% } %>
         </div>
