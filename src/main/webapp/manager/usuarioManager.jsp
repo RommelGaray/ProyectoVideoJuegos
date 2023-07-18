@@ -61,8 +61,8 @@
         </form>
     </div>
 
-
-    <table class="table justify-content-center gap-2">
+    <div class="table-responsive">
+    <table class="table">
         <thead>
         <tr>
             <th scope="col">Nombre Usuario</th>
@@ -95,7 +95,7 @@
         <% } %>
         </tbody>
     </table>
-
+    </div>
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->
