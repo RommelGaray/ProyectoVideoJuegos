@@ -15,7 +15,7 @@
 <body>
 <!-- ======= Header ======= -->
 <jsp:include page="../includes/narvar.jsp">
-    <jsp:param name="currentPage" value="juegosNuevos"/>
+    <jsp:param name="currentPage" value="existente"/>
 </jsp:include>
 
 <!-- ======= Main ======= -->
@@ -64,6 +64,9 @@
                         <label for="mensajeAdmin" style="color: red; font-weight: bold;">DAR MOTIVO DE RECHAZO DE JUEGO</label>
                         <input type="text" class="form-control" name="mensajeAdmin" id="mensajeAdmin" value="<%=ventaUsuario.getMensajeAdmin()%>">
                     </div>
+                    <% if (request.getParameter("error") != null && request.getParameter("error").equals("mensajeVacio")) { %>
+                    <div class="alert alert-danger">Tiene que dejar un mensaje de explicando el motivo de rechazo del juego.</div>
+                    <% } %>
 
                 </div>
                 <div class="col-lg-6">

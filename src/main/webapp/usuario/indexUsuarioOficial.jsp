@@ -51,6 +51,10 @@
 </jsp:include>
 
 <main id="main" class="main">
+    <% if (session.getAttribute("msg") != null) {%>
+    <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
+    <%session.removeAttribute("msg");%>
+    <% }%>
     <div class="pagetitle">
         <h1 class='mt-3'>Juegos Disponibles</h1>
     </div>

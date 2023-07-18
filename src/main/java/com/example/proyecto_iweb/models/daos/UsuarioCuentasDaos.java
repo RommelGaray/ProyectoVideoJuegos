@@ -299,6 +299,23 @@ public class UsuarioCuentasDaos extends DaoBase{
         }
     }
 
+    public void actualizarLatLong(int idCuenta,double longitud , double latitud) {
+
+        String sql = "update cuenta set latitud = ?,longitud=? where idCuenta = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setDouble(1, latitud);
+            pstmt.setDouble(2, longitud);
+            pstmt.setInt(3, idCuenta);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 
