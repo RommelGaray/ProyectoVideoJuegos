@@ -94,7 +94,7 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/ofertarJuego.jsp").forward(request, response);
                 break;
 
-            case "detallesCompra":
+            case "detallesCdetallesCompra":
                 String id100 = request.getParameter("id");
                 request.setAttribute("compra", adminJuegosDaos.comprados(Integer.parseInt(id100)));
                 request.getRequestDispatcher("admin/detallesCompras2.jsp").forward(request, response);
@@ -181,6 +181,8 @@ public class AdminJuegosServlet extends HttpServlet {
             case "aceptarNuevo":
                 String id13 = request.getParameter("idventa");
                 adminJuegosDaos.cambiarestadoaceptar(id13);
+                String id13j = request.getParameter("idjuego");
+                adminJuegosDaos.pasarNuevoAExistente(id13j);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
                 break;
             //para juegos EXISTENTES propuestos por el user
@@ -207,6 +209,8 @@ public class AdminJuegosServlet extends HttpServlet {
             case "aceptarExistente":
                 String id17 = request.getParameter("idventa");
                 adminJuegosDaos.cambiarestadoaceptar(id17);
+                String id17j = request.getParameter("idjuego");
+                adminJuegosDaos.aumentarStock(id17j);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
                 break;
 

@@ -63,6 +63,7 @@
                    value="<%=verVenta.getIdVenta()%>">
             <div class="row">
                 <div class="col-lg-6">
+
                     <div class="mb-3">
                         <label for="nombre">Nombre del Juego</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" value="<%=verVenta.getJuegos().getNombre()%>" disabled>

@@ -197,6 +197,8 @@
     </div>
 
     <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=comprar">
+        <input type="hidden" class="form-control" name="nombre" id="nombre"
+               value="<%=juegos.getNombre()%>">
         <input type="hidden" class="form-control" name="precio" id="precio"
                value="<%=juegos.getPrecio()%>">
         <input type="hidden" class="form-control" name="idJuego" id="idJuego"
@@ -230,10 +232,9 @@
 
 
 </main><!-- End #main -->
+
 <!-- ======= Footer ======= -->
-<jsp:include page="/includes/footer.jsp">
-    <jsp:param name="title" value=""/>
-</jsp:include>
+
 <!-- ======= Footer ======= -->
 
 

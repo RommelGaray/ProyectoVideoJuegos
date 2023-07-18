@@ -62,6 +62,10 @@
                 <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
                 <%session.removeAttribute("msg");%>
                 <% }%>
+                <% if (session.getAttribute("nonono") != null) {%>
+                <div class="alert alert-danger" role="alert"><%=session.getAttribute("nonono")%></div>
+                <%session.removeAttribute("nonono");%>
+                <% }%>
                 <div class="container">
                     <div class="disponibleUsuario">
                         <% for (CompraUsuario cu : listaComprados) { %>
@@ -79,7 +83,12 @@
                                         <p class="card-text"> Precio : $ <%=cu.getPrecioCompra()%> </p>
                                         <p class="fw-bold"> Estado :  <%=cu.getEstados().getEstados()%> </p>
                                         <p class="fw-bold"> Fecha de Compra :  <%=cu.getFechaCompra()%> </p>
-                                        <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=formularioCompra&id=<%=cu.getIdCompra()%>" class="btn btn-dark" >Rankearlo</a>
+                                        <%if(cu.getEstados().getEstados().equals("entregado")){%>
+                                        <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=formularioCompra&id=<%=cu.getIdCompra()%>" class="btn btn-dark" >Valoración</a>
+                                        <%}else{%>
+
+                                        <%}%>
+
 
                                         <!--<a href="<%=request.getContextPath()%>/JuegosServlet?a=verjuego&id=<%=cu.getJuegos().getIdJuegos()%>" class="btn btn-dark">Ver juego</a>-->
                                     </div>
