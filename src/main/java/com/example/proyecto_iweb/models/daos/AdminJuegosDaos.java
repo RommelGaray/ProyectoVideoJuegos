@@ -832,5 +832,48 @@ public class AdminJuegosDaos  extends DaoBase{
         }
     }
 
+    public ArrayList<VentaUsuario> listarNotificaciones(int id) {
+
+        ArrayList<VentaUsuario> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM ventausuario vu\n" +
+                "inner join juego j on j.idJuego = vu.idJuego\n" +
+                "inner join estados e on vu.idEstados = e.idEstados\n" +
+                "where vu.idEstados != 8 and vu.idUsuario = ? and vu.mensajeAdmin is not null;";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+                    VentaUsuario ventaUsuario = new VentaUsuario();
+                    ventaUsuario.setIdVenta(rs.getInt(1));
+                    ventaUsuario.setPrecioVenta(rs.getInt(4));
+                    ventaUsuario.setMensajeAdmin(rs.getString(5));
+
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(rs.getInt(8));
+                    juegos.setNombre(rs.getString(9));
+                    juegos.setFoto(rs.getString(19));
+                    ventaUsuario.setJuegos(juegos);
+
+                    Estados estados = new Estados();
+                    estados.setIdEstados(rs.getInt(21));
+                    estados.setEstados(rs.getString(22));
+                    ventaUsuario.setEstados(estados);
+                    lista.add(ventaUsuario);
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        }
+
+        return lista;
+    }
+
 
 }

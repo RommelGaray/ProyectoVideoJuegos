@@ -154,9 +154,6 @@ public class AdminJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=listarcola");
                 break;
 
-            case "listarNotificaciones":
-                request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
-                break;
 
             //para juegos NUEVOS propuestos por el user
             case "detallesJuegoNuevo":
@@ -227,6 +224,12 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
 
+
+            // NOTIFICACIÓN DEL ADMIN
+            case "listarNotificaciones":
+                request.setAttribute("notificaciones", adminJuegosDaos.listarNotificaciones(cuentas.getIdCuentas()));
+                request.getRequestDispatcher("admin/notificacionesAdmin.jsp").forward(request,response);
+                break;
         }
     }
 

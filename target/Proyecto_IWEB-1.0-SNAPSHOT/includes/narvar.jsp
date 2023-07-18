@@ -346,7 +346,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
               <li class="dropdown-footer">
-                <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
+                <a  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
               </li>
             </ul>
           </li>
