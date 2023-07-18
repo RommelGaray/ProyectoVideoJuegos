@@ -283,7 +283,7 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
-    public CompraUsuario comprados(int idVenta) {
+    public CompraUsuario comprados(int idCompra) {
 
         CompraUsuario compraUsuario = null;
 
@@ -296,7 +296,7 @@ public class AdminJuegosDaos  extends DaoBase{
         try (Connection connection = this.getConection();
              PreparedStatement stmt = connection.prepareStatement(sql1)) {
 
-            stmt.setInt(1, idVenta);  // Establecer el valor del parámetro idVenta
+            stmt.setInt(1, idCompra);  // Establecer el valor del parámetro idCompra
 
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
@@ -310,11 +310,13 @@ public class AdminJuegosDaos  extends DaoBase{
                     compraUsuario.setIdAdmin(resultSet.getInt(7));
                     compraUsuario.setPrecioCompra(resultSet.getInt(8));
                     compraUsuario.setIdEstados(resultSet.getInt(9));
+                    compraUsuario.setFechaEntrega(resultSet.getDate(10));
 
                     Cuentas cuentas = new Cuentas();
                     cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
                     cuentas.setNombre(resultSet.getString("c.nombre"));
                     cuentas.setApellido(resultSet.getString("c.apellido"));
+                    cuentas.setFoto(resultSet.getString("c.foto"));
                     compraUsuario.setUsuario(cuentas);
 
                     Estados estados = new Estados();
@@ -325,6 +327,8 @@ public class AdminJuegosDaos  extends DaoBase{
                     Juegos juegos = new Juegos();
                     juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
                     juegos.setNombre(resultSet.getString("j.nombre"));
+                    juegos.setDescripcion(resultSet.getString("j.descripcion"));
+                    juegos.setStock(resultSet.getInt("j.stock"));
                     compraUsuario.setJuegos(juegos);
 
                 }
@@ -811,9 +815,6 @@ public class AdminJuegosDaos  extends DaoBase{
             throw new RuntimeException(e);
         }
     }
-
-
-
 
 
     //Rommel

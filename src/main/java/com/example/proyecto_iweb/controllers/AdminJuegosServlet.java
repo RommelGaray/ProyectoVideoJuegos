@@ -100,9 +100,11 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/detallesCompras2.jsp").forward(request, response);
                 break;
 
-            case "perfilUsuarios":
+                // PARA VISUALIZAR LA UBICACION EN EL MAPA DEL USUARIO
+            case "locationUsuario":
                 String id101 = request.getParameter("id");
-                request.getRequestDispatcher("admin/perfilUsuarios.jsp").forward(request, response);
+                request.setAttribute("usuario", adminCuentasDaos.listar(Integer.parseInt(id101)));
+                request.getRequestDispatcher("admin/locationUsuario.jsp").forward(request, response);
                 break;
 
             case "aceptarUsuario":

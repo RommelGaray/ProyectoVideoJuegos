@@ -115,8 +115,8 @@
                     <div class="d-flex justify-content-center">
                         <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesCompra&id=<%=c.getIdCompra()%>"
                            class="btn btn-primary m-1"><i class="bi bi-list-task"></i></a>
-                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=perfilUsuarios&id=<%=c.getIdCompra()%>"
-                           class="btn btn-primary m-1"><i class="bi bi-person-circle"></i></a>
+                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=locationUsuario&id=<%=c.getIdCompra()%>"
+                           class="btn btn-primary m-1"><i class="bi bi-geo-alt-fill"></i></a>
                     </div>
 
                 </td>
