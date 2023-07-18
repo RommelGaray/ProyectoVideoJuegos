@@ -20,7 +20,7 @@
     <title>JA-VAGOS</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <link rel="icon" href="pestania.png">
+    <link rel="icon" href="img/sistema/pestania.png">
 
     <!-- Estilos CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -72,11 +72,7 @@
                                 <h1>Aquí van a aparecer las distintas actualizaciones de su compras y ventas</h1>
                             </div>
                             <br><br>
-                                <div>
-                                    <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar" class="btn btn-primary">Compre Aquí</a>
 
-                                    <a href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listar1" class="btn btn-primary">Venda Aquí</a>
-                                </div>
                             </div>
 
                 </div>

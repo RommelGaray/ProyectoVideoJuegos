@@ -1,5 +1,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page import="java.util.ArrayList" %>
+
+
 <% String currentPage = request.getParameter("currentPage"); %>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
@@ -107,12 +109,23 @@
             </li>
               <% } else { //no estoy loggedIn %>
             <div  class="d-flex">
-              <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/InitialServlet?action=agregar">
-                Crear cuenta
+
+              <style>
+                .nav-link.btn-outline-light:hover,
+                .nav-link.btn-outline-light:hover span{
+                  color: black;
+                }
+              </style>
+
+              <a class="nav-link me-2 text-white btn btn-outline-light" style="color: white; padding: 8px; margin: 3px;"
+                 href="<%=request.getContextPath()%>/InitialServlet?action=agregar">
+                <span>Crear cuenta</span>
               </a>
-              <a class="nav-link me-2 text-white" style="color: white;" href="<%=request.getContextPath()%>/login">
-                Iniciar Sesión
+              <a class="nav-link me-2 text-white btn btn-outline-light" style="color: white; padding: 8px; margin: 3px;"
+                 href="<%=request.getContextPath()%>/login">
+                <span>Iniciar Sesión</span>
               </a>
+
             </div>
               <% } %>
         </div>
@@ -344,7 +357,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
               <li class="dropdown-footer">
-                <a  href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
+                <a  href="<%=request.getContextPath()%>/AdminJuegosServlet?a=listarNotificaciones">Ver todo los mensajes</a>
               </li>
             </ul>
           </li>

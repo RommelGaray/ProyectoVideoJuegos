@@ -94,7 +94,7 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/ofertarJuego.jsp").forward(request, response);
                 break;
 
-            case "detallesCompra":
+            case "detallesCdetallesCompra":
                 String id100 = request.getParameter("id");
                 request.setAttribute("compra", adminJuegosDaos.comprados(Integer.parseInt(id100)));
                 request.getRequestDispatcher("admin/detallesCompras2.jsp").forward(request, response);
@@ -154,9 +154,6 @@ public class AdminJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=listarcola");
                 break;
 
-            case "listarNotificaciones":
-                request.getRequestDispatcher("usuario/notificacionesUsuarioOficial.jsp").forward(request,response);
-                break;
 
             //para juegos NUEVOS propuestos por el user
             case "detallesJuegoNuevo":
@@ -182,6 +179,8 @@ public class AdminJuegosServlet extends HttpServlet {
             case "aceptarNuevo":
                 String id13 = request.getParameter("idventa");
                 adminJuegosDaos.cambiarestadoaceptar(id13);
+                String id13j = request.getParameter("idjuego");
+                adminJuegosDaos.pasarNuevoAExistente(id13j);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=nuevos");
                 break;
             //para juegos EXISTENTES propuestos por el user
@@ -208,6 +207,8 @@ public class AdminJuegosServlet extends HttpServlet {
             case "aceptarExistente":
                 String id17 = request.getParameter("idventa");
                 adminJuegosDaos.cambiarestadoaceptar(id17);
+                String id17j = request.getParameter("idjuego");
+                adminJuegosDaos.aumentarStock(id17j);
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
                 break;
 
@@ -215,6 +216,7 @@ public class AdminJuegosServlet extends HttpServlet {
             case "juegoEntregado":
                 String idCompra = request.getParameter("id");
                 String fechaEntrega = request.getParameter("fechaEntrega");
+                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados());
                 adminJuegosDaos.juegoEntregado(idCompra, Date.valueOf(fechaEntrega));
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=reservas");
                 break;
@@ -226,6 +228,12 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
 
+
+            // NOTIFICACIÓN DEL ADMIN
+            case "listarNotificaciones":
+                request.setAttribute("notificaciones", adminJuegosDaos.listarNotificaciones(cuentas.getIdCuentas()));
+                request.getRequestDispatcher("admin/notificacionesAdmin.jsp").forward(request,response);
+                break;
         }
     }
 
@@ -239,51 +247,68 @@ public class AdminJuegosServlet extends HttpServlet {
         AdminJuegosDaos adminJuegosDaos = new AdminJuegosDaos();
         AdminCuentasDaos adminCuentasDaos = new AdminCuentasDaos();
 
+        HttpSession session = request.getSession();
+        //Cuentas cuentas = (Cuentas) session6.getAttribute("usuarioLog");
+
         switch (action) {
             case "crear":
                 InputStream inputStream;
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
-                double precio = Double.parseDouble(request.getParameter("precio"));
-                int stock = Integer.parseInt(request.getParameter("stock"));
+
                 String consola = request.getParameter("consola");
                 String genero = request.getParameter("genero");
                 Part filePart = request.getPart("foto");
-
-
-
 
                 //byte[] foto = request.getParameter("foto").getBytes();
 
                 try{
 
-                    if(!nombre.matches("/[A-Za-z0-9]+/g") || nombre.isEmpty()){
-                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?action=crearJuego&errorNombre");
+                    if(nombre.matches("^(?=.*[@#$%^&+=]).*$") || nombre.isEmpty()){
 
-                    } else if (!descripcion.matches("/[A-Za-z0-9]+/g") || descripcion.isEmpty()) {
-                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?action=crearJuego&errorDescripcion");
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego&errorNombre");
 
-                    } else if (!String.valueOf(precio).matches("^([1-9][0-9]?|1000)$") || String.valueOf(precio).isEmpty()) {
-                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?action=crearJuego&errorPrecio");
+                    } else if (descripcion.matches("^(?=.*[@#$%^&+=]).*$") || descripcion.isEmpty()) {
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego&errorDescripcion");
 
-                    } else if (!String.valueOf(stock).matches("^([1-9][0-9]?|1000)$") || String.valueOf(stock).isEmpty()) {
-                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?action=crearJuego&errorStock");
+                    } else{
+                        double precio = Double.parseDouble(request.getParameter("precio"));
+                        int stock = Integer.parseInt(request.getParameter("stock"));
 
-                    } else {
+                        if ((precio > 1000) || (precio < 1)) {
+                            // USANDO EL METODO DE LEONARD
+                            /*
+                            Juegos juegos = (Juegos) session.getAttribute("errorPrecio");
 
-                        inputStream = filePart.getInputStream();
-                        if (filePart != null) {
-                            System.out.println(filePart.getContentType());
+                            session.setAttribute("errorPrecio","El rango permitido es de 1 a 1000");
+                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
+
+
+
+                             */
+
+
+                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego&errorPrecio");
+
+                        } else if (stock>1000 || stock<1) {
+                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego&errorStock");
+
+                        } else {
+
                             inputStream = filePart.getInputStream();
-                        }
+                            if (filePart != null) {
+                                System.out.println(filePart.getContentType());
+                                inputStream = filePart.getInputStream();
+                            }
 
-                        adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
-                        response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
-                        throw new SQLException("Mensaje de error");
+                            adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
+                            response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                        }
                     }
 
-                } catch (SQLException e){
-                    throw new RuntimeException(e);
+                } catch (NumberFormatException e){
+                    e.printStackTrace();
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=crearJuego&errorLetras");
                 }
                 break;
 
@@ -316,11 +341,32 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "ofertar":
+
+
+                //String idJuegoStr = String.valueOf(request.getParameter("idJuego"));
+                //String descuento = request.getParameter("descuento");
                 int idJuego1 = Integer.parseInt(request.getParameter("idJuego"));
                 double descuento = Double.parseDouble(request.getParameter("descuento"));
-                adminJuegosDaos.ofertarJuego(idJuego1, descuento);
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+
+                if ((descuento > 90) || (descuento < 10)){
+                    session.setAttribute("errorDescuento","Debe ingresar un valor entre 10-90 %");
+
+                    request.setAttribute("juego", adminJuegosDaos.obtenerJuego(String.valueOf(idJuego1)));
+                    request.setAttribute("consolas", adminJuegosDaos.consolas());
+                    request.setAttribute("generos", adminJuegosDaos.generos());
+                    response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=ofertarJuego&id="+idJuego1);
+
+                } else {
+                    //String id4 = request.getParameter("id");
+
+                    adminJuegosDaos.ofertarJuego(idJuego1, descuento);
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                }
+
+
                 break;
+
+
 
             case "dejarMensaje":
                 String mensajeAdmin = request.getParameter("mensajeAdmin");

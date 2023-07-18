@@ -62,6 +62,10 @@
                 <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
                 <%session.removeAttribute("msg");%>
                 <% }%>
+                <% if (session.getAttribute("nonono") != null) {%>
+                <div class="alert alert-danger" role="alert"><%=session.getAttribute("nonono")%></div>
+                <%session.removeAttribute("nonono");%>
+                <% }%>
                 <div class="table-responsive">
                 <table class="table table-stripped" >
                     <thead>

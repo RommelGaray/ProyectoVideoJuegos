@@ -7,6 +7,7 @@
 <jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Consolas>" scope="request"/>
 <jsp:useBean id="generos" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Generos>" scope="request"/>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +32,7 @@
       <h1>Crear juego</h1>
     </div>
 
-    <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet" enctype="multipart/form-data">
+    <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=crear" enctype="multipart/form-data">
 
       <div class="mb-3">
         <label for="nombre">Nombre</label>
@@ -55,8 +56,27 @@
         <label for="precio">Precio</label>
         <input type="text" class="form-control" name="precio" id="precio" placeholder="Indique el precio">
 
+        <% if (request.getAttribute("errorPrecio") != null) {%>
+          <div class="form-group text-danger mb-3"><%=session.getAttribute("errorPrecio")%></div>
+        <% }%>
+
+
+
+
+
+
+
+
+
+
+
+
         <% if (request.getParameter("errorPrecio") != null) {%>
         <div class="form-group text-danger mb-3">El rango permitido es de 1 a 1000</div>
+        <% }%>
+
+        <% if (request.getParameter("errorLetras") != null) {%>
+        <div class="form-group text-danger mb-3">No ingresar letras, ni dejar vacio</div>
         <% }%>
       </div>
 
@@ -66,6 +86,10 @@
 
         <% if (request.getParameter("errorStock") != null) {%>
         <div class="form-group text-danger mb-3">El rango permitido es de 1 a 1000</div>
+        <% }%>
+
+        <% if (request.getParameter("errorLetras") != null) {%>
+        <div class="form-group text-danger mb-3">No ingresar letras, ni dejar vacio</div>
         <% }%>
       </div>
 
