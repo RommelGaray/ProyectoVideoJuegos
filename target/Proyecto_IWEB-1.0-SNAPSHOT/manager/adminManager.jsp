@@ -75,9 +75,8 @@
         <br><br>
 
         <!-- LISTA DE ADMINISTRADORES -->
-        <div class="align-items-center justify-content-center">
-            <div class="col-lg-2"></div>
-            <table class="table col-lg-8">
+        <div class="table-responsive">
+            <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">Nombre Administrador</th>
@@ -106,7 +105,6 @@
 
                 <!--MODAL DE ADVERTENCIA PARA TODOS-->
             </table>
-            <div class="col-lg-2"></div>
         </div>
     </div>
 

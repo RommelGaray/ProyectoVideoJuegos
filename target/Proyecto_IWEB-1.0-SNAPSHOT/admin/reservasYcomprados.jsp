@@ -33,6 +33,7 @@
             <h1>Juegos comprados y reservados</h1>
         </div>
 
+        <div class="table-responsive">
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
             <tr>
@@ -76,6 +77,13 @@
                         <td><p class="text-danger"> <%=diferenciaEnDias%> días</p></td>
                     <%} else if (diferenciaEnDias>10) {%>
                         <td><h5 class="fw-bold text-danger"> <%=diferenciaEnDias%> días</h5></td>
+
+                        <!--
+
+                        ESPACIO PARA MANDAR CORREO AL ADMIN ENCARGADO
+
+                        -->
+
                     <%} else {%>
                         <td><p> <%=diferenciaEnDias%> días</p></td>
                     <%}%>
@@ -118,6 +126,7 @@
             </tbody>
 
         </table>
+        </div>
     </div>
 
 </main>

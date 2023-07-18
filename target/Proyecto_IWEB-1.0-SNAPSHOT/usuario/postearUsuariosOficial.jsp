@@ -66,6 +66,7 @@
     </div>
   </div>
 
+  <div class="table-responsive">
   <table class="table table-stripped">
     <thead>
     <tr>
@@ -93,7 +94,7 @@
     <% } %>
     </tbody>
   </table>
-
+  </div>
 
 
 </main><!-- End #main -->

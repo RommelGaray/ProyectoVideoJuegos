@@ -65,6 +65,7 @@
 
 
     </style>
+    <link rel="stylesheet" type="text/css" href="assets/css/estilo.css">
 </head>
 
 <body>
@@ -195,58 +196,44 @@
         </div>
     </div>
 
-    <div class="container__detail bg-light p-3 text-center" style="display: flex; justify-content: center;">
-        <div>
-            <button onclick="findMe()">Mostrar ubicación</button>
-            <div id="map"></div>
+    <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=comprar">
+        <input type="hidden" class="form-control" name="precio" id="precio"
+               value="<%=juegos.getPrecio()%>">
+        <input type="hidden" class="form-control" name="idJuego" id="idJuego"
+               value="<%=juegos.getIdJuegos()%>">
+        <div class="mt-3">
+            <div class="row">
+                <div class="caption header-text">
+                    <hr/>
+                    <h4>Dirección</h4>
+                    <hr/>
+                </div>
+            </div>
+
+            <input type="text" id="direccion" class="form-control" placeholder="Ingrese su dirección específica" aria-label="Direccion">
+            <input type="hidden" id="latitud" name="latitud">
+            <input type="hidden" id="longitud" name="longitud">
+
+            <div class="input-group mb-3" >
+                <div id="map" style="height:400px;width:100%;"></div>
+
+            </div>
         </div>
 
+        <div class="container__detail bg-light p-3 d-flex flex-column">
+            <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()%></p>
+            <button type="submit" class="btn btn-success mt-3">Pagar</button>
+            <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet">Cancelar</a>
+        </div>
+    </form>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQLKR9qOir3xYs4JC_k2k0QEeEVCGPUGA"></script>
-        <script>
-            function findMe(){
-                var output = document.getElementById('map');
-
-                // Verificar si soporta geolocalizacion
-                if (navigator.geolocation) {
-                    output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
-                }else{
-                    output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
-                }
-
-                //Obtenemos latitud y longitud
-                function localizacion(posicion){
-
-                    var latitude = posicion.coords.latitude;
-                    var longitude = posicion.coords.longitude;
-
-                    var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&size=600x300&markers=color:red%7C"+latitude+","+longitude+"&key=AIzaSyAQLKR9qOir3xYs4JC_k2k0QEeEVCGPUGA";
-
-                    output.innerHTML ="<img src='"+imgURL+"'>";
-
-
-                }
-
-                function error(){
-                    output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
-
-                }
-
-                navigator.geolocation.getCurrentPosition(localizacion,error);
-
-            }
-        </script>
-    </div>
-
-    <div class="container__detail bg-light p-3 d-flex flex-column">
-        <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()%></p>
-        <button type="button" class="btn btn-success mt-3">Pagar</button>
-        <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet">Cancelar</a>
-    </div>
 
 
 </main><!-- End #main -->
-
+<!-- ======= Footer ======= -->
+<jsp:include page="/includes/footer.jsp">
+    <jsp:param name="title" value=""/>
+</jsp:include>
 <!-- ======= Footer ======= -->
 
 
@@ -257,70 +244,92 @@
 <script src="assets/js/main.js"></script>
 
 <!-- CODIGO EXTRAÍDO DE https://www.youtube.com/watch?v=XX9Kmg3qLRk -->
-
-<!--<script>
-    function findMe(){
-        var output = document.getElementById('map');
-
-        // Verificar si soporta geolocalizacion
-        if (navigator.geolocation) {
-            output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
-        }else{
-            output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
-        }
-
-        //Obtenemos latitud y longitud
-        function localizacion(posicion){
-            var latitude = posicion.coords.latitude;
-            var longitude = posicion.coords.longitude;
-
-            // Segunda parte del video
-
-            output.innerHTML = "<p>Latitud: " + latitude+"<br>Longitud: "+longitude+"</p>";
-        }
-
-        function error(){
-            output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
-
-        }
-
-        navigator.geolocation.getCurrentPosition(localizacion,error);
-
-    }
-
-
-</script>
--->
-<!--
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7OI9p3JeWeSVqhVpIo-duXemjBLL33cM&libraries=places&callback=initMap" async defer></script>
 <script>
-    $(document).ready(function(){
-        getLocation();
-    });
+    let map;
+    let marker;
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
+
+    function initMap() {
+
+        // Se crea un mapa
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -12.046374, lng: -77.042793 }, // Coordenadas de Lima, Perú
+            zoom: 12, // Nivel de zoom inicial
+        });
+
+        // Se crea un marcador centrado en coordenadas de Lima
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: true, // Permite arrastrar el marcador
+            position: { lat: -12.046374, lng: -77.042793 }, // Coordenadas de Lima, Perú
+        });
+
+        // Escucha el evento 'dragend' para actualizar las coordenadas del marcador cuando se arrastra
+        marker.addListener("dragend", function () {
+            updateMarkerPosition(marker.getPosition());
+        });
+
+        // Inicia la búsqueda de lugares en el input de dirección
+        initPlaces();
     }
-    function showPosition(position) {
-        document.getElementById("coordinates").innerHTML = "Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude;
 
-        //var latitud = position.coords.latitude;
-        //var longitud = position.coords.longitude;
+    function initPlaces() {
+        // Obtiene el valor del id dirección
+        const input = document.getElementById("direccion");
 
-        //document.getElementById("latitud").textContent = latitud;
-        //document.getElementById("longitud").textContent = longitud;
+        // Creamos restricciones para que las búsquedas solo se limiten a Perú
+        const searchOptions = {
+            componentRestrictions: { country: "pe" }
+        };
+
+        // Creamos un objeto de búsqueda de lugares y se vincula al campo de dirección
+        const searchBox = new google.maps.places.SearchBox(input, searchOptions);
 
 
-        //document.getElementById("latitud").value = position.coords.latitude;
-        //document.getElementById("longitud").value = position.coords.longitude;
+
+        // Escucha el evento 'places_changed' cuando se selecciona un lugar de la lista de resultados
+        searchBox.addListener("places_changed", function () {
+            const places = searchBox.getPlaces();
+
+            if (places.length === 0) {
+                return;
+            }
+
+            const place = places[0];
+
+            // Centra el mapa en la ubicación seleccionada
+            map.setCenter(place.geometry.location);
+            map.setZoom(15);
+
+            // Actualiza la posición del marcador en la ubicación seleccionada
+            marker.setPosition(place.geometry.location);
+            updateMarkerPosition(place.geometry.location);
+        });
     }
+
+    function updateMarkerPosition(position) {
+        // Obtiene las coordenadas latitud y longitud del marcador
+        const lat = position.lat();
+        const lng = position.lng();
+
+        // Actualiza los valores de latitud y longitud en los campos de texto ocultos
+        document.getElementById("latitud").value = lat;
+        document.getElementById("longitud").value = lng;
+    }
+
 </script>
--->
-
+<script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/chart.js/chart.umd.js"></script>
+<script src="/assets/vendor/echarts/echarts.min.js"></script>
+<script src="/assets/vendor/quill/quill.min.js"></script>
+<script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="/assets/vendor/php-email-form/validate.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
 </body>
 
 </html>

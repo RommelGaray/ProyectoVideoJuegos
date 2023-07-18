@@ -61,7 +61,7 @@
           <a type="button" class="btn btn-warning" href="<%=request.getContextPath()%>/ManagerJuegosServlet?a=menos">Menos vendidos</a>
         </div>
       </div>
-      <div class="col-lg-12">
+
 
         <!--DENTRO DE UN DIV-->
         <div class="container">
@@ -69,7 +69,7 @@
             <% for (Juegos j : listaJuegos) { %>
             <div class="w-auto">
               <div>
-                <div class="card" style="width: 17rem; height: 100%;">
+                <div class="card" style="width: 18rem; height: 100%;">
                   <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title"><%=j.getNombre()%></h5>
@@ -105,7 +105,7 @@
 
         </div>
 
-      </div>
+
 
       <div class="col-lg-12">
 

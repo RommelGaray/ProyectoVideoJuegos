@@ -51,6 +51,10 @@
 </jsp:include>
 
 <main id="main" class="main">
+    <% if (session.getAttribute("msg") != null) {%>
+    <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
+    <%session.removeAttribute("msg");%>
+    <% }%>
     <div class="pagetitle">
         <h1 class='mt-3'>Juegos Disponibles</h1>
     </div>
@@ -60,9 +64,9 @@
 
         <!--DENTRO DE UN DIV-->
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center gap-2">
                 <% for (Juegos j : lista) { %>
-                <div class="col-4">
+                <div class="w-auto">
                     <div class="disponibleUsuario">
                         <div class="card" style="width: 18rem; height: 100%;">
                             <div class="col-md-12 d-flex justify-content-center align-items-center">

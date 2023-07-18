@@ -19,7 +19,7 @@
 
 <!-- ======= Header ======= -->
 <jsp:include page="../includes/narvar.jsp">
-    <jsp:param name="currentPage" value="editarJuego"/>
+    <jsp:param name="currentPage" value="indexAdmin"/>
 </jsp:include>
 
 <!-- ======= Main ======= -->

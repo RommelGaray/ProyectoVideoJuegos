@@ -83,7 +83,7 @@
                     <div class="col-12">
                       <label for="nombre" class="form-label">Nombre</label>
                       <input type="text" name="nombre" class="form-control" id="nombre" required placeholder="Tú nombre">
-                      <div class="invalid-feedback">Por favor ingrese su nombre!</div>
+                      <div class="invalid-  feedback">Por favor ingrese su nombre!</div>
                     </div>
 
                     <div class="col-12">

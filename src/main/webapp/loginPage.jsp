@@ -67,6 +67,9 @@
                                     <% if (request.getAttribute("msg") != null) { %>
                                     <div class="alert alert-success">Se ha creado el Usuario exitosamente</div>
                                     <% } %>
+                                    <% if (request.getAttribute("contraseña") != null) {%>
+                                    <div class="alert alert-success" >Se ha enviado la contraseña a su correo </div>
+                                    <% }%>
 
                                     <form method="POST" action="<%=request.getContextPath()%>/login">
 

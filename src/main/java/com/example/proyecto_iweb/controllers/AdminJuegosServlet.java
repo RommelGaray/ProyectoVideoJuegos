@@ -407,16 +407,29 @@ public class AdminJuegosServlet extends HttpServlet {
             case "noAceptarExistente":
                 int idVenta3 = Integer.parseInt(request.getParameter("idVenta"));
                 String mensajeAdmin3 = request.getParameter("mensajeAdmin");
-                adminJuegosDaos.noAceptar(mensajeAdmin3,idVenta3);
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+//                adminJuegosDaos.noAceptar(mensajeAdmin3,idVenta3);
+//                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                if (mensajeAdmin3 != null && !mensajeAdmin3.isEmpty()) {
+                    adminJuegosDaos.noAceptar(mensajeAdmin3,idVenta3);
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                } else { //"mensajeAdmin" está vacío
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=noAceptarExistente&id=" + idVenta3 + "&error=mensajeVacio");
+                }
                 break;
 
             case "rechazarExistente":
                 int idVenta4 = Integer.parseInt(request.getParameter("idVenta"));
                 String mensajeAdmin4 = request.getParameter("mensajeAdmin");
-                adminJuegosDaos.rechazar(mensajeAdmin4,idVenta4);
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+//                adminJuegosDaos.rechazar(mensajeAdmin4,idVenta4);
+//                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                if (mensajeAdmin4 != null && !mensajeAdmin4.isEmpty()) {
+                    adminJuegosDaos.rechazar(mensajeAdmin4,idVenta4);
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=existentes");
+                } else { //"mensajeAdmin" está vacío
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=rechazarExistente&id=" + idVenta4 + "&error=mensajeVacio");
+                }
                 break;
+
 
 
         }
