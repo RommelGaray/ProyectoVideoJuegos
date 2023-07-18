@@ -219,7 +219,7 @@ public class UsuarioJuegosDaos extends DaoBase {
                 while (rs.next()) {
                     VentaUsuario ventaUsuario = new VentaUsuario();
                     ventaUsuario.setIdVenta(rs.getInt(1));
-                    ventaUsuario.setPrecioVenta(rs.getInt(4));
+                    ventaUsuario.setPrecioVenta(rs.getDouble(4));
                     ventaUsuario.setMensajeAdmin(rs.getString(5));
 
                     Juegos juegos = new Juegos();

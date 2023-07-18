@@ -42,8 +42,8 @@
 
     <style>
         .juego-imagen {
-            width: 100%;
-            height: 450px;
+            width: 750px;
+            height: 100%;
             object-fit: cover;
         }
         .rating {
@@ -87,24 +87,24 @@
 
 
     <div class="container">
-        <div class="row">
-            <div class="col-7">
+        <div class="row justify-content-center">
+            <div class="w-auto">
                 <div class="container">
-                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juegos.getIdJuegos()%>" class="img-fluid juego-imagen" alt="Imagen">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juegos.getIdJuegos()%>" class="img-fluid juego-imagen justify-content-center" alt="Imagen">
                 </div>
             </div>
-            <div class="col-5">
+            <div class="w-auto">
                 <div class="row">
                     <h2 class="text-primary"><%= juegos.getNombre() %></h2>
                     <div class="mb-4" id="descripcion_juego">
                         <p class="lead"><%= juegos.getDescripcion() %></p>
-                        <p class="font-weight-bold">Precio: <%= juegos.getPrecio() %></p>
-                        <p class="font-weight-bold">Stock: <%= juegos.getStock() %></p>
+                        <p class="fs-5 fw-medium fw-bold">Precio: <%= juegos.getPrecio() %></p>
+                        <p class="fs-5 fw-medium fw-bold">Stock: <%= juegos.getStock() %></p>
                         <%if(juegos.getRaiting()==0){%>
-                        <h5 class="font-weight-bold">AÚN NO TIENE VENTAS</h5>
-                        <h5 class="font-weight-bold">¡¡¡Se el primero en comprarlo!!!</h5>
+                        <h5 class="fs-5 fw-medium fw-bold">AÚN NO TIENE VENTAS</h5>
+                        <h5 class="fs-5 fw-medium fw-bold">¡¡¡Se el primero en comprarlo!!!</h5>
                         <%}else{%>
-                        <p class="font-weight-bold">Raiting:
+                        <p class="fs-5 fw-medium fw-bold">Raiting:
                         <div class="rating align-items-center justify-content">
                             <div class="stars">
                                 <input type="radio" id="star5" name="rating" value="5" />

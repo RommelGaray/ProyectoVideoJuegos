@@ -36,21 +36,37 @@
       <div class="mb-3">
         <label for="nombre">Nombre</label>
         <input type="text" class="form-control" name="nombre" placeholder="Ingrese el nombre del juego" id="nombre">
+
+        <% if (request.getParameter("errorNombre") != null) {%>
+        <div class="form-group text-danger mb-3">¡Cuidado!!! Ingresa un nombre y apellido como en su DNI</div>
+        <% }%>
       </div>
 
       <div class="mb-3">
         <label for="descripcion">Descripción</label>
         <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Describa brevemente el juego">
+
+        <% if (request.getParameter("errorDescripcion") != null) {%>
+        <div class="form-group text-danger mb-3">Ingrese solo numeros y letras</div>
+        <% }%>
       </div>
 
       <div class="mb-3">
         <label for="precio">Precio</label>
         <input type="text" class="form-control" name="precio" id="precio" placeholder="Indique el precio">
+
+        <% if (request.getParameter("errorPrecio") != null) {%>
+        <div class="form-group text-danger mb-3">El rango permitido es de 1 a 1000</div>
+        <% }%>
       </div>
 
       <div class="mb-3">
         <label for="stock">Stock</label>
         <input type="text" class="form-control" name="stock" id="stock" placeholder="Indique la stock">
+
+        <% if (request.getParameter("errorStock") != null) {%>
+        <div class="form-group text-danger mb-3">El rango permitido es de 1 a 1000</div>
+        <% }%>
       </div>
 
       <div class="input-group mb-3">

@@ -39,6 +39,10 @@ public class InitialServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/nuevoUsuario.jsp");
                 view.forward(request, response);
                 break;
+            case "olvidaste":
+                view = request.getRequestDispatcher("/olvidasteContraseña.jsp");
+                view.forward(request, response);
+                break;
         }
     }
 
@@ -56,8 +60,8 @@ public class InitialServlet extends HttpServlet {
                 request.setAttribute("lista", usuarioJuegosDaos.buscarPorTitle(textoBuscar1));
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
-            case"guardar":
 
+            case"guardar":
                 Cuentas cuentas1= new Cuentas();
                 cuentas1.setNombre(request.getParameter("nombre"));
                 cuentas1.setApellido(request.getParameter("apellido"));

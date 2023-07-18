@@ -5,9 +5,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%    //ArrayList<CompraUsuario> listaNotificaciones = (ArrayList<CompraUsuario>) request.getAttribute("lista4");
-  //ArrayList<VentaUsuario> listaNotificaciones1  = (ArrayList<VentaUsuario>) request.getAttribute("lista4");
-%>
+
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 
@@ -20,6 +18,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>JA-VAGOS</title>
+
   <style>
     .mi-enlace1 {
       display: inline-block;
@@ -60,6 +59,10 @@
       text-indent: -9999px;
     }
   </style>
+
+
+
+
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link rel="icon" href="pestania.png">
@@ -83,7 +86,6 @@
 
   <!-- Option 1: Include in HTML -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
 
 </head>
 
@@ -101,7 +103,6 @@
   </div>
 
   <section class="section profile">
-
     <div class="row">
       <% if (session.getAttribute("msg") != null) {%>
       <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
@@ -116,10 +117,10 @@
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img src="<%=usuarioLog.getFoto()%>" alt="Profile" class="rounded-circle">
+            <img src="<%=cuentas.getFoto()%>" alt="Profile" class="rounded-circle">
 
             <h2><%=cuentas.getNombre()%></h2>
-            <h3>USUARIO</h3>
+            <h3>Usuario</h3>
 
           </div>
 

@@ -61,7 +61,7 @@
         </form>
     </div>
 
-
+    <div class="table-responsive">
     <table class="table">
         <thead>
         <tr>
@@ -73,7 +73,7 @@
             <th scope="col">Opciones</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="w-auto">
         <% for (UsuarioTabla u : listaUsuarios) { %>
         <tr>
             <th scope="row"> <a href="<%=request.getContextPath()%>/ManagerCuentasServlet?a=perfil2&id5=<%=u.getIdCuenta()%>"><%=u.getNombre()%></a></th>
@@ -95,7 +95,7 @@
         <% } %>
         </tbody>
     </table>
-
+    </div>
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->
