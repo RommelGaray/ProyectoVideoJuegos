@@ -61,8 +61,10 @@
         <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=a">
             <input type="hidden" class="form-control" name="idVentas" id="idVentas"
                    value="<%=verVenta.getIdVenta()%>">
+            <input type="hidden" class="form-control" name="idCuenta" id="idCuenta" value="<%=verVenta.getIdUsuario()%>">
             <div class="row">
                 <div class="col-lg-6">
+
                     <div class="mb-3">
                         <label for="nombre">Nombre del Juego</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" value="<%=verVenta.getJuegos().getNombre()%>" disabled>
