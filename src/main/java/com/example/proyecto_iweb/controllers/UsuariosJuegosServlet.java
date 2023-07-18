@@ -120,16 +120,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("usuario/agregarjuegoexistente.jsp").forward(request, response);
                 break;
 
-            case "comprar":
-                String idJuegoStr =request.getParameter("id");
-                String precioStr = request.getParameter("precio");
-                double precio = Double.parseDouble(precioStr);
-                int idJuego = Integer.parseInt(idJuegoStr);
-                HttpSession session1 = request.getSession();
-                Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
-                usuarioJuegosDaos.guardarCompra(idJuego,cuentas1.getIdCuentas(),precio,cuentas1.getDireccion());
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
-                break;
+
             case "recomendaciones":
 
                 request.setAttribute("recomendaciones",usuarioJuegosDaos.recomendaciones(cuentas.getIdCuentas()));
@@ -241,6 +232,17 @@ public class UsuariosJuegosServlet extends HttpServlet {
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
                     }
                 }
+                break;
+            case "comprar":
+                String idJuegoStr =request.getParameter("idJuego");
+                String precioStr = request.getParameter("precio");
+
+                double precio = Double.parseDouble(precioStr);
+                int idJuego = Integer.parseInt(idJuegoStr);
+                HttpSession session4 = request.getSession();
+                Cuentas cuentas4 = (Cuentas) session4.getAttribute("usuarioLog");
+                usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
+                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
                 break;
         }
     }
