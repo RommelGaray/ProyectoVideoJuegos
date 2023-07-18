@@ -5,6 +5,7 @@ import com.example.proyecto_iweb.models.dtos.*;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AdminJuegosDaos  extends DaoBase{
@@ -167,10 +168,10 @@ public class AdminJuegosDaos  extends DaoBase{
                         juegos.setDescripcion(rs.getString(3));
                         juegos.setPrecio(rs.getDouble(4));
                         juegos.setDescuento(rs.getDouble(5));
-                        juegos.setFoto(rs.getString(6));
                         juegos.setConsola(rs.getString(9));
                         juegos.setGenero(rs.getString(10));
                         juegos.setStock(rs.getInt(11));
+                        juegos.setFotoJuego(rs.getString(12));
                     }
                 }
 
@@ -254,6 +255,7 @@ public class AdminJuegosDaos  extends DaoBase{
                 compraUsuario.setIdAdmin(resultSet.getInt(7));
                 compraUsuario.setPrecioCompra(resultSet.getInt(8));
                 compraUsuario.setIdEstados(resultSet.getInt(9));
+                compraUsuario.setFechaEntrega(resultSet.getDate(10));
 
                 Cuentas cuentas = new Cuentas();
                 cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));

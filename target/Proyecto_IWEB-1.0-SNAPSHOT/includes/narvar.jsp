@@ -1,5 +1,7 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page import="java.util.ArrayList" %>
+
+
 <% String currentPage = request.getParameter("currentPage"); %>
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
