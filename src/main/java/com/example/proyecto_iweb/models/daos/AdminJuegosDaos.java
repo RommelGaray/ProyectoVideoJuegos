@@ -587,12 +587,24 @@ public class AdminJuegosDaos  extends DaoBase{
     public ArrayList<JuegosExistentes> listarexistentes(){ //num stock, reg venta
         ArrayList<JuegosExistentes> lista = new ArrayList<>();
 
-        String sql =    "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock , COUNT(v.idVenta) AS cant_ventas\n" +
+        String sql =    "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock, COALESCE(cant_ventas, 0) AS cant_ventas\n" +
                         "FROM ventausuario v\n" +
                         "JOIN juego j ON v.idJuego = j.idJuego\n" +
+                        "LEFT JOIN (\n" +
+                        "    SELECT idJuego, COUNT(*) AS cant_ventas\n" +
+                        "    FROM comprausuario\n" +
+                        "    WHERE idEstados = 6\n" +
+                        "    GROUP BY idJuego\n" +
+                        ") c ON j.idJuego = c.idJuego\n" +
                         "WHERE j.existente = 1 AND v.idEstados = 1\n" +
-                        "GROUP BY v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock \n" +
-                        "ORDER BY cant_ventas DESC;";
+                        "ORDER BY cant_ventas DESC;\n";
+
+//                        "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock , COUNT(v.idVenta) AS cant_ventas\n" +
+//                        "FROM ventausuario v\n" +
+//                        "JOIN juego j ON v.idJuego = j.idJuego\n" +
+//                        "WHERE j.existente = 1 AND v.idEstados = 1\n" +
+//                        "GROUP BY v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock \n" +
+//                        "ORDER BY cant_ventas DESC;";
 
         String url = "jdbc:mysql://localhost:3306/mydb";
         try (Connection connection = this.getConection();
@@ -811,6 +823,37 @@ public class AdminJuegosDaos  extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+    public void pasarNuevoAExistente(String id) {
+
+        String sql =    "UPDATE juego\n" +
+                        "SET existente = 1, habilitado = 1\n" +
+                        "WHERE idJuego = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+    public void aumentarStock(String id) {
+        String sql =    "UPDATE juego\n" +
+                        "SET stock = stock + 1\n" +
+                        "WHERE idJuego = ?;";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 

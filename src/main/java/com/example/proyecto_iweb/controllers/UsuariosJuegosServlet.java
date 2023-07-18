@@ -268,11 +268,16 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 int idJuego = Integer.parseInt(idJuegoStr);
                 HttpSession session4 = request.getSession();
                 Cuentas cuentas4 = (Cuentas) session4.getAttribute("usuarioLog");
+                if(longitud== 0 || latitud==0){
+                    session4.setAttribute("err","Mueva el marcador a un lugar apropiado");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=carrito");
+                }else{
+                    usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
+                    usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
+                    session4.setAttribute("msg","Compra Exitosa");
+                }
 
-                usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
-                usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
-                session4.setAttribute("msg","Compra Exitosa");
 
                 break;
         }

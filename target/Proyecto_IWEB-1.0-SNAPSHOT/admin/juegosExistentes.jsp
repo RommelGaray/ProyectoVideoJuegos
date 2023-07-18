@@ -36,7 +36,7 @@
                         <p class="card-text">Cantidad de copias vendidas: <%=j.getCant_ventas() %></p>
                         <p class="card-text" style="font-size: 1.2em;"><strong>Precio de venta propuesto: S/.<%=j.getPrecioVenta()%> </strong></p>
                         <div class="d-flex justify-content-end">
-                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarExistente&idventa=<%=j.getIdVenta()%>" class="btn btn-primary m-1">Aceptar</a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarExistente&idventa=<%=j.getIdVenta()%>&idjuego=<%=j.getIdJuego()%>" class="btn btn-primary m-1">Aceptar</a>
                             <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarExistente&id=<%=j.getIdVenta()%>" class="btn btn-primary m-1">No aceptar</a>
                             <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=rechazarExistente&id=<%=j.getIdVenta()%>" class="btn btn-danger m-1">Rechazar</a>
                         </div>
