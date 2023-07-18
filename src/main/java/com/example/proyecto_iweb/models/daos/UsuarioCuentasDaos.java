@@ -316,6 +316,36 @@ public class UsuarioCuentasDaos extends DaoBase{
         }
     }
 
+    // TODO: este se usa para correo
+    // TODO: este se usa para correo
+    public Cuentas correo2(String id) {
+        Cuentas cuentas = null;
+
+
+        String sql = "select correo , nombre, apellido from cuenta \n" +
+                "where idCuenta= ?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    cuentas = new Cuentas();
+                    cuentas.setCorreo(rs.getString(1));
+                    cuentas.setNombre(rs.getString(2));
+                    cuentas.setApellido(rs.getString(3));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cuentas;
+    }
+
 
 
 

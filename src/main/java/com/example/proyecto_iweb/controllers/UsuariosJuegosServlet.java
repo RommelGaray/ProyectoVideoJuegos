@@ -7,6 +7,7 @@ import com.example.proyecto_iweb.models.beans.CompraUsuario;
 import com.example.proyecto_iweb.models.beans.Cuentas;
 import com.example.proyecto_iweb.models.beans.Juegos;
 import com.example.proyecto_iweb.models.beans.VentaUsuario;
+import com.example.proyecto_iweb.models.daos.EnvioCorreos;
 import com.example.proyecto_iweb.models.daos.UsuarioCuentasDaos;
 import com.example.proyecto_iweb.models.daos.UsuarioJuegosDaos;
 import jakarta.servlet.RequestDispatcher;
@@ -148,6 +149,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
         String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");
 
+        EnvioCorreos envioCorreos = new EnvioCorreos();
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
 
@@ -239,6 +241,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 String precioStr = request.getParameter("precio");
                 String latitudStr = request.getParameter("latitud");
                 String longitudStr = request.getParameter("longitud");
+                String nombreJuego = request.getParameter("nombre");
                 double precio = Double.parseDouble(precioStr);
                 double latitud = Double.parseDouble(latitudStr);
                 double longitud = Double.parseDouble(longitudStr);
@@ -248,9 +251,18 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
                 usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
                 usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
+
+                //todo envio correo
+                Cuentas cuenta = usuarioCuentasDaos.correo2("10"); //corre,nombre ,apellido
+                String correo = cuenta.getCorreo();
+                String nombreCompleto = cuentas4.getNombre() + " " + cuentas4.getApellido();
+                String asunto = "Se ha realizado una Compra";
+                String contexto = "El usuario " + nombreCompleto + " ha realizado la compra del Juego " + nombreJuego;
+
+                envioCorreos.createEmail(correo,asunto,contexto);
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
                 session4.setAttribute("msg","Compra Exitosa");
-
+                envioCorreos.sendEmail();
                 break;
         }
     }

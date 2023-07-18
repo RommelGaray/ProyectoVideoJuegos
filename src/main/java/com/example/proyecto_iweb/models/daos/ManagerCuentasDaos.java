@@ -274,6 +274,7 @@ public class ManagerCuentasDaos extends DaoBase{
         return cuentas;
     }
 
+    // TODO: este se usa para correo
     public Cuentas correo(String id) {
         Cuentas cuentas = null;
 
