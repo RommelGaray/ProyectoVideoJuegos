@@ -61,7 +61,7 @@
           <a type="button" class="btn btn-warning" href="<%=request.getContextPath()%>/ManagerJuegosServlet?a=menos">Menos vendidos</a>
         </div>
       </div>
-      <div class="col-lg-12">
+
 
         <!--DENTRO DE UN DIV-->
         <div class="container">
@@ -105,7 +105,7 @@
 
         </div>
 
-      </div>
+
 
       <div class="col-lg-12">
 
