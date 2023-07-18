@@ -317,6 +317,8 @@ public class AdminJuegosDaos  extends DaoBase{
                     cuentas.setNombre(resultSet.getString("c.nombre"));
                     cuentas.setApellido(resultSet.getString("c.apellido"));
                     cuentas.setFoto(resultSet.getString("c.foto"));
+                    cuentas.setLatitud(resultSet.getString("c.latitud"));
+                    cuentas.setLongitud(resultSet.getString("c.longitud"));
                     compraUsuario.setUsuario(cuentas);
 
                     Estados estados = new Estados();

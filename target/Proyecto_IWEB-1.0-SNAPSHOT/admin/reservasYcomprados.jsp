@@ -93,8 +93,6 @@
                 <%}%>
 
 
-                <%System.out.println(java.time.LocalDate.now());%>
-
                 <!-- ICONOS -->
 
                 <% if (c.getEstados().getEstados().equals("pendiente")) {%>
