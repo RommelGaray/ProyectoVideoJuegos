@@ -196,8 +196,11 @@
         </div>
     </div>
 
-
-
+    <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=comprar">
+        <input type="hidden" class="form-control" name="precio" id="precio"
+               value="<%=juegos.getPrecio()%>">
+        <input type="hidden" class="form-control" name="idJuego" id="idJuego"
+               value="<%=juegos.getIdJuegos()%>">
         <div class="mt-3">
             <div class="row">
                 <div class="caption header-text">
@@ -208,8 +211,8 @@
             </div>
 
             <input type="text" id="direccion" class="form-control" placeholder="Ingrese su dirección específica" aria-label="Direccion">
-            <input type="text" id="latitud" name="latitud">
-            <input type="text" id="longitud" name="longitud">
+            <input type="hidden" id="latitud" name="latitud">
+            <input type="hidden" id="longitud" name="longitud">
 
             <div class="input-group mb-3" >
                 <div id="map" style="height:400px;width:100%;"></div>
@@ -219,10 +222,10 @@
 
         <div class="container__detail bg-light p-3 d-flex flex-column">
             <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()%></p>
-            <button type="button" class="btn btn-success mt-3">Pagar</button>
-            <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet">Cancelar</a>
+            <button type="submit" class="btn btn-success mt-3">Pagar</button>
+            <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet">Cancelar</a>
         </div>
-
+    </form>
 
 
 

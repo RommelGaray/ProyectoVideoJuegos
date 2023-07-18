@@ -222,8 +222,8 @@
 
         <div class="container__detail bg-light p-3 d-flex flex-column">
             <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()%></p>
-            <button type="button" class="btn btn-success mt-3">Pagar</button>
-            <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosCuentasServlet">Cancelar</a>
+            <button type="submit" class="btn btn-success mt-3">Pagar</button>
+            <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet">Cancelar</a>
         </div>
     </form>
 

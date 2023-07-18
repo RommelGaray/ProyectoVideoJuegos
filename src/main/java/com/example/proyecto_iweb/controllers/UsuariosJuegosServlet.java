@@ -148,6 +148,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
 
         String action = request.getParameter("p") == null ? "crear" : request.getParameter("p");
 
+        UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
 
         switch (action) {
@@ -236,13 +237,20 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "comprar":
                 String idJuegoStr =request.getParameter("idJuego");
                 String precioStr = request.getParameter("precio");
-
+                String latitudStr = request.getParameter("latitud");
+                String longitudStr = request.getParameter("longitud");
                 double precio = Double.parseDouble(precioStr);
+                double latitud = Double.parseDouble(latitudStr);
+                double longitud = Double.parseDouble(longitudStr);
                 int idJuego = Integer.parseInt(idJuegoStr);
                 HttpSession session4 = request.getSession();
                 Cuentas cuentas4 = (Cuentas) session4.getAttribute("usuarioLog");
+
+                usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
                 usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
+                session4.setAttribute("msg","Compra Exitosa");
+
                 break;
         }
     }
