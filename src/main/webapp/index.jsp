@@ -41,6 +41,13 @@
   <!-- Option 1: Include in HTML -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
+  <style>
+    .juego-imagen {
+      width: 290px;
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
 </head>
 
 <body>
@@ -69,7 +76,7 @@
           <div class="disponibleUsuario">
             <div class="card" style="width: 18rem; height: 100%;">
               <div class="col-md-12 d-flex justify-content-center align-items-center">
-                <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top" alt="...">
+                <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top juego-imagen" alt="...">
 
               </div>
               <div class="card-body">
