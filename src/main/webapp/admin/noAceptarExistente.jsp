@@ -62,8 +62,9 @@
                     </div>
                     <div class="mb-3">
                         <label for="mensajeAdmin">DEJAR MOTIVO DE NO ACEPTACIÓN</label>
-                        <input type="text" class="form-control" name="mensajeAdmin" id="mensajeAdmin" value="<%=ventaUsuario.getMensajeAdmin()%>">
+                        <input type="text" class="form-control" name="mensajeAdmin" id="mensajeAdmin" value="<%= (ventaUsuario.getMensajeAdmin() != null && !ventaUsuario.getMensajeAdmin().isEmpty()) ? ventaUsuario.getMensajeAdmin() : "" %>" >
                     </div>
+
                     <% if (request.getParameter("error") != null && request.getParameter("error").equals("mensajeVacio")) { %>
                     <div class="alert alert-danger">Tiene que dejar un mensaje de por qué no se acepta el juego.</div>
                     <% } %>

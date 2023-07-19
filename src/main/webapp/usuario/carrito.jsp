@@ -207,7 +207,7 @@
                 </div>
             </div>
 
-            <input type="text" id="direccion" class="form-control" placeholder="Ingrese su dirección específica" aria-label="Direccion">
+            <input type="text" id="direccion" class="form-control" placeholder="Ingrese su dirección específica" >
             <input type="hidden" id="latitud" name="latitud">
             <input type="hidden" id="longitud" name="longitud">
 
