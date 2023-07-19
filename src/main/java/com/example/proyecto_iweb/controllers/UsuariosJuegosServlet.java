@@ -280,32 +280,39 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 String latitudStr = request.getParameter("latitud");
                 String longitudStr = request.getParameter("longitud");
                 String nombreJuego = request.getParameter("nombre");
-                String stockStr = request.getParameter("stock");                        // AÑADIO ROMMEL
-                double precio = Double.parseDouble(precioStr);
-                double latitud = Double.parseDouble(latitudStr);
-                double longitud = Double.parseDouble(longitudStr);
-                int idJuego = Integer.parseInt(idJuegoStr);
-                int stock = Integer.parseInt(stockStr);                                     // AÑADIO ROMMEL
+                String stockStr = request.getParameter("stock");
                 HttpSession session4 = request.getSession();
                 Cuentas cuentas4 = (Cuentas) session4.getAttribute("usuarioLog");
+                try{
+                    double precio = Double.parseDouble(precioStr);
+                    double latitud = Double.parseDouble(latitudStr);
+                    double longitud = Double.parseDouble(longitudStr);
+                    int idJuego = Integer.parseInt(idJuegoStr);
+                    int stock = Integer.parseInt(stockStr);
 
 
-                usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
-                usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
-                usuarioJuegosDaos.actualizarStock(idJuego,stock);
 
-                Cuentas cuenta1 = usuarioCuentasDaos.lista1();
-                //todo envio correo
-                Cuentas cuenta = usuarioCuentasDaos.correo2(String.valueOf(cuenta1.getIdCuentas())); //corre,nombre ,apellido
-                String correo = cuenta.getCorreo();
-                String nombreCompleto = cuentas4.getNombre() + " " + cuentas4.getApellido();
-                String asunto = "Se ha realizado una Compra";
-                String contexto = "El usuario " + nombreCompleto + " ha realizado la compra del Juego " + nombreJuego;
+                    usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
+                    usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
+                    usuarioJuegosDaos.actualizarStock(idJuego,stock);
 
-                envioCorreos.createEmail(correo,asunto,contexto);
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
-                session4.setAttribute("msg","Compra Exitosa");
-                envioCorreos.sendEmail();
+                    Cuentas cuenta1 = usuarioCuentasDaos.lista1();
+                    //todo envio correo
+                    Cuentas cuenta = usuarioCuentasDaos.correo2(String.valueOf(cuenta1.getIdCuentas())); //corre,nombre ,apellido
+                    String correo = cuenta.getCorreo();
+                    String nombreCompleto = cuentas4.getNombre() + " " + cuentas4.getApellido();
+                    String asunto = "Se ha realizado una Compra";
+                    String contexto = "El usuario " + nombreCompleto + " ha realizado la compra del Juego " + nombreJuego;
+
+                    envioCorreos.createEmail(correo,asunto,contexto);
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
+                    session4.setAttribute("msg","Compra Exitosa");
+                    envioCorreos.sendEmail();
+
+                }catch (NumberFormatException e){
+                    session4.setAttribute("error","Elija una direccion");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=carrito&id=" +idJuegoStr);
+                }
                 break;
         }
     }
