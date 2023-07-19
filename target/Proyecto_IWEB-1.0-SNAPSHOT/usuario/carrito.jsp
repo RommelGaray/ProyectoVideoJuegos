@@ -212,7 +212,7 @@
                 </div>
             </div>
 
-            <input type="text" id="direccion" class="form-control" placeholder="Ingrese su dirección específica" aria-label="Direccion">
+            <input type="text" id="direccion" class="form-control" placeholder="Ingrese su dirección específica" >
             <input type="hidden" id="latitud" name="latitud">
             <input type="hidden" id="longitud" name="longitud">
 
@@ -232,12 +232,10 @@
 
 
 </main><!-- End #main -->
-<<<<<<< HEAD
-=======
+
 <!-- ======= Footer ======= -->
 
 <!-- ======= Footer ======= -->
->>>>>>> a5aba521a1566920b17ddd2b01dd4f7a4410392a
 
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
