@@ -294,7 +294,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
                 usuarioJuegosDaos.actualizarStock(idJuego,stock);
 
-                Cuentas cuenta1 = usuarioCuentasDaos.listar1();
+                Cuentas cuenta1 = usuarioCuentasDaos.lista1();
                 //todo envio correo
                 Cuentas cuenta = usuarioCuentasDaos.correo2(String.valueOf(cuenta1.getIdCuentas())); //corre,nombre ,apellido
                 String correo = cuenta.getCorreo();
