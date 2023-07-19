@@ -91,20 +91,21 @@ public class AdminCuentasServlet extends HttpServlet {
             }
 
             case "actualizarPassword":
-                cuentas = (Cuentas) session.getAttribute("userAdmin");
+                cuentas = (Cuentas) session.getAttribute("usuarioLog");
                 String password = request.getParameter("password");
 
                 Cuentas cuentas1 = adminCuentasDaos.validarCambioPassword(cuentas.getIdCuentas(), password);
 
                 if (cuentas1 != null){
-                    if (request.getParameter("newpassword1").equals(request.getParameter("newpassword2")) && !request.getParameter("newpassword1").equals("")
-                            && request.getParameter("newpassword1").length()>=5){
+                    String password1 = request.getParameter("newpassword1");
+                    String password2 = request.getParameter("newpassword2");
+                    if (password1.equals(password2)  && !request.getParameter("newpassword1").isEmpty() && password1.length()>=5){
                         adminCuentasDaos.actualizarPassword(cuentas1.getIdCuentas(), request.getParameter("newpassword1"));
                         session.setAttribute("msg","Contraseña cambiada correctamente");
-                        response.sendRedirect(request.getContextPath() + "/AdminCuentasServlet");
+                        response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=perfilAdmin");
                     }
                     else {
-                        session.setAttribute("msgError", "Las contraseñas deben ser iguales");
+                        session.setAttribute("msgError", "Las contraseñas deben ser iguales o es mayor a 5 dígitos");
                         response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=perfilAdmin");
                     }
                 }

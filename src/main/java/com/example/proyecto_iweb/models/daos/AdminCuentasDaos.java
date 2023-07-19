@@ -154,12 +154,13 @@ public class AdminCuentasDaos extends DaoBase{
             }
 
         }catch (SQLException e){
-            e.getStackTrace();
+            throw new RuntimeException(e);
         }
         return cuentas;
     }
 
     public void actualizarPassword(int idCuenta, String nuevaPassword){
+
         String sql = "update cuenta set passwordHashed = sha2(?, 256) where idCuenta = ?";
         try(Connection conn = this.getConection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -167,7 +168,7 @@ public class AdminCuentasDaos extends DaoBase{
             pstmt.setInt(2, idCuenta);
             pstmt.executeUpdate();
         }catch (SQLException e){
-            e.getStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
