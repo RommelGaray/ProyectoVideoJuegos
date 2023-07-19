@@ -29,7 +29,7 @@
 
             <% for (DetallesExistentes d : lista) { %>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 h-100">
                     <input type="hidden" class="form-control" name="idVenta" id="idVenta"
                            value="<%=ventaUsuario.getIdVenta()%>">
                     <div class="mb-3">
@@ -70,13 +70,16 @@
                     <% } %>
 
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 d-flex flex-column h-200">
                     <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=d.getIdJuego()%>" alt="" class="img-fluid max-width-100">
+                    <div class="d-flex justify-content-between align-items-center mt-3 flex-grow-1 pl-2">
+                        <a class="btn btn-danger me-auto mx-4" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">Regresar</a>
+                        <div class="d-flex mx-3">
+                            <button type="submit" class="btn btn-primary" onclick="return confirm('¿Está seguro de realizar esta acción?')">No aceptar juego</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">Cancelar</a>
-            <button type="submit" class="btn btn-primary" onclick="return confirm('¿Está seguro de realizar esta acción?')">No aceptar juego</button>
 
             <% } %>
         </form>

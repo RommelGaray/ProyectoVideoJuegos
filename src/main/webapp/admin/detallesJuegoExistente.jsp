@@ -29,7 +29,7 @@
 
       <% for (DetallesExistentes d : lista) { %>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 h-100">
           <div class="mb-3">
             <label for="juego">Nombre del Juego</label>
             <input type="text" class="form-control" name="precio" id="juego" value="<%=d.getNombre() %>" disabled>
@@ -64,20 +64,20 @@
           </div>
 
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 d-flex flex-column h-200">
           <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=d.getIdJuego()%>" alt="" class="img-fluid max-width-100">
+          <div class="d-flex justify-content-between align-items-center mt-3 flex-grow-1 pl-2">
+            <a class="btn btn-danger me-auto mx-4" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=nuevos">Regresar</a>
+            <div class="d-flex mx-3">
+              <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarExistente&idventa=<%=d.getIdVenta()%>&idjuego=<%=ventaUsuario.getIdJuego()%>"
+                 class="btn btn-primary me-2">Aceptar</a>
+              <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarExistente&id=<%=d.getIdVenta()%>"
+                 class="btn btn-primary me-2">No aceptar</a>
+              <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=rechazarExistente&id=<%=d.getIdVenta()%>"
+                 class="btn btn-danger me-2">Rechazar</a>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <a class="btn btn-danger mt-3" href="<%=request.getContextPath()%>/AdminJuegosServlet?a=existentes">Regresar</a>
-
-      <div class="d-flex justify-content-end align-items-center mt-3 mb-5">
-        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=aceptarExistente&idventa=<%=d.getIdVenta()%>&idjuego=<%=ventaUsuario.getIdJuego()%>"
-           class="btn btn-primary m-1">Aceptar</a>
-        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=noAceptarExistente&id=<%=d.getIdVenta()%>"
-           class="btn btn-primary m-1">No aceptar</a>
-        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=rechazarExistente&id=<%=d.getIdVenta()%>"
-           class="btn btn-danger m-1">Rechazar</a>
       </div>
       <% } %>
     </form>

@@ -508,18 +508,19 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-    public void guardarCompra(int idJuego,int idUsuario,double precio,String direccion) {
+    public void guardarCompra(int idJuego,int idUsuario,double precio,String direccion, int idAdmin) {
 
 
         String sql = "INSERT INTO comprausuario (idUsuario,idJuego,cantidad,fechaCompra,direccion,idAdmin,precioCompra,idEstados) " +
-                "VALUES (?,?,1,current_date(),?,10,?,1)";
+                "VALUES (?,?,1,current_date(),?,?,?,1)";
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)){
 
             pstmt.setInt(1, idUsuario);
             pstmt.setInt(2,idJuego);
             pstmt.setString(3, direccion);
-            pstmt.setDouble(4,precio);
+            pstmt.setInt(4,idAdmin);
+            pstmt.setDouble(5,precio);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
