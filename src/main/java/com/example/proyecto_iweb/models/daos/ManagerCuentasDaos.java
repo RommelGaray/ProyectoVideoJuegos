@@ -450,4 +450,43 @@ public class ManagerCuentasDaos extends DaoBase{
 
         return lista;
     }
+
+    public Cuentas validarCambioPassword(int idCuenta, String password){
+        String sql = "select * from cuenta where idCuenta = ? and passwordHashed = sha2(?, 256)";
+        Cuentas cuentas = null;
+        try(Connection conn = this.getConection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idCuenta);
+            pstmt.setString(2, password);
+
+            try(ResultSet rs = pstmt.executeQuery()){
+
+                if (rs.next()){
+                    cuentas = new Cuentas();
+                    cuentas.setIdCuentas(rs.getInt(1));
+                    cuentas.setCorreo(rs.getString(6));
+                    cuentas.setPasswordHashed(rs.getString(11));
+                }
+
+            }
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return cuentas;
+    }
+
+    public void actualizarPassword(int idCuenta, String nuevaPassword){
+
+        String sql = "update cuenta set passwordHashed = sha2(?, 256) where idCuenta = ?";
+        try(Connection conn = this.getConection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nuevaPassword);
+            pstmt.setInt(2, idCuenta);
+            pstmt.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }

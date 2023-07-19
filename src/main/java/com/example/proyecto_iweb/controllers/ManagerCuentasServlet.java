@@ -194,6 +194,32 @@ public class ManagerCuentasServlet extends HttpServlet {
                 request.setAttribute("listaUsuarios", usuarioDao.buscarPorTitle(textoBuscar));
                 request.getRequestDispatcher("manager/usuarioManager.jsp").forward(request, response);
                 break;
+            case "actualizarPassword":
+                HttpSession session1 = request.getSession();
+                cuentas = (Cuentas) session1.getAttribute("usuarioLog");
+                String password = request.getParameter("password");
+
+                Cuentas cuentas2 = usuarioDao.validarCambioPassword(cuentas.getIdCuentas(), password);
+
+                if (cuentas2 != null){
+                    String password1 = request.getParameter("newpassword1");
+                    String password2 = request.getParameter("newpassword2");
+                    if (password1.equals(password2)  && !request.getParameter("newpassword1").isEmpty() && password1.length()>=5){
+                        usuarioDao.actualizarPassword(cuentas2.getIdCuentas(), request.getParameter("newpassword1"));
+                        session1.setAttribute("msg2","Contraseña cambiada correctamente");
+                        response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=perfil");
+                    }
+                    else {
+                        session1.setAttribute("msgError", "Las contraseñas deben ser iguales o es mayor a 5 dígitos");
+                        response.sendRedirect(request.getContextPath()+"/ManagerCuentasServlet?a=perfil");
+                    }
+                }
+                else {
+                    session1.setAttribute("msgError", "La contraseña actual es incorrecta");
+                    response.sendRedirect(request.getContextPath()+"/ManagerCuentasServlet?a=perfil");
+                }
+
+                break;
 
         }
 

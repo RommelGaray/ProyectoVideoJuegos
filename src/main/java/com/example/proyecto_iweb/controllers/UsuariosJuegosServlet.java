@@ -292,12 +292,11 @@ public class UsuariosJuegosServlet extends HttpServlet {
                     int stock = Integer.parseInt(stockStr);
 
 
-
+                    Cuentas cuenta1 = usuarioCuentasDaos.lista1();
                     usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
-                    usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
+                    usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion(),cuenta1.getIdCuentas());
                     usuarioJuegosDaos.actualizarStock(idJuego,stock);
 
-                    Cuentas cuenta1 = usuarioCuentasDaos.lista1();
                     //todo envio correo
                     Cuentas cuenta = usuarioCuentasDaos.correo2(String.valueOf(cuenta1.getIdCuentas())); //corre,nombre ,apellido
                     String correo = cuenta.getCorreo();
