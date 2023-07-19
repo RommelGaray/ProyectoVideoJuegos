@@ -34,7 +34,13 @@
 
   <!-- Option 1: Include in HTML -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
+  <style>
+    .juego-imagen {
+      width: 270px;
+      height: 202px;
+      object-fit: cover;
+    }
+  </style>
 </head>
 
 <body>
@@ -70,7 +76,7 @@
             <div class="w-auto">
               <div>
                 <div class="card" style="width: 18rem; height: 100%;">
-                  <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top" alt="...">
+                  <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top juego-imagen" alt="...">
                   <div class="card-body">
                     <h5 class="card-title"><%=j.getNombre()%></h5>
                     <a onclick="return confirm('Esta seguro de desea retirar el juego')" class="btn btn-danger"
