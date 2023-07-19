@@ -181,19 +181,18 @@ public class AdminJuegosDaos  extends DaoBase{
         return juegos;
     }
 
-    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock){
-        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
+    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, String consola, String genero, int stock){
+        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
         try (Connection connection = this.getConection()){
 
             try (PreparedStatement pstmt = connection.prepareStatement(sql)){
                 pstmt.setString(1, nombre);
                 pstmt.setString(2, descripcion);
                 pstmt.setDouble(3, precio);
-                pstmt.setDouble(4, descuento);
-                pstmt.setString(5, consola);
-                pstmt.setString(6, genero);
-                pstmt.setInt(7, stock);
-                pstmt.setInt(8, idJuego);
+                pstmt.setString(4, consola);
+                pstmt.setString(5, genero);
+                pstmt.setInt(6, stock);
+                pstmt.setInt(7, idJuego);
                 pstmt.executeUpdate();
             }
         } catch (SQLException e) {
