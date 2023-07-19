@@ -18,6 +18,13 @@
 <jsp:include page="/includes/head.jsp">
     <jsp:param name="title" value="Nueva lista"/>
 </jsp:include>
+<style>
+    .juego-imagen {
+        width: 360px;
+        height: 240px;
+        object-fit: cover;
+    }
+</style>
 
 <body>
 <!-- ======= Header ======= -->
@@ -29,8 +36,13 @@
 <main id="main" class="main">
 
     <% if (session.getAttribute("juegoCreado") != null) {%>
-        <div class="alert alert-danger" role="alert"><%=session.getAttribute("juegoCreado")%></div>
+        <div class="alert alert-success" role="alert"><%=session.getAttribute("juegoCreado")%></div>
         <%session.removeAttribute("juegoCreado");%>
+    <% }%>
+
+    <% if (session.getAttribute("cambioDescuento") != null) {%>
+    <div class="alert alert-success" role="alert"><%=session.getAttribute("cambioDescuento")%></div>
+    <%session.removeAttribute("cambioDescuento");%>
     <% }%>
 
     <div class="row">
@@ -40,8 +52,8 @@
             <% if (j.getDescuento()>0) {%>
             <div class="card mb-10" style="max-width: 1500px;">
                 <div class="row g-0">
-                    <div class="col-md-5">
-                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="img-fluid rounded-start" alt="...">
+                    <div class="col-md-5 d-flex align-items-center">
+                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top juego-imagen" alt="...">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
@@ -68,8 +80,8 @@
             <% } else {%>
             <div class="card mb-10" style="max-width: 1500px;">
                 <div class="row g-0">
-                    <div class="col-md-5">
-                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="img-fluid rounded-start" alt="...">
+                    <div class="col-md-5 d-flex align-items-center">
+                        <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuegos()%>" class="card-img-top juego-imagen" alt="...">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">

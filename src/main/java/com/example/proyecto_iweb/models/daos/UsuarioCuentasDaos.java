@@ -64,7 +64,7 @@ public class UsuarioCuentasDaos extends DaoBase{
 
     public Cuentas olvidarContrasena(String nickname, String correo) {
         Cuentas cuentas = null;
-        System.out.println(nickname);
+
         String sql = "select * from cuenta where nickname = ? and correo = ? ;";
 
         try (Connection conn = this.getConection();
@@ -123,13 +123,13 @@ public class UsuarioCuentasDaos extends DaoBase{
         return cuentas;
     }
 
-    public void actualizarContrasena(Cuentas cuentas) {
+    public void actualizarContrasena(String correo) {
 
         String sql = "update cuenta set passwordHashed = sha2('123@asdASD',256)where correo = ?;";
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-            pstmt.setString(1,cuentas.getCorreo());
+            pstmt.setString(1,correo);
 
             pstmt.executeUpdate();
 

@@ -79,6 +79,7 @@
     </div>
 
     <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=crear" enctype="multipart/form-data">
+      <input type="hidden" class="form-control" name="idAdmin" id="idAdmin" value="<%=usuarioLog.getIdCuentas()%>">
 
       <div class="mb-3">
         <label for="nombre">Nombre</label>
@@ -97,11 +98,7 @@
 
       </div>
 
-      <div class="mb-3">
-        <label for="stock">Stock</label>
-        <input type="text" class="form-control" name="stock" id="stock" placeholder="Indique la stock">
 
-      </div>
 
       <div class="input-group mb-3">
         <label for="consola">Consola</label>

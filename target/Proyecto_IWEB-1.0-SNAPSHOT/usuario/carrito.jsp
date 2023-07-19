@@ -76,6 +76,10 @@
 </jsp:include>
 
 <main id="main" class="main">
+    <% if (session.getAttribute("error") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("error")%></div>
+    <%session.removeAttribute("error");%>
+    <% }%>
     <div class="pagetitle">
         <h1>Compra de videojuego</h1>
     </div>
@@ -98,7 +102,7 @@
             <div class="panel panel-default credit-card-box customwidth center-block">
                 <div class="panel-heading display-table" >
                     <div class="row display-tr" >
-                        <h3 class="panel-title display-td" >Payment Hola</h3>
+                        <h3 class="panel-title display-td" >Tarjeta de Pago</h3>
                         <div class="display-td" id="cardLogoTop">
                             <img class="img-responsive pull-right" src="https://i.imgur.com/gIMFDbp.png">
                             <!-- <img class="img-responsive pull-right" src="https://i.imgur.com/WluzPvZ.png">
@@ -114,7 +118,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label for="cardNumber">CARD NUMBER</label>
+                                    <label for="cardNumber">NUmero de Tarjeto</label>
                                     <div class="input-group">
                                         <input
                                                 type="tel"
@@ -147,7 +151,7 @@
                         <div class="row">
                             <div class="col-xs-7 col-md-7">
                                 <div class="form-group">
-                                    <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                    <label for="cardExpiry"><span class="hidden-xs">Fecha</span><span class="visible-xs-inline"></span> de Expiracion</label>
                                     <input
                                             type="tel"
                                             class="form-control"
@@ -160,7 +164,7 @@
                             </div>
                             <div class="col-xs-5 col-md-5 pull-right">
                                 <div class="form-group">
-                                    <label for="cardCVC">CV CODE</label>
+                                    <label for="cardCVC">CV</label>
                                     <input
                                             type="tel"
                                             class="form-control"
@@ -189,7 +193,7 @@
         </div>
     </div>
 
-    <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=comprar">
+    <form id= "paymentForm" method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=comprar">
         <input type="hidden" class="form-control" name="nombre" id="nombre"
                value="<%=juegos.getNombre()%>">
         <input type="hidden" class="form-control" name="precio" id="precio"
@@ -207,6 +211,7 @@
                 </div>
             </div>
 
+
             <input type="text" id="direccion" class="form-control" placeholder="Ingrese su dirección específica" >
             <input type="hidden" id="latitud" name="latitud">
             <input type="hidden" id="longitud" name="longitud">
@@ -219,7 +224,7 @@
 
         <div class="container__detail bg-light p-3 d-flex flex-column">
             <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()%></p>
-            <button type="submit" class="btn btn-success mt-3">Pagar</button>
+            <button type="submit" class="btn btn-success mt-3" id="btnPagar">Pagar</button>
             <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet">Cancelar</a>
         </div>
     </form>
@@ -269,6 +274,8 @@
         // Obtiene el valor del id dirección
         const input = document.getElementById("direccion");
 
+
+
         // Creamos restricciones para que las búsquedas solo se limiten a Perú
         const searchOptions = {
             componentRestrictions: { country: "pe" }
@@ -297,6 +304,11 @@
             marker.setPosition(place.geometry.location);
             updateMarkerPosition(place.geometry.location);
         });
+
+        const form = document.getElementById("searchForm");
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+        });
     }
 
     function updateMarkerPosition(position) {
@@ -309,6 +321,16 @@
         document.getElementById("longitud").value = lng;
     }
 
+    document.getElementById("paymentForm").addEventListener("submit", function (event) {
+        // Captura el botón que desencadenó el envío del formulario
+        const btnPagar = document.getElementById("btnPagar");
+
+        // Verifica si el botón que desencadenó el envío es el botón "Pagar"
+        if (event.submitter !== btnPagar) {
+            // Previene la acción predeterminada solo si el botón no es "Pagar"
+            event.preventDefault();
+        }
+    });
 </script>
 <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
