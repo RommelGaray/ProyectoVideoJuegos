@@ -8,33 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer id="footer" class="footer">
 
-  <!-- Section: Social media -->
-  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-    <!-- Left -->
-    <div class="me-5 d-none d-lg-block">
-      <span>Conéctate con nosotras en las redes sociales:</span>
-    </div>
-    <!-- Left -->
-
-    <!-- Right -->
-    <div>
-      <a href="" class="me-4 link-secondary">
-        <i class="bi bi-facebook"></i>
-      </a>
-      <a href="" class="me-4 link-secondary">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="" class="me-4 link-secondary">
-        <i class="bi bi-instagram"></i>
-      </a>
-      <a href="" class="me-4 link-secondary">
-        <i class="bi bi-linkedin"></i>
-      </a>
-
-    </div>
-    <!-- Right -->
-  </section>
-  <!-- Section: Social media -->
 
 
   <!-- Section: Links  -->

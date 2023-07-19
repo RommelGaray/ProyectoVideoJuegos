@@ -333,15 +333,15 @@ public class AdminJuegosServlet extends HttpServlet {
                         request.setAttribute("juego", adminJuegosDaos.obtenerJuego(idJuego));
                         request.setAttribute("consolas", adminJuegosDaos.consolas());
                         request.setAttribute("generos", adminJuegosDaos.generos());
-                        session.setAttribute("errorNombre","Nombre: Ingrese un nombre válido (letras y/o números)");
-                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego");
+                        //session.setAttribute("errorNombre","Nombre: Ingrese un nombre válido (letras y/o números)");
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego&id" + idJuegoAct + "&error=Nombre");
 
                     } else if (descripcionAct.matches("^(?=.*[@#$%^&+=]).*$") || descripcionAct.isEmpty()) {
-                        request.setAttribute("juego", adminJuegosDaos.obtenerJuego(idJuego));
-                        request.setAttribute("consolas", adminJuegosDaos.consolas());
-                        request.setAttribute("generos", adminJuegosDaos.generos());
+                        //request.setAttribute("juego", adminJuegosDaos.obtenerJuego(idJuego));
+                        //request.setAttribute("consolas", adminJuegosDaos.consolas());
+                        //request.setAttribute("generos", adminJuegosDaos.generos());
                         session.setAttribute("errorDescripcion","Descripción: Ingrese una descripción válida");
-                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego");
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego&id" + idJuegoAct + "&error=Descripcion");
 
                     } else{
                         double precioAct = Double.parseDouble(request.getParameter("precio"));

@@ -34,6 +34,14 @@
         <%session.removeAttribute("errorNombre");%>
         <% }%>
 
+        <% if (request.getParameter("error") != null && request.getParameter("error").equals("Nombre")) { %>
+            <div class="alert alert-danger">Nombre: Ingrese un nombre válido (letras y/o números)</div>
+        <% } %>
+
+        <% if (request.getParameter("error") != null && request.getParameter("error").equals("Descripcion")) { %>
+        <div class="alert alert-danger">Nombre: Ingrese un nombre válido (letras y/o números)</div>
+        <% } %>
+
         <% if (session.getAttribute("errorDescripcion") != null) {%>
         <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorDescripcion")%></div>
         <%session.removeAttribute("errorDescripcion");%>
@@ -76,17 +84,17 @@
 
                 <div class="mb-3">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" value="<%=juego.getNombre()%>">
+                    <input required type="text" class="form-control" name="nombre" id="nombre" value="<%=juego.getNombre()%>">
                 </div>
 
                 <div class="mb-3">
                     <label for="descripcion">Descripción</label>
-                    <input type="text" class="form-control" name="descripcion" id="descripcion" value="<%=juego.getDescripcion()%>">
+                    <input required type="text" class="form-control" name="descripcion" id="descripcion" value="<%=juego.getDescripcion()%>">
                 </div>
 
                 <div class="mb-3">
                     <label for="precio">Precio</label>
-                    <input type="number" class="form-control" name="precio" id="precio" value="<%=juego.getPrecio()%>">
+                    <input required type="number" class="form-control" name="precio" id="precio" value="<%=juego.getPrecio()%>">
                 </div>
 
 
@@ -115,7 +123,7 @@
 
                 <div class="mb-3">
                     <label for="stock">Stock</label>
-                    <input type="text" class="form-control" name="stock" id="stock" value="<%=juego.getStock()%>">
+                    <input required type="number" class="form-control" name="stock" id="stock" value="<%=juego.getStock()%>">
                 </div>
 
                 <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminJuegosServlet">Cancelar</a>
