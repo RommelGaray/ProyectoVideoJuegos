@@ -7,7 +7,7 @@
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 
 <!-- ======= CUENTA GENERAL ======= -->
-<%if(usuarioLog.getIdRol()==0) { %>
+<%if(usuarioLog.getIdRol()==0 || usuarioLog.getDesabilitado()== true) { %>
 <header id="header" class="header fixed-top d-flex align-items-center bg-black">
   <div class="d-flex align-items-center justify-content-between">
     <a href="<%=request.getContextPath()%>/" class="logo d-flex align-items-center">
@@ -179,7 +179,7 @@
 <%}%>
 
 <!-- ======= USUARIO ======= -->
-<%if(usuarioLog.getIdRol()==3) { %>
+<%if(usuarioLog.getIdRol()==3 && usuarioLog.getDesabilitado()==false) { %>
 <header id="header" class="header fixed-top d-flex align-items-center bg-primary">
 
   <div class="d-flex align-items-center justify-content-between">
@@ -300,13 +300,6 @@
       <a class="nav-link collapsed<%=currentPage.equals("comprados") ? "active" : ""%> " href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=comprados">
         <i class="bi bi-shop text-primary"></i>
         <span>Comprados</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("ofertas") ? "active" : ""%>" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=ofertas">
-        <i class="bi bi-grid text-primary"></i>
-        <span>Ofertas</span>
       </a>
     </li>
   </ul>

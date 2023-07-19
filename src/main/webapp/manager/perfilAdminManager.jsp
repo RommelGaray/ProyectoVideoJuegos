@@ -153,14 +153,7 @@
         </div>
 
         <% if (cuentas.getIdRol() == 3) { %>
-        <div class="row">
-          <h5 class="text-center">Ubicación</h5>
-          <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7803.090718696196!2d-77.09065694650349!3d-12.074770906006872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1682624518105!5m2!1ses-419!2spe"
-                  width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <br>
-        </div>
+
         <% } else { %>
         <div class="align-items-center justify-content-center">
           <div class="col-lg-4"></div>

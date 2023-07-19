@@ -72,6 +72,19 @@
         .star.filled::before {
             color: gold;
         }
+
+        .boton-tachado {
+            position: relative;
+            overflow: hidden;
+            border: none;
+            background-color: transparent;
+            color: red !important;
+            text-decoration: line-through;
+        }
+
+        .boton-tachado:hover {
+            color: red !important;
+        }
     </style>
 
 </head>
@@ -98,7 +111,12 @@
                     <h2 class="text-primary"><%= juegos.getNombre() %></h2>
                     <div class="mb-4" id="descripcion_juego">
                         <p class="lead"><%= juegos.getDescripcion() %></p>
+                        <%if(juegos.getDescuento()==0){%>
                         <p class="fs-5 fw-medium fw-bold">Precio: <%= juegos.getPrecio() %></p>
+                        <%}else{%>
+                        <h3 class="card-title-danger">En oferta: <%=juegos.getPrecio()-(juegos.getPrecio()*(juegos.getDescuento()/100))%></h3>
+                        <h5 class="btn btn-custom boton-tachado">Antes: <%=juegos.getPrecio()%></h5>
+                        <%}%>
                         <p class="fs-5 fw-medium fw-bold">Stock: <%= juegos.getStock() %></p>
                         <%if(juegos.getRaiting()==0){%>
                         <h5 class="fs-5 fw-medium fw-bold">AÚN NO TIENE VENTAS</h5>

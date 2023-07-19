@@ -143,7 +143,7 @@ public class UsuarioCuentasDaos extends DaoBase{
         Cuentas cuentas = null;
 
         String sql = "SELECT * FROM cuenta \n" +
-                "where correo = ? and passwordHashed = sha2(?,256);";
+                "where correo = ? and passwordHashed = sha2(?,256) and desabilitado = \"0\";";
 
         try (Connection connection = getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -349,7 +349,7 @@ public class UsuarioCuentasDaos extends DaoBase{
         String sql = "select * from cuenta where idCuenta = ? and passwordHashed = sha2(?, 256)";
         Cuentas cuentas = null;
         try(Connection conn = this.getConection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, idCuenta);
             pstmt.setString(2, password);
@@ -385,6 +385,38 @@ public class UsuarioCuentasDaos extends DaoBase{
     }
 
 
+    public Cuentas lista1(){
+        Cuentas cuentas = null;
 
+        String sql = "SELECT idAdmin, COUNT(*) AS count\n" +
+                "FROM comprausuario\n " +
+                "GROUP BY idAdmin\n " +
+                "ORDER BY count ASC\n " +
+                "LIMIT 1";
+
+        try (Connection connection = this.getConection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+
+                cuentas = new Cuentas();
+                cuentas.setIdCuentas(rs.getInt(1));
+                cuentas.setNombre(rs.getString(2));
+                cuentas.setApellido(rs.getString(3));
+                cuentas.setNickname(rs.getString(4));
+                cuentas.setDireccion(rs.getString(5));
+                cuentas.setCorreo(rs.getString(6));
+                cuentas.setFoto(rs.getString(7));
+                cuentas.setDescripcion(rs.getString(8));
+                cuentas.setPasswordHashed(rs.getString(11));
+
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cuentas;
+    }
 }
 
