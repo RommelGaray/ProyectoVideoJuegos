@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "InitialServlet",  urlPatterns = {"","/InitialServlet"})
 public class InitialServlet extends HttpServlet {
@@ -95,6 +97,8 @@ public class InitialServlet extends HttpServlet {
 
                     }else if (!cuentas1.getPasswordHashed().equals(confirmPassword)) {
                         response.sendRedirect(request.getContextPath() + "/InitialServlet?action=guardar&errorConfirmacion"); // Validamos que la contraseña y su confimración sean iguales
+                    }else if(!isValidEmail(cuentas1.getCorreo())){
+                        response.sendRedirect(request.getContextPath() + "/InitialServlet?action=guardar&errorConfirmacion"); // Validamos que el correo
 
                     }else{
 
@@ -157,4 +161,13 @@ public class InitialServlet extends HttpServlet {
             break;
         }
     }
+
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 }
+
