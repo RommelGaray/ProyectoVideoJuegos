@@ -26,9 +26,9 @@ public class LoginServlet extends HttpServlet {
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
 
                 if (cuentas.getIdCuentas() > 0) {//estoy loggedIn
-                    if (cuentas.getIdRol() == 2) {
+                    if (cuentas.getIdRol() == 2 && cuentas.getDesabilitado() == false) {
                         resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
-                    } else if (cuentas.getIdRol() == 1) {
+                    } else if (cuentas.getIdRol() == 1 && cuentas.getDesabilitado() == false) {
                         resp.sendRedirect(req.getContextPath() + "/ManagerCuentasServlet");
                     } else if (cuentas.getIdRol() == 3) {
                         resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");
@@ -67,9 +67,9 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("usuarioLog", cuentas);
             session.setMaxInactiveInterval(3000 * 60); //en segundos
 
-            if (cuentas.getIdRol() == 1) {
+            if (cuentas.getIdRol() == 1 && cuentas.getDesabilitado() == false) {
                 resp.sendRedirect(req.getContextPath() + "/ManagerJuegosServlet");
-            } else if (cuentas.getIdRol() == 2) {
+            } else if (cuentas.getIdRol() == 2 && cuentas.getDesabilitado() == false) {
                 resp.sendRedirect(req.getContextPath() + "/AdminJuegosServlet");
             } else if (cuentas.getIdRol() == 3) {
                 resp.sendRedirect(req.getContextPath() + "/UsuariosJuegosServlet");

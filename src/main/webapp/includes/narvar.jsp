@@ -7,7 +7,7 @@
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 
 <!-- ======= CUENTA GENERAL ======= -->
-<%if(usuarioLog.getIdRol()==0) { %>
+<%if(usuarioLog.getIdRol()==0 || usuarioLog.getDesabilitado()== true) { %>
 <header id="header" class="header fixed-top d-flex align-items-center bg-black">
   <div class="d-flex align-items-center justify-content-between">
     <a href="<%=request.getContextPath()%>/" class="logo d-flex align-items-center">
@@ -179,7 +179,7 @@
 <%}%>
 
 <!-- ======= USUARIO ======= -->
-<%if(usuarioLog.getIdRol()==3) { %>
+<%if(usuarioLog.getIdRol()==3 && usuarioLog.getDesabilitado()==false) { %>
 <header id="header" class="header fixed-top d-flex align-items-center bg-primary">
 
   <div class="d-flex align-items-center justify-content-between">
