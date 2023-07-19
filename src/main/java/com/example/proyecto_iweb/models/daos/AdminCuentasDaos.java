@@ -134,7 +134,7 @@ public class AdminCuentasDaos extends DaoBase{
 
     // --------------------------------------- CAMBIO DE CONTRASEÑA ---------------------------------------
     public Cuentas validarCambioPassword(int idCuenta, String password){
-        String sql = "select * from cuenta where idCuenta = ? and passwordHashed = sha2('?', 256)";
+        String sql = "select * from cuenta where idCuenta = ? and passwordHashed = sha2(?, 256)";
         Cuentas cuentas = null;
         try(Connection conn = this.getConection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){

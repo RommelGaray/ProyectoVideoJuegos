@@ -82,10 +82,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 request.setAttribute("generos", usuarioJuegosDaos.generos());
                 request.getRequestDispatcher("usuario/agregarjuegonuevo.jsp").forward(request, response);
                 break;
-            case "ofertas":
-                request.setAttribute("ofertas", usuarioJuegosDaos.listarOfertas());
-                request.getRequestDispatcher("usuario/ofertasUsuarioOficial.jsp").forward(request,response);
-                break;
             case "actualizarVenta":
                 String id3 =request.getParameter("id");
                 usuarioJuegosDaos.actualizarEstadoVenta(id3);
@@ -211,17 +207,15 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 }
                 HttpSession session = request.getSession();
                 Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
-                if (juegos != null) {
-                    String precioString = String.valueOf(juegos.getPrecio());
-                    if (juegos.getNombre().isEmpty() || precioString.isEmpty() || juegos.getDescripcion().isEmpty() || juegos.getPrecio()<0) {
-                        session.setAttribute("error2","Ingrese correctamente los datos");
-                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
-                    }else{
-                        usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas(),inputStream);
-                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
-                    }
+                String precioString1 = String.valueOf(juegos.getPrecio());
+                if (juegos != null && !juegos.getNombre().isEmpty() && !precioString1.isEmpty() && !juegos.getDescripcion().isEmpty() && juegos.getPrecio()>0) {
+
+                    usuarioJuegosDaos.guardar(juegos, cuentas.getIdCuentas(),inputStream);
+                    session.setAttribute("msg","Juego Subido");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+
                 }else{
-                    session.setAttribute("error", "Error al igresar el valor del precio");
+                    session.setAttribute("error", "LLene correctamente los espacios");
                     response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregar");
                 }
                 break;
@@ -253,8 +247,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 HttpSession session1 = request.getSession();
                 Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
                 usuarioJuegosDaos.guardarVenta1(juegos1,cuentas1.getIdCuentas());
+                session1.setAttribute("msg1","Precio editado exitosamente");
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
-
 
                 break;
             case "raiting":
@@ -264,7 +258,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 CompraUsuario compra = usuarioJuegosDaos.verCompra(idCompra);
                 if(compraUsuario != null){
 
-                    if(compraUsuario.getRaiting()>1 && compraUsuario.getRaiting()<5){
+                    if(compraUsuario.getRaiting()>0 && compraUsuario.getRaiting()<6){
                         if(cuentas2.getIdCuentas()!=compra.getIdUsuario()){
                             //session3.setAttribute("err3","Precio que no cumple lo establecido");
                             response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados");
@@ -300,8 +294,9 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
                 usuarioJuegosDaos.actualizarStock(idJuego,stock);
 
+                Cuentas cuenta1 = usuarioCuentasDaos.lista1();
                 //todo envio correo
-                Cuentas cuenta = usuarioCuentasDaos.correo2("10"); //corre,nombre ,apellido
+                Cuentas cuenta = usuarioCuentasDaos.correo2(String.valueOf(cuenta1.getIdCuentas())); //corre,nombre ,apellido
                 String correo = cuenta.getCorreo();
                 String nombreCompleto = cuentas4.getNombre() + " " + cuentas4.getApellido();
                 String asunto = "Se ha realizado una Compra";
@@ -311,7 +306,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
                 session4.setAttribute("msg","Compra Exitosa");
                 envioCorreos.sendEmail();
-
                 break;
         }
     }
@@ -341,8 +335,9 @@ public class UsuariosJuegosServlet extends HttpServlet {
             return juegos;
 
         } catch (NumberFormatException e) {
-            return null;
+
         }
+        return juegos;
     }
 
 
@@ -415,8 +410,4 @@ public class UsuariosJuegosServlet extends HttpServlet {
         }
         return juegos;
     }
-
-
-
-
 }
