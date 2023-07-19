@@ -46,6 +46,7 @@ public class InitialServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/olvidasteContraseña.jsp");
                 view.forward(request, response);
             break;
+            /* todo: esto era para poder validar con un boton la cuenta del usuario
             case "Validacion":
                 String correo = request.getParameter("correo");
                 try {
@@ -54,6 +55,8 @@ public class InitialServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+                break;
+                */
         }
     }
 
@@ -104,8 +107,8 @@ public class InitialServlet extends HttpServlet {
 
                         String contenido = "<html><body>"
                                 + "<p>Hola " + nombreCompleto + ",</p>"
-                                + "<p>Has creado tu nueva cuenta con este correo. Para poder validar tu cuenta, haz clic en el siguiente enlace:</p>"
-                                + "<a href='" + enlaceValidacion + "' style='background-color: #dc3545; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;'>Validar cuenta</a>"
+                                + "<p>Has creado tu nueva cuenta con este correo. Muchas Gracias por confiar en nosotros</p>"
+                               // + "<a href='" + enlaceValidacion + "' style='background-color: #dc3545; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;'>Validar cuenta</a>"
                                 + "</body></html>";
 
                         envioCorreos.createEmail(correo,asunto,contenido);
