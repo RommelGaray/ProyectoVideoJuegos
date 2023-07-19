@@ -7,6 +7,9 @@
 <jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Consolas>" scope="request"/>
 <jsp:useBean id="generos" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Generos>" scope="request"/>
 
+<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
+             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +31,49 @@
 
   <div class="container">
 
+
+    <% if (session.getAttribute("errorNombre") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorNombre")%></div>
+    <%session.removeAttribute("errorNombre");%>
+    <% }%>
+
+    <% if (session.getAttribute("errorDescripcion") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorDescripcion")%></div>
+    <%session.removeAttribute("errorDescripcion");%>
+    <% }%>
+
+    <% if (session.getAttribute("errorPrecio") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorPrecio")%></div>
+    <%session.removeAttribute("errorPrecio");%>
+    <% }%>
+
+    <% if (session.getAttribute("errorStock") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorStock")%></div>
+    <%session.removeAttribute("errorStock");%>
+    <% }%>
+
+    <% if (session.getAttribute("errorLetras") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorLetras")%></div>
+    <%session.removeAttribute("errorLetras");%>
+    <% }%>
+
+    <% if (session.getAttribute("errorConsola") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorConsola")%></div>
+    <%session.removeAttribute("errorConsola");%>
+    <% }%>
+
+    <% if (session.getAttribute("errorGenero") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorGenero")%></div>
+    <%session.removeAttribute("errorGenero");%>
+    <% }%>
+
+    <% if (session.getAttribute("errorFoto") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorFoto")%></div>
+    <%session.removeAttribute("errorFoto");%>
+    <% }%>
+
+
+
     <div class="pagetitle">
       <h1>Crear juego</h1>
     </div>
@@ -37,60 +83,24 @@
       <div class="mb-3">
         <label for="nombre">Nombre</label>
         <input type="text" class="form-control" name="nombre" placeholder="Ingrese el nombre del juego" id="nombre">
-
-        <% if (request.getParameter("errorNombre") != null) {%>
-        <div class="form-group text-danger mb-3">¡Cuidado!!! Ingresa un nombre y apellido como en su DNI</div>
-        <% }%>
       </div>
 
       <div class="mb-3">
         <label for="descripcion">Descripción</label>
         <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Describa brevemente el juego">
 
-        <% if (request.getParameter("errorDescripcion") != null) {%>
-        <div class="form-group text-danger mb-3">Ingrese solo numeros y letras</div>
-        <% }%>
       </div>
 
       <div class="mb-3">
         <label for="precio">Precio</label>
         <input type="text" class="form-control" name="precio" id="precio" placeholder="Indique el precio">
 
-        <% if (request.getAttribute("errorPrecio") != null) {%>
-          <div class="form-group text-danger mb-3"><%=session.getAttribute("errorPrecio")%></div>
-        <% }%>
-
-
-
-
-
-
-
-
-
-
-
-
-        <% if (request.getParameter("errorPrecio") != null) {%>
-        <div class="form-group text-danger mb-3">El rango permitido es de 1 a 1000</div>
-        <% }%>
-
-        <% if (request.getParameter("errorLetras") != null) {%>
-        <div class="form-group text-danger mb-3">No ingresar letras, ni dejar vacio</div>
-        <% }%>
       </div>
 
       <div class="mb-3">
         <label for="stock">Stock</label>
         <input type="text" class="form-control" name="stock" id="stock" placeholder="Indique la stock">
 
-        <% if (request.getParameter("errorStock") != null) {%>
-        <div class="form-group text-danger mb-3">El rango permitido es de 1 a 1000</div>
-        <% }%>
-
-        <% if (request.getParameter("errorLetras") != null) {%>
-        <div class="form-group text-danger mb-3">No ingresar letras, ni dejar vacio</div>
-        <% }%>
       </div>
 
       <div class="input-group mb-3">

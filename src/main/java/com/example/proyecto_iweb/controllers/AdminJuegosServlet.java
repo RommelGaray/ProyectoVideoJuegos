@@ -255,28 +255,26 @@ public class AdminJuegosServlet extends HttpServlet {
         AdminCuentasDaos adminCuentasDaos = new AdminCuentasDaos();
 
         HttpSession session = request.getSession();
-        //Cuentas cuentas = (Cuentas) session6.getAttribute("usuarioLog");
+        Cuentas cuentas = (Cuentas) session.getAttribute("usuarioLog");
 
         switch (action) {
             case "crear":
                 InputStream inputStream;
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
-
                 String consola = request.getParameter("consola");
                 String genero = request.getParameter("genero");
                 Part filePart = request.getPart("foto");
-
                 //byte[] foto = request.getParameter("foto").getBytes();
-
                 try{
 
                     if(nombre.matches("^(?=.*[@#$%^&+=]).*$") || nombre.isEmpty()){
-
-                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego&errorNombre");
+                        session.setAttribute("errorNombre","Nombre: Ingrese un nombre válido (letras y/o números)");
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
 
                     } else if (descripcion.matches("^(?=.*[@#$%^&+=]).*$") || descripcion.isEmpty()) {
-                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego&errorDescripcion");
+                        session.setAttribute("errorDescripcion","Descripción: Ingrese una descripción válida");
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
 
                     } else{
                         double precio = Double.parseDouble(request.getParameter("precio"));
@@ -286,36 +284,44 @@ public class AdminJuegosServlet extends HttpServlet {
                             // USANDO EL METODO DE LEONARD
                             /*
                             Juegos juegos = (Juegos) session.getAttribute("errorPrecio");
-
                             session.setAttribute("errorPrecio","El rango permitido es de 1 a 1000");
                             response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
-
-
-
                              */
-
-
-                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego&errorPrecio");
+                            session.setAttribute("errorPrecio","Precio: Ingrese valores entre [1-1000]");
+                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
 
                         } else if (stock>1000 || stock<1) {
-                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego&errorStock");
-
+                            session.setAttribute("errorStock","Stock: Ingrese valores entre [1-1000]");
+                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
                         } else {
-
                             inputStream = filePart.getInputStream();
                             if (filePart != null) {
                                 System.out.println(filePart.getContentType());
                                 inputStream = filePart.getInputStream();
                             }
 
-                            adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
-                            response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                            if(!consola.equals("PlayStation 5") && !consola.equals("PlayStation 4") && !consola.equals("Nintendo Switch") && !consola.equals("PC")){
+                                session.setAttribute("errorConsola","Consola: La consola ingresa no esta permitida");
+                                response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
+
+                            } else if(!genero.equals("Aventura") && !genero.equals("Acción") && !genero.equals("Sandbox")
+                                    && !genero.equals("Mundo abierto") && !genero.equals("Terror") && !genero.equals("Estrategia")
+                                    && !genero.equals("Shooter") && !genero.equals("battle royal")){
+                                session.setAttribute("errorGenero","Genero: El genero ingresado no esta permitido");
+                                response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
+
+                            } else {
+                                session.setAttribute("juegoCreado","Nuevo juego: Se añadio nuevo juego a la lista de disponibles");
+                                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
+                                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                            }
                         }
                     }
 
                 } catch (NumberFormatException e){
                     e.printStackTrace();
-                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=crearJuego&errorLetras");
+                    session.setAttribute("errorLetras","Complete los campos, no deje vacio ninguno");
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=crearJuego");
                 }
                 break;
 
@@ -348,27 +354,27 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "ofertar":
-
-
                 //String idJuegoStr = String.valueOf(request.getParameter("idJuego"));
                 //String descuento = request.getParameter("descuento");
                 int idJuego1 = Integer.parseInt(request.getParameter("idJuego"));
                 double descuento = Double.parseDouble(request.getParameter("descuento"));
+                adminJuegosDaos.ofertarJuego(idJuego1, descuento);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
 
-                if ((descuento > 90) || (descuento < 10)){
-                    session.setAttribute("errorDescuento","Debe ingresar un valor entre 10-90 %");
-
-                    request.setAttribute("juego", adminJuegosDaos.obtenerJuego(String.valueOf(idJuego1)));
-                    request.setAttribute("consolas", adminJuegosDaos.consolas());
-                    request.setAttribute("generos", adminJuegosDaos.generos());
-                    response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=ofertarJuego&id="+idJuego1);
-
-                } else {
-                    //String id4 = request.getParameter("id");
-
-                    adminJuegosDaos.ofertarJuego(idJuego1, descuento);
-                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
-                }
+//                if ((descuento > 90) || (descuento < 10)){
+//                    session.setAttribute("errorDescuento","Debe ingresar un valor entre 10-90 %");
+//
+//                    request.setAttribute("juego", adminJuegosDaos.obtenerJuego(String.valueOf(idJuego1)));
+//                    request.setAttribute("consolas", adminJuegosDaos.consolas());
+//                    request.setAttribute("generos", adminJuegosDaos.generos());
+//                    response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=ofertarJuego&id="+idJuego1);
+//
+//                } else {
+//                    //String id4 = request.getParameter("id");
+//
+//                    adminJuegosDaos.ofertarJuego(idJuego1, descuento);
+//                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+//                }
 
 
                 break;

@@ -258,7 +258,7 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 CompraUsuario compra = usuarioJuegosDaos.verCompra(idCompra);
                 if(compraUsuario != null){
 
-                    if(compraUsuario.getRaiting()>1 && compraUsuario.getRaiting()<5){
+                    if(compraUsuario.getRaiting()>0 && compraUsuario.getRaiting()<6){
                         if(cuentas2.getIdCuentas()!=compra.getIdUsuario()){
                             //session3.setAttribute("err3","Precio que no cumple lo establecido");
                             response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados");
