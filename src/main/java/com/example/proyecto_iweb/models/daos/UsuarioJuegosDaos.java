@@ -20,7 +20,7 @@ public class UsuarioJuegosDaos extends DaoBase {
 
 
         String sql = "select * from juego\n" +
-                "where existente=1";
+                "where existente=1 and habilitado =1;";
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql)) {

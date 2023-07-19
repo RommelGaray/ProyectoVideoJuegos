@@ -174,14 +174,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="couponCode">COUPON CODE</label>
-                                    <input type="text" class="form-control" name="couponCode" />
-                                </div>
-                            </div>
-                        </div>-->
+
                         <div class="row" style="display:none;">
                             <div class="col-xs-12">
                                 <p class="payment-errors"></p>
@@ -234,15 +227,6 @@
 
 
 </main><!-- End #main -->
-<<<<<<< HEAD
-
-=======
-
-<!-- ======= Footer ======= -->
-
-<!-- ======= Footer ======= -->
->>>>>>> 89b0eaf19c3dfc628d44f3f44fc4edf7f4f2c64b
-
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
