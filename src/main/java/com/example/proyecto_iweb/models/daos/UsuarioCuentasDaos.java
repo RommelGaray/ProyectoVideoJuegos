@@ -349,11 +349,7 @@ public class UsuarioCuentasDaos extends DaoBase{
         String sql = "select * from cuenta where idCuenta = ? and passwordHashed = sha2(?, 256)";
         Cuentas cuentas = null;
         try(Connection conn = this.getConection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
-
-
-    public Cuentas listar1() {
-        Cuentas cuentas = null;
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, idCuenta);
             pstmt.setString(2, password);
@@ -389,6 +385,8 @@ public class UsuarioCuentasDaos extends DaoBase{
     }
 
 
+    public Cuentas lista1(){
+        Cuentas cuentas = null;
 
         String sql = "SELECT idAdmin, COUNT(*) AS count\n" +
                 "FROM comprausuario\n " +
@@ -401,6 +399,7 @@ public class UsuarioCuentasDaos extends DaoBase{
              ResultSet rs = stmt.executeQuery(sql)) {
 
             if (rs.next()) {
+
                 cuentas = new Cuentas();
                 cuentas.setIdCuentas(rs.getInt(1));
                 cuentas.setNombre(rs.getString(2));
