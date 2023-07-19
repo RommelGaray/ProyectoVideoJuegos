@@ -40,6 +40,8 @@ public class AdminCuentasDaos extends DaoBase{
                     cuentas.setFoto(rs.getString(7));
                     cuentas.setDescripcion(rs.getString(8));
                     cuentas.setPasswordHashed(rs.getString(11));
+                    cuentas.setLatitud(rs.getString(12));
+                    cuentas.setLongitud(rs.getString(13));
 
                 }
             }

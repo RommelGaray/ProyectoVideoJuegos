@@ -95,7 +95,7 @@ public class ManagerCuentasServlet extends HttpServlet {
                 // envio de correo
                 Cuentas cuentas = usuarioDao.correo(id1);
                 String asunto = "Has sido Baneado";
-                String contenido = "Hola," + cuentas.getNombre() + " " + cuentas.getApellido() + ", has sido Baneado de Javagos.com, Puedes pedir mayor informacion escribiendo a uno de nustros administradores";
+                String contenido = "Hola," + cuentas.getNombre() + " " + cuentas.getApellido() + ", has sido Baneado de Javagos.com, Puedes pedir mayor informacion escribiendo a uno de nuestros administradores";
                 String correo = cuentas.getCorreo();
                 envioCorreos.createEmail(correo,asunto,contenido);
                 response.sendRedirect(request.getContextPath() + "/ManagerCuentasServlet?a=ListaUsuarios");

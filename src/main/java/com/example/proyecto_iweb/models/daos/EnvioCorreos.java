@@ -92,16 +92,6 @@ public class EnvioCorreos {
             Logger.getLogger(EnvioCorreos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-/*
-    public static void main(String[] args) {
-        EnvioCorreos envioCorreos = new EnvioCorreos();
-        String correo = "a20180951@pucp.edu.pe";
-        String asunto = "sadsad";
-        String contenido = "dfdsfdsfdsffdsdsf";
-        envioCorreos.createEmail(correo,asunto,contenido);
-        envioCorreos.sendEmail();
-    }
 
- */
 }
 
