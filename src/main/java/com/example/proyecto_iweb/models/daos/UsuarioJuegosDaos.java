@@ -749,9 +749,6 @@ public class UsuarioJuegosDaos extends DaoBase {
         }
     }
 
-
-
-
     public ArrayList<GeneroMasComprado> generoMasComprado(int id) {
 
         ArrayList<GeneroMasComprado> lista = new ArrayList<>();
@@ -871,7 +868,6 @@ public class UsuarioJuegosDaos extends DaoBase {
 
         return lista;
     }
-
 
     // ROMMEL AÑADIO LO SIGUIENTE
 

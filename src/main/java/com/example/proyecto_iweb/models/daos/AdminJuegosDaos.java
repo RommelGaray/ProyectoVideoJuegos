@@ -122,9 +122,9 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
-    public void crearJuego(String nombre, String descripcion, double precio, int stock, String consola, String genero, InputStream file){
+    public void crearJuego(String nombre, String descripcion, double precio, String consola, String genero, InputStream file, String idAdmin){
 
-        String sql = "INSERT INTO juego (nombre,descripcion,precio,descuento,stock,consola,genero,fotoJuego,existente,habilitado) VALUES (?,?,?,'0',?,?,?,?,'1','1')";
+        String sql = "INSERT INTO juego (nombre,descripcion,precio,descuento,stock,consola,genero,fotoJuego,existente,habilitado,idAdmin) VALUES (?,?,?,'0','1',?,?,?,'1','1',?)";
 
         try (Connection connection = this.getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -132,11 +132,11 @@ public class AdminJuegosDaos  extends DaoBase{
             pstmt.setString(1, nombre);
             pstmt.setString(2, descripcion);
             pstmt.setDouble(3, precio);
-            pstmt.setDouble(4, stock);
-            pstmt.setString(5, consola);
-            pstmt.setString(6, genero);
+            pstmt.setString(4, consola);
+            pstmt.setString(5, genero);
 
-            pstmt.setBlob(7, file);
+            pstmt.setBlob(6, file);
+            pstmt.setString(7, idAdmin);
             //pstmt.setBytes(7, foto);
             pstmt.executeUpdate();
 

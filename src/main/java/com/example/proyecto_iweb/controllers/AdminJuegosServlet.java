@@ -239,6 +239,7 @@ public class AdminJuegosServlet extends HttpServlet {
             // NOTIFICACIÓN DEL ADMIN
             case "listarNotificaciones":
                 request.setAttribute("notificaciones", adminJuegosDaos.listarNotificaciones(cuentas.getIdCuentas()));
+                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados());
                 request.getRequestDispatcher("admin/notificacionesAdmin.jsp").forward(request,response);
                 break;
         }
@@ -260,6 +261,7 @@ public class AdminJuegosServlet extends HttpServlet {
         switch (action) {
             case "crear":
                 InputStream inputStream;
+                String idAdmin =request.getParameter("idAdmin");
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 String consola = request.getParameter("consola");
@@ -278,21 +280,12 @@ public class AdminJuegosServlet extends HttpServlet {
 
                     } else{
                         double precio = Double.parseDouble(request.getParameter("precio"));
-                        int stock = Integer.parseInt(request.getParameter("stock"));
 
                         if ((precio > 1000) || (precio < 1)) {
-                            // USANDO EL METODO DE LEONARD
-                            /*
-                            Juegos juegos = (Juegos) session.getAttribute("errorPrecio");
-                            session.setAttribute("errorPrecio","El rango permitido es de 1 a 1000");
-                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
-                             */
+
                             session.setAttribute("errorPrecio","Precio: Ingrese valores entre [1-1000]");
                             response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
 
-                        } else if (stock>1000 || stock<1) {
-                            session.setAttribute("errorStock","Stock: Ingrese valores entre [1-1000]");
-                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=crearJuego");
                         } else {
                             inputStream = filePart.getInputStream();
                             if (filePart != null) {
@@ -312,7 +305,7 @@ public class AdminJuegosServlet extends HttpServlet {
 
                             } else {
                                 session.setAttribute("juegoCreado","Nuevo juego: Se añadio nuevo juego a la lista de disponibles");
-                                adminJuegosDaos.crearJuego(nombre, descripcion, precio, stock, consola, genero, inputStream);
+                                adminJuegosDaos.crearJuego(nombre, descripcion, precio, consola, genero, inputStream, idAdmin);
                                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                             }
                         }
@@ -357,7 +350,7 @@ public class AdminJuegosServlet extends HttpServlet {
 
                 String idJuego1 = request.getParameter("idJuego");
                 String descuento = request.getParameter("descuento");
-                if(!descuento.matches("[0-9]+") || Integer.parseInt(descuento)>90 || Integer.parseInt(descuento)<10){
+                if(!descuento.matches("[0-9]+") || Long.parseLong(descuento)>90 || Long.parseLong(descuento)<10){
                     session.setAttribute("errorDescuento","Descuento: Desde 10% hasta 90%");
                     request.setAttribute("juego", adminJuegosDaos.obtenerJuego(idJuego1));
                     request.getRequestDispatcher("admin/ofertarJuego.jsp").forward(request, response);

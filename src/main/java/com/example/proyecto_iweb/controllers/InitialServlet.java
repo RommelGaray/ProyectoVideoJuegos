@@ -46,7 +46,14 @@ public class InitialServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/olvidasteContraseña.jsp");
                 view.forward(request, response);
             break;
-
+            case "Validacion":
+                String correo = request.getParameter("correo");
+                try {
+                    usuarioCuentasDaos.validarCuenta(correo);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                request.getRequestDispatcher("loginPage.jsp").forward(request, response);
         }
     }
 
@@ -57,6 +64,7 @@ public class InitialServlet extends HttpServlet {
         EnvioCorreos envioCorreos = new EnvioCorreos();
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
+
 
         switch (action) {
             case "b1":
@@ -86,9 +94,23 @@ public class InitialServlet extends HttpServlet {
                         response.sendRedirect(request.getContextPath() + "/InitialServlet?action=guardar&errorConfirmacion"); // Validamos que la contraseña y su confimración sean iguales
 
                     }else{
+
                         usuarioCuentasDaos.guardarUsuario(cuentas1);
                         request.setAttribute("msg1", "Se ha crado exitosamente el usuario");
+                        String correo = cuentas1.getCorreo();
+                        String nombreCompleto = cuentas1.getNombre() + " " +cuentas1.getApellido();
+                        String asunto = "Nueva Cuenta Javagos.com";
+                        String enlaceValidacion = request.getContextPath() + "/InitialServlet?action=Validacion";
+
+                        String contenido = "<html><body>"
+                                + "<p>Hola " + nombreCompleto + ",</p>"
+                                + "<p>Has creado tu nueva cuenta con este correo. Para poder validar tu cuenta, haz clic en el siguiente enlace:</p>"
+                                + "<a href='" + enlaceValidacion + "' style='background-color: #dc3545; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;'>Validar cuenta</a>"
+                                + "</body></html>";
+
+                        envioCorreos.createEmail(correo,asunto,contenido);
                         request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+                        envioCorreos.sendEmail();
                     }
 
 

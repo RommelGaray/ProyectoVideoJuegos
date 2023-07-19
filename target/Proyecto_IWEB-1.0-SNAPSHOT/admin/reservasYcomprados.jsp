@@ -78,11 +78,6 @@
                     <%} else if (diferenciaEnDias>10) {%>
                         <td><h5 class="fw-bold text-danger"> <%=diferenciaEnDias%> días</h5></td>
 
-                        <!--
-
-                        ESPACIO PARA MANDAR CORREO AL ADMIN ENCARGADO
-
-                        -->
 
                     <%} else {%>
                         <td><p> <%=diferenciaEnDias%> días</p></td>
