@@ -99,7 +99,7 @@ public class AdminCuentasServlet extends HttpServlet {
                 if (cuentas1 != null){
                     String password1 = request.getParameter("newpassword1");
                     String password2 = request.getParameter("newpassword2");
-                    if (password1.equals(password2)  && !request.getParameter("newpassword1").isEmpty() && password1.length()>=5){
+                    if (password1.equals(password2)  && !request.getParameter("newpassword1").equals("") && password1.length()>=5){
                         adminCuentasDaos.actualizarPassword(cuentas1.getIdCuentas(), request.getParameter("newpassword1"));
                         session.setAttribute("msg","Contraseña cambiada correctamente");
                         response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=perfilAdmin");
