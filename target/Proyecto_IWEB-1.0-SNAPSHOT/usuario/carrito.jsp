@@ -203,6 +203,8 @@
                value="<%=juegos.getPrecio()%>">
         <input type="hidden" class="form-control" name="idJuego" id="idJuego"
                value="<%=juegos.getIdJuegos()%>">
+        <input type="hidden" class="form-control" name="stock" id="stock"
+               value="<%=juegos.getStock()-1%>">
         <div class="mt-3">
             <div class="row">
                 <div class="caption header-text">
@@ -232,10 +234,20 @@
 
 
 </main><!-- End #main -->
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> ee12ac2f574ecef94ef4ec0405073850ac377c54
 
 <!-- ======= Footer ======= -->
 
 <!-- ======= Footer ======= -->
+<<<<<<< HEAD
+=======
+>>>>>>> 89b0eaf19c3dfc628d44f3f44fc4edf7f4f2c64b
+>>>>>>> ee12ac2f574ecef94ef4ec0405073850ac377c54
 
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

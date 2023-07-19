@@ -4,6 +4,9 @@
 <%@ page import="java.util.ArrayList" %>
 
 <% ArrayList<Juegos> lista = (ArrayList<Juegos>) request.getAttribute("lista"); %>
+<jsp:useBean id="userAdmin" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
+             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +24,12 @@
 
 <!-- ======= Main ======= -->
 <main id="main" class="main">
+
+    <%if (session.getAttribute("msg") == "Contraseña cambiada correctamente") {%>
+        <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
+        <%session.removeAttribute("msg");%>
+    <%}%>
+
     <div class="row">
 
         <div class="col-md-10">

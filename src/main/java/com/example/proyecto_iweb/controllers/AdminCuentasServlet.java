@@ -69,11 +69,15 @@ public class AdminCuentasServlet extends HttpServlet {
 
         AdminJuegosDaos adminJuegosDaos = new AdminJuegosDaos();
         AdminCuentasDaos adminCuentasDaos = new AdminCuentasDaos();
+        Cuentas cuentas = new Cuentas();
+        HttpSession session = request.getSession();
+
+
 
         switch (action){
 
             // ACTUALIZAR LOS DATOS DEL PERFIL DEL ADMIN
-            case "actualizarPerfil":
+            case "actualizarPerfil": {
 
                 int idCuentas = Integer.parseInt(request.getParameter("idCuentas"));
                 String descripcionPerfil = request.getParameter("descripcion");
@@ -82,7 +86,34 @@ public class AdminCuentasServlet extends HttpServlet {
                 adminCuentasDaos.actualizarPerfil(idCuentas, descripcionPerfil, direccionPerfil);
                 HttpSession session1 = request.getSession();
                 Cuentas cuentas2 = (Cuentas) session1.getAttribute("usuarioLog");
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=perfilAdmin&id="+ cuentas2.getIdCuentas());
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=perfilAdmin&id=" + cuentas2.getIdCuentas());
+                break;
+            }
+
+            case "actualizarPassword":
+                cuentas = (Cuentas) session.getAttribute("usuarioLog");
+                String password = request.getParameter("password");
+
+                Cuentas cuentas1 = adminCuentasDaos.validarCambioPassword(cuentas.getIdCuentas(), password);
+
+                if (cuentas1 != null){
+                    String password1 = request.getParameter("newpassword1");
+                    String password2 = request.getParameter("newpassword2");
+                    if (password1.equals(password2)  && !request.getParameter("newpassword1").isEmpty() && password1.length()>=5){
+                        adminCuentasDaos.actualizarPassword(cuentas1.getIdCuentas(), request.getParameter("newpassword1"));
+                        session.setAttribute("msg","Contraseña cambiada correctamente");
+                        response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=perfilAdmin");
+                    }
+                    else {
+                        session.setAttribute("msgError", "Las contraseñas deben ser iguales o es mayor a 5 dígitos");
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=perfilAdmin");
+                    }
+                }
+                else {
+                    session.setAttribute("msgError", "La contraseña actual es incorrecta");
+                    response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=perfilAdmin");
+                }
+
                 break;
 
 

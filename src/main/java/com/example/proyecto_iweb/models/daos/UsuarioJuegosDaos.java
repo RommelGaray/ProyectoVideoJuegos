@@ -873,5 +873,20 @@ public class UsuarioJuegosDaos extends DaoBase {
     }
 
 
+    // ROMMEL AÑADIO LO SIGUIENTE
+
+    public void actualizarStock(int idJuego, int stock) {
+        String sql = "update juego set stock = ? where idJuego = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, stock);
+            pstmt.setInt(2, idJuego);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 }

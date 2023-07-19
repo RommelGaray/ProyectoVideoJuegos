@@ -93,12 +93,9 @@
                 <%}%>
 
 
-                <%System.out.println(java.time.LocalDate.now());%>
-
-                <!-- ICONOS -->
+                <!-- ENTREGA -->
 
                 <% if (c.getEstados().getEstados().equals("pendiente")) {%>
-
                     <td><a onclick="alert('Seguro que desea confirma la entrega a <%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%>');" class="btn btn-primary"
                            href="<%=request.getContextPath()%>/AdminJuegosServlet?a=juegoEntregado&id=<%=c.getIdCompra()%>&fechaEntrega=<%=java.time.LocalDate.now()%>">
                         Entregar</a></td>
