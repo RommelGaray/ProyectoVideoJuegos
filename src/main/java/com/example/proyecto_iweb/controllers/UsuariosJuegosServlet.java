@@ -265,24 +265,19 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 String latitudStr = request.getParameter("latitud");
                 String longitudStr = request.getParameter("longitud");
                 String nombreJuego = request.getParameter("nombre");
+                String stockStr = request.getParameter("stock");                        // AÑADIO ROMMEL
                 double precio = Double.parseDouble(precioStr);
                 double latitud = Double.parseDouble(latitudStr);
                 double longitud = Double.parseDouble(longitudStr);
                 int idJuego = Integer.parseInt(idJuegoStr);
+                int stock = Integer.parseInt(stockStr);                                     // AÑADIO ROMMEL
                 HttpSession session4 = request.getSession();
                 Cuentas cuentas4 = (Cuentas) session4.getAttribute("usuarioLog");
-                if(longitud== 0 || latitud==0){
-                    session4.setAttribute("err","Mueva el marcador a un lugar apropiado");
-                    response.sendRedirect(request.getContextPath() + "/UsuariosCuentasServlet?a=carrito");
-                }else{
-                    usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
-                    usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
-                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar");
-                    session4.setAttribute("msg","Compra Exitosa");
-                }
+
 
                 usuarioCuentasDaos.actualizarLatLong(cuentas4.getIdCuentas(),longitud,latitud);
                 usuarioJuegosDaos.guardarCompra(idJuego,cuentas4.getIdCuentas(),precio,cuentas4.getDireccion());
+                usuarioJuegosDaos.actualizarStock(idJuego,stock);
 
                 //todo envio correo
                 Cuentas cuenta = usuarioCuentasDaos.correo2("10"); //corre,nombre ,apellido

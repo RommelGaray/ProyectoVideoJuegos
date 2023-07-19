@@ -203,6 +203,8 @@
                value="<%=juegos.getPrecio()%>">
         <input type="hidden" class="form-control" name="idJuego" id="idJuego"
                value="<%=juegos.getIdJuegos()%>">
+        <input type="hidden" class="form-control" name="stock" id="stock"
+               value="<%=juegos.getStock()-1%>">
         <div class="mt-3">
             <div class="row">
                 <div class="caption header-text">
