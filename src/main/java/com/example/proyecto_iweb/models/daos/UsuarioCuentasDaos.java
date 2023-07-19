@@ -399,18 +399,8 @@ public class UsuarioCuentasDaos extends DaoBase{
              ResultSet rs = stmt.executeQuery(sql)) {
 
             if (rs.next()) {
-
                 cuentas = new Cuentas();
                 cuentas.setIdCuentas(rs.getInt(1));
-                cuentas.setNombre(rs.getString(2));
-                cuentas.setApellido(rs.getString(3));
-                cuentas.setNickname(rs.getString(4));
-                cuentas.setDireccion(rs.getString(5));
-                cuentas.setCorreo(rs.getString(6));
-                cuentas.setFoto(rs.getString(7));
-                cuentas.setDescripcion(rs.getString(8));
-                cuentas.setPasswordHashed(rs.getString(11));
-
                 return cuentas;
             }
         }catch (SQLException e) {
