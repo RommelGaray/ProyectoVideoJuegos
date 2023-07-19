@@ -65,7 +65,6 @@
 
 
     </style>
-    <link rel="stylesheet" type="text/css" href="assets/css/estilo.css">
 </head>
 
 <body>
@@ -118,7 +117,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label for="cardNumber">NUmero de Tarjeto</label>
+                                    <label for="cardNumber">NUMERO DE TARJETA</label>
                                     <div class="input-group">
                                         <input
                                                 type="tel"
@@ -151,7 +150,7 @@
                         <div class="row">
                             <div class="col-xs-7 col-md-7">
                                 <div class="form-group">
-                                    <label for="cardExpiry"><span class="hidden-xs">Fecha</span><span class="visible-xs-inline"></span> de Expiracion</label>
+                                    <label for="cardExpiry"><span class="hidden-xs">FECHA</span><span class="visible-xs-inline"></span> DE EXPIRACION</label>
                                     <input
                                             type="tel"
                                             class="form-control"
