@@ -109,19 +109,23 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
 
             case "verPrecio":
-
                 String id5 = request.getParameter("id");
                 VentaUsuario venta = usuarioJuegosDaos.verVenta(id5);
+                if(venta!= null){
+                    if(cuentas.getIdCuentas()==venta.getIdUsuario()){
+                        request.setAttribute("verVenta", usuarioJuegosDaos.verVenta(id5));
+                        request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response);
+                    }else{
 
-                if(cuentas.getIdCuentas()==venta.getIdUsuario()){
-                    request.setAttribute("verVenta", usuarioJuegosDaos.verVenta(id5));
-                    request.getRequestDispatcher("usuario/editarPrecioJuego.jsp").forward(request, response);
+                        //session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
+                    }
                 }else{
-
-                    session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                    //session6.setAttribute("nonono","Esta prohibido ingresar ahí");
                     response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
                 }
-                          ;
+
+
                 break;
 
             case "agregarjuego":
@@ -140,26 +144,32 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "formulario":
                 String id6 = request.getParameter("id");
                 VentaUsuario venta1 = usuarioJuegosDaos.verVenta(id6);
-
+                if(venta1!= null){
                 if(cuentas.getIdCuentas()==venta1.getIdUsuario()){
                     request.setAttribute("formulario",usuarioJuegosDaos.verVenta(id6));
                     request.getRequestDispatcher("usuario/formularioJuego.jsp").forward(request,response);
                 }else{
-                    session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                    //session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
+                } }else{
+                    //session6.setAttribute("nonono","Esta prohibido ingresar ahí");
                     response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
                 }
                 break;
             case "formularioCompra":
                 String id8 = request.getParameter("id");
                 CompraUsuario compra = usuarioJuegosDaos.verCompra(id8);
+                if(compra!= null){
                 if(cuentas.getIdCuentas()==compra.getIdUsuario()){
                     request.setAttribute("formularioCompra",usuarioJuegosDaos.verCompra(id8));
                     request.getRequestDispatcher("usuario/juegoComprado.jsp").forward(request,response);
                 }else{
-                    session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                    //session6.setAttribute("nonono","Esta prohibido ingresar ahí");
+                    response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
+                } }else{
+                    //session6.setAttribute("nonono","Esta prohibido ingresar ahí");
                     response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
                 }
-
                 break;
 
 
@@ -175,7 +185,8 @@ public class UsuariosJuegosServlet extends HttpServlet {
         EnvioCorreos envioCorreos = new EnvioCorreos();
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
         UsuarioJuegosDaos usuarioJuegosDaos = new UsuarioJuegosDaos();
-
+        HttpSession session6 = request.getSession();
+        Cuentas cuentas2 = (Cuentas) session6.getAttribute("usuarioLog");
         switch (action) {
             case "b":
                 String textoBuscar = request.getParameter("textoBuscar");
@@ -217,16 +228,22 @@ public class UsuariosJuegosServlet extends HttpServlet {
             case "a":
                 VentaUsuario ventaUsuario = parseVentas(request);
                 HttpSession session2 = request.getSession();
+                String idVenta = String.valueOf(ventaUsuario.getIdVenta());
+                VentaUsuario venta = usuarioJuegosDaos.verVenta(idVenta);
                 if(ventaUsuario != null){
                     String precioString = String.valueOf(ventaUsuario.getPrecioVenta());
-                    if(ventaUsuario.getPrecioVenta()<0 || precioString.isEmpty()|| ventaUsuario.getPrecioVenta()==0){
+                    if(ventaUsuario.getPrecioVenta()<0 || precioString.isEmpty()|| ventaUsuario.getPrecioVenta()==0 ){
+                        if(cuentas2.getIdCuentas()!=venta.getIdUsuario()){
+                            session2.setAttribute("err","Precio que no cumple lo establecido");
+                            response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=verPrecio&id="+ ventaUsuario.getIdVenta());
+                        }else {
+                            usuarioJuegosDaos.actualizarPrecioVenta(ventaUsuario);
+                            session2.setAttribute("msg","Precio editado exitosamente");
+                            response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
+                        }
+                    }else{
                         session2.setAttribute("err","Precio que no cumple lo establecido");
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=verPrecio&id="+ ventaUsuario.getIdVenta());
-                    }
-                    else {
-                        usuarioJuegosDaos.actualizarPrecioVenta(ventaUsuario);
-                        session2.setAttribute("msg","Precio editado exitosamente");
-                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos ");
                     }
                 }
                 break;
@@ -242,20 +259,24 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 break;
             case "raiting":
                 CompraUsuario compraUsuario = parseCompra(request);
-                String raiting = request.getParameter("raiting");
-
                 HttpSession session3 = request.getSession();
+                String idCompra = String.valueOf(compraUsuario.getIdCompra());
+                CompraUsuario compra = usuarioJuegosDaos.verCompra(idCompra);
                 if(compraUsuario != null){
 
-                    if(compraUsuario.getRaiting()<1 ||compraUsuario.getRaiting()>5){
-
-                        session3.setAttribute("err","Coloque un número entre del 1 (No me gusta) al 5 (Me Encanta)");
+                    if(compraUsuario.getRaiting()>1 && compraUsuario.getRaiting()<5){
+                        if(cuentas2.getIdCuentas()!=compra.getIdUsuario()){
+                            //session3.setAttribute("err3","Precio que no cumple lo establecido");
+                            response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados");
+                        }else{
+                            usuarioJuegosDaos.actualizarRaiting(compraUsuario);
+                            session3.setAttribute("msg","Gracias por compartir su opinion con nosotros");
+                            response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
+                        }
+                    }else {
+                        session3.setAttribute("err1","Coloque un número entre del 1 (No me gusta) al 5 (Me Encanta)");
                         response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=formularioCompra&id="+ compraUsuario.getIdCompra());
-                    }
-                    else {
-                        usuarioJuegosDaos.actualizarRaiting(compraUsuario);
-                        session3.setAttribute("msg","Gracias por compartir su opinion con nosotros");
-                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=comprados ");
+
                     }
                 }
                 break;
@@ -331,12 +352,12 @@ public class UsuariosJuegosServlet extends HttpServlet {
         VentaUsuario ventaUsuario = new VentaUsuario();
         String idVenta = request.getParameter("idVentas") != null ? request.getParameter("idVentas") : "";
         String precio = request.getParameter("precioVenta");
-        String idCuenta = request.getParameter("idCuenta");
+
 
         try {
 
             int id = Integer.parseInt(idVenta);
-            ventaUsuario.setIdUsuario(Integer.parseInt(idCuenta));
+
             ventaUsuario.setIdVenta(id);
             ventaUsuario.setPrecioVenta(Double.parseDouble(precio));
 
