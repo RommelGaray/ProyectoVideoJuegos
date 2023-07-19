@@ -143,7 +143,7 @@ public class UsuarioCuentasDaos extends DaoBase{
         Cuentas cuentas = null;
 
         String sql = "SELECT * FROM cuenta \n" +
-                "where correo = ? and passwordHashed = sha2(?,256);";
+                "where correo = ? and passwordHashed = sha2(?,256) and desabilitado = \"0\";";
 
         try (Connection connection = getConection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
