@@ -20,7 +20,7 @@
 </jsp:include>
 <style>
     .juego-imagen {
-        width: 360px;
+        width: 325px;
         height: 240px;
         object-fit: cover;
     }
