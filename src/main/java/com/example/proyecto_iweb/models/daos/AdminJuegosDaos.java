@@ -88,14 +88,11 @@ public class AdminJuegosDaos  extends DaoBase{
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql)) {
-
             while (resultSet.next()) {
                 Consolas consolas = new Consolas();
-
                 consolas.setNombre(resultSet.getString(1));
                 lista.add(consolas);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -172,6 +169,7 @@ public class AdminJuegosDaos  extends DaoBase{
                         juegos.setGenero(rs.getString(10));
                         juegos.setStock(rs.getInt(11));
                         juegos.setFotoJuego(rs.getString(12));
+                        juegos.setIdAdminEncargado(rs.getInt(13));
                     }
                 }
 

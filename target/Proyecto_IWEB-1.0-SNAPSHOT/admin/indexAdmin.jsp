@@ -29,8 +29,13 @@
 <main id="main" class="main">
 
     <% if (session.getAttribute("juegoCreado") != null) {%>
-        <div class="alert alert-danger" role="alert"><%=session.getAttribute("juegoCreado")%></div>
+        <div class="alert alert-success" role="alert"><%=session.getAttribute("juegoCreado")%></div>
         <%session.removeAttribute("juegoCreado");%>
+    <% }%>
+
+    <% if (session.getAttribute("cambioDescuento") != null) {%>
+    <div class="alert alert-success" role="alert"><%=session.getAttribute("cambioDescuento")%></div>
+    <%session.removeAttribute("cambioDescuento");%>
     <% }%>
 
     <div class="row">

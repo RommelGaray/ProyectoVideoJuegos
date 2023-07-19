@@ -22,6 +22,7 @@ public class Juegos {
     /* --------------------------------------- SE AÑADIO ESTO --------------------------------------- */
 
     private String fotoJuego;
+    private int idAdminEncargado;
 
     public String getFotoJuego() {
         return fotoJuego;
@@ -29,6 +30,14 @@ public class Juegos {
 
     public void setFotoJuego(String fotoJuego) {
         this.fotoJuego = fotoJuego;
+    }
+
+    public int getIdAdminEncargado() {
+        return idAdminEncargado;
+    }
+
+    public void setIdAdminEncargado(int idAdminEncargado) {
+        this.idAdminEncargado = idAdminEncargado;
     }
 
     /* ---------------------------------------------------------------------------------------------------------------*/

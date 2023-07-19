@@ -89,8 +89,8 @@ public class AdminJuegosServlet extends HttpServlet {
             case "ofertarJuego":
                 String id4 = request.getParameter("id");
                 request.setAttribute("juego", adminJuegosDaos.obtenerJuego(id4));
-                request.setAttribute("consolas", adminJuegosDaos.consolas());
-                request.setAttribute("generos", adminJuegosDaos.generos());
+                //request.setAttribute("consolas", adminJuegosDaos.consolas());
+                //request.setAttribute("generos", adminJuegosDaos.generos());
                 request.getRequestDispatcher("admin/ofertarJuego.jsp").forward(request, response);
                 break;
 
@@ -354,26 +354,18 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "ofertar":
-                //String idJuegoStr = String.valueOf(request.getParameter("idJuego"));
-                //String descuento = request.getParameter("descuento");
-                int idJuego1 = Integer.parseInt(request.getParameter("idJuego"));
-                double descuento = Double.parseDouble(request.getParameter("descuento"));
 
-                if ((descuento > 90) || (descuento < 10)){
-                    session.setAttribute("errorDescuento","Debe ingresar un valor entre 10-90 %");
-
-                    request.setAttribute("juego", adminJuegosDaos.obtenerJuego(String.valueOf(idJuego1)));
-                    request.setAttribute("consolas", adminJuegosDaos.consolas());
-                    request.setAttribute("generos", adminJuegosDaos.generos());
-                    response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=ofertarJuego&id="+idJuego1);
-
-                } else {
-                    //String id4 = request.getParameter("id");
-
-                    adminJuegosDaos.ofertarJuego(idJuego1, descuento);
+                String idJuego1 = request.getParameter("idJuego");
+                String descuento = request.getParameter("descuento");
+                if(!descuento.matches("[0-9]+") || Integer.parseInt(descuento)>90 || Integer.parseInt(descuento)<10){
+                    session.setAttribute("errorDescuento","Descuento: Desde 10% hasta 90%");
+                    request.setAttribute("juego", adminJuegosDaos.obtenerJuego(idJuego1));
+                    request.getRequestDispatcher("admin/ofertarJuego.jsp").forward(request, response);
+                } else{
+                    session.setAttribute("cambioDescuento","Descuento: Se actualizo correctamente");
+                    adminJuegosDaos.ofertarJuego(Integer.parseInt(idJuego1), Integer.parseInt(descuento));
                     response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
                 }
-
 
                 break;
 

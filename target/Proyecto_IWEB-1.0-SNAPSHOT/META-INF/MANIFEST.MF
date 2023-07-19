@@ -1,31 +1,5 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-<<<<<<< HEAD
 Built-By: romme
 Build-Jdk: 17.0.6
-=======
-<<<<<<< HEAD
-Built-By: Dylan
-Build-Jdk: Amazon Corretto version 17.0.7
->>>>>>> d588058a47632bba610dfeb6b9d94bb1c252ce2a
 
-=======
-<<<<<<< HEAD
-Built-By: user
-Build-Jdk: Amazon Corretto version 17.0.6
-=======
-<<<<<<< HEAD
-Built-By: Dylan
-Build-Jdk: Amazon Corretto version 17.0.7
-=======
-Built-By: oscar
-Build-Jdk: 17.0.7
-Built-By: Dylan
-Build-Jdk: Amazon Corretto version 17.0.7
-
-Built-By: user
-Build-Jdk: Amazon Corretto version 17.0.6
->>>>>>> a476481f65a2ff515e01ac1d59461b7c16c1ab8a
->>>>>>> d647d49c412bf667f81ac2e560700ab73400f88e
-
->>>>>>> 9b8e2cd70f25ad29589a017e4860b47306836521
