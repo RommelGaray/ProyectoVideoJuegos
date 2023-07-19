@@ -4,8 +4,6 @@
 <%@ page import="com.example.proyecto_iweb.models.dtos.Generos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="juego" type="com.example.proyecto_iweb.models.beans.Juegos" scope="request"/>
-<jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Consolas>" scope="request"/>
-<jsp:useBean id="generos" type="java.util.ArrayList<com.example.proyecto_iweb.models.dtos.Generos>" scope="request"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +38,7 @@
 
         <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=ofertar">
             <input type="hidden" class="form-control" name="idJuego" id="idJuego"
-                   value="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=juego.getIdJuegos()%>">
+                   value="<%=juego.getIdJuegos()%>">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="mb-3">

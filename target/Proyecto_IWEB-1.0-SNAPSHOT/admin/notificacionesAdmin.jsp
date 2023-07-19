@@ -3,11 +3,17 @@
 <%@ page import="com.example.proyecto_iweb.models.beans.Cuentas" %>
 <%@ page import="com.example.proyecto_iweb.models.beans.VentaUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.proyecto_iweb.models.beans.CompraUsuario" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.temporal.ChronoUnit" %>
 
 <%
     ArrayList<VentaUsuario> listaNotificaciones = (ArrayList<VentaUsuario>) request.getAttribute("notificaciones");
 
 %>
+
+<% ArrayList<CompraUsuario> lista = (ArrayList<CompraUsuario>) request.getAttribute("lista"); %>
+
 <jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
              class="com.example.proyecto_iweb.models.beans.Cuentas"/>
 <!DOCTYPE html>
@@ -55,48 +61,62 @@
 
 
 
-    <section class="section faq">
-        <div class="row">
+    <div class="container">
+        <div class="pagetitle">
+            <h1 class="mb-4">Notificaciones funicona?</h1>
+        </div>
 
-            <div class="col-lg-2"></div>
+        <div class="col text-center">
+            <div class="disponibleUsuario">
 
-            <% if (listaNotificaciones.size()==0) { %>
-            <div class="col-lg-12">
-                <div class="pagetitle">
-                    <h1 class="mb-4">Notificaciones</h1>
-                </div>
-                    <br><br>
-                    <div class="col text-center">
-                        <div class="disponibleUsuario">
-                            <div class="col text-center" style="max-width: 1000px;">
-                                <h1>Aquí van a aparecer las distintas actualizaciones de su compras y ventas</h1>
-                            </div>
-                            <br><br>
+                <div class="row">
+                    <div class="col-md-10">
+                        <% boolean alertaImpresa = false; %>
 
-                            </div>
+                        <% for (CompraUsuario c : lista) {
+                            LocalDate fecha1 = c.getFechaCompra().toLocalDate();
+                            LocalDate fecha2 = LocalDate.now();
+                            long diferenciaEnDias = ChronoUnit.DAYS.between(fecha1, fecha2);
 
-                </div>
-            </div>
-            <%}else { %>
-            <!-- AQUI VAN LOS FILTROS DE CATEGORIAS-->
-            <div class="col-lg-8">
-                <div class="pagetitle">
-                    <h1 class="mb-4">Notificaciones</h1>
-                    <%for (VentaUsuario cv : listaNotificaciones){%>
-                    <div class="alert alert-primary" role="alert">
-                        <p class="fw-bold" ><%=cv.getJuegos().getNombre()%></p>
-                        <p><%=cv.getMensajeAdmin()%></p>
+                            if (c.getEstados().getEstados().equals("pendiente") && diferenciaEnDias > 10) {
+                        %>
+                        <div class="alert alert-primary" role="alert">
+                            <p class="fw-bold">Alerta: El usuario <%= c.getUsuario().getNombre() %> <%= c.getUsuario().getApellido() %></p>
+                            <p>Tiene <span style="color: red;"><%= diferenciaEnDias %> días</span> de retraso en la entrega del juego <span style="color: red;"><%=c.getJuegos().getNombre()%></span>, revísalo</p>
+                            <a href="<%= request.getContextPath() %>/AdminJuegosServlet?a=detallesCompra&id=<%= c.getIdCompra() %>"
+                               class="btn btn-primary m-1">Detalles</a>
+                        </div>
+                        <%
+                                    // Marcar la alerta como impresa
+                                    alertaImpresa = true;
+                                }
+                            }%>
+
+                        <% if (!alertaImpresa) { %>
+                        <div class="alert alert-primary" role="alert">
+                            <p class="fw-bold">Aún no tiene alertas</p>
+                        </div>
+                        <% } %>
                     </div>
-                    <%}%>
+
+                    <div class="col-md-2">
+                        <div class="position-fixed end-1">
+                            <div>
+                                <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=reservas" class="btn btn-danger d-flex align-items-center">
+                                    <span class="align-middle d-flex align-items-center">Revisar Comprados/Reservados</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
-            <%}%>
-
-
-            <div class="col-lg-2"></div>
 
         </div>
-    </section>
+
+    </div>
+
 
 </main><!-- End #main -->
 
