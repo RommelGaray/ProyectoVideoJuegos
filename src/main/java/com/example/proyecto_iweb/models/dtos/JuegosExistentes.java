@@ -7,6 +7,7 @@ public class JuegosExistentes {
     private double precioVenta;
     private int stock;
     private int cant_ventas;
+    private String fotojuego;
 
     public int getIdVenta() {
         return idVenta;
@@ -54,5 +55,13 @@ public class JuegosExistentes {
 
     public void setCant_ventas(int cant_ventas) {
         this.cant_ventas = cant_ventas;
+    }
+
+    public String getFotojuego() {
+        return fotojuego;
+    }
+
+    public void setFotojuego(String fotojuego) {
+        this.fotojuego = fotojuego;
     }
 }
