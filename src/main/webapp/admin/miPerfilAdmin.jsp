@@ -107,6 +107,10 @@
       <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%></div>
       <%session.removeAttribute("msg");%>
       <% }%>
+      <%if (session.getAttribute("msgError") != null) {%>
+      <p class="text-danger"><%=session.getAttribute("msgError")%></p>
+      <%session.removeAttribute("msgError");        }
+      %>
       <div class="col-xl-4">
 
         <div class="card">
@@ -143,8 +147,6 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Regresar</button>
-                    <!-- <a href="" class="btn btn-dark">Modificar Precio</a>-->
-                    <!--<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar Precio</button> -->
                   </div>
                 </div>
               </div>
@@ -152,17 +154,6 @@
           </div>
           <br>
 
-          <!--<div class="col-md-11">
-            <div class="mb-3">
-              <label for="formFile" class="form-label"></label>
-              <input class="form-control" type="file" id="formFile">
-            </div>
-          </div>
-
-          <div class="pt-2 d-flex justify-content-center align-items-center">
-            <a href="#" class="btn btn-primary btn-sm m-2" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-            <a href="#" class="btn btn-danger btn-sm m-2" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-          </div>-->
         </div>
       </div>
 
@@ -275,27 +266,29 @@
 
               <!-- CAMBIO DE CONTRASEÑA DEL ADMIN -->
               <div class="tab-pane fade pt-3" id="profile-change-password">
-                <form>
+                <form class="needs-validation" method="post" action="<%=request.getContextPath()%>/AdminCuentasServlet?p=actualizarPassword" novalidate>
                   <div class="row mb-3">
                     <label for="password" class="col-md-4 col-lg-3 col-form-label">Contraseña actual</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="password" type="password" class="form-control" id="password" value="<%=cuentas.getPasswordHashed()%>">
+                      <input required name="password" type="password" class="form-control" id="password">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nueva contraseña</label>
+                    <label for="newpassword1" class="col-md-4 col-lg-3 col-form-label">Nueva contraseña</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="newpassword" type="password" class="form-control" id="newPassword">
+                      <input required name="newpassword1" type="password" class="form-control" id="newpassword1">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Repetir nueva contraseña</label>
+                    <label for="newpassword2" class="col-md-4 col-lg-3 col-form-label">Confirmar nueva contraseña</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                      <input required name="newpassword2" type="password" class="form-control" id="newpassword2">
                     </div>
                   </div>
+
+
 
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary">Cambiar contraseña</button>

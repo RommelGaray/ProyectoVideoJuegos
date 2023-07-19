@@ -107,9 +107,10 @@ public class InitialServlet extends HttpServlet {
                 // envio de correo
                 cuentas = usuarioCuentasDaos.correo(cuentas.getCorreo());
                 String asunto = "Nueva Contraseña";
-                String contenido = "Hola se ha actualizado la contraseña con el valor de 123@asdASD ";
+                String contenido = "Hola se ha actualizado la contraseña con el valor de 123@asdASD. Ingrese y cambie la contraseña";
+
                 envioCorreos.createEmail(cuentas.getCorreo(),asunto,contenido);
-                request.setAttribute("contraseña","Ya se envió en correo revise la nueva contraseña");
+                request.setAttribute("contraseña","Ya se envió en correo revise la nueva contraseña proporciona y cambie por una nueva");
                 request.getRequestDispatcher("loginPage.jsp").forward(request, response);
                 envioCorreos.sendEmail();
 

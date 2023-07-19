@@ -75,9 +75,9 @@
 <main  id="main" class="main">
     <div class="container " >
         <h1 class='mt-3'>Formulario del Juego comprado</h1>
-        <% if (session.getAttribute("err") != null) {%>
-        <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%></div>
-        <%session.removeAttribute("err");%>
+        <% if (session.getAttribute("err1") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("err1")%></div>
+        <%session.removeAttribute("err1");%>
         <% }%>
 
 

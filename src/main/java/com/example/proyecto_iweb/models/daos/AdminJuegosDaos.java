@@ -283,7 +283,7 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
-    public CompraUsuario comprados(int idVenta) {
+    public CompraUsuario comprados(int idCompra) {
 
         CompraUsuario compraUsuario = null;
 
@@ -296,7 +296,7 @@ public class AdminJuegosDaos  extends DaoBase{
         try (Connection connection = this.getConection();
              PreparedStatement stmt = connection.prepareStatement(sql1)) {
 
-            stmt.setInt(1, idVenta);  // Establecer el valor del parámetro idVenta
+            stmt.setInt(1, idCompra);  // Establecer el valor del parámetro idCompra
 
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
@@ -310,11 +310,15 @@ public class AdminJuegosDaos  extends DaoBase{
                     compraUsuario.setIdAdmin(resultSet.getInt(7));
                     compraUsuario.setPrecioCompra(resultSet.getInt(8));
                     compraUsuario.setIdEstados(resultSet.getInt(9));
+                    compraUsuario.setFechaEntrega(resultSet.getDate(10));
 
                     Cuentas cuentas = new Cuentas();
                     cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
                     cuentas.setNombre(resultSet.getString("c.nombre"));
                     cuentas.setApellido(resultSet.getString("c.apellido"));
+                    cuentas.setFoto(resultSet.getString("c.foto"));
+                    cuentas.setLatitud(resultSet.getString("c.latitud"));
+                    cuentas.setLongitud(resultSet.getString("c.longitud"));
                     compraUsuario.setUsuario(cuentas);
 
                     Estados estados = new Estados();
@@ -325,6 +329,8 @@ public class AdminJuegosDaos  extends DaoBase{
                     Juegos juegos = new Juegos();
                     juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
                     juegos.setNombre(resultSet.getString("j.nombre"));
+                    juegos.setDescripcion(resultSet.getString("j.descripcion"));
+                    juegos.setStock(resultSet.getInt("j.stock"));
                     compraUsuario.setJuegos(juegos);
 
                 }
@@ -548,7 +554,7 @@ public class AdminJuegosDaos  extends DaoBase{
         ArrayList<VentaUsuario> lista = new ArrayList<>();
 
         //se obtiene  1.idVenta, 2.idJuego, 3.nombre (juego), 4.nombre 5.apellido (cuenta), 6.precio, 7.foto, 8.genero
-        String sql =    "SELECT vu.idVenta, vu.idJuego, j.nombre, c.nombre, c.apellido, vu.precioVenta, j.foto, j.genero\n" +
+        String sql =    "SELECT vu.idVenta, vu.idJuego, j.nombre, c.nombre, c.apellido, vu.precioVenta, j.fotojuego, j.genero\n" +
                         "FROM ventausuario vu\n" +
                         "JOIN juego j ON vu.idJuego = j.idJuego\n" +
                         "JOIN cuenta c ON vu.idUsuario = c.idCuenta\n" +
@@ -565,7 +571,7 @@ public class AdminJuegosDaos  extends DaoBase{
                 ventausuario.setIdJuego(resultSet.getInt(2));
                 Juegos juegos = new Juegos();
                 juegos.setNombre(resultSet.getString(3));
-                juegos.setFoto(resultSet.getNString(7));
+                juegos.setFotoJuego(resultSet.getString(7));
                 juegos.setGenero(resultSet.getString(8));
                 ventausuario.setJuegos(juegos);
                 Cuentas cuenta = new Cuentas();
@@ -856,9 +862,6 @@ public class AdminJuegosDaos  extends DaoBase{
 
 
 
-
-
-
     //Rommel
     public void juegoEntregado(String idCompra, Date fechaEntrega){
 
@@ -917,6 +920,7 @@ public class AdminJuegosDaos  extends DaoBase{
 
         return lista;
     }
+
 
 
 }

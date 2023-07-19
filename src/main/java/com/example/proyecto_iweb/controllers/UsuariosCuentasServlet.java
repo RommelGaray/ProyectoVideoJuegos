@@ -97,7 +97,7 @@ public class UsuariosCuentasServlet extends HttpServlet {
         String action = request.getParameter("p") == null ? "guardar" : request.getParameter("p");
 
         UsuarioCuentasDaos usuarioCuentasDaos = new UsuarioCuentasDaos();
-
+        HttpSession session = request.getSession();
         switch (action) {
             case "a":
                 Cuentas cuentas = parseCuentas(request);
@@ -148,6 +148,31 @@ public class UsuariosCuentasServlet extends HttpServlet {
 
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
+                }
+
+            break;
+            case "actualizarPassword":
+                cuentas = (Cuentas) session.getAttribute("usuarioLog");
+                String password = request.getParameter("password");
+
+                Cuentas cuentas2 = usuarioCuentasDaos.validarCambioPassword(cuentas.getIdCuentas(), password);
+
+                if (cuentas2 != null){
+                    String password1 = request.getParameter("newpassword1");
+                    String password2 = request.getParameter("newpassword2");
+                    if (password1.equals(password2)  && !request.getParameter("newpassword1").isEmpty() && password1.length()>=5){
+                        usuarioCuentasDaos.actualizarPassword(cuentas2.getIdCuentas(), request.getParameter("newpassword1"));
+                        session.setAttribute("msg2","Contraseña cambiada correctamente");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=perfil");
+                    }
+                    else {
+                        session.setAttribute("msgError", "Las contraseñas deben ser iguales o es mayor a 5 dígitos");
+                        response.sendRedirect(request.getContextPath()+"/UsuariosJuegosServlet?a=perfil");
+                    }
+                }
+                else {
+                    session.setAttribute("msgError", "La contraseña actual es incorrecta");
+                    response.sendRedirect(request.getContextPath()+"/UsuariosJuegosServlet?a=perfil");
                 }
 
                 break;

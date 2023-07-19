@@ -94,16 +94,21 @@ public class AdminJuegosServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/ofertarJuego.jsp").forward(request, response);
                 break;
 
-            case "detallesCdetallesCompra":
+            // SECCION DE RESERVAS Y COMPRADOS
+            case "detallesCompra":
                 String id100 = request.getParameter("id");
                 request.setAttribute("compra", adminJuegosDaos.comprados(Integer.parseInt(id100)));
                 request.getRequestDispatcher("admin/detallesCompras2.jsp").forward(request, response);
                 break;
 
-            case "perfilUsuarios":
+                // PARA VISUALIZAR LA UBICACION EN EL MAPA DEL USUARIO
+            case "locationUsuario":
                 String id101 = request.getParameter("id");
-                request.getRequestDispatcher("admin/perfilUsuarios.jsp").forward(request, response);
+                request.setAttribute("usuario", adminJuegosDaos.comprados(Integer.parseInt(id101)));
+                request.getRequestDispatcher("admin/locationUsuario.jsp").forward(request, response);
                 break;
+
+            // TERMINA SECCION DE RESERVAS Y COMPRADOS
 
             case "aceptarUsuario":
                 String id9 = request.getParameter("id");
@@ -216,8 +221,10 @@ public class AdminJuegosServlet extends HttpServlet {
             case "juegoEntregado":
                 String idCompra = request.getParameter("id");
                 String fechaEntrega = request.getParameter("fechaEntrega");
+
                 request.setAttribute("lista",adminJuegosDaos.compradosAndReservados());
                 adminJuegosDaos.juegoEntregado(idCompra, Date.valueOf(fechaEntrega));
+
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=reservas");
                 break;
 

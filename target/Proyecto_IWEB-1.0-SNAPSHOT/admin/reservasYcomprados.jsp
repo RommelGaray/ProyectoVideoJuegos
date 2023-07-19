@@ -93,12 +93,9 @@
                 <%}%>
 
 
-                <%System.out.println(java.time.LocalDate.now());%>
-
-                <!-- ICONOS -->
+                <!-- ENTREGA -->
 
                 <% if (c.getEstados().getEstados().equals("pendiente")) {%>
-
                     <td><a onclick="alert('Seguro que desea confirma la entrega a <%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%>');" class="btn btn-primary"
                            href="<%=request.getContextPath()%>/AdminJuegosServlet?a=juegoEntregado&id=<%=c.getIdCompra()%>&fechaEntrega=<%=java.time.LocalDate.now()%>">
                         Entregar</a></td>
@@ -115,8 +112,8 @@
                     <div class="d-flex justify-content-center">
                         <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesCompra&id=<%=c.getIdCompra()%>"
                            class="btn btn-primary m-1"><i class="bi bi-list-task"></i></a>
-                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=perfilUsuarios&id=<%=c.getIdCompra()%>"
-                           class="btn btn-primary m-1"><i class="bi bi-person-circle"></i></a>
+                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=locationUsuario&id=<%=c.getIdCompra()%>"
+                           class="btn btn-primary m-1"><i class="bi bi-geo-alt-fill"></i></a>
                     </div>
 
                 </td>

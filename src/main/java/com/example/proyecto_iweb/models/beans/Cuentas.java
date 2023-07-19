@@ -1,7 +1,5 @@
 package com.example.proyecto_iweb.models.beans;
 
-import java.sql.Blob;
-
 public class Cuentas {
 
     private int idCuentas;
