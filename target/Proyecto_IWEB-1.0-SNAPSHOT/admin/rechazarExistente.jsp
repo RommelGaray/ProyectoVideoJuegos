@@ -62,7 +62,7 @@
                     </div>
                     <div class="mb-5">
                         <label for="mensajeAdmin" style="color: red; font-weight: bold;">DAR MOTIVO DE RECHAZO DE JUEGO</label>
-                        <input type="text" class="form-control" name="mensajeAdmin" id="mensajeAdmin" value="<%=ventaUsuario.getMensajeAdmin()%>">
+                        <input type="text" class="form-control" name="mensajeAdmin" id="mensajeAdmin" value="<%= (ventaUsuario.getMensajeAdmin() != null && !ventaUsuario.getMensajeAdmin().isEmpty()) ? ventaUsuario.getMensajeAdmin() : "" %>">
                     </div>
                     <% if (request.getParameter("error") != null && request.getParameter("error").equals("mensajeVacio")) { %>
                     <div class="alert alert-danger">Tiene que dejar un mensaje de explicando el motivo de rechazo del juego.</div>
