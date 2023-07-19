@@ -50,6 +50,10 @@
 
 
 <main  id="main" class="main">
+    <% if (session.getAttribute("err") != null) {%>
+    <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%></div>
+    <%session.removeAttribute("err");%>
+    <% }%>
     <div class="container " >
         <h1 class='mt-3'>Editar Juego Existente</h1>
         <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet?p=e">

@@ -181,19 +181,18 @@ public class AdminJuegosDaos  extends DaoBase{
         return juegos;
     }
 
-    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, double descuento, String consola, String genero, int stock){
-        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, descuento = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
+    public void actualizarJuego(int idJuego, String nombre, String descripcion, double precio, String consola, String genero, int stock){
+        String sql = "UPDATE juego SET nombre = ?,descripcion = ?,precio = ?, consola = ?, genero = ?, stock = ? WHERE idJuego = ?";
         try (Connection connection = this.getConection()){
 
             try (PreparedStatement pstmt = connection.prepareStatement(sql)){
                 pstmt.setString(1, nombre);
                 pstmt.setString(2, descripcion);
                 pstmt.setDouble(3, precio);
-                pstmt.setDouble(4, descuento);
-                pstmt.setString(5, consola);
-                pstmt.setString(6, genero);
-                pstmt.setInt(7, stock);
-                pstmt.setInt(8, idJuego);
+                pstmt.setString(4, consola);
+                pstmt.setString(5, genero);
+                pstmt.setInt(6, stock);
+                pstmt.setInt(7, idJuego);
                 pstmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -243,6 +242,7 @@ public class AdminJuegosDaos  extends DaoBase{
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql1)) {
 
+
             pstmt.setInt(1, idAdmin);
             try(ResultSet resultSet = pstmt.executeQuery()){
                 while(resultSet.next()){
@@ -286,21 +286,18 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
+
+
     public CompraUsuario comprados(int idCompra) {
-
         CompraUsuario compraUsuario = null;
-
         String sql1 = "SELECT * FROM comprausuario cu\n" +
                 "LEFT JOIN estados e ON cu.idEstados = e.idestados\n" +
                 "LEFT JOIN cuenta c ON cu.idUsuario = c.idCuenta\n" +
                 "LEFT JOIN juego j ON cu.idJuego = j.idJuego\n" +
                 "WHERE cu.idCompra = ?";  // Agregar condición para el idVenta
-
         try (Connection connection = this.getConection();
              PreparedStatement stmt = connection.prepareStatement(sql1)) {
-
             stmt.setInt(1, idCompra);  // Establecer el valor del parámetro idCompra
-
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
                     compraUsuario = new CompraUsuario();

@@ -20,7 +20,7 @@
 </jsp:include>
 <style>
     .juego-imagen {
-        width: 360px;
+        width: 325px;
         height: 240px;
         object-fit: cover;
     }
@@ -43,6 +43,11 @@
     <% if (session.getAttribute("cambioDescuento") != null) {%>
     <div class="alert alert-success" role="alert"><%=session.getAttribute("cambioDescuento")%></div>
     <%session.removeAttribute("cambioDescuento");%>
+    <% }%>
+
+    <% if (session.getAttribute("juegoActualizado") != null) {%>
+    <div class="alert alert-success" role="alert"><%=session.getAttribute("juegoActualizado")%></div>
+    <%session.removeAttribute("juegoActualizado");%>
     <% }%>
 
     <div class="row">

@@ -322,16 +322,64 @@ public class AdminJuegosServlet extends HttpServlet {
 
 
             case "actualizar":
-                int idJuego = Integer.parseInt(request.getParameter("idJuego"));
+                String idJuego =request.getParameter("idJuego");
+                int idJuegoAct = Integer.parseInt(idJuego);
                 String nombreAct = request.getParameter("nombre");
                 String descripcionAct = request.getParameter("descripcion");
-                double precioAct = Double.parseDouble(request.getParameter("precio"));
-                double descuentoAct = Double.parseDouble(request.getParameter("descuento"));
                 String consolaAct = request.getParameter("consola");
                 String generoAct = request.getParameter("genero");
-                int stockAct = Integer.parseInt(request.getParameter("stock"));
-                adminJuegosDaos.actualizarJuego(idJuego, nombreAct, descripcionAct, precioAct, descuentoAct, consolaAct, generoAct, stockAct);
-                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+
+                try{
+                    if(nombreAct.matches("^(?=.*[@#$%^&+=]).*$") || nombreAct.isEmpty()){
+                        request.setAttribute("juego", adminJuegosDaos.obtenerJuego(idJuego));
+                        request.setAttribute("consolas", adminJuegosDaos.consolas());
+                        request.setAttribute("generos", adminJuegosDaos.generos());
+                        session.setAttribute("errorNombre","Nombre: Ingrese un nombre válido (letras y/o números)");
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego");
+
+                    } else if (descripcionAct.matches("^(?=.*[@#$%^&+=]).*$") || descripcionAct.isEmpty()) {
+                        request.setAttribute("juego", adminJuegosDaos.obtenerJuego(idJuego));
+                        request.setAttribute("consolas", adminJuegosDaos.consolas());
+                        request.setAttribute("generos", adminJuegosDaos.generos());
+                        session.setAttribute("errorDescripcion","Descripción: Ingrese una descripción válida");
+                        response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego");
+
+                    } else{
+                        double precioAct = Double.parseDouble(request.getParameter("precio"));
+                        int stockAct = Integer.parseInt(request.getParameter("stock"));
+
+                        if ((precioAct > 1000) || (precioAct < 1)) {
+
+                            session.setAttribute("errorPrecio","Precio: Ingrese valores entre [1-1000]");
+                            response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego");
+
+                        } else {
+                            if(!consolaAct.equals("PlayStation 5") && !consolaAct.equals("PlayStation 4") && !consolaAct.equals("Nintendo Switch") && !consolaAct.equals("PC")){
+                                session.setAttribute("errorConsola","Consola: La consola ingresa no esta permitida");
+                                response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego");
+
+                            } else if(!generoAct.equals("Aventura") && !generoAct.equals("Acción") && !generoAct.equals("Sandbox")
+                                    && !generoAct.equals("Mundo abierto") && !generoAct.equals("Terror") && !generoAct.equals("Estrategia")
+                                    && !generoAct.equals("Shooter") && !generoAct.equals("battle royal")){
+                                session.setAttribute("errorGenero","Genero: El genero ingresado no esta permitido");
+                                response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego");
+
+                            } else if ((stockAct > 1000) || (stockAct < 0)) {
+                                session.setAttribute("errorStock","Stock: Ingrese valores entre [0-1000]");
+                                response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=editarJuego");
+                            } else {
+                                session.setAttribute("juegoActualizado","Jjuego actualizado: Se actualizo el juego correctamente");
+                                adminJuegosDaos.actualizarJuego(idJuegoAct, nombreAct, descripcionAct, precioAct, consolaAct, generoAct, stockAct);
+                                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+                            }
+                        }
+                    }
+                } catch (NumberFormatException e){
+                    e.printStackTrace();
+                    session.setAttribute("errorLetras","Complete los campos, no deje vacio ninguno");
+                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=editarJuego");
+                }
+
                 break;
 
             case "actualizarFotoJuego":

@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -132,8 +134,21 @@ public class ManagerCuentasServlet extends HttpServlet {
 
             case "eliminar":
                 String id4 = request.getParameter("id4");
-                usuarioDao.deshabilitarCuenta(id4);
+
                 request.getSession().setAttribute("info3","Trabajador Despedido");
+
+                ArrayList<Integer> numbers = new ArrayList<>();
+                numbers.add(10);
+                numbers.add(11);
+                numbers.add(133);
+                numbers.remove(Integer.valueOf(id4));
+                int randomIndex = new Random().nextInt(numbers.size());
+                int nuevoAdmin = numbers.get(randomIndex);
+                usuarioDao.deshabilitarCuenta(id4);
+                usuarioDao.actualizarBaneoCompras(nuevoAdmin,Integer.parseInt(id4));
+                usuarioDao.actualizarBaneoVentas(nuevoAdmin,Integer.parseInt(id4));
+
+
                 // envio de correo
                 cuentas = usuarioDao.correo(id4);
                 asunto = "Has sido Despedido";

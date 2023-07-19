@@ -451,6 +451,7 @@ public class ManagerCuentasDaos extends DaoBase{
         return lista;
     }
 
+
     public Cuentas validarCambioPassword(int idCuenta, String password){
         String sql = "select * from cuenta where idCuenta = ? and passwordHashed = sha2(?, 256)";
         Cuentas cuentas = null;
@@ -489,4 +490,36 @@ public class ManagerCuentasDaos extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+
+    //todo: Si se banea a un admin pasan su cola de compras a otro, y sus ventas
+    public void actualizarBaneoCompras (int idAdminNuevo ,int idAdminViejo){
+        String sql = "update comprausuario set idAdmin = ? \n" +
+                "where idAdmin = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idAdminNuevo);
+            pstmt.setInt(2, idAdminViejo);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actualizarBaneoVentas (int idAdminNuevo,int idAdminViejo){
+        String sql = "update ventausuario set idAdmin = ? \n" +
+                "where idAdmin = ?";
+        try (Connection connection = this.getConection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idAdminNuevo);
+            pstmt.setInt(2, idAdminViejo);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

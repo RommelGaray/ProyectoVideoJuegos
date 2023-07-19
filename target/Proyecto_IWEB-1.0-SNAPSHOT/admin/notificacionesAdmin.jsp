@@ -63,7 +63,7 @@
 
     <div class="container">
         <div class="pagetitle">
-            <h1 class="mb-4">Notificaciones funicona?</h1>
+            <h1 class="mb-4">Notificaciones</h1>
         </div>
 
         <div class="col text-center">
@@ -73,12 +73,14 @@
                     <div class="col-md-10">
                         <% boolean alertaImpresa = false; %>
 
-                        <% for (CompraUsuario c : lista) {
+                        <% for (CompraUsuario c : lista) {%>
+                        <% if(usuarioLog.getIdCuentas() == c.getIdAdmin()) {%>
+                        <%
                             LocalDate fecha1 = c.getFechaCompra().toLocalDate();
                             LocalDate fecha2 = LocalDate.now();
                             long diferenciaEnDias = ChronoUnit.DAYS.between(fecha1, fecha2);
-
-                            if (c.getEstados().getEstados().equals("pendiente") && diferenciaEnDias > 10) {
+                        %>
+                        <%    if (c.getEstados().getEstados().equals("pendiente") && diferenciaEnDias > 10) {
                         %>
                         <div class="alert alert-primary" role="alert">
                             <p class="fw-bold">Alerta: El usuario <%= c.getUsuario().getNombre() %> <%= c.getUsuario().getApellido() %></p>
@@ -91,6 +93,7 @@
                                     alertaImpresa = true;
                                 }
                             }%>
+                        <%}%>
 
                         <% if (!alertaImpresa) { %>
                         <div class="alert alert-primary" role="alert">
