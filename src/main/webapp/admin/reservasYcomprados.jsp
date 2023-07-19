@@ -8,6 +8,9 @@
 
 <% ArrayList<CompraUsuario> lista = (ArrayList<CompraUsuario>) request.getAttribute("lista"); %>
 
+<jsp:useBean id="usuarioLog" scope="session" type="com.example.proyecto_iweb.models.beans.Cuentas"
+             class="com.example.proyecto_iweb.models.beans.Cuentas"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- ======= Head ======= -->
@@ -34,90 +37,99 @@
         </div>
 
         <div class="table-responsive">
-        <table id="example" class="table table-striped" style="width:100%">
-            <thead>
-            <tr>
-                <th>Usuario</th>
-                <th>Juego</th>
-                <th>Fecha compra</th>
-                <th>Estado</th>
-                <th>Fecha entrega</th>
-                <th>Observación</th>
-                <th>Entrega</th>
-                <th class="d-flex justify-content-center">Detalles</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% for (CompraUsuario c : lista) { %>
-            <tr>
-                <td><%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%></td>
-                <td><%=c.getJuegos().getNombre()%></td>
-                <td><%=c.getFechaCompra()%></td>
-                <td><%=c.getEstados().getEstados()%></td
 
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Juego</th>
+                    <th>Fecha compra</th>
+                    <th>Estado</th>
+                    <th>Fecha entrega</th>
+                    <th>Observación</th>
+                    <th>Entrega</th>
+                    <th class="d-flex justify-content-center">Detalles</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (CompraUsuario c : lista) { %>
+                <% if(usuarioLog.getIdCuentas() == c.getIdAdmin()) {%>
+                <%
+                    System.out.println("Se imprime el ID del administrador logueadooo");
+                    System.out.println(usuarioLog.getIdCuentas());
+                    System.out.println("------------------------------------------------------");
 
-                <!-- FECHA DE ENTREGA DEL VIDEOJUEGO -->
-                <% if (c.getEstados().getEstados().equals("pendiente")) {%>
-                    <td><p class="text-primary">En proceso</p></td>
-                <%}%>
+                    System.out.println("Se imprime el ID del admin Asignado");
+                    System.out.println(c.getIdAdmin());
+                    System.out.println("------------------------------------------------------");
 
-                <%if(c.getEstados().getEstados().equals("entregado")){%>
-                    <td><%=c.getFechaEntrega()%></td>
-                <%}%>
+                %>
+                    <tr>
+                    <td><%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%></td>
+                    <td><%=c.getJuegos().getNombre()%></td>
+                    <td><%=c.getFechaCompra()%></td>
+                    <td><%=c.getEstados().getEstados()%></td
 
-
-                <!-- OBSERVACIÓN EN DIAS -->
-                <% if (c.getEstados().getEstados().equals("pendiente")) {%>
-                    <%
-                        LocalDate fecha1 = c.getFechaCompra().toLocalDate();
-                        LocalDate fecha2 = LocalDate.now();
-                        long diferenciaEnDias = ChronoUnit.DAYS.between(fecha1, fecha2);
-                    %>
-                    <% if (diferenciaEnDias>3 && diferenciaEnDias<=10) {%>
-                        <td><p class="text-danger"> <%=diferenciaEnDias%> días</p></td>
-                    <%} else if (diferenciaEnDias>10) {%>
-                        <td><h5 class="fw-bold text-danger"> <%=diferenciaEnDias%> días</h5></td>
-
-
-                    <%} else {%>
-                        <td><p> <%=diferenciaEnDias%> días</p></td>
+                    <!-- FECHA DE ENTREGA DEL VIDEOJUEGO -->
+                    <% if (c.getEstados().getEstados().equals("pendiente")) {%>
+                        <td><p class="text-primary">En proceso</p></td>
                     <%}%>
 
-                <%} else if(c.getEstados().getEstados().equals("entregado")){%>
-                    <td><p>Compra finalizada</p></td>
-                <%}%>
+                    <%if(c.getEstados().getEstados().equals("entregado")){%>
+                        <td><%=c.getFechaEntrega()%></td>
+                    <%}%>
+
+                    <!-- OBSERVACIÓN EN DIAS -->
+                    <% if (c.getEstados().getEstados().equals("pendiente")) {%>
+                        <%
+                            LocalDate fecha1 = c.getFechaCompra().toLocalDate();
+                            LocalDate fecha2 = LocalDate.now();
+                            long diferenciaEnDias = ChronoUnit.DAYS.between(fecha1, fecha2);
+                        %>
+                        <% if (diferenciaEnDias>3 && diferenciaEnDias<=10) {%>
+                            <td><p class="text-danger"> <%=diferenciaEnDias%> días</p></td>
+                        <%} else if (diferenciaEnDias>10) {%>
+                            <td><h5 class="fw-bold text-danger"> <%=diferenciaEnDias%> días</h5></td>
 
 
-                <!-- ENTREGA -->
+                        <%} else {%>
+                            <td><p> <%=diferenciaEnDias%> días</p></td>
+                        <%}%>
 
-                <% if (c.getEstados().getEstados().equals("pendiente")) {%>
-                    <td><a onclick="alert('Seguro que desea confirma la entrega a <%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%>');" class="btn btn-primary"
-                           href="<%=request.getContextPath()%>/AdminJuegosServlet?a=juegoEntregado&id=<%=c.getIdCompra()%>&fechaEntrega=<%=java.time.LocalDate.now()%>">
-                        Entregar</a></td>
+                    <%} else if(c.getEstados().getEstados().equals("entregado")){%>
+                        <td><p>Compra finalizada</p></td>
+                    <%}%>
 
-                <%} else if(c.getEstados().getEstados().equals("entregado")){%>
-                    <td><button type="button" class="btn btn-success" disabled>Entregado</button></td>
+                    <!-- ENTREGA -->
 
-                <%}%>
+                    <% if (c.getEstados().getEstados().equals("pendiente")) {%>
+                        <td><a onclick="alert('Seguro que desea confirma la entrega a <%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%>');" class="btn btn-primary"
+                               href="<%=request.getContextPath()%>/AdminJuegosServlet?a=juegoEntregado&id=<%=c.getIdCompra()%>&fechaEntrega=<%=java.time.LocalDate.now()%>">
+                            Entregar</a></td>
 
+                    <%} else if(c.getEstados().getEstados().equals("entregado")){%>
+                        <td><button type="button" class="btn btn-success" disabled>Entregado</button></td>
 
+                    <%}%>
 
-                <!-- OPCIONES -->
-                <td class="text-center">
-                    <div class="d-flex justify-content-center">
-                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesCompra&id=<%=c.getIdCompra()%>"
-                           class="btn btn-primary m-1"><i class="bi bi-list-task"></i></a>
-                        <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=locationUsuario&id=<%=c.getIdCompra()%>"
-                           class="btn btn-primary m-1"><i class="bi bi-geo-alt-fill"></i></a>
-                    </div>
+                    <!-- OPCIONES -->
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=detallesCompra&id=<%=c.getIdCompra()%>"
+                               class="btn btn-primary m-1"><i class="bi bi-list-task"></i></a>
+                            <a href="<%=request.getContextPath()%>/AdminJuegosServlet?a=locationUsuario&id=<%=c.getIdCompra()%>"
+                               class="btn btn-primary m-1"><i class="bi bi-geo-alt-fill"></i></a>
+                        </div>
 
-                </td>
-            </tr>
-            <% } %>
+                    </td>
+                    </tr>
+                <% } %>
+                <% } %>
 
-            </tbody>
+                </tbody>
 
-        </table>
+            </table>
+
         </div>
     </div>
 
