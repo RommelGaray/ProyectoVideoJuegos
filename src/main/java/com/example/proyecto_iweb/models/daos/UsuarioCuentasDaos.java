@@ -411,6 +411,7 @@ public class UsuarioCuentasDaos extends DaoBase{
                 cuentas.setDescripcion(rs.getString(8));
                 cuentas.setPasswordHashed(rs.getString(11));
 
+                return cuentas;
             }
         }catch (SQLException e) {
             throw new RuntimeException(e);
