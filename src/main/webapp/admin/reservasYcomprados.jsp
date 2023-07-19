@@ -54,16 +54,6 @@
                 <tbody>
                 <% for (CompraUsuario c : lista) { %>
                 <% if(usuarioLog.getIdCuentas() == c.getIdAdmin()) {%>
-                <%
-                    System.out.println("Se imprime el ID del administrador logueadooo");
-                    System.out.println(usuarioLog.getIdCuentas());
-                    System.out.println("------------------------------------------------------");
-
-                    System.out.println("Se imprime el ID del admin Asignado");
-                    System.out.println(c.getIdAdmin());
-                    System.out.println("------------------------------------------------------");
-
-                %>
                     <tr>
                     <td><%=c.getUsuario().getNombre()%> <%=c.getUsuario().getApellido()%></td>
                     <td><%=c.getJuegos().getNombre()%></td>
