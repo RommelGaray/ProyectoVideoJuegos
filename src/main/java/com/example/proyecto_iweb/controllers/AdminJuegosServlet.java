@@ -358,21 +358,23 @@ public class AdminJuegosServlet extends HttpServlet {
                 //String descuento = request.getParameter("descuento");
                 int idJuego1 = Integer.parseInt(request.getParameter("idJuego"));
                 double descuento = Double.parseDouble(request.getParameter("descuento"));
+                adminJuegosDaos.ofertarJuego(idJuego1, descuento);
+                response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
 
-                if ((descuento > 90) || (descuento < 10)){
-                    session.setAttribute("errorDescuento","Debe ingresar un valor entre 10-90 %");
-
-                    request.setAttribute("juego", adminJuegosDaos.obtenerJuego(String.valueOf(idJuego1)));
-                    request.setAttribute("consolas", adminJuegosDaos.consolas());
-                    request.setAttribute("generos", adminJuegosDaos.generos());
-                    response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=ofertarJuego&id="+idJuego1);
-
-                } else {
-                    //String id4 = request.getParameter("id");
-
-                    adminJuegosDaos.ofertarJuego(idJuego1, descuento);
-                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
-                }
+//                if ((descuento > 90) || (descuento < 10)){
+//                    session.setAttribute("errorDescuento","Debe ingresar un valor entre 10-90 %");
+//
+//                    request.setAttribute("juego", adminJuegosDaos.obtenerJuego(String.valueOf(idJuego1)));
+//                    request.setAttribute("consolas", adminJuegosDaos.consolas());
+//                    request.setAttribute("generos", adminJuegosDaos.generos());
+//                    response.sendRedirect(request.getContextPath()+"/AdminJuegosServlet?a=ofertarJuego&id="+idJuego1);
+//
+//                } else {
+//                    //String id4 = request.getParameter("id");
+//
+//                    adminJuegosDaos.ofertarJuego(idJuego1, descuento);
+//                    response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet");
+//                }
 
 
                 break;

@@ -215,11 +215,21 @@ public class UsuarioCuentasDaos extends DaoBase{
     public void guardarUsuario (Cuentas cuentas) throws SQLException{
 
         String sql = "insert INTO cuenta (nombre,apellido,nickname,direccion,correo,desabilitado,idRol,passwordHashed)\n" +
-                "values (?,?,?,?,?,0,3,SHA2(?, 256));";
+                "values (?,?,?,?,?,1,3,SHA2(?, 256));";
 
         try (Connection conn = this.getConection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
             setUsuarioParams(pstmt, cuentas);
+            pstmt.executeUpdate();
+        }
+
+    }
+
+    public void validarCuenta (String correo) throws SQLException{
+        String sql = "UPDATE cuenta SET desabilitado = '0'\n" +
+                "WHERE correo = '?'";
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.executeUpdate();
         }
 
