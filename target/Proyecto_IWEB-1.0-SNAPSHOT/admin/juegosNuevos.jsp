@@ -11,6 +11,13 @@
 <jsp:include page="/includes/head.jsp">
     <jsp:param name="title" value="Nueva lista"/>
 </jsp:include>
+<style>
+    .juego-imagen {
+        width: 444px;
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
 <body>
 <!-- ======= Header ======= -->
 <jsp:include page="../includes/narvar.jsp">
@@ -24,8 +31,8 @@
         <% for (VentaUsuario vu : lista) { %>
         <div class="card mb-10" style="max-width: 1500px;">
             <div class="row g-0">
-                <div class="col-md-5">
-                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=vu.getIdJuego()%>" alt="" class="img-fluid max-width-100">
+                <div class="col-md-5 d-flex align-items-center">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=vu.getIdJuego()%>" class="card-img-top juego-imagen" alt="...">
 
                 </div>
                 <div class="col-md-7">
