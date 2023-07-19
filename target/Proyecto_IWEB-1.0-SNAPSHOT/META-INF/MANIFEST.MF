@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-<<<<<<< HEAD
 Built-By: user
-=======
-Built-By: rodri
->>>>>>> ee12ac2f574ecef94ef4ec0405073850ac377c54
 Build-Jdk: Amazon Corretto version 17.0.6
 
