@@ -10,6 +10,13 @@
 <jsp:include page="/includes/head.jsp">
     <jsp:param name="title" value="Nueva lista"/>
 </jsp:include>
+<style>
+    .juego-imagen {
+        width: 444px;
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
 <body>
 <!-- ======= Header ======= -->
 <jsp:include page="../includes/narvar.jsp">
@@ -24,7 +31,7 @@
         <div class="card mb-10" style="max-width: 1500px;">
             <div class="row g-0">
                 <div class="col-md-5">
-                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuego()%>" alt="" class="img-fluid max-width-100">
+                    <img src="<%=request.getContextPath()%>/imagenServlet?action=listarFotoJuego&id=<%=j.getIdJuego()%>" alt="" class="card-img-top juego-imagen">
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">
