@@ -593,7 +593,7 @@ public class AdminJuegosDaos  extends DaoBase{
     public ArrayList<JuegosExistentes> listarexistentes(){ //num stock, reg venta
         ArrayList<JuegosExistentes> lista = new ArrayList<>();
 
-        String sql =    "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock, COALESCE(cant_ventas, 0) AS cant_ventas\n" +
+        String sql =    "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock, COALESCE(cant_ventas, 0) AS cant_ventas, j.fotoJuego\n" +
                         "FROM ventausuario v\n" +
                         "JOIN juego j ON v.idJuego = j.idJuego\n" +
                         "LEFT JOIN (\n" +
@@ -603,7 +603,7 @@ public class AdminJuegosDaos  extends DaoBase{
                         "    GROUP BY idJuego\n" +
                         ") c ON j.idJuego = c.idJuego\n" +
                         "WHERE j.existente = 1 AND v.idEstados = 1\n" +
-                        "ORDER BY cant_ventas DESC;\n";
+                        "ORDER BY cant_ventas DESC;";
 
 //                        "SELECT v.idVenta, v.idJuego, j.nombre, v.precioVenta, j.stock , COUNT(v.idVenta) AS cant_ventas\n" +
 //                        "FROM ventausuario v\n" +
@@ -625,6 +625,7 @@ public class AdminJuegosDaos  extends DaoBase{
                 juegosExistentes.setPrecioVenta(resultSet.getDouble(4));
                 juegosExistentes.setStock(resultSet.getInt(5));
                 juegosExistentes.setCant_ventas(resultSet.getInt(6));
+                juegosExistentes.setFotojuego(resultSet.getString(7));
                 lista.add(juegosExistentes);
             }
 

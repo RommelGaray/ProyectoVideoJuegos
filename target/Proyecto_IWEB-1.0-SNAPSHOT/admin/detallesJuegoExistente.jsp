@@ -60,7 +60,7 @@
           </div>
           <div class="mb-3">
             <label for="mensaje">Recomendaciones de administrador</label>
-            <input type="text" class="form-control" name="precio" id="mensaje" value="<%=ventaUsuario.getMensajeAdmin()%>" disabled>
+            <input type="text" class="form-control" name="precio" id="mensaje" value="<%= (ventaUsuario.getMensajeAdmin() != null && !ventaUsuario.getMensajeAdmin().isEmpty()) ? ventaUsuario.getMensajeAdmin() : "" %>" disabled>
           </div>
 
         </div>

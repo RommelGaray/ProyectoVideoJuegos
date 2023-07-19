@@ -302,13 +302,6 @@
         <span>Comprados</span>
       </a>
     </li>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed<%=currentPage.equals("ofertas") ? "active" : ""%>" href="<%=request.getContextPath()%>/UsuariosJuegosServlet?a=ofertas">
-        <i class="bi bi-grid text-primary"></i>
-        <span>Ofertas</span>
-      </a>
-    </li>
   </ul>
 </aside>
 <%}%>
