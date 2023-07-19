@@ -71,87 +71,6 @@ public class AdminCuentasDaos extends DaoBase{
     }
 
 
-    // CAMBIAR FOTOS DE PERFIL
-
-
-    // Intento con BLOB, pero no se especifica correctamente la ruta de la imagen
-    /*
-    public void actualizarFoto1(int idUsuario) throws FileNotFoundException {
-
-        String fileName = "../src/main/webapp/img/usuario/pokemon1.png";
-        File file = new File(fileName);
-        InputStream inputStream;
-        inputStream = new FileInputStream(file);
-
-        String sql = "update cuenta set fotoPerfil = ? where idCuenta = ?";
-        try (Connection connection = this.getConection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(2, idUsuario);
-            pstmt.setBlob(1, inputStream);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void actualizarFoto2(int idUsuario) throws FileNotFoundException {
-
-        String fileName = "../src/main/webapp/img/usuario/pokemon2.png";
-        File file = new File(fileName);
-        InputStream inputStream;
-        inputStream = new FileInputStream(file);
-
-        String sql = "update cuenta set fotoPerfil = ? where idCuenta = ?";
-        try (Connection connection = this.getConection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(2, idUsuario);
-            pstmt.setBlob(1, inputStream);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void actualizarFoto3(int idUsuario) throws FileNotFoundException {
-
-        String fileName = "src/main/webapp/img/usuario/pokemon3.png";
-        File file = new File(fileName);
-        InputStream inputStream;
-        inputStream = new FileInputStream(file);
-
-        String sql = "update cuenta set fotoPerfil = ? where idCuenta = ?";
-        try (Connection connection = this.getConection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(2, idUsuario);
-            pstmt.setBlob(1, inputStream);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void actualizarFoto4(int idUsuario) throws FileNotFoundException {
-
-        String fileName = "src/main/webapp/img/usuario/pokemon4.png";
-        File file = new File(fileName);
-        InputStream inputStream;
-        inputStream = new FileInputStream(file);
-
-        String sql = "update cuenta set fotoPerfil = ? where idCuenta = ?";
-        try (Connection connection = this.getConection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(2, idUsuario);
-            pstmt.setBlob(1, inputStream);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    */
 
     public void actualizarFoto1(int idUsuario) {
 
@@ -213,5 +132,43 @@ public class AdminCuentasDaos extends DaoBase{
         }
     }
 
+    // --------------------------------------- CAMBIO DE CONTRASEÑA ---------------------------------------
+    public Cuentas validarCambioPassword(int idCuenta, String password){
+        String sql = "select * from cuenta where idCuenta = ? and passwordHashed = sha2(?, 256)";
+        Cuentas cuentas = null;
+        try(Connection conn = this.getConection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setInt(1, idCuenta);
+            pstmt.setString(2, password);
+
+            try(ResultSet rs = pstmt.executeQuery()){
+
+                if (rs.next()){
+                    cuentas = new Cuentas();
+                    cuentas.setIdCuentas(rs.getInt(1));
+                    cuentas.setCorreo(rs.getString(6));
+                    cuentas.setPasswordHashed(rs.getString(11));
+                }
+
+            }
+
+        }catch (SQLException e){
+            e.getStackTrace();
+        }
+        return cuentas;
+    }
+
+    public void actualizarPassword(int idCuenta, String nuevaPassword){
+        String sql = "update cuenta set passwordHashed = sha2(?, 256) where idCuenta = ?";
+        try(Connection conn = this.getConection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nuevaPassword);
+            pstmt.setInt(2, idCuenta);
+            pstmt.executeUpdate();
+        }catch (SQLException e){
+            e.getStackTrace();
+        }
+    }
 
 }

@@ -275,27 +275,34 @@
 
               <!-- CAMBIO DE CONTRASEÑA DEL ADMIN -->
               <div class="tab-pane fade pt-3" id="profile-change-password">
-                <form>
+                <form class="needs-validation" method="post" action="<%=request.getContextPath()%>/AdminCuentasServlet?p=actualizarPassword" novalidate>
                   <div class="row mb-3">
                     <label for="password" class="col-md-4 col-lg-3 col-form-label">Contraseña actual</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="password" type="password" class="form-control" id="password" value="<%=cuentas.getPasswordHashed()%>">
+                      <input required name="password" type="password" class="form-control" id="password">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nueva contraseña</label>
+                    <label for="newpassword1" class="col-md-4 col-lg-3 col-form-label">Nueva contraseña</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="newpassword" type="password" class="form-control" id="newPassword">
+                      <input required name="newpassword1" type="password" class="form-control" id="newpassword1">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Repetir nueva contraseña</label>
+                    <label for="newpassword2" class="col-md-4 col-lg-3 col-form-label">Confirmar nueva contraseña</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                      <input required name="newpassword2" type="password" class="form-control" id="newpassword2">
                     </div>
                   </div>
+
+                  <%if (session.getAttribute("msgError") != null) {%>
+                    <p class="text-danger"><%=session.getAttribute("msgError")%></p>
+                  <%
+                      session.removeAttribute("msgError");
+                    }
+                  %>
 
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
