@@ -227,6 +227,10 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 if(ventaUsuario != null){
                     String precioString = String.valueOf(ventaUsuario.getPrecioVenta());
                     if(ventaUsuario.getPrecioVenta()<0 || precioString.isEmpty()|| ventaUsuario.getPrecioVenta()==0 ){
+                        session2.setAttribute("err","Precio que no cumple lo establecido");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=verPrecio&id="+ ventaUsuario.getIdVenta());
+
+                    }else{
                         if(cuentas2.getIdCuentas()!=venta.getIdUsuario()){
                             session2.setAttribute("err","Precio que no cumple lo establecido");
                             response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=verPrecio&id="+ ventaUsuario.getIdVenta());
@@ -235,9 +239,6 @@ public class UsuariosJuegosServlet extends HttpServlet {
                             session2.setAttribute("msg","Precio editado exitosamente");
                             response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=vendidos");
                         }
-                    }else{
-                        session2.setAttribute("err","Precio que no cumple lo establecido");
-                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=verPrecio&id="+ ventaUsuario.getIdVenta());
                     }
                 }
                 break;

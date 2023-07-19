@@ -122,19 +122,34 @@ public class InitialServlet extends HttpServlet {
             case "enviar":
                 Cuentas cuentas = new Cuentas();
                 HttpSession session3 = request.getSession();
-                cuentas.setNickname(request.getParameter("nickname"));
-                cuentas.setCorreo(request.getParameter("correo"));
-                usuarioCuentasDaos.olvidarContrasena(cuentas.getNickname(), cuentas.getCorreo());
-                usuarioCuentasDaos.actualizarContrasena(cuentas);
-                // envio de correo
-                cuentas = usuarioCuentasDaos.correo(cuentas.getCorreo());
-                String asunto = "Nueva Contraseña";
-                String contenido = "Hola se ha actualizado la contraseña con el valor de 123@asdASD. Ingrese y cambie la contraseña";
+                String nickname =request.getParameter("nickname");
+                String correo = request.getParameter("correo");
 
-                envioCorreos.createEmail(cuentas.getCorreo(),asunto,contenido);
-                request.setAttribute("contraseña","Ya se envió en correo revise la nueva contraseña proporciona y cambie por una nueva");
-                request.getRequestDispatcher("loginPage.jsp").forward(request, response);
-                envioCorreos.sendEmail();
+
+                Cuentas cuenta2 = usuarioCuentasDaos.olvidarContrasena(nickname,correo);
+                if (cuenta2 != null){
+                    if(nickname.equals(cuenta2.getNickname()) && correo.equals(cuenta2.getCorreo()) ){
+                    usuarioCuentasDaos.olvidarContrasena(cuentas.getNickname(), cuentas.getCorreo());
+                    usuarioCuentasDaos.actualizarContrasena(correo);
+                    // envio de correo
+                    cuentas = usuarioCuentasDaos.correo(cuentas.getCorreo());
+                    String asunto = "Nueva Contraseña";
+                    String contenido = "Hola se ha actualizado la contraseña con el valor de 123@asdASD. Ingrese y cambie la contraseña";
+
+                    envioCorreos.createEmail(correo,asunto,contenido);
+                    request.setAttribute("contraseña","Ya se envió en correo revise la nueva contraseña proporciona y cambie por una nueva");
+                    request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+                    envioCorreos.sendEmail();
+                    }else{
+                        request.setAttribute("contraseñaError","No coincide su correo ni su nickname");
+                        request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+                    }
+                }
+                else {
+                    request.setAttribute("contraseñaError2","No coincide su correo ni su nickname");
+                    request.getRequestDispatcher("olvidasteContraseña.jsp").forward(request, response);
+                }
+
 
             break;
         }
