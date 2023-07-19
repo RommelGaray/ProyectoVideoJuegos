@@ -112,6 +112,14 @@
       <div class="alert alert-danger" role="alert"><%=session.getAttribute("msg1")%></div>
       <%session.removeAttribute("msg1");%>
       <% }%>
+      <% if (session.getAttribute("msg2") != null) {%>
+      <div class="alert alert-success" role="alert"><%=session.getAttribute("msg2")%></div>
+      <%session.removeAttribute("msg2");%>
+      <% }%>
+      <%if (session.getAttribute("msgError") != null) {%>
+      <p class="alert alert-danger"><%=session.getAttribute("msgError")%></p>
+      <%session.removeAttribute("msgError");        }
+      %>
       <div class="col-xl-4">
 
         <div class="card">
@@ -268,25 +276,34 @@
 
               <!-- Cambio de contrasenia -->
               <div class="tab-pane fade pt-3" id="profile-change-password">
-                <form>
+                <form class="needs-validation" method="post" action="<%=request.getContextPath()%>/ManagerCuentasServlet?p=actualizarPassword" novalidate>
                   <div class="row mb-3">
-                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nueva Contraseña</label>
+                    <label for="password" class="col-md-4 col-lg-3 col-form-label">Contraseña actual</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="newpassword" type="password" class="form-control" id="newPassword">
+                      <input required name="password" type="password" class="form-control" id="password">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Repetir Nueva Contraseña</label>
+                    <label for="newpassword1" class="col-md-4 col-lg-3 col-form-label">Nueva contraseña</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                      <input required name="newpassword1" type="password" class="form-control" id="newpassword1">
                     </div>
                   </div>
+
+                  <div class="row mb-3">
+                    <label for="newpassword2" class="col-md-4 col-lg-3 col-form-label">Confirmar nueva contraseña</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input required name="newpassword2" type="password" class="form-control" id="newpassword2">
+                    </div>
+                  </div>
+
+
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                    <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
                   </div>
-                </form><!-- End Change Password Form -->
+                </form>
 
               </div>
 

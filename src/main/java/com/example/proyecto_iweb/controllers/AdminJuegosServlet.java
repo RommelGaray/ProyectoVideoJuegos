@@ -60,7 +60,8 @@ public class AdminJuegosServlet extends HttpServlet {
                 break;
 
             case "reservas":
-                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados());
+
+                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("admin/reservasYcomprados.jsp").forward(request, response);
                 break;
 
@@ -222,7 +223,7 @@ public class AdminJuegosServlet extends HttpServlet {
                 String idCompra = request.getParameter("id");
                 String fechaEntrega = request.getParameter("fechaEntrega");
 
-                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados());
+                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados(cuentas.getIdCuentas()));
                 adminJuegosDaos.juegoEntregado(idCompra, Date.valueOf(fechaEntrega));
 
                 response.sendRedirect(request.getContextPath() + "/AdminJuegosServlet?a=reservas");
@@ -239,7 +240,7 @@ public class AdminJuegosServlet extends HttpServlet {
             // NOTIFICACIÓN DEL ADMIN
             case "listarNotificaciones":
                 request.setAttribute("notificaciones", adminJuegosDaos.listarNotificaciones(cuentas.getIdCuentas()));
-                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados());
+                request.setAttribute("lista",adminJuegosDaos.compradosAndReservados(cuentas.getIdCuentas()));
                 request.getRequestDispatcher("admin/notificacionesAdmin.jsp").forward(request,response);
                 break;
         }

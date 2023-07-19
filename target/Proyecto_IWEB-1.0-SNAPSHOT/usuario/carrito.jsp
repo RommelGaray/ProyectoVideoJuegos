@@ -222,7 +222,12 @@
         </div>
 
         <div class="container__detail bg-light p-3 d-flex flex-column">
+
+            <%if(juegos.getDescuento()==0){%>
             <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()%></p>
+            <%}else{%>
+            <p class="fs-3 fw-semibold text-center">Precio total:</p><p class="fs-4 fw-bold text-center">S/. <%=juegos.getPrecio()-(juegos.getPrecio()*(juegos.getDescuento()/100))%></p>
+            <%}%>
             <button type="submit" class="btn btn-success mt-3" id="btnPagar">Pagar</button>
             <a class="btn btn-primary btn-lg btn-block" href="<%= request.getContextPath() %>/UsuariosJuegosServlet">Cancelar</a>
         </div>

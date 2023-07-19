@@ -229,53 +229,58 @@ public class AdminJuegosDaos  extends DaoBase{
     }
 
     /** Reservas y comprados**/
-    public ArrayList<CompraUsuario> compradosAndReservados(){
+    public ArrayList<CompraUsuario> compradosAndReservados(int idAdmin){
 
         ArrayList<CompraUsuario> lista = new ArrayList<>();
+
         String sql1 = "select * from comprausuario cu\n" +
                 "left join estados e on cu.idEstados = e.idestados \n" +
                 "left join cuenta c on cu.idUsuario = c.idCuenta\n" +
-                "left join juego j on cu.idJuego = j.idJuego";
+                "left join juego j on cu.idJuego = j.idJuego\n" +
+                "where cu.idAdmin = ?;";
 
-        // copiar de aqui abaoj
-        try (Connection connection = this.getConection();
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql1)) {
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql1)) {
 
-            while(resultSet.next()){
-                CompraUsuario compraUsuario = new CompraUsuario();
-                compraUsuario.setIdCompra(resultSet.getInt(1));
-                compraUsuario.setIdUsuario(resultSet.getInt(2));
-                compraUsuario.setIdJuego(resultSet.getInt(3));
-                compraUsuario.setCantidad(resultSet.getInt(4));
-                compraUsuario.setFechaCompra(resultSet.getDate(5));
-                compraUsuario.setDireccion(resultSet.getString(6));
-                compraUsuario.setIdAdmin(resultSet.getInt(7));
-                compraUsuario.setPrecioCompra(resultSet.getInt(8));
-                compraUsuario.setIdEstados(resultSet.getInt(9));
-                compraUsuario.setFechaEntrega(resultSet.getDate(10));
 
-                Cuentas cuentas = new Cuentas();
-                cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
-                cuentas.setNombre(resultSet.getString("c.nombre"));
-                cuentas.setApellido(resultSet.getString("c.apellido"));
-                compraUsuario.setUsuario(cuentas);
+            pstmt.setInt(1, idAdmin);
+            try(ResultSet resultSet = pstmt.executeQuery()){
+                while(resultSet.next()){
+                    CompraUsuario compraUsuario = new CompraUsuario();
+                    compraUsuario.setIdCompra(resultSet.getInt(1));
+                    compraUsuario.setIdUsuario(resultSet.getInt(2));
+                    compraUsuario.setIdJuego(resultSet.getInt(3));
+                    compraUsuario.setCantidad(resultSet.getInt(4));
+                    compraUsuario.setFechaCompra(resultSet.getDate(5));
+                    compraUsuario.setDireccion(resultSet.getString(6));
+                    compraUsuario.setIdAdmin(resultSet.getInt(7));
+                    compraUsuario.setPrecioCompra(resultSet.getInt(8));
+                    compraUsuario.setIdEstados(resultSet.getInt(9));
+                    compraUsuario.setFechaEntrega(resultSet.getDate(10));
 
-                Estados estados = new Estados();
-                estados.setIdEstados(resultSet.getInt("e.idestados"));
-                estados.setEstados(resultSet.getString("e.nombreEstados"));
-                compraUsuario.setEstados(estados);
+                    Cuentas cuentas = new Cuentas();
+                    cuentas.setIdCuentas(resultSet.getInt("c.idCuenta"));
+                    cuentas.setNombre(resultSet.getString("c.nombre"));
+                    cuentas.setApellido(resultSet.getString("c.apellido"));
+                    compraUsuario.setUsuario(cuentas);
 
-                Juegos juegos = new Juegos();
-                juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
-                juegos.setNombre(resultSet.getString("j.nombre"));
-                compraUsuario.setJuegos(juegos);
+                    Estados estados = new Estados();
+                    estados.setIdEstados(resultSet.getInt("e.idestados"));
+                    estados.setEstados(resultSet.getString("e.nombreEstados"));
+                    compraUsuario.setEstados(estados);
 
-                lista.add(compraUsuario);
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(resultSet.getInt("j.idJuego"));
+                    juegos.setNombre(resultSet.getString("j.nombre"));
+                    compraUsuario.setJuegos(juegos);
+
+                    lista.add(compraUsuario);
+                }
             }
 
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         return lista;

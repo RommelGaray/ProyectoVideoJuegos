@@ -166,17 +166,6 @@
           </div>
           <br>
 
-          <!--<div class="col-md-11">
-            <div class="mb-3">
-              <label for="formFile" class="form-label"></label>
-              <input class="form-control" type="file" id="formFile">
-            </div>
-          </div>
-
-          <div class="pt-2 d-flex justify-content-center align-items-center">
-            <a href="#" class="btn btn-primary btn-sm m-2" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-            <a href="#" class="btn btn-danger btn-sm m-2" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-          </div>-->
         </div>
       </div>
 
@@ -287,7 +276,7 @@
               </div>
 
               <!-- Cambio de contrasenia -->
-                <div class="tab-pane fade pt-3" id="profile-change-password">
+              <div class="tab-pane fade pt-3" id="profile-change-password">
               <form class="needs-validation" method="post" action="<%=request.getContextPath()%>/UsuariosCuentasServlet?p=actualizarPassword" novalidate>
                 <div class="row mb-3">
                   <label for="password" class="col-md-4 col-lg-3 col-form-label">Contraseña actual</label>

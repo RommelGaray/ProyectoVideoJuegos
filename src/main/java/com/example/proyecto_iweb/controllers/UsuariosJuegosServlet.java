@@ -247,9 +247,19 @@ public class UsuariosJuegosServlet extends HttpServlet {
                 Juegos juegos1 = parseJuegos(request);
                 HttpSession session1 = request.getSession();
                 Cuentas cuentas1 = (Cuentas) session1.getAttribute("usuarioLog");
-                usuarioJuegosDaos.guardarVenta1(juegos1,cuentas1.getIdCuentas());
-                session1.setAttribute("msg1","Precio editado exitosamente");
-                response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                if(juegos1 != null){
+                    String precioString = String.valueOf(juegos1.getPrecio());
+                    if(juegos1.getPrecio()<0 || precioString.isEmpty()|| juegos1.getPrecio()==0){
+                        session1.setAttribute("err","Precio que no cumple lo establecido");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=agregarjuego&id="+ juegos1.getIdJuegos());
+                    }else{
+                        usuarioJuegosDaos.guardarVenta1(juegos1,cuentas1.getIdCuentas());
+                        session1.setAttribute("msg1","Precio editado exitosamente");
+                        response.sendRedirect(request.getContextPath() + "/UsuariosJuegosServlet?a=listar1");
+                    }
+
+                }
+
 
                 break;
             case "raiting":
