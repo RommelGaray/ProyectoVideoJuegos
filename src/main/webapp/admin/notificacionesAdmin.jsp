@@ -82,7 +82,7 @@
                         %>
                         <div class="alert alert-primary" role="alert">
                             <p class="fw-bold">Alerta: El usuario <%= c.getUsuario().getNombre() %> <%= c.getUsuario().getApellido() %></p>
-                            <p>Tiene <%= diferenciaEnDias %> días de retraso en la entrega del juego <%=c.getJuegos().getNombre()%>, revísalo</p>
+                            <p>Tiene <span style="color: red;"><%= diferenciaEnDias %> días</span> de retraso en la entrega del juego <span style="color: red;"><%=c.getJuegos().getNombre()%></span>, revísalo</p>
                             <a href="<%= request.getContextPath() %>/AdminJuegosServlet?a=detallesCompra&id=<%= c.getIdCompra() %>"
                                class="btn btn-primary m-1">Detalles</a>
                         </div>

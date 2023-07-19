@@ -60,7 +60,9 @@
 
                                     <div class="pt-4 pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">¿Olvidaste tu contraseña?</h5>
-
+                                        <% if (request.getAttribute("contraseñaError2") != null) {%>
+                                        <div class="alert alert-danger" >No coinciden el nickname ni el correo </div>
+                                        <% }%>
                                         <p class="text-center small">Ingrese su nombre de usuario y correo electrónico para enviar nueva contraseña</p>
                                     </div>
 
