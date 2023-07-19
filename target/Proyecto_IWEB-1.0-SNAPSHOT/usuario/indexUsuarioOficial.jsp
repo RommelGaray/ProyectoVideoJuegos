@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <style>
         .juego-imagen {
-            width: 300px;
+            width: 290px;
             height: 200px;
             object-fit: cover;
         }
