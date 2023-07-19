@@ -100,7 +100,7 @@ public class InitialServlet extends HttpServlet {
                         String correo = cuentas1.getCorreo();
                         String nombreCompleto = cuentas1.getNombre() + " " +cuentas1.getApellido();
                         String asunto = "Nueva Cuenta Javagos.com";
-                        String enlaceValidacion = request.getContextPath() + "/InitialServlet?action=Validacion";
+                        String enlaceValidacion = request.getContextPath() + "/InitialServlet?action=olvidaste";
 
                         String contenido = "<html><body>"
                                 + "<p>Hola " + nombreCompleto + ",</p>"
