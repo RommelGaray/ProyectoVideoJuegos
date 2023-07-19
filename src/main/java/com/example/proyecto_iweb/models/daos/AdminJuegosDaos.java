@@ -238,6 +238,7 @@ public class AdminJuegosDaos  extends DaoBase{
                 "left join cuenta c on cu.idUsuario = c.idCuenta\n" +
                 "left join juego j on cu.idJuego = j.idJuego";
 
+        // copiar de aqui abaoj
         try (Connection connection = this.getConection();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(sql1)) {
@@ -281,21 +282,18 @@ public class AdminJuegosDaos  extends DaoBase{
         return lista;
     }
 
+
+
     public CompraUsuario comprados(int idCompra) {
-
         CompraUsuario compraUsuario = null;
-
         String sql1 = "SELECT * FROM comprausuario cu\n" +
                 "LEFT JOIN estados e ON cu.idEstados = e.idestados\n" +
                 "LEFT JOIN cuenta c ON cu.idUsuario = c.idCuenta\n" +
                 "LEFT JOIN juego j ON cu.idJuego = j.idJuego\n" +
                 "WHERE cu.idCompra = ?";  // Agregar condición para el idVenta
-
         try (Connection connection = this.getConection();
              PreparedStatement stmt = connection.prepareStatement(sql1)) {
-
             stmt.setInt(1, idCompra);  // Establecer el valor del parámetro idCompra
-
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
                     compraUsuario = new CompraUsuario();
