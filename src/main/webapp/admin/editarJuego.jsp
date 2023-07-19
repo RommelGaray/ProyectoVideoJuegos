@@ -29,6 +29,41 @@
 
     <div class="container">
 
+        <% if (session.getAttribute("errorNombre") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorNombre")%></div>
+        <%session.removeAttribute("errorNombre");%>
+        <% }%>
+
+        <% if (session.getAttribute("errorDescripcion") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorDescripcion")%></div>
+        <%session.removeAttribute("errorDescripcion");%>
+        <% }%>
+
+        <% if (session.getAttribute("errorPrecio") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorPrecio")%></div>
+        <%session.removeAttribute("errorPrecio");%>
+        <% }%>
+
+        <% if (session.getAttribute("errorConsola") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorConsola")%></div>
+        <%session.removeAttribute("errorConsola");%>
+        <% }%>
+
+        <% if (session.getAttribute("errorGenero") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorGenero")%></div>
+        <%session.removeAttribute("errorGenero");%>
+        <% }%>
+
+        <% if (session.getAttribute("errorStock") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorStock")%></div>
+        <%session.removeAttribute("errorStock");%>
+        <% }%>
+
+        <% if (session.getAttribute("errorLetras") != null) {%>
+        <div class="alert alert-danger" role="alert"><%=session.getAttribute("errorLetras")%></div>
+        <%session.removeAttribute("errorLetras");%>
+        <% }%>
+
         <div class="row">
             <div class="col-lg-6">
                 <form method="POST" action="<%=request.getContextPath()%>/AdminJuegosServlet?p=actualizar" enctype="multipart/form-data">
@@ -51,13 +86,9 @@
 
                 <div class="mb-3">
                     <label for="precio">Precio</label>
-                    <input type="text" class="form-control" name="precio" id="precio" value="<%=juego.getPrecio()%>">
+                    <input type="number" class="form-control" name="precio" id="precio" value="<%=juego.getPrecio()%>">
                 </div>
 
-                <div class="mb-3">
-                    <label for="descuento">Descuento</label>
-                    <input type="text" class="form-control" name="descuento" id="descuento" value="<%=juego.getDescuento()%>">
-                </div>
 
                 <div class="input-group mb-3">
                     <label for="consola">Consola</label>

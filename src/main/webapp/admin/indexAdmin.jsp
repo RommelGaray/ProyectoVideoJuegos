@@ -45,6 +45,11 @@
     <%session.removeAttribute("cambioDescuento");%>
     <% }%>
 
+    <% if (session.getAttribute("juegoActualizado") != null) {%>
+    <div class="alert alert-success" role="alert"><%=session.getAttribute("juegoActualizado")%></div>
+    <%session.removeAttribute("juegoActualizado");%>
+    <% }%>
+
     <div class="row">
 
         <div class="col-md-10">
