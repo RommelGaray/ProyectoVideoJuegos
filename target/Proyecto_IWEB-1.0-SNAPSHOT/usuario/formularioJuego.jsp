@@ -52,10 +52,7 @@
 <main  id="main" class="main">
     <div class="container " >
         <h1 class='mt-3'>Formulario del Juego ingresado</h1>
-        <% if (session.getAttribute("err") != null) {%>
-        <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%></div>
-        <%session.removeAttribute("err");%>
-        <% }%>
+
 
 
         <form method="POST" action="<%=request.getContextPath()%>/UsuariosJuegosServlet">
